@@ -6,7 +6,7 @@
 	"gamemajor": 5,
 	"gameminor": 4,
 	"gamepatch_min": 66,
-	"gamepatch_max": 66,
+	"gamepatch_max": 74,
 	"priority": 10,
 	"dependencies": {
 
