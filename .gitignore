@@ -1,0 +1,18 @@
+# vscode
+.vscode/*
+!.vscode/tasks.json
+
+# npm
+node_modules
+package-lock.json
+
+# Source Reference
+src/KDReference
+
+# output
+*/fable_modules
+build
+bundle
+deploy
+artworkOutput
+.fake

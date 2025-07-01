@@ -1,0 +1,33 @@
+{
+    "modname": "DroneMod",
+    "moddesc": "[Placeholder]",
+	"author": "Balababa2143@gmail.com",
+	"modbuild": "0.2.0",
+	"gamemajor": 5,
+	"gameminor": 4,
+	"gamepatch_min": 66,
+	"gamepatch_max": 66,
+	"priority": 10,
+	"dependencies": {
+
+    },
+	"optional": {
+
+    },
+	"incompatibilities":{
+
+    },
+	"loadbefore": [
+
+    ],
+	"loadafter": [
+
+    ],
+	"fileorder": [
+        "TextureAtlas/DroneModAsset-0.png",
+        "TextureAtlas/DroneModAsset-0.json",
+        "TextureAtlas/DroneModAsset-1.png",
+        "TextureAtlas/DroneModAsset-1.json",
+        "index.js"
+    ]
+}

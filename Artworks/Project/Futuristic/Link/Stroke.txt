@@ -1,0 +1,2 @@
+Link: 35px
+Glow: 100px, 30 Opacity

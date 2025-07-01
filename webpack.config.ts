@@ -1,0 +1,142 @@
+import * as fs from 'fs'
+import * as path from 'path'
+import * as archiver from 'archiver'
+import webpack from 'webpack'
+
+const EntryFile = 'src/DroneMod/ModInit.ts'
+const BundleDir = 'Bundle'
+const ArchiveFile = 'Deploy/DroneMod.zip'
+const AssetFolders = [
+    'Asset'
+]
+
+interface BundleOptions {
+    productionMode: boolean
+    watchMode: boolean
+}
+
+function ProcessArgs() {
+    const cliArgs = process.argv.slice(2)
+    const productionMode = cliArgs.includes('-p'); // production flag
+    const watchMode = cliArgs.includes('-w'); // production flag
+
+    const ret: BundleOptions = {
+        productionMode,
+        watchMode
+    }
+    return ret
+}
+
+
+async function CopyAssets(options: BundleOptions) {
+    await Promise.all(
+        AssetFolders.map(
+            assetFolder =>
+                fs.promises.cp(assetFolder, BundleDir, { recursive: true })
+        )
+    )
+}
+
+function SetArchiverEventHandlers(writeStream: fs.WriteStream, archiver: archiver.Archiver) {
+    writeStream.on('close', function () {
+        console.log(archiver.pointer() + ' total bytes');
+        console.log('archiver has been finalized and the output file descriptor has closed.');
+    })
+    writeStream.on('end', function () {
+        console.log('Data has been drained');
+    })
+    archiver.on('warning', function (err) {
+        if (err.code === 'ENOENT') {
+            // log warning
+        } else {
+            // throw error
+            throw err;
+        }
+    })
+    archiver.on('error', function (err) {
+        throw err;
+    })
+}
+
+/**
+ * execute build
+ * @param {BundleOptions} options 
+ */
+async function BuildArchive(options) {
+    const archiveFilePath = path.resolve(ArchiveFile)
+    const archiveDir = path.dirname(archiveFilePath)
+    if (!fs.existsSync(archiveDir)) {
+        fs.mkdirSync(archiveDir)
+    }
+
+    if (fs.existsSync(archiveFilePath)) {
+        fs.unlinkSync(archiveFilePath)
+    }
+    const stream = fs.createWriteStream(archiveFilePath)
+    const zipArchiver = archiver('zip', {
+        zlib: {
+            level: 9
+        }
+    })
+    SetArchiverEventHandlers(stream, zipArchiver)
+    // pipe archive data to the file
+    zipArchiver.pipe(stream)
+    await zipArchiver
+        .directory(BundleDir, false)
+        .finalize()
+    await new Promise<void>(resolve => stream.on("close", resolve))
+}
+
+function PostBuild(opts: BundleOptions): webpack.WebpackPluginInstance {
+    return {
+        apply: (compiler) => {
+            compiler.hooks.done.tapPromise('DoneArchiveBuilding', async (stats) => {
+                if (!stats.hasErrors()) {
+                    await CopyAssets(opts)
+                    await BuildArchive(opts)
+                }
+            })
+        }
+    }
+}
+
+function Configurate(): webpack.Configuration {
+    const opts = ProcessArgs()
+    const {
+        productionMode,
+        watchMode
+    } = opts
+
+    return {
+        entry: path.resolve(EntryFile),
+        output: {
+            path: path.resolve(BundleDir),
+            filename() {
+                return productionMode ? 'index.ks' : 'index.js'
+            },
+            clean: true
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.ts?$/,
+                    use: 'ts-loader',
+                    exclude: /node_modules/,
+                },
+            ],
+        },
+        resolve: {
+            extensions: ['.tsx', '.ts', '.js'],
+        },
+        mode: productionMode ? 'production' : 'development',
+        devtool: productionMode ? false : 'inline-source-map',
+        plugins: [
+            PostBuild(opts)
+        ],
+        watch: watchMode,
+    }
+}
+
+const config = Configurate()
+
+export default config

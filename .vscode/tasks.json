@@ -1,0 +1,22 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "Webpack Bundle: Debug",
+			"problemMatcher": [],
+			"label": "Webpack Bundle: Debug",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "npm",
+			"script": "Webpack Watch: Debug",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Webpack Watch: Debug",
+		}
+	]
+}
