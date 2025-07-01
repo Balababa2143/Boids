@@ -13,6 +13,7 @@
 import { Earphone } from './Futuristic/HeadSet/Headphone';
 import * as HeadSet from './Futuristic/HeadSet'
 import * as HolographicHeadSet from './Futuristic/HeadSet/Holographic'
+import * as GagMetal from './Futuristic/Gag/GagMetal'
 
 
 (() => {
@@ -74,3 +75,17 @@ import * as HolographicHeadSet from './Futuristic/HeadSet/Holographic'
         }
     )
 })();
+
+const gag: GagMetal.Variant = {
+    Ball:GagMetal.BallKind.None,
+    Muzzle: GagMetal.MuzzleKind.OTN,
+    Strap: {
+        __Type: GagMetal.StrapKindTags.Harness,
+        Detail: GagMetal.StrapDetail.Segmented
+    },
+    Component:
+        GagMetal.Component.CheekDisplay |
+        GagMetal.Component.PerioralClip
+}
+
+console.log('Gag is defined:', GagMetal.Variant.Verify(gag))

@@ -2,6 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as archiver from 'archiver'
 import webpack from 'webpack'
+import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 
 const EntryFile = 'src/DroneMod/ModInit.ts'
 const BundleDir = 'Bundle'
@@ -131,7 +132,8 @@ function Configurate(): webpack.Configuration {
         mode: productionMode ? 'production' : 'development',
         devtool: productionMode ? false : 'inline-source-map',
         plugins: [
-            PostBuild(opts)
+            PostBuild(opts),
+            new CleanWebpackPlugin()
         ],
         watch: watchMode,
     }

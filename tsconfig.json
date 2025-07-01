@@ -4,6 +4,7 @@
         "alwaysStrict": true,
         "strictBindCallApply": true,
         "noImplicitAny": false,
+        "noFallthroughCasesInSwitch": true,
         "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "Node",

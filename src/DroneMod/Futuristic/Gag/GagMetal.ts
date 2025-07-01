@@ -1,0 +1,616 @@
+import * as KDEx from '../../../KDInterface/KDExtension'
+import * as Enum from '../../../Utilities/Enum'
+
+export const InheritColor = {
+    BaseMetal: 'BaseMetal',
+    DecorationMetal: 'DecorationMetal',
+    Ball: 'Ball',
+    Light: 'Light',
+}
+
+//#region Layers
+
+const LayerName = {
+    Muzzle: 'Muzzle',
+    Strap: 'Strap',
+    Harness: 'Harness',
+    BallMaterial: 'BallMaterial',
+}
+
+const HideLightPose = {
+    PerioralClip: '{7FC08ACF-B177-4103-AD07-157AF174647F}',
+    CheekDisplay: '{A533FA99-24B9-429D-B603-1BAE2237AD9F}',
+    GlabellaDisplay: '{7A5E12DE-49E1-4681-9067-EC6D977475DB}',
+}
+
+enum PriRef {
+    Ball = 0.0,
+    Panel = 50.0,
+    Decoration = 100.0
+}
+
+enum Category {
+    Gag = 'Gag',
+    GagFlat = 'GagFlat',
+    GagMuzzle = 'GagMuzzle'
+}
+
+enum LayerIndex {
+    Id = '',
+    Under = 'Under',
+    Strap = 'Straps',
+
+}
+
+export const MapLayerIndex = (category: Category, layer: string | LayerIndex) => {
+    switch (layer) {
+        case LayerIndex.Id:
+        case LayerIndex.Under:
+        case LayerIndex.Strap:
+            return category + layer
+        default:
+            return layer
+    }
+}
+
+
+namespace Layer {
+    const layerBase: ModelLayer = {
+        Name: '',
+        Layer: '',
+        Folder: 'GagMetal',
+        OffsetX: 942,
+        OffsetY: 200,
+        Invariant: true
+    }
+    export const MetalMuzzle: ModelLayer = {
+        ...layerBase,
+        Name: LayerName.Muzzle,
+        Layer: LayerIndex.Id,
+        Sprite: 'SciFiMuzzle',
+        InheritColor: InheritColor.BaseMetal,
+        Pri: PriRef.Panel + 2.0,
+    }
+
+    export const TransparentMetalMuzzle: ModelLayer = {
+        ...layerBase,
+        Name: LayerName.Muzzle,
+        Layer: LayerIndex.Id,
+        Sprite: 'SciFiMuzzle2',
+        InheritColor: InheritColor.DecorationMetal,
+        Pri: PriRef.Panel + 2.0,
+    }
+    export const PerioralClip: ModelLayer = {
+        ...layerBase,
+        Name: 'PerioralClip',
+        Layer: LayerIndex.Strap,
+        Sprite: 'HarnessMask',
+        InheritColor: InheritColor.DecorationMetal,
+        Pri: (PriRef.Decoration - 1.0),
+
+    }
+    export const PerioralClipLight: ModelLayer = {
+        ...layerBase,
+        Name: 'PerioralClipLight',
+        Layer: LayerIndex.Strap,
+        Sprite: 'HarnessMaskDisplay',
+        InheritColor: InheritColor.Light,
+        Pri: (PriRef.Decoration - 0.5),
+        TieToLayer: PerioralClip.Name,
+        HidePoses: ToMap([HideLightPose.PerioralClip]),
+    }
+    export const CheekDisplay: ModelLayer = {
+        ...layerBase,
+        Name: 'CheekDisplay',
+        Layer: LayerIndex.Strap,
+        Sprite: 'HarnessRim',
+        InheritColor: InheritColor.DecorationMetal,
+        Pri: (PriRef.Decoration + 10.0),
+    }
+    export const CheekDisplayLight: ModelLayer = {
+        ...layerBase,
+        Name: 'CheekDisplayLight',
+        Layer: LayerIndex.Strap,
+        Sprite: 'HarnessDisplay',
+        InheritColor: InheritColor.Light,
+        Pri: (PriRef.Decoration + 10.0),
+        TieToLayer: CheekDisplay.Name,
+        HidePoses: ToMap([HideLightPose.CheekDisplay]),
+    }
+    export const GlabellaDisplay: ModelLayer = {
+        ...layerBase,
+        Name: 'GlabellaDisplay',
+        Layer: LayerIndex.Strap,
+        Sprite: 'Rim',
+        InheritColor: InheritColor.DecorationMetal,
+        Pri: (PriRef.Decoration + 15.0),
+    }
+    export const GlabellaDisplayLight: ModelLayer = {
+        ...layerBase,
+        Name: 'GlabellaDisplayLight',
+        Layer: LayerIndex.Strap,
+        Sprite: 'Display',
+        InheritColor: InheritColor.Light,
+        Pri: (PriRef.Decoration + 15.0),
+        TieToLayer: GlabellaDisplay.Name,
+        HidePoses: ToMap([HideLightPose.GlabellaDisplay]),
+    }
+    export const OTN: ModelLayer = {
+        ...layerBase,
+        Name: LayerName.Muzzle,
+        Layer: LayerIndex.Id,
+        Sprite: 'OTN',
+        InheritColor: InheritColor.BaseMetal,
+        Pri: PriRef.Panel + 3.0,
+    }
+    export const OTNRivets: ModelLayer = {
+        ...layerBase,
+        Name: 'OTNRivets',
+        Layer: LayerIndex.Id,
+        Sprite: 'OTNRivets',
+        Pri: PriRef.Panel + 3.5,
+        TieToLayer: LayerName.Muzzle,
+    }
+    export const OTNStrap: ModelLayer = {
+        ...layerBase,
+        Name: 'OTNStrap',
+        Layer: LayerIndex.Id,
+        Sprite: 'OTNStrap',
+        Pri: (PriRef.Decoration + 12.0),
+        InheritColor: InheritColor.DecorationMetal,
+        TieToLayer: LayerName.Muzzle,
+    }
+    export const OTNStrapRivits: ModelLayer = {
+        ...layerBase,
+        Name: 'OTNStrapRivits',
+        Layer: LayerIndex.Id,
+        Sprite: 'OTNStrapRivits',
+        Pri: (PriRef.Decoration + 12.5),
+        TieToLayer: OTNStrap.Name,
+    }
+    export const BallStrap: ModelLayer = {
+        ...layerBase,
+        Name: LayerName.Strap,
+        Layer: LayerIndex.Strap,
+        Sprite: 'BallStrap',
+        Pri: (PriRef.Ball + 15.0),
+    }
+    export const BigBallStrap: ModelLayer = {
+        ...layerBase,
+        Name: LayerName.Strap,
+        Layer: LayerIndex.Strap,
+        Sprite: 'BigBallStrap',
+        Pri: (PriRef.Ball + 15.0),
+    }
+    export const BigBallStrapSegmented: ModelLayer = {
+        ...layerBase,
+        Name: LayerName.Strap,
+        Layer: LayerIndex.Strap,
+        Sprite: 'BigBallStrapSegmented',
+        Pri: (PriRef.Ball + 15.0),
+    }
+    export const SideStrap: ModelLayer = {
+        ...layerBase,
+        Name: 'SideStrap',
+        Layer: LayerIndex.Strap,
+        Sprite: 'BallSideStrap',
+        Pri: (PriRef.Ball + 20.0),
+    }
+    export const BallHarness: ModelLayer = {
+        ...layerBase,
+        Name: LayerName.Harness,
+        Layer: LayerIndex.Strap,
+        Sprite: 'BallHarness',
+        Pri: (PriRef.Ball + 10.0),
+        AppendPose: {
+            'FaceBigGag': 'Large'
+        },
+    }
+    export const BallHarnessSegmented: ModelLayer = {
+        ...layerBase,
+        Name: LayerName.Harness,
+        Layer: LayerIndex.Strap,
+        Sprite: 'BallHarnessSegmented',
+        Pri: (PriRef.Ball + 10.0),
+        AppendPose: {
+            'FaceBigGag': 'Large'
+        },
+    }
+    export const Ball: ModelLayer = {
+        ...layerBase,
+        Name: LayerName.BallMaterial,
+        Layer: LayerIndex.Id,
+        Sprite: 'Ball',
+        InheritColor: InheritColor.Ball,
+        Pri: PriRef.Ball,
+        AppendPose: {
+            '2Fang': '2Fang',
+            'Fang': 'Fang'
+        },
+        MorphPoses: {
+            'MouthNeutral': '_TeethDeep',
+            'MouthSurprised': '_Teeth',
+            'MouthPout': '_TeethDeep',
+            'MouthDistracted': '_Teeth',
+        }
+    }
+    export const BallTeeth: ModelLayer = {
+        ...layerBase,
+        Name: 'BallTeeth',
+        Layer: LayerIndex.Id,
+        Sprite: 'Ball',
+        Pri: (PriRef.Ball + 0.1),
+        InheritColor: InheritColor.Ball,
+        TieToLayer: Ball.Name,
+        AppendPose: {
+            '2Fang': '2Fang',
+            'Fang': 'Fang'
+        },
+        Poses: ToMap(['MouthNeutral', 'MouthSurprised', 'MouthPout', 'MouthDistracted']),
+        MorphPoses: {
+            'MouthNeutral': '_TeethDeep',
+            'MouthSurprised': '_Teeth',
+            'MouthPout': '_TeethDeep',
+            'MouthDistracted': '_Teeth',
+        }
+    }
+    export const BigBall: ModelLayer = {
+        ...layerBase,
+        Name: LayerName.BallMaterial,
+        Layer: LayerIndex.Id,
+        Sprite: 'BigBall',
+        InheritColor: InheritColor.Ball,
+        Pri: PriRef.Ball,
+    }
+    const panelBase: ModelLayer = {
+        ...layerBase,
+        Sprite: 'SciFiPanel',
+        InheritColor: InheritColor.BaseMetal,
+        Layer: LayerIndex.Strap,
+        Pri: (PriRef.Panel),
+    }
+    export const Panel: ModelLayer = {
+        ...panelBase,
+        Name: 'Panel',
+    }
+    export const PanelUpper: ModelLayer = {
+        ...panelBase,
+        Name: 'PanelUpper',
+        SwapLayerPose: {
+            'XrayFace': 'MaskOver'
+        }
+    }
+    const plugBase: ModelLayer = {
+        ...layerBase,
+        Sprite: 'SciFiPlug',
+        InheritColor: InheritColor.BaseMetal,
+        Layer: LayerIndex.Strap,
+        Pri: (PriRef.Decoration + 40.0),
+    }
+    export const Plug: ModelLayer = {
+        ...plugBase,
+        Name: 'Plug',
+        Sprite: 'SciFiPlug',
+    }
+    export const MuzzlePlug: ModelLayer = {
+        ...plugBase,
+        Name: 'MuzzlePlug',
+        Layer: MapLayerIndex(Category.GagMuzzle, LayerIndex.Id),
+    }
+}
+
+//#endregion
+
+//#region Variants
+
+export enum Component {
+    None = 1 << 0,
+    PerioralClip = 1 << 1,
+    CheekDisplay = 1 << 2,
+    GlabellaDisplay = 1 << 3,
+    OTNRivets = 1 << 4,
+    OTNStrap = 1 << 5,
+    Panel = 1 << 6,
+    Plug = 1 << 7,
+    MuzzlePlug = 1 << 8,
+}
+
+export enum MuzzleKind {
+    None = 0,
+    Metal = 1,
+    Transparent = 2,
+    OTN = 3,
+}
+
+export enum BallKind {
+    None = 0,
+    Ball = 1,
+    BigBall = 2,
+}
+
+export enum StrapDetail {
+    None = 1 << 0,
+    Segmented = 1 << 1,
+    SideStrap = 1 << 2,
+}
+
+export enum StrapKindTags {
+    None = 0,
+    Strap = 1,
+    Harness = 2
+}
+
+export type StrapKind =
+    { __Type: StrapKindTags.None } |
+    { __Type: StrapKindTags.Strap, Detail: StrapDetail } |
+    { __Type: StrapKindTags.Harness, Detail: StrapDetail }
+
+namespace StrapKind {
+    export const ToStringKey = (strapKind: StrapKind) => {
+        `${StrapKindTags[strapKind.__Type]}${strapKind.__Type === StrapKindTags.None ?
+                '' :
+                Enum.GetSetFlags(StrapDetail, strapKind.Detail).join('-')
+            }`
+    }
+}
+
+export interface Variant {
+    Ball: BallKind
+    Strap: StrapKind
+    Muzzle: MuzzleKind
+    Component: Component
+}
+
+export namespace Variant {
+    export const ThrowInvalid = () => { throw new Error('Invalid metal gag variant.') }
+    export const Verify = (v: Variant) => {
+        if (!(
+            Enum.IsDefined(BallKind, v.Ball) &&
+            Enum.IsDefined(MuzzleKind, v.Muzzle) &&
+            Enum.IsDefined(StrapKindTags, v.Strap.__Type)
+        )) {
+            ThrowInvalid()
+        }
+        switch (v.Strap.__Type) {
+            case StrapKindTags.None:
+                break
+            case StrapKindTags.Strap:
+            case StrapKindTags.Harness:
+                if (typeof v.Strap.Detail !== 'number') {
+                    ThrowInvalid()
+                }
+                break
+            default:
+                ThrowInvalid()
+        }
+        if (typeof v.Component !== 'number') {
+            ThrowInvalid()
+        }
+    }
+
+    export const ToStringKey = (variant: Variant) => [
+        BallKind[variant.Ball],
+        StrapKind.ToStringKey(variant.Strap),
+        MuzzleKind[variant.Muzzle],
+        Enum.GetSetFlags(Component, variant.Component).join('-')
+    ].join('_')
+
+}
+//#endregion
+
+//#region Model
+
+function* GetSprites(variant: Variant): Iterable<ModelLayer> {
+    Variant.Verify(variant)
+    // Ball
+    switch (variant.Ball) {
+        case BallKind.None:
+            break
+        case BallKind.Ball:
+            yield Layer.Ball
+            yield Layer.BallTeeth
+            break
+        case BallKind.BigBall:
+            yield Layer.BigBall
+            break
+        default:
+            Variant.ThrowInvalid()
+    }
+
+    // Strap
+    switch (variant.Strap.__Type) {
+        case StrapKindTags.None:
+            break
+        case StrapKindTags.Strap:
+            if (Enum.HasFlag(variant.Strap.Detail, StrapDetail.Segmented)) {
+                yield Layer.BigBallStrapSegmented
+            }
+            else if (variant.Ball === BallKind.Ball) {
+                yield Layer.BallStrap
+            }
+            else {
+                yield Layer.BigBallStrap
+            }
+            break
+        case StrapKindTags.Harness:
+            if (Enum.HasFlag(variant.Strap.Detail, StrapDetail.Segmented)) {
+                yield Layer.BallHarnessSegmented
+            }
+            else {
+                yield Layer.BallHarness
+            }
+            break
+        default:
+            Variant.ThrowInvalid()
+    }
+
+    switch (variant.Strap.__Type) {
+        case StrapKindTags.None:
+            break
+        case StrapKindTags.Strap:
+        case StrapKindTags.Harness:
+            if (Enum.HasFlag(variant.Strap.Detail, StrapDetail.SideStrap)) {
+                yield Layer.SideStrap
+            }
+            break
+        default:
+            Variant.ThrowInvalid()
+    }
+
+    // Muzzle
+    switch (variant.Muzzle) {
+        case MuzzleKind.None:
+            break
+        case MuzzleKind.Metal:
+            yield Layer.MetalMuzzle
+            break
+        case MuzzleKind.Transparent:
+            yield Layer.TransparentMetalMuzzle
+            break
+        case MuzzleKind.OTN:
+            yield Layer.OTN
+            break
+        default:
+            Variant.ThrowInvalid()
+    }
+
+    //Components
+    if (Enum.HasFlag(variant.Component, Component.PerioralClip)) {
+        yield Layer.PerioralClip
+        yield Layer.PerioralClipLight
+    }
+    else if (Enum.HasFlag(variant.Component, Component.CheekDisplay)) {
+        yield Layer.CheekDisplay
+        yield Layer.CheekDisplayLight
+    }
+    else if (Enum.HasFlag(variant.Component, Component.GlabellaDisplay)) {
+        yield Layer.GlabellaDisplay
+        yield Layer.GlabellaDisplayLight
+    }
+    else if (Enum.HasFlag(variant.Component, Component.OTNRivets)) {
+        yield Layer.OTNRivets
+    }
+    else if (Enum.HasFlag(variant.Component, Component.OTNStrap)) {
+        yield Layer.OTNStrap
+        yield Layer.OTNStrapRivits
+    }
+    else if (Enum.HasFlag(variant.Component, Component.Panel)) {
+        yield Layer.Panel
+    }
+    else if (Enum.HasFlag(variant.Component, Component.Plug)) {
+        yield Layer.Plug
+    }
+    else if (Enum.HasFlag(variant.Component, Component.MuzzlePlug)) {
+        yield Layer.MuzzlePlug
+    }
+}
+
+const create = (args: {
+    name: string,
+    category: Category,
+    variant: Variant
+}) => {
+    const {
+        name,
+        category,
+        variant
+    } = args
+    const sprites: ModelLayer[] = []
+    for (const sprite of GetSprites(variant)) {
+        sprites.push({
+            ...sprite,
+            Layer: MapLayerIndex(category, sprite.Layer),
+            SwapLayerPose:
+                category === Category.GagMuzzle ?
+                    {
+                        ...sprite.SwapLayerPose,
+                        "XrayFace": "MaskOver"
+                    } :
+                    sprite.SwapLayerPose
+        })
+    }
+
+    const addPose: string[] = [...(function* () {
+        if (
+            variant.Ball !== BallKind.None ||
+            Enum.HasFlag(variant.Component, Component.Plug)
+        ) {
+            yield "StuffMouth"
+            yield "HideMouth"
+        }
+        if (variant.Ball === BallKind.BigBall) {
+            yield "FaceBigGag"
+        }
+        if (variant.Muzzle !== MuzzleKind.None) {
+            yield "FaceCoverGag"
+        }
+    })()]
+
+    return <Model>{
+        Name: name,
+        Folder: "GagMetal",
+        Categories: ["Restraints", "Gags"],
+        TopLevel: true,
+        Group: "Mouth",
+        Restraint: true,
+        AddPose: addPose,
+        Layers: ToLayerMap(sprites)
+    }
+}
+
+/**
+ * Get model text key based on given parameters
+ * @param args 
+ */
+export const GetGagMetal = (args: { category: Category, variant: Variant }) => {
+    const { category, variant } = args
+    //TODO: change to GUID and numbers
+    const name =
+        `DroneMod.Asset.Gag.GagMetal_${Category[category]}_${Variant.ToStringKey(variant)}`
+    if (ModelDefs[name] == null) {
+        KDEx.AddModelWithText(
+            create({ name, category, variant })
+        )
+        return name
+    }
+}
+
+const InjectAllModels = () =>
+    Enum.GetStringValues(Category)
+        .forEach(category => {
+            Enum.GetNumericValues(BallKind)
+                .forEach(ballKind => {
+                    Enum.GetNumericValues(StrapKindTags)
+                        .forEach(strapTag => {
+                            const callBack = (strapDetail?: StrapDetail) => {
+                                Enum.GetNumericValues(MuzzleKind)
+                                    .forEach(muzzleKind => {
+                                        Enum.GetAllFlagsCombination(Component)
+                                            .forEach(component => {
+                                                const variant: Variant = {
+                                                    Ball: ballKind as number,
+                                                    Strap: {
+                                                        __Type: strapTag,
+                                                        Detail: strapDetail!
+                                                    },
+                                                    Muzzle: muzzleKind,
+                                                    Component: component
+                                                }
+                                                GetGagMetal({ category, variant })
+                                            })
+                                    })
+                            }
+                            if (strapTag !== StrapKindTags.None) {
+                                Enum.GetAllFlagsCombination(StrapDetail)
+                                    .forEach(callBack)
+                            }
+                            else {
+                                callBack()
+                            }
+                        })
+                })
+        })
+
+InjectAllModels()
+
+//#endregion
