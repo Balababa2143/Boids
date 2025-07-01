@@ -10,6 +10,7 @@
     })
 })();
 
+import { Earphone } from './Futuristic/HeadSet/Headphone';
 import * as HeadSet from './Futuristic/HeadSet'
 import * as HolographicHeadSet from './Futuristic/HeadSet/Holographic'
 
@@ -62,6 +63,7 @@ import * as HolographicHeadSet from './Futuristic/HeadSet/Holographic'
         "Drone Sensory Set 1",
         () => {
             [
+                Earphone,
                 HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1))
             ]
             .forEach(AddWeaker)

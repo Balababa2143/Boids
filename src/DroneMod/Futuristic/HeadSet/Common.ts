@@ -1,6 +1,7 @@
+import * as KDEx from '../../../KDInterface/KDExtension'
 import { ItemArchetype } from '../Futuristic'
 import * as TextKey from '../../../KDInterface/TextKey'
-import * as KDEx from '../../../KDInterface/KDExtension'
+
 
 /**
  * Text keys for coloring components by faction.
@@ -193,15 +194,18 @@ export const AddHeadSetItem = (args: {
         name: GetName(variant),
         Model: GetModel(variant),
         blindfold: CalcBlind(variant),
-        // requireAllTagsToEquip: [socket],
+        requireAllTagsToEquip: [socket],
         events: [
             ...ItemBase.events ?? [],
-            // {
-            //     trigger: 'postRemoval',
-            //     type: 'RequireTag',
-            //     requiredTag: socket,
-            //     inheritLinked: true
-            // }
+            {
+                trigger: 'postRemoval',
+                type: 'RequireTag',
+                requiredTag: socket,
+                inheritLinked: true
+            }
         ],
     }, GetText(variant))
 }
+
+export const VisorSocket = '{54EB62BD-0462-46EF-8C96-9219382E75CA}'
+export const MaskSocket = '{EC2F4BFD-A143-4C8E-826C-8C85A1BE2689}'
