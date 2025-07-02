@@ -62,7 +62,7 @@ const CategoryToLayerMap = {
     [Category.MuzzleGags]: GagLayerBase.GagMuzzle,
 }
 
-const MapLayerIndex = (category: Category, layer: InvariantLayer | RelativeLayer) => {
+const MapLayerName = (category: Category, layer: RelativeLayer | string) => {
     switch (layer) {
         case RelativeLayer.Body:
         case RelativeLayer.Strap:
@@ -190,35 +190,35 @@ namespace Layer {
     export const BallStrap: ModelLayer = {
         ...layerBase,
         Name: LayerName.Strap,
-        Layer: RelativeLayer.Strap,
+        Layer: 'GagStraps',
         Sprite: 'BallStrap',
         Pri: (PriRef.Ball + 15.0),
     }
     export const BigBallStrap: ModelLayer = {
         ...layerBase,
         Name: LayerName.Strap,
-        Layer: RelativeLayer.Strap,
+        Layer: 'GagStraps',
         Sprite: 'BigBallStrap',
         Pri: (PriRef.Ball + 15.0),
     }
     export const BigBallStrapSegmented: ModelLayer = {
         ...layerBase,
         Name: LayerName.Strap,
-        Layer: RelativeLayer.Strap,
+        Layer: 'GagStraps',
         Sprite: 'BigBallStrapSegmented',
         Pri: (PriRef.Ball + 15.0),
     }
     export const SideStrap: ModelLayer = {
         ...layerBase,
         Name: 'SideStrap',
-        Layer: RelativeLayer.Strap,
+        Layer: 'GagStraps',
         Sprite: 'BallSideStrap',
         Pri: (PriRef.Ball + 20.0),
     }
     export const BallHarness: ModelLayer = {
         ...layerBase,
         Name: LayerName.Harness,
-        Layer: RelativeLayer.Strap,
+        Layer: 'GagStraps',
         Sprite: 'BallHarness',
         Pri: (PriRef.Ball + 10.0),
         AppendPose: {
@@ -228,7 +228,7 @@ namespace Layer {
     export const BallHarnessSegmented: ModelLayer = {
         ...layerBase,
         Name: LayerName.Harness,
-        Layer: RelativeLayer.Strap,
+        Layer: 'GagStraps',
         Sprite: 'BallHarnessSegmented',
         Pri: (PriRef.Ball + 10.0),
         AppendPose: {
@@ -281,20 +281,13 @@ namespace Layer {
         InheritColor: InheritColor.Ball,
         Pri: PriRef.Ball,
     }
-    const panelBase: ModelLayer = {
+    export const Panel: ModelLayer = {
         ...layerBase,
+        Name: 'Panel',
         Sprite: 'SciFiPanel',
         InheritColor: InheritColor.BaseMetal,
-        Layer: RelativeLayer.Strap,
+        Layer: 'GagFlat',
         Pri: (PriRef.Panel),
-    }
-    export const Panel: ModelLayer = {
-        ...panelBase,
-        Name: 'Panel',
-    }
-    export const PanelUpper: ModelLayer = {
-        ...panelBase,
-        Name: 'PanelUpper',
         SwapLayerPose: {
             'XrayFace': 'MaskOver'
         }
@@ -363,12 +356,25 @@ export type StrapKind =
     { __Type: StrapKindTags.Harness, Detail: StrapDetail }
 
 namespace StrapKind {
-    export const ToStringKey = (strapKind: StrapKind) => {
-        `${StrapKindTags[strapKind.__Type]}${strapKind.__Type === StrapKindTags.None ?
-            '' :
-            Enum.GetSetFlags(StrapDetail, strapKind.Detail).join('-')
-            }`
-    }
+    export const ToStringKey = (strapKind: StrapKind) =>
+        [
+            ...(function* () {
+                switch (strapKind.__Type) {
+                    case StrapKindTags.None:
+                        break
+                    case StrapKindTags.Harness:
+                        yield 'Harness'
+                        break
+                    case StrapKindTags.Strap:
+                        yield 'Strap'
+                }
+                if (strapKind.__Type !== StrapKindTags.None) {
+                    for (const tag of Enum.GetSetFlags(StrapDetail, strapKind.Detail)) {
+                        yield tag
+                    }
+                }
+            })()
+        ].join('-')
 }
 
 export interface Variant {
@@ -536,7 +542,7 @@ const create = (args: {
     for (const sprite of GetSprites(variant)) {
         sprites.push({
             ...sprite,
-            Layer: MapLayerIndex(category, sprite.Layer as RelativeLayer),
+            Layer: MapLayerName(category, sprite.Layer as RelativeLayer),
             SwapLayerPose:
                 CategoryToLayerMap[category] === GagLayerBase.GagFlat ?
                     {
@@ -549,10 +555,15 @@ const create = (args: {
 
     const addPose: string[] = [...(function* () {
         if (
-            variant.Ball !== BallKind.None ||
+            variant.Ball === BallKind.Ball ||
             Enum.HasFlag(variant.Component, Component.Plug)
         ) {
             yield "StuffMouth"
+        }
+        if (
+            variant.Ball === BallKind.BigBall ||
+            Enum.HasFlag(variant.Component, Component.Plug)
+        ) {
             yield "HideMouth"
         }
         if (variant.Ball === BallKind.BigBall) {
@@ -586,13 +597,13 @@ export const GetGagMetal = (args: { category: Category, variant: Variant }) => {
     const { category, variant } = args
     //TODO: change to GUID and numbers
     const name =
-        `DroneMod.Asset.Gag.GagMetal_${Category[category]}_${Variant.ToStringKey(variant)}`
+        `DroneMod.Asset.Gag.GagMetal_${category}_${Variant.ToStringKey(variant)}`
     if (ModelDefs[name] == null) {
         KDEx.AddModelWithText(
             create({ name, category, variant })
         )
-        return name
     }
+    return name
 }
 
 const InjectAllModels = () =>

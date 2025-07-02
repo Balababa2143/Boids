@@ -1,11 +1,12 @@
 import * as KDEx from '../../../KDInterface/KDExtension'
+import { ItemArchetype } from '../Futuristic'
 import { MakeItem, OralDeviceLinkCategory } from './Common'
 import { BallKind, Category, Component, MuzzleKind, StrapKindTags, Variant } from './GagMetal'
 
-/**
- * Item tag of all mufflers
- */
-export const Muffler = "{89CB8E40-CDE3-4D12-B24A-150B61C7FF8B}"
+// /**
+//  * Item tag of all mufflers
+//  */
+// export const Muffler = "{89CB8E40-CDE3-4D12-B24A-150B61C7FF8B}"
 
 /**
  * Socket for muffler, required for mufflers to be equipped.
@@ -25,15 +26,7 @@ const MakeMuffler = (args: { name: string, variant: Variant }) => {
         ...baseItem,
         shrine: [
             ...baseItem.shrine,
-            Muffler,
-        ],
-        LinkableBy: [
-            ...baseItem.LinkableBy ?? [],
-            Muffler,
-        ],
-        renderWhenLinked: [
-            ...baseItem.renderWhenLinked ?? [],
-            Muffler
+            ItemArchetype.OralDevice,
         ],
         linkCategory: OralDeviceLinkCategory,
         linkSize: 0.7,
@@ -48,7 +41,8 @@ const MakeBall = (args: { name: string, ball: BallKind }) => {
             __Type: StrapKindTags.None
         },
         Muzzle: MuzzleKind.None,
-        Component: Component.PerioralClip
+        // Component: Component.PerioralClip
+        Component: Component.None
     }
     const baseItem =
         MakeMuffler({ name, variant })
@@ -62,19 +56,19 @@ const MakeBall = (args: { name: string, ball: BallKind }) => {
             ...baseItem.renderWhenLinked ?? [],
             BallSocket,
         ],
-        // requireSingleTagToEquip: [
-        //     ...baseItem.requireSingleTagToEquip ?? [],
-        //     MufflerSocket
-        // ],
-        // events: [
-        //     ...baseItem.events ?? [],
-        //     {
-        //         trigger: "postRemoval",
-        //         type: "RequireTag",
-        //         requiredTag: MufflerSocket,
-        //         inheritLinked: true
-        //     }
-        // ]
+        requireSingleTagToEquip: [
+            ...baseItem.requireSingleTagToEquip ?? [],
+            BallSocket
+        ],
+        events: [
+            ...baseItem.events ?? [],
+            {
+                trigger: "postRemoval",
+                type: "RequireTag",
+                requiredTag: BallSocket,
+                inheritLinked: true
+            }
+        ]
     }
 }
 
@@ -105,14 +99,6 @@ export const NonMuffler =
         modifyItem: r => ({
             ...r,
             linkSize: 0.4,
-            // shrine: [
-            //     ...r.shrine,
-            //     PlugSocket
-            // ],
-            // renderWhenLinked: [
-            //     ...r.renderWhenLinked ?? [],
-            //     PlugSocket
-            // ]
         })
     })
 
@@ -160,19 +146,19 @@ export const Plug = (() => {
                 ...baseItem.renderWhenLinked ?? [],
                 PlugSocket
             ],
-            // requireSingleTagToEquip: [
-            //     ...baseItem.requireSingleTagToEquip ?? [],
-            //     PlugSocket
-            // ],
-            // events: [
-            //     ...baseItem.events ?? [],
-            //     {
-            //         trigger: "postRemoval",
-            //         type: "RequireTag",
-            //         requiredTag: PlugSocket,
-            //         inheritLinked: true
-            //     }
-            // ]
+            requireSingleTagToEquip: [
+                ...baseItem.requireSingleTagToEquip ?? [],
+                PlugSocket
+            ],
+            events: [
+                ...baseItem.events ?? [],
+                {
+                    trigger: "postRemoval",
+                    type: "RequireTag",
+                    requiredTag: PlugSocket,
+                    inheritLinked: true
+                }
+            ]
         },
         {
             ...KDEx.RestraintText.Default,

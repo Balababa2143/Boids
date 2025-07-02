@@ -14,32 +14,21 @@ import { Earphone } from './Futuristic/HeadSet/Headphone'
 import * as HeadSet from './Futuristic/HeadSet'
 import * as HolographicHeadSet from './Futuristic/HeadSet/Holographic'
 import * as OralDevice from './Futuristic/Gag/Muffler'
+import * as FaceCover from './Futuristic/Gag/FaceCover';
 
 
 (() => {
     const AddWeaker = (r: string | restraint) =>
         KinkyDungeonAddRestraintIfWeaker(
             r,
-            undefined,
+            10,
             true,
             'Cyber3',
             undefined,
             undefined,
             undefined,
             'Dollsmith',
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined, undefined,
-            undefined,
-            {
-                hexes: [],
-                enchants: [],
-                level: 0,
-                minfloor: 0,
-                powerBonus: 0,
-            }
+            true
         )
     const AddStart = (name: string, func: (_: void) => void, perk: KDPerk) => {
         if (KDPerkStart[name] != null) {
@@ -66,7 +55,72 @@ import * as OralDevice from './Futuristic/Gag/Muffler'
             [
                 Earphone,
                 HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)),
-                OralDevice.NonMuffler,
+                FaceCover.SimpleHarness,
+                OralDevice.NonMuffler
+            ]
+            .forEach(AddWeaker)
+        },
+        {
+            ...PerkBase,
+            cost: -0.5
+        }
+    )
+    AddStart(
+        "Drone Sensory Set 2",
+        () => {
+            [
+                Earphone,
+                HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 2)),
+                FaceCover.AdvanceHarness,
+                OralDevice.Ball
+            ]
+            .forEach(AddWeaker)
+        },
+        {
+            ...PerkBase,
+            cost: -1
+        }
+    )
+    AddStart(
+        "Drone Sensory Set 3",
+        () => {
+            [
+                Earphone,
+                HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 3)),
+                FaceCover.PanelHarness,
+                OralDevice.BigBall
+            ]
+            .forEach(AddWeaker)
+        },
+        {
+            ...PerkBase,
+            cost: -1
+        }
+    )
+    AddStart(
+        "Drone Sensory Set 4",
+        () => {
+            [
+                Earphone,
+                HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 4)),
+                FaceCover.PanelHarnessWithPort,
+                OralDevice.Plug
+            ]
+            .forEach(AddWeaker)
+        },
+        {
+            ...PerkBase,
+            cost: -1
+        }
+    )
+    AddStart(
+        "Drone Sensory Set 5",
+        () => {
+            [
+                Earphone,
+                HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Black, 1)),
+                FaceCover.PanelHarnessWithPort,
+                OralDevice.NonMuffler
             ]
             .forEach(AddWeaker)
         },

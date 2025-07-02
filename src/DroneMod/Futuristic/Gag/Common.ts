@@ -14,8 +14,8 @@ const GetGagStrength = (variant: Variant) => {
     return [
         {
             [BallKind.None]: 0,
-            [BallKind.Ball]: 0.3,
-            [BallKind.BigBall]: 0.6,
+            [BallKind.Ball]: 0.4,
+            [BallKind.BigBall]: 0.7,
         }[variant.Ball],
         {
             [MuzzleKind.None]: 0,
@@ -45,7 +45,7 @@ const GetGagStrength = (variant: Variant) => {
             const strengthMap = [
                 [Component.PerioralClip, 0.05],
                 [Component.Panel, 0.125],
-                [Component.Plug, 0.9],
+                [Component.Plug, 1],
                 [Component.OTNRivets, 0.05],
                 [Component.OTNStrap, 0.15],
                 [Component.GlabellaDisplay, 0.025],
