@@ -40,12 +40,6 @@ enum RelativeLayer {
     Strap = 'Straps',
 }
 
-enum InvariantLayer {
-    GagOver = 'GagOver',
-    GagUnder = 'GagUnder',
-    GagStrapsUnder = 'GagStrapsUnder'
-}
-
 export enum Category {
     PlugGags = 'PlugGags',
     Stuffing = 'Stuffing',
@@ -190,21 +184,21 @@ namespace Layer {
     export const BallStrap: ModelLayer = {
         ...layerBase,
         Name: LayerName.Strap,
-        Layer: 'GagStraps',
+        Layer: 'GagWrap',
         Sprite: 'BallStrap',
         Pri: (PriRef.Ball + 15.0),
     }
     export const BigBallStrap: ModelLayer = {
         ...layerBase,
         Name: LayerName.Strap,
-        Layer: 'GagStraps',
+        Layer: 'GagWrap',
         Sprite: 'BigBallStrap',
         Pri: (PriRef.Ball + 15.0),
     }
     export const BigBallStrapSegmented: ModelLayer = {
         ...layerBase,
         Name: LayerName.Strap,
-        Layer: 'GagStraps',
+        Layer: 'GagWrap',
         Sprite: 'BigBallStrapSegmented',
         Pri: (PriRef.Ball + 15.0),
     }
@@ -218,7 +212,7 @@ namespace Layer {
     export const BallHarness: ModelLayer = {
         ...layerBase,
         Name: LayerName.Harness,
-        Layer: 'GagStraps',
+        Layer: 'GagWrap',
         Sprite: 'BallHarness',
         Pri: (PriRef.Ball + 10.0),
         AppendPose: {
@@ -228,7 +222,7 @@ namespace Layer {
     export const BallHarnessSegmented: ModelLayer = {
         ...layerBase,
         Name: LayerName.Harness,
-        Layer: 'GagStraps',
+        Layer: 'GagWrap',
         Sprite: 'BallHarnessSegmented',
         Pri: (PriRef.Ball + 10.0),
         AppendPose: {

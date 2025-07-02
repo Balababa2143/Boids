@@ -2,6 +2,7 @@ import * as KDEx from '../../../KDInterface/KDExtension'
 import * as Enum from '../../../Utilities/Enum'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { BallKind, Category, Component, GetGagMetal, InheritColor, MuzzleKind, StrapDetail, StrapKindTags, Variant } from './GagMetal'
+import { ItemArchetype } from '../Futuristic'
 
 /**
  * Link category for oral devices.
@@ -89,6 +90,10 @@ export const MakeItem = (args: { name: string, category: Category, variant: Vari
             category
         ],
         LinkableBy: link,
+        renderWhenLinked:[
+            ItemArchetype.FaceCover,
+            ItemArchetype.OralDevice
+        ],
         gag: GetGagStrength(variant),
 
         Group: "ItemMouth",
