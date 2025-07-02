@@ -3,6 +3,12 @@ import * as Enum from '../../../Utilities/Enum'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { BallKind, Category, Component, GetGagMetal, InheritColor, MuzzleKind, StrapDetail, StrapKindTags, Variant } from './GagMetal'
 
+/**
+ * Link category for oral devices.
+ * Control stacking.
+ */
+export const OralDeviceLinkCategory = "{39C79AA5-74A9-4391-8FBA-2B7F23C2D6E0}"
+
 const GetGagStrength = (variant: Variant) => {
     Variant.Verify(variant)
     return [
@@ -68,33 +74,19 @@ const GetGagStrength = (variant: Variant) => {
 export const MakeItem = (args: { name: string, category: Category, variant: Variant }) => {
     const { name, category, variant } = args
     const link = {
-        [Category.Gag]: KDBallGagLink,
-        [Category.GagFlat]: KDFlatGagLink,
-        [Category.GagMuzzle]: KDMuzzleGagLink
+        [Category.PlugGags]: KDPlugGagLink,
+        [Category.Stuffing]: KDStuffingLink,
+        [Category.BallGags]: KDBallGagLink,
+        [Category.FlatGags]: KDFlatGagLink,
+        [Category.MuzzleGags]: KDMuzzleGagLink,
     }[category]
-
-    // Order of shrine affect inventory icon
-    const gagType = (function* () {
-        if (Enum.HasFlag(variant.Component, Component.Plug)) {
-            yield 'PlugGags'
-        }
-        if (
-            variant.Muzzle !== MuzzleKind.None ||
-            Enum.HasFlag(variant.Component, Component.Panel)
-        ) {
-            yield 'FlatGags'
-        }
-        if (variant.Ball != BallKind.None) {
-            yield 'BallGags'
-        }
-    })()
 
     return <restraint>{
         name,
         Model: GetGagMetal({ category, variant }),
         shrine: [
             "Gags",
-            ...gagType
+            category
         ],
         LinkableBy: link,
         gag: GetGagStrength(variant),

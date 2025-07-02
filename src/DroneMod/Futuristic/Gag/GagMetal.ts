@@ -29,25 +29,44 @@ enum PriRef {
     Decoration = 100.0
 }
 
-export enum Category {
-    Gag = 'Gag',
+enum GagLayerBase {
+    GagMuzzle = 'GagMuzzle',
     GagFlat = 'GagFlat',
-    GagMuzzle = 'GagMuzzle'
+    Gag = 'Gag'
 }
 
-enum LayerIndex {
-    Id = '',
-    Under = 'Under',
+enum RelativeLayer {
+    Body = '',
     Strap = 'Straps',
-
 }
 
-export const MapLayerIndex = (category: Category, layer: string | LayerIndex) => {
+enum InvariantLayer {
+    GagOver = 'GagOver',
+    GagUnder = 'GagUnder',
+    GagStrapsUnder = 'GagStrapsUnder'
+}
+
+export enum Category {
+    PlugGags = 'PlugGags',
+    Stuffing = 'Stuffing',
+    BallGags = 'BallGags',
+    FlatGags = 'FlatGags',
+    MuzzleGags = 'MuzzleGags',
+}
+
+const CategoryToLayerMap = {
+    [Category.PlugGags]: GagLayerBase.Gag,
+    [Category.Stuffing]: GagLayerBase.Gag,
+    [Category.BallGags]: GagLayerBase.Gag,
+    [Category.FlatGags]: GagLayerBase.GagFlat,
+    [Category.MuzzleGags]: GagLayerBase.GagMuzzle,
+}
+
+const MapLayerIndex = (category: Category, layer: InvariantLayer | RelativeLayer) => {
     switch (layer) {
-        case LayerIndex.Id:
-        case LayerIndex.Under:
-        case LayerIndex.Strap:
-            return category + layer
+        case RelativeLayer.Body:
+        case RelativeLayer.Strap:
+            return CategoryToLayerMap[Category[category]] + layer
         default:
             return layer
     }
@@ -66,7 +85,7 @@ namespace Layer {
     export const MetalMuzzle: ModelLayer = {
         ...layerBase,
         Name: LayerName.Muzzle,
-        Layer: LayerIndex.Id,
+        Layer: RelativeLayer.Body,
         Sprite: 'SciFiMuzzle',
         InheritColor: InheritColor.BaseMetal,
         Pri: PriRef.Panel + 2.0,
@@ -75,7 +94,7 @@ namespace Layer {
     export const TransparentMetalMuzzle: ModelLayer = {
         ...layerBase,
         Name: LayerName.Muzzle,
-        Layer: LayerIndex.Id,
+        Layer: RelativeLayer.Body,
         Sprite: 'SciFiMuzzle2',
         InheritColor: InheritColor.DecorationMetal,
         Pri: PriRef.Panel + 2.0,
@@ -83,7 +102,7 @@ namespace Layer {
     export const PerioralClip: ModelLayer = {
         ...layerBase,
         Name: 'PerioralClip',
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Sprite: 'HarnessMask',
         InheritColor: InheritColor.DecorationMetal,
         Pri: (PriRef.Decoration - 1.0),
@@ -92,7 +111,7 @@ namespace Layer {
     export const PerioralClipLight: ModelLayer = {
         ...layerBase,
         Name: 'PerioralClipLight',
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Sprite: 'HarnessMaskDisplay',
         InheritColor: InheritColor.Light,
         Pri: (PriRef.Decoration - 0.5),
@@ -102,7 +121,7 @@ namespace Layer {
     export const CheekDisplay: ModelLayer = {
         ...layerBase,
         Name: 'CheekDisplay',
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Sprite: 'HarnessRim',
         InheritColor: InheritColor.DecorationMetal,
         Pri: (PriRef.Decoration + 10.0),
@@ -110,7 +129,7 @@ namespace Layer {
     export const CheekDisplayLight: ModelLayer = {
         ...layerBase,
         Name: 'CheekDisplayLight',
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Sprite: 'HarnessDisplay',
         InheritColor: InheritColor.Light,
         Pri: (PriRef.Decoration + 10.0),
@@ -120,7 +139,7 @@ namespace Layer {
     export const GlabellaDisplay: ModelLayer = {
         ...layerBase,
         Name: 'GlabellaDisplay',
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Sprite: 'Rim',
         InheritColor: InheritColor.DecorationMetal,
         Pri: (PriRef.Decoration + 15.0),
@@ -128,7 +147,7 @@ namespace Layer {
     export const GlabellaDisplayLight: ModelLayer = {
         ...layerBase,
         Name: 'GlabellaDisplayLight',
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Sprite: 'Display',
         InheritColor: InheritColor.Light,
         Pri: (PriRef.Decoration + 15.0),
@@ -138,7 +157,7 @@ namespace Layer {
     export const OTN: ModelLayer = {
         ...layerBase,
         Name: LayerName.Muzzle,
-        Layer: LayerIndex.Id,
+        Layer: RelativeLayer.Body,
         Sprite: 'OTN',
         InheritColor: InheritColor.BaseMetal,
         Pri: PriRef.Panel + 3.0,
@@ -146,7 +165,7 @@ namespace Layer {
     export const OTNRivets: ModelLayer = {
         ...layerBase,
         Name: 'OTNRivets',
-        Layer: LayerIndex.Id,
+        Layer: RelativeLayer.Body,
         Sprite: 'OTNRivets',
         Pri: PriRef.Panel + 3.5,
         TieToLayer: LayerName.Muzzle,
@@ -154,7 +173,7 @@ namespace Layer {
     export const OTNStrap: ModelLayer = {
         ...layerBase,
         Name: 'OTNStrap',
-        Layer: LayerIndex.Id,
+        Layer: RelativeLayer.Body,
         Sprite: 'OTNStrap',
         Pri: (PriRef.Decoration + 12.0),
         InheritColor: InheritColor.DecorationMetal,
@@ -163,7 +182,7 @@ namespace Layer {
     export const OTNStrapRivits: ModelLayer = {
         ...layerBase,
         Name: 'OTNStrapRivits',
-        Layer: LayerIndex.Id,
+        Layer: RelativeLayer.Body,
         Sprite: 'OTNStrapRivits',
         Pri: (PriRef.Decoration + 12.5),
         TieToLayer: OTNStrap.Name,
@@ -171,35 +190,35 @@ namespace Layer {
     export const BallStrap: ModelLayer = {
         ...layerBase,
         Name: LayerName.Strap,
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Sprite: 'BallStrap',
         Pri: (PriRef.Ball + 15.0),
     }
     export const BigBallStrap: ModelLayer = {
         ...layerBase,
         Name: LayerName.Strap,
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Sprite: 'BigBallStrap',
         Pri: (PriRef.Ball + 15.0),
     }
     export const BigBallStrapSegmented: ModelLayer = {
         ...layerBase,
         Name: LayerName.Strap,
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Sprite: 'BigBallStrapSegmented',
         Pri: (PriRef.Ball + 15.0),
     }
     export const SideStrap: ModelLayer = {
         ...layerBase,
         Name: 'SideStrap',
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Sprite: 'BallSideStrap',
         Pri: (PriRef.Ball + 20.0),
     }
     export const BallHarness: ModelLayer = {
         ...layerBase,
         Name: LayerName.Harness,
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Sprite: 'BallHarness',
         Pri: (PriRef.Ball + 10.0),
         AppendPose: {
@@ -209,7 +228,7 @@ namespace Layer {
     export const BallHarnessSegmented: ModelLayer = {
         ...layerBase,
         Name: LayerName.Harness,
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Sprite: 'BallHarnessSegmented',
         Pri: (PriRef.Ball + 10.0),
         AppendPose: {
@@ -219,7 +238,7 @@ namespace Layer {
     export const Ball: ModelLayer = {
         ...layerBase,
         Name: LayerName.BallMaterial,
-        Layer: LayerIndex.Id,
+        Layer: RelativeLayer.Body,
         Sprite: 'Ball',
         InheritColor: InheritColor.Ball,
         Pri: PriRef.Ball,
@@ -237,7 +256,7 @@ namespace Layer {
     export const BallTeeth: ModelLayer = {
         ...layerBase,
         Name: 'BallTeeth',
-        Layer: LayerIndex.Id,
+        Layer: RelativeLayer.Body,
         Sprite: 'Ball',
         Pri: (PriRef.Ball + 0.1),
         InheritColor: InheritColor.Ball,
@@ -257,7 +276,7 @@ namespace Layer {
     export const BigBall: ModelLayer = {
         ...layerBase,
         Name: LayerName.BallMaterial,
-        Layer: LayerIndex.Id,
+        Layer: RelativeLayer.Body,
         Sprite: 'BigBall',
         InheritColor: InheritColor.Ball,
         Pri: PriRef.Ball,
@@ -266,7 +285,7 @@ namespace Layer {
         ...layerBase,
         Sprite: 'SciFiPanel',
         InheritColor: InheritColor.BaseMetal,
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Strap,
         Pri: (PriRef.Panel),
     }
     export const Panel: ModelLayer = {
@@ -284,18 +303,16 @@ namespace Layer {
         ...layerBase,
         Sprite: 'SciFiPlug',
         InheritColor: InheritColor.BaseMetal,
-        Layer: LayerIndex.Strap,
+        Layer: RelativeLayer.Body,
         Pri: (PriRef.Decoration + 40.0),
     }
     export const Plug: ModelLayer = {
         ...plugBase,
         Name: 'Plug',
-        Sprite: 'SciFiPlug',
     }
     export const PlugPort: ModelLayer = {
         ...plugBase,
-        Name: 'MuzzlePlug',
-        Layer: MapLayerIndex(Category.GagMuzzle, LayerIndex.Id),
+        Name: 'PlugPort',
     }
 }
 
@@ -519,9 +536,9 @@ const create = (args: {
     for (const sprite of GetSprites(variant)) {
         sprites.push({
             ...sprite,
-            Layer: MapLayerIndex(category, sprite.Layer),
+            Layer: MapLayerIndex(category, sprite.Layer as RelativeLayer),
             SwapLayerPose:
-                category === Category.GagMuzzle ?
+                CategoryToLayerMap[category] === GagLayerBase.GagFlat ?
                     {
                         ...sprite.SwapLayerPose,
                         "XrayFace": "MaskOver"

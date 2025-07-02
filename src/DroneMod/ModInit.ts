@@ -13,7 +13,7 @@
 import { Earphone } from './Futuristic/HeadSet/Headphone'
 import * as HeadSet from './Futuristic/HeadSet'
 import * as HolographicHeadSet from './Futuristic/HeadSet/Holographic'
-import * as OralDevice from './Futuristic/Gag/OralDevice'
+import * as OralDevice from './Futuristic/Gag/Muffler'
 
 
 (() => {
