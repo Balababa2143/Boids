@@ -41,7 +41,6 @@ const MakeBall = (args: { name: string, ball: BallKind }) => {
             __Type: StrapKindTags.None
         },
         Muzzle: MuzzleKind.None,
-        // Component: Component.PerioralClip
         Component: Component.None
     }
     const baseItem =
@@ -60,6 +59,7 @@ const MakeBall = (args: { name: string, ball: BallKind }) => {
             ...baseItem.requireSingleTagToEquip ?? [],
             BallSocket
         ],
+        alwaysInaccessible: true,
         events: [
             ...baseItem.events ?? [],
             {
@@ -68,7 +68,10 @@ const MakeBall = (args: { name: string, ball: BallKind }) => {
                 requiredTag: BallSocket,
                 inheritLinked: true
             }
-        ]
+        ],
+        escapeChance: {
+            Remove: -1
+        }
     }
 }
 
@@ -150,6 +153,7 @@ export const Plug = (() => {
                 ...baseItem.requireSingleTagToEquip ?? [],
                 PlugSocket
             ],
+            alwaysInaccessible: false,
             events: [
                 ...baseItem.events ?? [],
                 {

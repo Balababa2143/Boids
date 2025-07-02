@@ -149,8 +149,7 @@ const MakeMuzzle = (args: { name: string, variant: Variant }) => {
                 Enum.HasFlag(variant.Component, Component.PlugPort) ?
                     [PlugSocket] :
                     []
-            ),
-            "Block_ItemMouth"
+            )
         ],
         escapeChance: {
             Remove: 0.7,
@@ -250,7 +249,7 @@ export const Transparent1 =
             name: '{74668098-8709-4C77-82BE-5FE53D109D54}',
             variant: {
                 Ball: BallKind.None,
-                Strap: {__Type: StrapKindTags.None},
+                Strap: { __Type: StrapKindTags.None },
                 Muzzle: MuzzleKind.Transparent,
                 Component:
                     Component.OTNStrap |

@@ -607,10 +607,10 @@ declare global {
         ShopExclusives?: string[];
         ShopExclusivesArousal?: string[];
         enemyTags: string[];
-        "defeat_outfit": outfitKey;
+        'defeat_outfit': outfitKey;
         jailType?: string;
         guardType?: string;
-        "shrines": {
+        'shrines': {
             Type: string;
             Weight: number;
         }[];
@@ -3389,7 +3389,7 @@ declare global {
     function LoadNPC(id: number, Name: string, metadata: KDOutfitMetadata): Character;
     function CharacterReleaseTotal(C: Character): void;
     class TextResPathGenerator {
-        static readonly BASE_PATH = "Screens/MiniGame/KinkyDungeon";
+        static readonly BASE_PATH = 'Screens/MiniGame/KinkyDungeon';
         private file_path;
         private file_prefix;
         constructor(base_path: string, file_prefix: string);
@@ -3415,9 +3415,9 @@ declare global {
         static parseLines(text: string): string[];
         static parseTranslationText(text: string): LocalizationResources;
     }
-    const AvaliableLanguages: readonly ["EN", "CN", "DE", "ES", "JP", "KR", "RU"];
+    const AvaliableLanguages: readonly ['EN', 'CN', 'DE', 'ES', 'JP', 'KR', 'RU'];
     type LanguageIdentifier = (typeof AvaliableLanguages)[number];
-    const NormalSupportedLanguages: ("CN" | "DE" | "ES" | "JP" | "KR" | "RU")[];
+    const NormalSupportedLanguages: ('CN' | 'DE' | 'ES' | 'JP' | 'KR' | 'RU')[];
     type TextResKey = string;
     type TextResValue = string;
     type TextResMap = Map<TextResKey, TextResValue>;
@@ -3467,7 +3467,7 @@ declare global {
     }
     class TextProvider {
         private static _instance;
-        readonly defaultGroupId = "default";
+        readonly defaultGroupId = 'default';
         private _debugMode;
         private currentLanguage;
         private textGroupManager;
@@ -3755,7 +3755,7 @@ declare global {
     let KDSleepWillFractionJail: number;
     function KDGetSleepWillRegenHealthTo(): number;
     function KDCanSleep(): boolean;
-    function KDCanSleepTooltip(): "KDBedSleptLevel" | "KDBedWillNotLow";
+    function KDCanSleepTooltip(): 'KDBedSleptLevel' | 'KDBedWillNotLow';
     function KDSleep(entity?: entity, amount?: number): void;
     function KDSleepTick(): void;
     let KDOrgAfterglowTime: number;
@@ -6064,14 +6064,14 @@ declare global {
     let KinkyDungeonAutoWait: boolean;
     let KinkyDungeonAutoWaitStruggle: boolean;
     let KinkyDungeonConfigAppearance: boolean;
-    const Consumable = "consumable";
-    const Restraint = "restraint";
-    const LooseRestraint = "looserestraint";
-    const Outfit = "outfit";
-    const Accessory = "accessory";
-    const Weapon = "weapon";
-    const Misc = "misc";
-    const Armor = "armor";
+    const Consumable = 'consumable';
+    const Restraint = 'restraint';
+    const LooseRestraint = 'looserestraint';
+    const Outfit = 'outfit';
+    const Accessory = 'accessory';
+    const Weapon = 'weapon';
+    const Misc = 'misc';
+    const Armor = 'armor';
     let KinkyDungeonStatsChoice: Map<any, any>;
     let KDJourney: string;
     let KDOptOut: boolean;
@@ -6804,7 +6804,7 @@ declare global {
     function KinkyDungeonPlaceJailEntrances(width: number, height: number, altType?: any): void;
     function KinkyDungeonPlaceFurniture(barrelChance: number, cageChance: number, width: number, height: number, altType: any): void;
     let KDFood: {
-        "": {
+        '': {
             Food: string;
             Weight: number;
         };
@@ -7462,140 +7462,140 @@ declare global {
         customSprite?: undefined;
     })[]>;
     let KDPatronsSpecial: {
-        "Anonymous ": number;
+        'Anonymous ': number;
         cyberjoel: number;
-        "finn ": number;
-        "Samantha Lear": number;
-        "Private ": number;
-        "Chet Vargas": number;
-        "Siegfried K\u00FCbler": number;
+        'finn ': number;
+        'Samantha Lear': number;
+        'Private ': number;
+        'Chet Vargas': number;
+        'Siegfried K\u00FCbler': number;
         Song: number;
-        "The-Fisher-King": number;
+        'The-Fisher-King': number;
         Churro: number;
-        "Laioken ": number;
-        "Wyatt Wintersoul": number;
-        "Dex\u266A ": number;
-        "Anthony Royle": number;
-        "Shogo ": number;
-        "Gamefan ": number;
-        "Blox ": number;
-        "Jerome Peterson": number;
-        "selly-grim ": number;
-        "Alexis Octavia": number;
-        "Noxgarm ": number;
+        'Laioken ': number;
+        'Wyatt Wintersoul': number;
+        'Dex\u266A ': number;
+        'Anthony Royle': number;
+        'Shogo ': number;
+        'Gamefan ': number;
+        'Blox ': number;
+        'Jerome Peterson': number;
+        'selly-grim ': number;
+        'Alexis Octavia': number;
+        'Noxgarm ': number;
         Slacker: number;
-        "Hellgete ": number;
-        "Flame ": number;
-        "WATA ": number;
+        'Hellgete ': number;
+        'Flame ': number;
+        'WATA ': number;
         FrenzyFlame: number;
-        "Kieraakari ": number;
+        'Kieraakari ': number;
         Loudest_Quiet_Person: number;
         Rest: number;
-        "atetete ": number;
-        "Mechio ": number;
-        "Dazman1234 ": number;
+        'atetete ': number;
+        'Mechio ': number;
+        'Dazman1234 ': number;
         Thefabulousglaceon: number;
         Rika: number;
-        "0xA4C1B842": number;
-        "LukeB ": number;
-        "devan ": number;
+        '0xA4C1B842': number;
+        'LukeB ': number;
+        'devan ': number;
         Physicsphail: number;
         Miro: number;
-        "Loony ": number;
+        'Loony ': number;
         WhiteSniper: number;
         Thatguu: number;
-        "Somprad ": number;
-        "Geng114514 ": number;
-        "John  Toenniessen": number;
-        "Cat Hawke": number;
+        'Somprad ': number;
+        'Geng114514 ': number;
+        'John  Toenniessen': number;
+        'Cat Hawke': number;
         Míša: number;
-        "RappyTheToy ": number;
+        'RappyTheToy ': number;
         Diablo200: number;
-        "Cerb ": number;
-        "isaiah lewis": number;
+        'Cerb ': number;
+        'isaiah lewis': number;
         Mellenia: number;
         LordFabricator: number;
-        "Zero K": number;
-        "Dakra ": number;
-        "Victor ": number;
-        "damit damit": number;
-        "nnm711 ": number;
+        'Zero K': number;
+        'Dakra ': number;
+        'Victor ': number;
+        'damit damit': number;
+        'nnm711 ': number;
         Dragokahn: number;
         Meekohi: number;
-        "Phoenix ": number;
-        "zipidyzap ": number;
+        'Phoenix ': number;
+        'zipidyzap ': number;
         Cera: number;
-        "CuvyanTaylor ": number;
-        "anton allison": number;
-        "Shrimpy ": number;
-        "Tatsuya Shiba": number;
-        "Snekus ": number;
+        'CuvyanTaylor ': number;
+        'anton allison': number;
+        'Shrimpy ': number;
+        'Tatsuya Shiba': number;
+        'Snekus ': number;
         nuzzels: number;
-        "Minescence ": number;
-        "HanQing Zhao": number;
-        "James Kirkman": number;
-        "OTKTamashii ": number;
-        "darklink11 ": number;
+        'Minescence ': number;
+        'HanQing Zhao': number;
+        'James Kirkman': number;
+        'OTKTamashii ': number;
+        'darklink11 ': number;
         Hannes: number;
-        "Arentios ": number;
+        'Arentios ': number;
         Nymjii: number;
         Linex: number;
-        "Mister Mythe": number;
-        "CMDR Salen": number;
-        "bl ah": number;
+        'Mister Mythe': number;
+        'CMDR Salen': number;
+        'bl ah': number;
         Salmon: number;
         Trinan: number;
         sqrt10pi: number;
-        "hopefast ": number;
+        'hopefast ': number;
         jeepk36: number;
         Shakymunch: number;
         Samsy: number;
-        "Pyros51 ": number;
+        'Pyros51 ': number;
         Aussie895: number;
         Hungvipbcsok: number;
-        "hideki hirose": number;
-        "Girador ": number;
-        "Traynfreek ": number;
+        'hideki hirose': number;
+        'Girador ': number;
+        'Traynfreek ': number;
         GRASS: number;
-        "Heavy Blues": number;
-        "Pyron ": number;
-        "Kritsanapong Jarutatpimol": number;
-        "Hanqing Zhao": number;
-        "Yagami Yami": number;
-        "Wossa ": number;
+        'Heavy Blues': number;
+        'Pyron ': number;
+        'Kritsanapong Jarutatpimol': number;
+        'Hanqing Zhao': number;
+        'Yagami Yami': number;
+        'Wossa ': number;
         FlameTail: number;
-        "\u706B\u62AB\u85A9 \u6C34": number;
-        "Sewdah nim": number;
+        '\u706B\u62AB\u85A9 \u6C34': number;
+        'Sewdah nim': number;
         Crimson: number;
         X27: number;
         Nyarlato: number;
         Nightkin: number;
         Sylicix: number;
-        "Null Fame": number;
-        "AdventCirno ": number;
-        "Sera The Crocsune": number;
-        "Masaki Hara": number;
-        "Eric Rothman": number;
-        "\uC601\uC2B9 \uBC15": number;
-        "Claire Stephens": number;
-        "koch ": number;
+        'Null Fame': number;
+        'AdventCirno ': number;
+        'Sera The Crocsune': number;
+        'Masaki Hara': number;
+        'Eric Rothman': number;
+        '\uC601\uC2B9 \uBC15': number;
+        'Claire Stephens': number;
+        'koch ': number;
         Joecoolzx: number;
-        "\u68EE \u97E9": number;
-        "ComradeArmtyom ": number;
-        "Hjake2 ": number;
-        "Chen yu": number;
+        '\u68EE \u97E9': number;
+        'ComradeArmtyom ': number;
+        'Hjake2 ': number;
+        'Chen yu': number;
         Sinohisaki: number;
-        "linlizheng ": number;
+        'linlizheng ': number;
         john1304: number;
         Zora: number;
-        "suddys ": number;
-        "Robert Gomez": number;
-        "\u4EA6\u658C \u9673": number;
+        'suddys ': number;
+        'Robert Gomez': number;
+        '\u4EA6\u658C \u9673': number;
         Feltenix: number;
-        "Aika ": number;
+        'Aika ': number;
         sCaREaGle: number;
-        "Mike Salot": number;
-        "Roger Gamer": number;
+        'Mike Salot': number;
+        'Roger Gamer': number;
     };
     let KDPatrons: string[];
     function KDProcessCustomPatron(Enemy: enemy, e: entity, chanceBoost: number, makePersistent: boolean): any;
@@ -7873,7 +7873,7 @@ declare global {
     function KDGetCursedEpicenterLoot(enemy: entity): string;
     function KDSummonCurseTrap(x: number, y: number): entity;
     function KDGenerateMinorLoot(lootType: string, coord: WorldCoord, tile: any, x: number, y: number, container: KDContainer): void;
-    function KDGetCursedSuffix(armor: string): "" | "Common" | "Cursed";
+    function KDGetCursedSuffix(armor: string): '' | 'Common' | 'Cursed';
     function KDGetCursedTags(item: item): string[];
     let KDTooltipListExtraCutoff: number;
     let KDTooltipListExtraCutoffHigh: number;
@@ -8308,7 +8308,7 @@ declare global {
     let KDStrictPersonalities: string[];
     let KDLoosePersonalities: string[];
     let KDEnemyPersonalities: {
-        "": {
+        '': {
             weight: number;
             loose: boolean;
             strict: boolean;
@@ -8888,7 +8888,7 @@ declare global {
     let KDLeashPullCost: number;
     let KDLeashPullKneelTime: number;
     let KDLeashablePersonalities: {
-        "": (entity: entity, leasher: entity) => boolean;
+        '': (entity: entity, leasher: entity) => boolean;
         Dom: (entity: entity, leasher: entity) => boolean;
         Sub: (entity: entity, leasher: entity) => boolean;
         Brat: (entity: entity, leasher: entity) => boolean | KDLeashData;
@@ -9630,7 +9630,7 @@ declare global {
     };
     function KDGetGameContextActionsVanilla(draw: boolean, options: string[], optionImages: Record<string, string>, optionActions: Record<string, (mouseX: number, mouseY: number) => void>, optionGrey: Record<string, boolean>, optionText: Record<string, string>, optionColor: Record<string, string>): void;
     function KDGetRestraintContextActionsVanilla(item: item, sg: StruggleGroup, index: number, target: entity, entity: entity, draw: boolean, options: string[], optionImages: Record<string, string>, optionActions: Record<string, (mouseX: number, mouseY: number) => void>, optionGrey: Record<string, boolean>, optionText: Record<string, string>, optionColor: Record<string, string>): void;
-    function KDContextMenuWeaponSpecialSuff(special: KDWeaponSpecial): "" | "attack" | "ignite" | "hitorspell" | "selfcast";
+    function KDContextMenuWeaponSpecialSuff(special: KDWeaponSpecial): '' | 'attack' | 'ignite' | 'hitorspell' | 'selfcast';
     function KDShowInventory(container: string[]): void;
     let KinkyDungeonKilledEnemy: any;
     let KinkyDungeonAlert: number;
@@ -10741,49 +10741,49 @@ declare global {
             costMod: number;
             shop: boolean;
         };
-        "3Bola": {
+        '3Bola': {
             name: string;
             consumable: string;
             quantity: number;
             rarity: number;
             shop: boolean;
         };
-        "3Bomb": {
+        '3Bomb': {
             name: string;
             consumable: string;
             quantity: number;
             rarity: number;
             shop: boolean;
         };
-        "2Dynamite": {
+        '2Dynamite': {
             name: string;
             consumable: string;
             quantity: number;
             rarity: number;
             shop: boolean;
         };
-        "2C4": {
+        '2C4': {
             name: string;
             consumable: string;
             quantity: number;
             rarity: number;
             shop: boolean;
         };
-        "3Flash": {
+        '3Flash': {
             name: string;
             consumable: string;
             quantity: number;
             rarity: number;
             shop: boolean;
         };
-        "3Flashbang": {
+        '3Flashbang': {
             name: string;
             consumable: string;
             quantity: number;
             rarity: number;
             shop: boolean;
         };
-        "3Smoke": {
+        '3Smoke': {
             name: string;
             consumable: string;
             quantity: number;
@@ -11295,8 +11295,8 @@ declare global {
         JourneyChoice: (_x: any, _y: any, _tile: any, data: any) => string;
     };
     let KDCancelFilters: {
-        JourneyChoice: (_x: any, _y: any, _tile: any, data: any) => "" | "JourneyChoice";
-        ProtectOldSaves: (_x: any, _y: any, _tile: any, data: any) => "" | "NoJourneyTarget";
+        JourneyChoice: (_x: any, _y: any, _tile: any, data: any) => '' | 'JourneyChoice';
+        ProtectOldSaves: (_x: any, _y: any, _tile: any, data: any) => '' | 'NoJourneyTarget';
     };
     function KDWettable(entity: entity): boolean;
     function KDConducting(entity: entity): boolean;
@@ -11757,8 +11757,8 @@ declare global {
     let KDJAILPOWER: number;
     let KDPRISONGROUPS: string[][];
     let KDPrisonTypes: Record<string, KDPrisonType>;
-    function KDLostJailTrack(player: any): "" | "Furniture" | "InTraining" | "Unaware";
-    function KDLostJailTrackCell(player: any): "" | "Furniture" | "InTraining" | "Unaware" | "InCell";
+    function KDLostJailTrack(player: any): '' | 'Furniture' | 'InTraining' | 'Unaware';
+    function KDLostJailTrackCell(player: any): '' | 'Furniture' | 'InTraining' | 'Unaware' | 'InCell';
     function KDGetJailEnemy(): enemy;
     let KDJailStripSearchTime: number;
     let KDJailStripSearchTempTime: number;
@@ -11891,7 +11891,7 @@ declare global {
     function KDCreateDoors(Left: number, Top: number, Width: number, Height: number, openChance?: number, convertDoodads?: boolean): void;
     function KDPlaceChest(cornerX: number, cornerY: number, _radius: number, chestlist: ChestEntry[], spawnPoints: SpawnEntry[], NoAddToChestList?: boolean): string;
     function KDAddPipes(pipechance: number, pipelatexchance: number, thinlatexchance: number, heavylatexspreadchance: number): void;
-    function KDGetNPCRestraintJailDialogueType(restraint: NPCRestraint): "PrisonerLatex" | "PrisonerJail";
+    function KDGetNPCRestraintJailDialogueType(restraint: NPCRestraint): 'PrisonerLatex' | 'PrisonerJail';
     function KDImprisonEnemy(e: entity, noJam: boolean, dialogue?: string, restraint?: NPCRestraint, restraintSet?: Record<string, number>, faction?: string, force?: boolean, LevelBonus?: number): boolean;
     let KDDialogueData: {
         CurrentDialogueIndex: number;
@@ -12009,8 +12009,8 @@ declare global {
     let KDSleepBedPercentage: number;
     let KDDialogue: Record<string, KinkyDialogue>;
     enum KDSkillCheckType {
-        Fitness = "Fitness",
-        Agility = "Agility"
+        Fitness = 'Fitness',
+        Agility = 'Agility'
     }
     let KDSkillCheckTypes: Record<KDSkillCheckType, ((en: entity, player: entity, target: entity, diffMod: number) => number)>;
     function KDGetSkillCheck(en: entity, player: entity, target: entity, type: KDSkillCheckType, diffMod?: number): number;
@@ -14555,17 +14555,17 @@ declare global {
         };
     };
     let KDMusicLoopTracksChance: {
-        "AREA1-GRAVEYARD.ogg": number;
-        "AREA2-ANCIENTTOMBS.ogg": number;
-        "GENERIC-DOLLRACK.ogg": number;
-        "AREA4-MAGICLIBRARY.ogg": number;
-        "AREA5-UNDERGROUNDJUNGLE.ogg": number;
-        "AREA6-CRYSTALCAVE.ogg": number;
-        "AREA7-LOSTTEMPLE.ogg": number;
-        "AREA8-ORRERY.ogg": number;
-        "AREA9-BELLOWS.ogg": number;
-        "Shopping.ogg": number;
-        "slimy_science_1.ogg": number;
+        'AREA1-GRAVEYARD.ogg': number;
+        'AREA2-ANCIENTTOMBS.ogg': number;
+        'GENERIC-DOLLRACK.ogg': number;
+        'AREA4-MAGICLIBRARY.ogg': number;
+        'AREA5-UNDERGROUNDJUNGLE.ogg': number;
+        'AREA6-CRYSTALCAVE.ogg': number;
+        'AREA7-LOSTTEMPLE.ogg': number;
+        'AREA8-ORRERY.ogg': number;
+        'AREA9-BELLOWS.ogg': number;
+        'Shopping.ogg': number;
+        'slimy_science_1.ogg': number;
     };
     let KDMusicUpdateTime: number;
     let KDMusicUpdateDuration: number;
@@ -14701,7 +14701,7 @@ declare global {
     function KDCanDrop(item: item): boolean;
     function KDValidateContainer(container: KDContainer): string;
     let KDSpecialContainers: {
-        WardenChest: (container: KDContainer) => "" | "KDWardenNeedSummit";
+        WardenChest: (container: KDContainer) => '' | 'KDWardenNeedSummit';
         PlayerChest: (container: KDContainer) => string;
     };
     let KDContainerVal: {};
@@ -15193,16 +15193,16 @@ declare global {
     let KDGetMods: boolean;
     let KDOffline: boolean;
     let KDModCompat: {
-        "KinkyDungeonHiddenFactions.push(": string;
-        "KDSetNPCLocation(": string;
-        "KinkyDungeonChangeDesire(": string;
-        "KinkyDungeonChangeCharge(": string;
-        "KinkyDungeonChangeWill(": string;
-        "KinkyDungeonChangeStamina(": string;
-        "KinkyDungeonChangeMana(": string;
-        "KDChangeBalance(": string;
-        "KinkyDungeonChangeDistraction(": string;
-        "KinkyDungeonCanPickStat(": string;
+        'KinkyDungeonHiddenFactions.push(': string;
+        'KDSetNPCLocation(': string;
+        'KinkyDungeonChangeDesire(': string;
+        'KinkyDungeonChangeCharge(': string;
+        'KinkyDungeonChangeWill(': string;
+        'KinkyDungeonChangeStamina(': string;
+        'KinkyDungeonChangeMana(': string;
+        'KDChangeBalance(': string;
+        'KinkyDungeonChangeDistraction(': string;
+        'KinkyDungeonCanPickStat(': string;
     };
     function CharacterLoadCanvas(): void;
     let KDModToggleTab: string;
