@@ -10,7 +10,7 @@ export const Muffler = "{89CB8E40-CDE3-4D12-B24A-150B61C7FF8B}"
 /**
  * Socket for muffler, required for mufflers to be equipped.
  */
-export const MufflerSocket = "{C48EFD5E-E76F-4ED5-AEDD-C2110FC09EB4}"
+export const BallSocket = "{C48EFD5E-E76F-4ED5-AEDD-C2110FC09EB4}"
 
 /**
  * Socket for plug, required for plugs to be equipped.
@@ -23,22 +23,45 @@ const MakeMuffler = (args: { name: string, variant: Variant }) => {
         MakeItem({ name, category: Category.Stuffing, variant })
     return <restraint>{
         ...baseItem,
-        shrine:[
+        shrine: [
             ...baseItem.shrine,
             Muffler,
         ],
         LinkableBy: [
             ...baseItem.LinkableBy ?? [],
-            MufflerSocket,
             Muffler,
         ],
         renderWhenLinked: [
             ...baseItem.renderWhenLinked ?? [],
-            MufflerSocket,
             Muffler
         ],
         linkCategory: OralDeviceLinkCategory,
         linkSize: 0.7,
+    }
+}
+
+const MakeBall = (args: { name: string, ball: BallKind }) => {
+    const { name, ball } = args
+    const variant: Variant = {
+        Ball: ball,
+        Strap: {
+            __Type: StrapKindTags.None
+        },
+        Muzzle: MuzzleKind.None,
+        Component: Component.PerioralClip
+    }
+    const baseItem =
+        MakeMuffler({ name, variant })
+    return <restraint>{
+        ...baseItem,
+        LinkableBy: [
+            ...baseItem.LinkableBy ?? [],
+            BallSocket,
+        ],
+        renderWhenLinked: [
+            ...baseItem.renderWhenLinked ?? [],
+            BallSocket,
+        ],
         // requireSingleTagToEquip: [
         //     ...baseItem.requireSingleTagToEquip ?? [],
         //     MufflerSocket
@@ -53,19 +76,6 @@ const MakeMuffler = (args: { name: string, variant: Variant }) => {
         //     }
         // ]
     }
-}
-
-const MakeBall = (args: { name: string, ball: BallKind }) => {
-    const { name, ball } = args
-    const variant: Variant = {
-        Ball: ball,
-        Strap: {
-            __Type: StrapKindTags.None
-        },
-        Muzzle: MuzzleKind.None,
-        Component: Component.PerioralClip
-    }
-    return MakeMuffler({ name, variant })
 }
 
 const addBall = (args: {
@@ -141,7 +151,7 @@ export const Plug = (() => {
     return KDEx.AddRestraintWithText(
         {
             ...baseItem,
-            linkSize: 0.6, 
+            linkSize: 0.6,
             LinkableBy: [
                 ...baseItem.LinkableBy ?? [],
                 PlugSocket,
