@@ -10,10 +10,10 @@
     })
 })();
 
-import { Earphone } from './Futuristic/HeadSet/Headphone';
+import { Earphone } from './Futuristic/HeadSet/Headphone'
 import * as HeadSet from './Futuristic/HeadSet'
 import * as HolographicHeadSet from './Futuristic/HeadSet/Holographic'
-import * as GagMetal from './Futuristic/Gag/GagMetal'
+import * as OralDevice from './Futuristic/Gag/OralDevice'
 
 
 (() => {
@@ -65,7 +65,8 @@ import * as GagMetal from './Futuristic/Gag/GagMetal'
         () => {
             [
                 Earphone,
-                HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1))
+                HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)),
+                OralDevice.NonMuffler,
             ]
             .forEach(AddWeaker)
         },
@@ -75,17 +76,3 @@ import * as GagMetal from './Futuristic/Gag/GagMetal'
         }
     )
 })();
-
-const gag: GagMetal.Variant = {
-    Ball:GagMetal.BallKind.None,
-    Muzzle: GagMetal.MuzzleKind.OTN,
-    Strap: {
-        __Type: GagMetal.StrapKindTags.Harness,
-        Detail: GagMetal.StrapDetail.Segmented
-    },
-    Component:
-        GagMetal.Component.CheekDisplay |
-        GagMetal.Component.PerioralClip
-}
-
-console.log('Gag is defined:', GagMetal.Variant.Verify(gag))

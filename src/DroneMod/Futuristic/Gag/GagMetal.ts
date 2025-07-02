@@ -29,7 +29,7 @@ enum PriRef {
     Decoration = 100.0
 }
 
-enum Category {
+export enum Category {
     Gag = 'Gag',
     GagFlat = 'GagFlat',
     GagMuzzle = 'GagMuzzle'
@@ -292,7 +292,7 @@ namespace Layer {
         Name: 'Plug',
         Sprite: 'SciFiPlug',
     }
-    export const MuzzlePlug: ModelLayer = {
+    export const PlugPort: ModelLayer = {
         ...plugBase,
         Name: 'MuzzlePlug',
         Layer: MapLayerIndex(Category.GagMuzzle, LayerIndex.Id),
@@ -312,7 +312,7 @@ export enum Component {
     OTNStrap = 1 << 5,
     Panel = 1 << 6,
     Plug = 1 << 7,
-    MuzzlePlug = 1 << 8,
+    PlugPort = 1 << 8,
 }
 
 export enum MuzzleKind {
@@ -348,8 +348,8 @@ export type StrapKind =
 namespace StrapKind {
     export const ToStringKey = (strapKind: StrapKind) => {
         `${StrapKindTags[strapKind.__Type]}${strapKind.__Type === StrapKindTags.None ?
-                '' :
-                Enum.GetSetFlags(StrapDetail, strapKind.Detail).join('-')
+            '' :
+            Enum.GetSetFlags(StrapDetail, strapKind.Detail).join('-')
             }`
     }
 }
@@ -479,29 +479,29 @@ function* GetSprites(variant: Variant): Iterable<ModelLayer> {
         yield Layer.PerioralClip
         yield Layer.PerioralClipLight
     }
-    else if (Enum.HasFlag(variant.Component, Component.CheekDisplay)) {
+    if (Enum.HasFlag(variant.Component, Component.CheekDisplay)) {
         yield Layer.CheekDisplay
         yield Layer.CheekDisplayLight
     }
-    else if (Enum.HasFlag(variant.Component, Component.GlabellaDisplay)) {
+    if (Enum.HasFlag(variant.Component, Component.GlabellaDisplay)) {
         yield Layer.GlabellaDisplay
         yield Layer.GlabellaDisplayLight
     }
-    else if (Enum.HasFlag(variant.Component, Component.OTNRivets)) {
+    if (Enum.HasFlag(variant.Component, Component.OTNRivets)) {
         yield Layer.OTNRivets
     }
-    else if (Enum.HasFlag(variant.Component, Component.OTNStrap)) {
+    if (Enum.HasFlag(variant.Component, Component.OTNStrap)) {
         yield Layer.OTNStrap
         yield Layer.OTNStrapRivits
     }
-    else if (Enum.HasFlag(variant.Component, Component.Panel)) {
+    if (Enum.HasFlag(variant.Component, Component.Panel)) {
         yield Layer.Panel
     }
-    else if (Enum.HasFlag(variant.Component, Component.Plug)) {
+    if (Enum.HasFlag(variant.Component, Component.Plug)) {
         yield Layer.Plug
     }
-    else if (Enum.HasFlag(variant.Component, Component.MuzzlePlug)) {
-        yield Layer.MuzzlePlug
+    if (Enum.HasFlag(variant.Component, Component.PlugPort)) {
+        yield Layer.PlugPort
     }
 }
 
@@ -560,7 +560,10 @@ const create = (args: {
 
 /**
  * Get model text key based on given parameters
- * @param args 
+ * @param args
+ * @description
+ *  Lazily inject model into ModelDefs
+ *  to prevent cluttering.
  */
 export const GetGagMetal = (args: { category: Category, variant: Variant }) => {
     const { category, variant } = args
@@ -610,7 +613,4 @@ const InjectAllModels = () =>
                         })
                 })
         })
-
-InjectAllModels()
-
 //#endregion

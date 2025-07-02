@@ -1,69 +1,143 @@
 import * as KDEx from '../../../KDInterface/KDExtension'
+import * as Enum from '../../../Utilities/Enum'
 import { FactionFilter } from '../../../KDInterface/TextKey'
-import { InheritColor } from './GagMetal'
+import { BallKind, Category, Component, GetGagMetal, InheritColor, MuzzleKind, StrapDetail, StrapKindTags, Variant } from './GagMetal'
 
-export enum LinkPriority {
-    Muzzle = 50,
-    MuzzleMuffler = Muzzle - 10,
-    MuzzlePlug = Muzzle + 10
+const GetGagStrength = (variant: Variant) => {
+    Variant.Verify(variant)
+    return [
+        {
+            [BallKind.None]: 0,
+            [BallKind.Ball]: 0.3,
+            [BallKind.BigBall]: 0.6,
+        }[variant.Ball],
+        {
+            [MuzzleKind.None]: 0,
+            [MuzzleKind.Metal]: 0.15,
+            [MuzzleKind.Transparent]: 0.1,
+            [MuzzleKind.OTN]: 0.3,
+        }[variant.Muzzle],
+        {
+            [StrapKindTags.None]: 0,
+            [StrapKindTags.Strap]: 0.05,
+            [StrapKindTags.Harness]: 0.2
+        }[variant.Strap.__Type],
+        ...(function* () {
+            const strengthMap = [
+                [StrapDetail.Segmented, 0.0125],
+                [StrapDetail.SideStrap, 0.025],
+            ]
+            if (variant.Strap.__Type !== StrapKindTags.None) {
+                for (const [flag, strength] of strengthMap) {
+                    if (Enum.HasFlag(variant.Strap.Detail, flag)) {
+                        yield strength
+                    }
+                }
+            }
+        })(),
+        ...(function* () {
+            const strengthMap = [
+                [Component.PerioralClip, 0.05],
+                [Component.Panel, 0.125],
+                [Component.Plug, 0.9],
+                [Component.OTNRivets, 0.05],
+                [Component.OTNStrap, 0.15],
+                [Component.GlabellaDisplay, 0.025],
+                [Component.CheekDisplay, 0.075]
+            ]
+            for (const [flag, strength] of strengthMap) {
+                if (Enum.HasFlag(variant.Component, flag)) {
+                    yield strength
+                }
+            }
+        })()
+    ].reduce((a, b) => a + b)
 }
 
-/** Shrine for muzzle that can be mounted by mufflers */
-export const MufflerSocket = "{DC286164-4B5D-41DD-A260-72EAE44C610D}"
+/**
+ * Generate restraint template from given parameter.
+ * @param args.name
+ *  Text key for the generated template.
+ * @param args.category
+ *  Used to set model layering parameters.
+ * @param args.variant
+ *  Specify model details, as well as gag mechanic parameters.
+ * @returns 
+ *  A restraint template with model and properties set to variant.
+ */
+export const MakeItem = (args: { name: string, category: Category, variant: Variant }) => {
+    const { name, category, variant } = args
+    const link = {
+        [Category.Gag]: KDBallGagLink,
+        [Category.GagFlat]: KDFlatGagLink,
+        [Category.GagMuzzle]: KDMuzzleGagLink
+    }[category]
 
-/** Shrine for muzzle that can be mounted by mufflers */
-export const Muffler = "{4339E6A8-D10E-4AB1-83BA-0A354B296CEE}"
+    // Order of shrine affect inventory icon
+    const gagType = (function* () {
+        if (Enum.HasFlag(variant.Component, Component.Plug)) {
+            yield 'PlugGags'
+        }
+        if (
+            variant.Muzzle !== MuzzleKind.None ||
+            Enum.HasFlag(variant.Component, Component.Panel)
+        ) {
+            yield 'FlatGags'
+        }
+        if (variant.Ball != BallKind.None) {
+            yield 'BallGags'
+        }
+    })()
 
-/** Shrine for muzzle that can be mounted by mufflers */
-export const MuzzleAttachment = "{F38A19FC-CE21-48FD-AEB6-77E29C8B60D8}"
+    return <restraint>{
+        name,
+        Model: GetGagMetal({ category, variant }),
+        shrine: [
+            "Gags",
+            ...gagType
+        ],
+        LinkableBy: link,
+        gag: GetGagStrength(variant),
 
-export const PlugSocket = "{A5D48002-9255-48AF-A7A9-23885EC910AD}"
+        Group: "ItemMouth",
+        noShrine: true,
+        // inventory: false,
+        special: true,
+        // noDupe: true,
 
-export const Plug = "{B5B65E3B-B0A6-46DA-91C3-FF115639C001}"
-
-const itemBase: restraint = {
-    name: "",
-    Group: "ItemMouth",
-    shrine: ["Gags", "Metal"],
-    noShrine: true,
-    // TODO: Disable this for mounted items
-    inventory: true,
-    special: true,
-    Model: "",
-    noDupe: true,
-
-    factionFilters: {
-        [InheritColor.BaseMetal]: {
-            color: FactionFilter.LightNeutral,
-            override: true
+        factionFilters: {
+            [InheritColor.BaseMetal]: {
+                color: FactionFilter.LightNeutral,
+                override: true
+            },
+            [InheritColor.DecorationMetal]: {
+                color: FactionFilter.DarkNeutral,
+                override: true
+            },
+            [InheritColor.Light]: {
+                color: FactionFilter.Highlight,
+                override: true
+            },
+            [InheritColor.Ball]: {
+                color: FactionFilter.Catsuit,
+                override: false
+            },
         },
-        [InheritColor.DecorationMetal]: {
-            color: FactionFilter.DarkNeutral,
-            override: true
+
+        escapeChance: {
+            Remove: 0.7,
+            Struggle: 0.05,
+            Unlock: 0.44,
+            Pick: 0.27,
+            Cut: 0.16
         },
-        [InheritColor.Light]: {
-            color: FactionFilter.Highlight,
-            override: true
-        },
-        [InheritColor.Ball]: {
-            color: FactionFilter.Catsuit,
-            override: false
-        },
-    },
 
+        power: 0,
+        weight: 0,
+        minLevel: 0,
+        allFloors: true,
 
-    escapeChance: {
-        Remove: 0.2,
-        Struggle: -1,
-        Unlock: 0.32,
-        Cut: -0.8
-    },
-
-    power: 0,
-    weight: 0,
-    minLevel: 0,
-    allFloors: true,
-
-    playerTags: {},
-    enemyTags: {}
+        playerTags: {},
+        enemyTags: {}
+    }
 }
