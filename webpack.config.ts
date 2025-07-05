@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as archiver from 'archiver'
 import webpack from 'webpack'
-import {CleanWebpackPlugin} from 'clean-webpack-plugin'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 
 const EntryFile = 'src/DroneMod/ModInit.ts'
 const BundleDir = 'Bundle'
