@@ -121,7 +121,13 @@ function Configurate(): webpack.Configuration {
             rules: [
                 {
                     test: /\.ts?$/,
-                    use: 'ts-loader',
+                    use: {
+                        'loader': 'ts-loader',
+                        'options': {
+                            'projectReferences': true,
+                            ignoreDiagnostics: [2742]
+                        }
+                    },
                     exclude: /node_modules/,
                 },
             ],

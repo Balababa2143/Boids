@@ -7,7 +7,7 @@
         "noFallthroughCasesInSwitch": true,
         "target": "ESNext",
         "module": "ESNext",
-        "moduleResolution": "Node",
+        "moduleResolution": "bundler",
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
         "allowJs": true,
@@ -31,5 +31,13 @@
         "compilerOptions": {
             "module": "CommonJS"
         }
-    }
+    },
+    "references": [
+        {
+            "path": "./KDInterface/Structured"
+        },
+        {
+            "path": "./KDInterface/KinkyDungeon"
+        }
+    ]
 }

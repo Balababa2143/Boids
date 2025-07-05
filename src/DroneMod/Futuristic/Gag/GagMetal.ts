@@ -184,35 +184,35 @@ namespace Layer {
     export const BallStrap: ModelLayer = {
         ...layerBase,
         Name: LayerName.Strap,
-        Layer: 'GagWrap',
+        Layer: 'GagStrapsUnder',
         Sprite: 'BallStrap',
         Pri: (PriRef.Ball + 15.0),
     }
     export const BigBallStrap: ModelLayer = {
         ...layerBase,
         Name: LayerName.Strap,
-        Layer: 'GagWrap',
+        Layer: 'GagStrapsUnder',
         Sprite: 'BigBallStrap',
         Pri: (PriRef.Ball + 15.0),
     }
     export const BigBallStrapSegmented: ModelLayer = {
         ...layerBase,
         Name: LayerName.Strap,
-        Layer: 'GagWrap',
+        Layer: 'GagStrapsUnder',
         Sprite: 'BigBallStrapSegmented',
         Pri: (PriRef.Ball + 15.0),
     }
     export const SideStrap: ModelLayer = {
         ...layerBase,
         Name: 'SideStrap',
-        Layer: 'GagStraps',
+        Layer: RelativeLayer.Strap,
         Sprite: 'BallSideStrap',
         Pri: (PriRef.Ball + 20.0),
     }
     export const BallHarness: ModelLayer = {
         ...layerBase,
         Name: LayerName.Harness,
-        Layer: 'GagWrap',
+        Layer: 'GagStrapsUnder',
         Sprite: 'BallHarness',
         Pri: (PriRef.Ball + 10.0),
         AppendPose: {
@@ -222,7 +222,7 @@ namespace Layer {
     export const BallHarnessSegmented: ModelLayer = {
         ...layerBase,
         Name: LayerName.Harness,
-        Layer: 'GagWrap',
+        Layer: 'GagStrapsUnder',
         Sprite: 'BallHarnessSegmented',
         Pri: (PriRef.Ball + 10.0),
         AppendPose: {

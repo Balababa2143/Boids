@@ -10,26 +10,23 @@
     })
 })();
 
+import { KinkyDungeonAddRestraintIfWeaker } from '../../KDInterface/Structured/src/KinkyDungeonAddRestraintIfWeaker';
+
 import { Earphone } from './Futuristic/HeadSet/Headphone'
 import * as HeadSet from './Futuristic/HeadSet'
 import * as HolographicHeadSet from './Futuristic/HeadSet/Holographic'
 import * as OralDevice from './Futuristic/Gag/Muffler'
-import * as FaceCover from './Futuristic/Gag/FaceCover';
+import * as FaceCover from './Futuristic/Gag/FaceCover'
 
 
 (() => {
     const AddWeaker = (r: string | restraint) =>
-        KinkyDungeonAddRestraintIfWeaker(
-            r,
-            10,
-            true,
-            'Cyber3',
-            undefined,
-            undefined,
-            undefined,
-            'Dollsmith',
-            true
-        )
+        KinkyDungeonAddRestraintIfWeaker({
+            restraint: r,
+            Tightness:10,
+            Bypass: true,
+            Lock: 'Cyber3',
+        })
     KDCategoriesStart.push(
         {name: "Drone Sensory Set1", buffs: [], debuffs: []},
         {name: "Drone Sensory Set2", buffs: [], debuffs: []},

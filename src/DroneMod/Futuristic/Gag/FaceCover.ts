@@ -194,7 +194,8 @@ export const MetalMuzzle2 =
                 Strap: { __Type: StrapKindTags.None },
                 Muzzle: MuzzleKind.Metal,
                 Component:
-                    Component.PerioralClip
+                    Component.PerioralClip |
+                    Component.CheekDisplay
             }
         }),
         {
@@ -274,7 +275,8 @@ export const Transparent2 =
                 },
                 Muzzle: MuzzleKind.Transparent,
                 Component:
-                    Component.PerioralClip
+                    Component.CheekDisplay |
+                    Component.GlabellaDisplay
             }
         }),
         {
