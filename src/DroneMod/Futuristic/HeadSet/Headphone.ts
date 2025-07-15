@@ -3,7 +3,7 @@ import { FactionFilter } from '../../../KDInterface/TextKey'
 import { ItemArchetype, ModelSetRootDir } from '../Futuristic'
 import { VisorSocket } from './Common'
 
-export enum PatchedElfEar {
+enum PatchedElfEar {
     Any = 'ElfEar',
     Standard = 'ElfEarsStandard',
     Long = 'ElfEarsLong',

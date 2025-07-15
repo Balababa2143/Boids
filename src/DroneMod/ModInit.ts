@@ -10,6 +10,23 @@
     })
 })();
 
+import * as Futuristic from './Futuristic'
+import ModDesc from '../../Asset/mod.json'
+
+
+const globalExport = {
+    Futuristic
+}
+globalThis[ModDesc.modname] = globalExport;
+
+
+declare global {
+    interface window {
+        [ModDesc.modname]: typeof globalExport
+    }
+}
+
+
 import { KinkyDungeonAddRestraintIfWeaker } from '../../KDInterface/Structured/src/KinkyDungeonAddRestraintIfWeaker';
 
 import { Earphone } from './Futuristic/HeadSet/Headphone'
@@ -17,7 +34,6 @@ import * as HeadSet from './Futuristic/HeadSet'
 import * as HolographicHeadSet from './Futuristic/HeadSet/Holographic'
 import * as OralDevice from './Futuristic/Gag/Muffler'
 import * as FaceCover from './Futuristic/Gag/FaceCover'
-
 
 (() => {
     const AddWeaker = (r: string | restraint) =>

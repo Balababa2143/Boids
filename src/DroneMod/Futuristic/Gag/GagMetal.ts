@@ -1,5 +1,7 @@
 import * as KDEx from '../../../KDInterface/KDExtension'
 import * as Enum from '../../../Utilities/Enum'
+import { Variant } from './Common'
+import { BallKind, StrapKindTags, StrapDetail, MuzzleKind, Component } from './Common'
 
 export const InheritColor = {
     BaseMetal: 'BaseMetal',
@@ -303,116 +305,6 @@ namespace Layer {
     }
 }
 
-//#endregion
-
-//#region Variants
-
-export enum Component {
-    None = 1 << 0,
-    PerioralClip = 1 << 1,
-    CheekDisplay = 1 << 2,
-    GlabellaDisplay = 1 << 3,
-    OTNRivets = 1 << 4,
-    OTNStrap = 1 << 5,
-    Panel = 1 << 6,
-    Plug = 1 << 7,
-    PlugPort = 1 << 8,
-}
-
-export enum MuzzleKind {
-    None = 0,
-    Metal = 1,
-    Transparent = 2,
-    OTN = 3,
-}
-
-export enum BallKind {
-    None = 0,
-    Ball = 1,
-    BigBall = 2,
-}
-
-export enum StrapDetail {
-    None = 1 << 0,
-    Segmented = 1 << 1,
-    SideStrap = 1 << 2,
-}
-
-export enum StrapKindTags {
-    None = 0,
-    Strap = 1,
-    Harness = 2
-}
-
-export type StrapKind =
-    { __Type: StrapKindTags.None } |
-    { __Type: StrapKindTags.Strap, Detail: StrapDetail } |
-    { __Type: StrapKindTags.Harness, Detail: StrapDetail }
-
-namespace StrapKind {
-    export const ToStringKey = (strapKind: StrapKind) =>
-        [
-            ...(function* () {
-                switch (strapKind.__Type) {
-                    case StrapKindTags.None:
-                        break
-                    case StrapKindTags.Harness:
-                        yield 'Harness'
-                        break
-                    case StrapKindTags.Strap:
-                        yield 'Strap'
-                }
-                if (strapKind.__Type !== StrapKindTags.None) {
-                    for (const tag of Enum.GetSetFlags(StrapDetail, strapKind.Detail)) {
-                        yield tag
-                    }
-                }
-            })()
-        ].join('-')
-}
-
-export interface Variant {
-    Ball: BallKind
-    Strap: StrapKind
-    Muzzle: MuzzleKind
-    Component: Component
-}
-
-export namespace Variant {
-    export const ThrowInvalid = () => { throw new Error('Invalid metal gag variant.') }
-    export const Verify = (v: Variant) => {
-        if (!(
-            Enum.IsDefined(BallKind, v.Ball) &&
-            Enum.IsDefined(MuzzleKind, v.Muzzle) &&
-            Enum.IsDefined(StrapKindTags, v.Strap.__Type)
-        )) {
-            ThrowInvalid()
-        }
-        switch (v.Strap.__Type) {
-            case StrapKindTags.None:
-                break
-            case StrapKindTags.Strap:
-            case StrapKindTags.Harness:
-                if (typeof v.Strap.Detail !== 'number') {
-                    ThrowInvalid()
-                }
-                break
-            default:
-                ThrowInvalid()
-        }
-        if (typeof v.Component !== 'number') {
-            ThrowInvalid()
-        }
-    }
-
-    export const ToStringKey = (variant: Variant) => [
-        BallKind[variant.Ball],
-        StrapKind.ToStringKey(variant.Strap),
-        MuzzleKind[variant.Muzzle],
-        Enum.GetSetFlags(Component, variant.Component).join('-')
-    ].join('_')
-
-}
 //#endregion
 
 //#region Model

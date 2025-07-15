@@ -89,7 +89,8 @@ export const AddRestraintWithText = (restraint: restraint, restraintText?: Restr
             reserialized.name,
             restraintText.DisplayName,
             restraintText.FlavorText,
-            restraintText.FunctionText)
+            restraintText.FunctionText
+        )
     }
     return reserialized
 }

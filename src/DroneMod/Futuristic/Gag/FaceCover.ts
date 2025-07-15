@@ -2,8 +2,8 @@ import * as KDEx from '../../../KDInterface/KDExtension'
 import * as Enum from '../../../Utilities/Enum'
 import { ItemArchetype } from '../Futuristic'
 import { MaskSocket } from '../HeadSet/Common'
-import { MakeItem } from './Common'
-import { BallKind, Category, Component, MuzzleKind, StrapDetail, StrapKindTags, Variant } from './GagMetal'
+import { BallKind, Component, MakeItem, MuzzleKind, StrapDetail, StrapKindTags, Variant } from './Common'
+import { Category, } from './GagMetal'
 import { BallSocket, PlugSocket } from './Muffler'
 
 const MakeStrap = (args: { name: string, variant: Variant }) => {

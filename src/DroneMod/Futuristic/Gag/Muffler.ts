@@ -1,7 +1,7 @@
 import * as KDEx from '../../../KDInterface/KDExtension'
 import { ItemArchetype } from '../Futuristic'
-import { MakeItem, OralDeviceLinkCategory } from './Common'
-import { BallKind, Category, Component, MuzzleKind, StrapKindTags, Variant } from './GagMetal'
+import { BallKind, Component, MakeItem, MuzzleKind, OralDeviceLinkCategory, StrapKindTags, Variant } from './Common'
+import { Category } from './GagMetal'
 
 // /**
 //  * Item tag of all mufflers
@@ -41,7 +41,7 @@ const MakeBall = (args: { name: string, ball: BallKind }) => {
             __Type: StrapKindTags.None
         },
         Muzzle: MuzzleKind.None,
-        Component: Component.None
+        Component: Component.PerioralClip
     }
     const baseItem =
         MakeMuffler({ name, variant })
