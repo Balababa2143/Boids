@@ -3,6 +3,7 @@ import * as path from 'path'
 import * as archiver from 'archiver'
 import webpack from 'webpack'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import * as TerserPlugin from 'terser-webpack-plugin'
 
 const EntryFile = 'src/DroneMod/ModInit.ts'
 const BundleDir = 'Bundle'
@@ -12,24 +13,24 @@ const AssetFolders = [
 ]
 
 interface BundleOptions {
-    productionMode: boolean
-    watchMode: boolean
+    production?: true
+    watch?: true
 }
 
-function ProcessArgs() {
-    const cliArgs = process.argv.slice(2)
-    const productionMode = cliArgs.includes('-p'); // production flag
-    const watchMode = cliArgs.includes('-w'); // production flag
+// function ProcessArgs() {
+//     const cliArgs = process.argv.slice(2)
+//     const productionMode = cliArgs.includes('-p'); // production flag
+//     const watchMode = cliArgs.includes('-w'); // production flag
 
-    const ret: BundleOptions = {
-        productionMode,
-        watchMode
-    }
-    return ret
-}
+//     const ret: BundleOptions = {
+//         productionMode,
+//         watchMode
+//     }
+//     return ret
+// }
 
 
-async function CopyAssets(options: BundleOptions) {
+async function CopyAssets() {
     await Promise.all(
         AssetFolders.map(
             assetFolder =>
@@ -63,7 +64,7 @@ function SetArchiverEventHandlers(writeStream: fs.WriteStream, archiver: archive
  * execute build
  * @param {BundleOptions} options 
  */
-async function BuildArchive(options) {
+async function BuildArchive() {
     const archiveFilePath = path.resolve(ArchiveFile)
     const archiveDir = path.dirname(archiveFilePath)
     if (!fs.existsSync(archiveDir)) {
@@ -88,32 +89,32 @@ async function BuildArchive(options) {
     await new Promise<void>(resolve => stream.on("close", resolve))
 }
 
-function PostBuild(opts: BundleOptions): webpack.WebpackPluginInstance {
+function PostBuild(): webpack.WebpackPluginInstance {
     return {
         apply: (compiler) => {
             compiler.hooks.done.tapPromise('DoneArchiveBuilding', async (stats) => {
                 if (!stats.hasErrors()) {
-                    await CopyAssets(opts)
-                    await BuildArchive(opts)
+                    await CopyAssets()
+                    await BuildArchive()
                 }
             })
         }
     }
 }
 
-function Configurate(): webpack.Configuration {
-    const opts = ProcessArgs()
+function Configurate(env: BundleOptions): webpack.Configuration {
     const {
-        productionMode,
-        watchMode
-    } = opts
+        production,
+        watch
+    } = env
 
     return {
         entry: path.resolve(EntryFile),
         output: {
             path: path.resolve(BundleDir),
             filename() {
-                return productionMode ? 'index.ks' : 'index.js'
+                // Minifier don't understand ks extension.
+                return /*production ? 'index.ks' :*/ 'index.js'
             },
             clean: true
         },
@@ -135,16 +136,14 @@ function Configurate(): webpack.Configuration {
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],
         },
-        mode: productionMode ? 'production' : 'development',
-        devtool: productionMode ? false : 'inline-source-map',
+        mode: production ? 'production' : 'development',
+        devtool: production ? false : 'eval',
         plugins: [
-            PostBuild(opts),
+            PostBuild(),
             new CleanWebpackPlugin()
         ],
-        watch: watchMode,
+        watch: watch
     }
 }
 
-const config = Configurate()
-
-export default config
+export default Configurate

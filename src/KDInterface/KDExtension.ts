@@ -94,3 +94,6 @@ export const AddRestraintWithText = (restraint: restraint, restraintText?: Restr
     }
     return reserialized
 }
+
+export const AddRestraintWithTextThenGetName = (restraint: restraint, restraintText?: RestraintText) =>
+    AddRestraintWithText(restraint, restraintText).name

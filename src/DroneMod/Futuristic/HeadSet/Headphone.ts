@@ -73,7 +73,7 @@ const model: Model = KDEx.AddModelWithText({
     ])
 })
 
-export const Earphone: string = KDEx.AddRestraintWithText({
+export const Earphone = KDEx.AddRestraintWithTextThenGetName({
     name: '{373643CB-501A-435E-9EDC-0C7F733D3507}',
     Group: 'ItemHead',
     shrine: ['Visors', VisorSocket, ItemArchetype.HeadSet],
@@ -113,7 +113,7 @@ export const Earphone: string = KDEx.AddRestraintWithText({
 
     playerTags: {},
     enemyTags: {}
-},{
+}, {
     ...KDEx.RestraintText.Default,
     DisplayName: 'Drone Earphone',
-}).name
+})

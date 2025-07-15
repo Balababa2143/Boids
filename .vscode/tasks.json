@@ -16,7 +16,13 @@
 			"script": "Webpack Watch: Debug",
 			"group": "build",
 			"problemMatcher": [],
-			"label": "Webpack Watch: Debug",
+			"label": "Webpack Watch: Debug"
+		},
+		{
+			"type": "npm",
+			"script": "Webpack Bundle: Production",
+			"problemMatcher": [],
+			"label": "Webpack Bundle: Production",
 		}
 	]
 }
