@@ -26,3 +26,5 @@ export const ItemArchetype = {
      */
     OralDevice: '{3EA1CEB4-213B-4CCC-A658-1007D5C9D49C}'
 }
+
+// TODO: Write a event that debuff player combat capability if pose is selected
