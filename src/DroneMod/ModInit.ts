@@ -27,13 +27,16 @@ declare global {
 }
 
 
-import { KinkyDungeonAddRestraintIfWeaker } from '../../KDInterface/Structured/src/KinkyDungeonAddRestraintIfWeaker';
+import { KinkyDungeonAddRestraintIfWeaker } from '../../KDInterface/Structured/src/KinkyDungeonAddRestraintIfWeaker'
+import { KinkyDungeonRemoveRestraint } from '../../KDInterface/Structured/src/KinkyDungeonRemoveRestraint'
 
 import { Earphone } from './Futuristic/HeadSet/Headphone'
 import * as HeadSet from './Futuristic/HeadSet'
 import * as HolographicHeadSet from './Futuristic/HeadSet/Holographic'
 import * as OralDevice from './Futuristic/Gag/Muffler'
 import * as FaceCover from './Futuristic/Gag/FaceCover'
+import { SlimBelt, SlimBra } from './Futuristic/Aroused/Chastity'
+import { LockVibe, DenialPlugF, DenialPlugR } from './Futuristic/Aroused/Toys';
 
 const AddWeakerParams = {
     Tightness: 10,
@@ -353,13 +356,32 @@ AddStart({
         AddWeaker(FaceCover.MetalMuzzle1)
 
         AddWeakerParams.Lock = 'Cyber3'
+        // AddWeakerParams.Lock = undefined!
         AddWeaker('NippleClamps')
-        AddWeaker('LockVibe')
-        AddWeaker('DenialPlugF')
-        AddWeaker('DenialPlugR')
+        AddWeaker(LockVibe)
+        KinkyDungeonRemoveRestraint({
+            Group: 'ItemVulva',
+            Keep: false,
+            NoEvent: true
+        })
+        AddWeaker(DenialPlugF)
+        AddWeaker(DenialPlugR)
+        KinkyDungeonRemoveRestraint({
+            Group: 'ItemPelvis',
+            Keep: false,
+            NoEvent: true
+        })
+        AddWeaker(SlimBelt)
+        KinkyDungeonRemoveRestraint({
+            Group: 'ItemBreast',
+            Keep: false,
+            NoEvent: true
+        })
+
+        AddWeaker(SlimBra)
 
         AddWeakerParams.Lock = 'Disc'
-        AddWeaker('SteelBelt')
+        AddWeaker('SteelWBelt')
         KinkyDungeonRestraints
             .filter(r => ['Steel', 'Cuffs'].every(kw => r.name.includes(kw)))
             .forEach(AddWeaker)
