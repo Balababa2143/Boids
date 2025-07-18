@@ -43,7 +43,7 @@ const model: Model = KDEx.AddModelWithText({
     Layers: ToLayerMap([
         {
             Name: 'EarPlugHuman',
-            Layer: 'HairOver',
+            Layer: 'Head',
             Pri: 0.3,
             Invariant: true,
             InheritColor: InheritColor.BaseMetal,
@@ -52,7 +52,7 @@ const model: Model = KDEx.AddModelWithText({
         },
         {
             Name: 'EarPlugElfLongFront',
-            Layer: 'HairOver',
+            Layer: 'Head',
             Pri: 0.3,
             Invariant: true,
             InheritColor: InheritColor.BaseMetal,
@@ -63,7 +63,7 @@ const model: Model = KDEx.AddModelWithText({
         {
             Name: 'EarPlugElfLongBack',
             Layer: 'Head',
-            Pri: -0.09,
+            Pri: 0.1,
             Invariant: true,
             InheritColor: InheritColor.BaseMetal,
             RequirePoses: ToMap(['Cosplay', PatchedElfEar.Any]),
