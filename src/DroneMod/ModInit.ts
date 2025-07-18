@@ -37,6 +37,7 @@ import * as OralDevice from './Futuristic/Gag/Muffler'
 import * as FaceCover from './Futuristic/Gag/FaceCover'
 import { SlimBelt, SlimBra } from './Futuristic/Aroused/Chastity'
 import { LockVibe, DenialPlugF, DenialPlugR } from './Futuristic/Aroused/Toys';
+import { ControlHarness } from './Futuristic/Restraint/Belt';
 
 const AddWeakerParams = {
     Tightness: 10,
@@ -377,8 +378,8 @@ AddStart({
             Keep: false,
             NoEvent: true
         })
-
         AddWeaker(SlimBra)
+        AddWeaker(ControlHarness)
 
         AddWeakerParams.Lock = 'Disc'
         AddWeaker('SteelWBelt')

@@ -109,7 +109,7 @@ export const SlimBra =
             weight: 0,
             maxwill: 0.6,
             enemyTags: {
-                "cyberdollchastity": 1000
+                // "cyberdollchastity": 1000
             },
             playerTags: {
                 "FreeBoob": -1000
