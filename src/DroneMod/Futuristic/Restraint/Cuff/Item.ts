@@ -153,11 +153,53 @@ export const ArmCuff =
             ],
             bindarms: false,
             linkCategory: 'Cuffs',
-            linkSize: 0.55,
+            linkSize: 0.7,
         },
         {
             ...RestraintText.Default,
             DisplayName: 'Drone Arm Cuff'
+        }
+    )
+
+export const ElbowCuff =
+    AddRestraintWithTextThenGetName(
+        {
+            ...ItemBase,
+            name: '{6724991E-F8F0-41FC-9FCF-8941F63CD821}',
+            Model: Model.ElbowCuff,
+            Group: 'ItemArms',
+            shrine: [
+                ...ItemBase.shrine,
+                'ArmCuffsBase'
+            ],
+            bindarms: false,
+            linkCategory: 'Cuffs',
+            linkSize: 0.4,
+        },
+        {
+            ...RestraintText.Default,
+            DisplayName: 'Drone Elbow Cuff'
+        }
+    )
+
+export const WristCuff =
+    AddRestraintWithTextThenGetName(
+        {
+            ...ItemBase,
+            name: '{1E161AB5-4FDA-4AD4-9557-E8816F17A99A}',
+            Model: Model.WristCuff,
+            Group: 'ItemArms',
+            shrine: [
+                ...ItemBase.shrine,
+                'ArmCuffsBase'
+            ],
+            bindarms: false,
+            linkCategory: 'Cuffs',
+            linkSize: 0.4,
+        },
+        {
+            ...RestraintText.Default,
+            DisplayName: 'Drone Wrist Cuff'
         }
     )
 

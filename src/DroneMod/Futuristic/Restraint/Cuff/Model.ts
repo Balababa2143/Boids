@@ -39,6 +39,22 @@ export const HeavyCollar =
         })
     )
 
+export const WristCuff =
+    AddModelWithTextThenGetName(
+        MakeModel({
+            model: ModelDefs['CyberCuffsWrists'],
+            newName: 'Elbow'
+        })
+    )
+
+export const ElbowCuff =
+    AddModelWithTextThenGetName(
+        MakeModel({
+            model: ModelDefs['CyberCuffsElbows'],
+            newName: '{8B1FCA3F-37B3-4146-B4C6-11D99D99581D}'
+        })
+    )
+
 export const ArmCuff =
     AddModelWithTextThenGetName(
         MakeModel({

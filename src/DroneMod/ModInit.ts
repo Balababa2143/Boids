@@ -38,7 +38,7 @@ import * as FaceCover from './Futuristic/Gag/FaceCover'
 import { SlimBelt, SlimBra } from './Futuristic/Aroused/Chastity'
 import { LockVibe, DenialPlugF, DenialPlugR } from './Futuristic/Aroused/Toys';
 import { ControlHarness } from './Futuristic/Restraint/Belt';
-import { AnkleCuff, ArmCuff, LightCollar, ThighCuff, WaistCuff } from './Futuristic/Restraint/Cuff';
+import { AnkleCuff, ArmCuff, ElbowCuff, LightCollar, ThighCuff, WaistCuff, WristCuff } from './Futuristic/Restraint/Cuff';
 
 const AddWeakerParams = {
     Tightness: 10,
@@ -382,9 +382,11 @@ AddStart({
         AddWeaker(SlimBra)
         AddWeaker(ControlHarness)
 
-        AddWeakerParams.Lock = 'Cyber1'
+        AddWeakerParams.Lock = 'Cyber'
         AddWeaker(LightCollar)
-        AddWeaker(ArmCuff)
+        AddWeaker(ElbowCuff)
+        AddWeaker(WristCuff)
+        // AddWeaker(ArmCuff)
         AddWeaker(WaistCuff)
         AddWeaker(ThighCuff)
         AddWeaker(AnkleCuff)
