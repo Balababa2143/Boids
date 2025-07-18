@@ -64,6 +64,9 @@ export const AddModelWithText = (model: Model, text?: ModelText) => {
     return reserialized
 }
 
+export const AddModelWithTextThenGetName = (model: Model, modelText?: ModelText) =>
+    AddModelWithText(model, modelText).Name
+
 export interface RestraintText {
     DisplayName: string
     FlavorText: string

@@ -1,12 +1,12 @@
 
 (() => {
     PIXI.Assets.load({
-        src: "TextureAtlas/DroneModAsset-0.json",
-        loadParser: "modAtlasLoader"
+        src: 'TextureAtlas/DroneModAsset-0.json',
+        loadParser: 'modAtlasLoader'
     })
     PIXI.Assets.load({
-        src: "TextureAtlas/DroneModAsset-1.json",
-        loadParser: "modAtlasLoader"
+        src: 'TextureAtlas/DroneModAsset-1.json',
+        loadParser: 'modAtlasLoader'
     })
 })();
 
@@ -38,6 +38,7 @@ import * as FaceCover from './Futuristic/Gag/FaceCover'
 import { SlimBelt, SlimBra } from './Futuristic/Aroused/Chastity'
 import { LockVibe, DenialPlugF, DenialPlugR } from './Futuristic/Aroused/Toys';
 import { ControlHarness } from './Futuristic/Restraint/Belt';
+import { AnkleCuff, ArmCuff, LightCollar, ThighCuff, WaistCuff } from './Futuristic/Restraint/Cuff';
 
 const AddWeakerParams = {
     Tightness: 10,
@@ -51,8 +52,8 @@ const AddWeaker = (r: string | restraint) =>
         ...AddWeakerParams,
     })
 KDCategoriesStart.push(
-    { name: "Drone Sensory Set1", buffs: [], debuffs: [] },
-    { name: "Drone Sensory Set2", buffs: [], debuffs: [] },
+    { name: 'Drone Sensory Set1', buffs: [], debuffs: [] },
+    { name: 'Drone Sensory Set2', buffs: [], debuffs: [] },
 )
 interface StartPerkInfo {
     name: string,
@@ -74,22 +75,22 @@ const AddStart = (args: StartPerkInfo) => {
 }
 const PerkBase: KDPerk = {
     startPriority: 10,
-    category: "Boss",
+    category: 'Boss',
     id: 0,
     cost: 0,
-    tags: ["start"]
+    tags: ['start']
 }
 const AddDroneMod1Left = (args: StartPerkInfo) =>
     AddStart({
         ...args,
         perk: {
             ...args.perk,
-            category: "Drone Sensory Set1",
+            category: 'Drone Sensory Set1',
             buff: true
         }
     })
 AddDroneMod1Left({
-    name: "Drone Sensory Harness Set 1",
+    name: 'Drone Sensory Harness Set 1',
     callBack: () => {
         [
             Earphone,
@@ -106,7 +107,7 @@ AddDroneMod1Left({
 })
 
 AddDroneMod1Left({
-    name: "Drone Sensory Harness Set 2",
+    name: 'Drone Sensory Harness Set 2',
     callBack: () => {
         [
             Earphone,
@@ -122,7 +123,7 @@ AddDroneMod1Left({
     }
 })
 AddDroneMod1Left({
-    name: "Drone Sensory Harness Set 3",
+    name: 'Drone Sensory Harness Set 3',
     callBack: () => {
         [
             Earphone,
@@ -138,7 +139,7 @@ AddDroneMod1Left({
     }
 })
 AddDroneMod1Left({
-    name: "Drone Sensory Harness Set 4",
+    name: 'Drone Sensory Harness Set 4',
     callBack: () => {
         [
             Earphone,
@@ -154,7 +155,7 @@ AddDroneMod1Left({
     }
 })
 AddDroneMod1Left({
-    name: "Drone Sensory Harness Set 5",
+    name: 'Drone Sensory Harness Set 5',
     callBack: () => {
         [
             Earphone,
@@ -174,12 +175,12 @@ const AddDroneMod1Right = (args: StartPerkInfo) =>
         ...args,
         perk: {
             ...args.perk,
-            category: "Drone Sensory Set1",
+            category: 'Drone Sensory Set1',
             debuff: true
         }
     })
 AddDroneMod1Right({
-    name: "Drone Sensory Muzzle Set 1",
+    name: 'Drone Sensory Muzzle Set 1',
     callBack: () => {
         [
             Earphone,
@@ -195,7 +196,7 @@ AddDroneMod1Right({
     }
 })
 AddDroneMod1Right({
-    name: "Drone Sensory Muzzle Set 2",
+    name: 'Drone Sensory Muzzle Set 2',
     callBack: () => {
         [
             Earphone,
@@ -211,7 +212,7 @@ AddDroneMod1Right({
     }
 })
 AddDroneMod1Right({
-    name: "Drone Sensory Muzzle Set 3",
+    name: 'Drone Sensory Muzzle Set 3',
     callBack: () => {
         [
             Earphone,
@@ -227,7 +228,7 @@ AddDroneMod1Right({
     }
 })
 AddDroneMod1Right({
-    name: "Drone Sensory Muzzle Set 4",
+    name: 'Drone Sensory Muzzle Set 4',
     callBack: () => {
         [
             Earphone,
@@ -248,13 +249,13 @@ const AddDroneMod2Left = (args: StartPerkInfo) =>
         ...args,
         perk: {
             ...args.perk,
-            category: "Drone Sensory Set2",
+            category: 'Drone Sensory Set2',
             buff: true
         }
     })
 
 AddDroneMod2Left({
-    name: "Drone Sensory Muzzle Set 5",
+    name: 'Drone Sensory Muzzle Set 5',
     callBack: () => {
         [
             Earphone,
@@ -270,7 +271,7 @@ AddDroneMod2Left({
     }
 })
 AddDroneMod2Left({
-    name: "Drone Sensory Muzzle Set 6",
+    name: 'Drone Sensory Muzzle Set 6',
     callBack: () => {
         [
             FaceCover.Transparent2,
@@ -285,7 +286,7 @@ AddDroneMod2Left({
     }
 })
 AddDroneMod2Left({
-    name: "Drone Sensory Muzzle Set 7",
+    name: 'Drone Sensory Muzzle Set 7',
     callBack: () => {
         [
             FaceCover.MetalMuzzle1,
@@ -300,7 +301,7 @@ AddDroneMod2Left({
     }
 })
 AddDroneMod2Left({
-    name: "Drone Sensory Muzzle Set 8",
+    name: 'Drone Sensory Muzzle Set 8',
     callBack: () => {
         [
             Earphone,
@@ -318,7 +319,7 @@ AddDroneMod2Left({
 })
 
 AddDroneMod2Left({
-    name: "Drone Sensory Muzzle Set 9",
+    name: 'Drone Sensory Muzzle Set 9',
     callBack: () => {
         [
             Earphone,
@@ -340,11 +341,11 @@ AddStart({
     name: 'Drone Toys',
     perk: {
         startPriority: 10,
-        category: "Start",
+        category: 'Start',
         id: 0,
         cost: -2,
         buff: true,
-        tags: ["start"]
+        tags: ['start']
     },
     callBack: () => {
         const lockBackup = AddWeakerParams.Lock
@@ -381,14 +382,22 @@ AddStart({
         AddWeaker(SlimBra)
         AddWeaker(ControlHarness)
 
+        AddWeakerParams.Lock = 'Cyber1'
+        AddWeaker(LightCollar)
+        AddWeaker(ArmCuff)
+        AddWeaker(WaistCuff)
+        AddWeaker(ThighCuff)
+        AddWeaker(AnkleCuff)
+
         AddWeakerParams.Lock = 'Disc'
-        AddWeaker('SteelWBelt')
+        // AddWeaker('SteelWBelt')
+        // KinkyDungeonRestraints
+        //     .filter(r => ['Steel', 'Cuffs'].every(kw => r.name.includes(kw)))
+        //     .forEach(AddWeaker)
         KinkyDungeonRestraints
-            .filter(r => ['Steel', 'Cuffs'].every(kw => r.name.includes(kw)))
-            .forEach(AddWeaker)
-        KinkyDungeonRestraints
-            .filter(r => ['Neo', 'Link'].every(kw => r.name.includes(kw)))
-            .filter(r => ['Elbow', 'Wrist', 'Short', 'Raw'].every(kw => !r.name.includes(kw)))
+            .filter(r => ['Link'].every(kw => r.name.includes(kw)))
+            .filter(r => r.shrine.includes('Chains'))
+            .filter(r => [/*'Neo', 'Cyber',*/ 'Elbow', 'Wrist', 'Short', 'Raw'].every(kw => !r.name.includes(kw)))
             .forEach(AddWeaker)
 
         AddWeakerParams.Lock = lockBackup
