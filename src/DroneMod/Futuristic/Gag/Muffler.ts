@@ -81,10 +81,10 @@ const addBall = (args: {
     text: KDEx.RestraintText,
     modifyItem?: (_: restraint) => restraint
 }) =>
-    KDEx.AddRestraintWithText(
+    KDEx.AddRestraintWithTextThenGetName(
         args.modifyItem ? args.modifyItem(MakeBall(args)) : MakeBall(args),
         args.text
-    ).name
+    )
 
 const DefaultText: KDEx.RestraintText = {
     ...KDEx.RestraintText.Default,
@@ -137,7 +137,7 @@ export const Plug = (() => {
             name: '{BD587E0A-854F-46FD-88A8-7EE100571E2F}',
             variant
         })
-    return KDEx.AddRestraintWithText(
+    return KDEx.AddRestraintWithTextThenGetName(
         {
             ...baseItem,
             linkSize: 0.6,

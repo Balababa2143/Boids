@@ -13,27 +13,12 @@ export function DeepFreezeInplace<T>(obj: T): Readonly<T> {
     }
 }
 
-export function DeepFreezeClone<T>(obj: T): Readonly<T> {
-    if (Object.isFrozen(obj)) {
-        return obj!
-    }
-    // else: obj is not null, undefined, or primitive
-    else {
-        const newObj = Object.getPrototypeOf(obj!).constructor() as T
-        for (const key of Reflect.ownKeys(obj!) as (keyof T)[]) {
-            const value = obj[key]
-            const newValue =
-                (value && !Object.isFrozen(value)) ?
-                    DeepFreezeClone(value) as typeof value :
-                    value
-            newObj[key] = newValue
-        }
-        return Object.freeze(newObj)
-    }
-}
-
 export function DeepClone<T>(obj: T): T {
     return JSON.parse(JSON.stringify(obj))
+}
+
+export function DeepFreezeClone<T>(obj: T): Readonly<T> {
+    return DeepFreezeInplace(DeepClone(obj))
 }
 
 export interface ModelText {

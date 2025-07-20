@@ -22,7 +22,9 @@
         "typeRoots": [
             "./node_modules/@types",
             "./Types"
-        ]
+        ],
+        "declaration": true,
+        "declarationDir": "Declaration"
     },
     "include": [
         "src/**/*.ts"

@@ -23,7 +23,6 @@
     "ts-node": "latest",
     "typescript": "latest",
     "webpack": "latest",
-    "webpack-cli": "latest",
-    "terser-webpack-plugin": "latest"
+    "webpack-cli": "latest"
   }
 }

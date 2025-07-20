@@ -3,7 +3,6 @@ import * as path from 'path'
 import * as archiver from 'archiver'
 import webpack from 'webpack'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
-import * as TerserPlugin from 'terser-webpack-plugin'
 
 const EntryFile = 'src/DroneMod/ModInit.ts'
 const BundleDir = 'Bundle'
@@ -137,10 +136,10 @@ function Configurate(env: BundleOptions): webpack.Configuration {
             extensions: ['.tsx', '.ts', '.js'],
         },
         mode: production ? 'production' : 'development',
-        devtool: production ? false : 'eval',
+        devtool: production ? false : 'inline-source-map',
         plugins: [
             PostBuild(),
-            new CleanWebpackPlugin()
+            new CleanWebpackPlugin(),
         ],
         watch: watch
     }
