@@ -1,15 +1,18 @@
+const tmp = LAYERS_BASE[219]
+LAYERS_BASE[219] = LAYERS_BASE[220]
+LAYERS_BASE[220] = tmp
+for(const [k, v] of Object.entries(InitLayers(LAYERS_BASE))){
+    ModelLayers[k] = v
+}
 
-(() => {
-    PIXI.Assets.load({
-        src: 'TextureAtlas/DroneModAsset-0.json',
-        loadParser: 'modAtlasLoader'
-    })
-    PIXI.Assets.load({
-        src: 'TextureAtlas/DroneModAsset-1.json',
-        loadParser: 'modAtlasLoader'
-    })
-})();
-
+PIXI.Assets.load({
+    src: 'TextureAtlas/DroneModAsset-0.json',
+    loadParser: 'modAtlasLoader'
+})
+PIXI.Assets.load({
+    src: 'TextureAtlas/DroneModAsset-1.json',
+    loadParser: 'modAtlasLoader'
+})
 import * as Futuristic from './Futuristic'
 import ModDesc from '../../Asset/mod.json'
 
@@ -18,7 +21,7 @@ const globalExport = {
 }
 globalThis[ModDesc.modname] = globalExport;
 
-import { KinkyDungeonAddRestraintIfWeaker } from '../../KDInterface/Structured/src/KinkyDungeonAddRestraintIfWeaker'
+import { IKinkyDungeonAddRestraintIfWeakerParameters, KinkyDungeonAddRestraintIfWeaker } from '../../KDInterface/Structured/src/KinkyDungeonAddRestraintIfWeaker'
 import { KinkyDungeonRemoveRestraint } from '../../KDInterface/Structured/src/KinkyDungeonRemoveRestraint'
 
 import { Earphone } from './Futuristic/HeadSet/Headphone'
@@ -26,22 +29,23 @@ import * as HeadSet from './Futuristic/HeadSet'
 import * as HolographicHeadSet from './Futuristic/HeadSet/Holographic'
 import * as OralDevice from './Futuristic/Gag/Muffler'
 import * as FaceCover from './Futuristic/Gag/FaceCover'
-import { SlimBelt, SlimBra } from './Futuristic/Aroused/Chastity'
+import { BulkyBelt, BulkyBra, SlimBelt, SlimBra } from './Futuristic/Aroused/Chastity'
 import { LockVibe, DenialPlugF, DenialPlugR } from './Futuristic/Aroused/Toys';
 import { ControlHarness } from './Futuristic/Restraint/Belt';
 import { AnkleCuff, ArmCuff, ElbowCuff, HeavyCollar, LightCollar, ThighCuff, WaistCuff, WristCuff } from './Futuristic/Restraint/Cuff';
-import { DeepFreezeClone } from '../KDInterface/KDExtension';
 
-const AddWeakerParams = {
+const AddWeakerParams: IKinkyDungeonAddRestraintIfWeakerParameters = {
+    restraint: '',
     Tightness: 10,
     Bypass: true,
+    Deep: true,
     Lock: 'Cyber3',
 }
 
 const AddWeaker = (r: string | restraint) =>
     KinkyDungeonAddRestraintIfWeaker({
-        restraint: r,
         ...AddWeakerParams,
+        restraint: r,
     })
 KDCategoriesStart.push(
     { name: 'Drone Sensory Set1', buffs: [], debuffs: [] },
@@ -329,71 +333,77 @@ AddDroneMod2Left({
     }
 })
 
-// AddStart({
-//     name: 'Drone Toys',
-//     perk: {
-//         startPriority: 10,
-//         category: 'Start',
-//         id: 0,
-//         cost: -2,
-//         buff: true,
-//         tags: ['start']
-//     },
-//     callBack: () => {
-//         const lockBackup = AddWeakerParams.Lock
+AddStart({
+    name: 'Drone Toys',
+    perk: {
+        startPriority: 10,
+        category: 'Start',
+        id: 0,
+        cost: -2,
+        buff: true,
+        tags: ['start']
+    },
+    callBack: () => {
+        const lockBackup = AddWeakerParams.Lock
 
-//         AddWeakerParams.Lock = 'Cyber2'
-//         AddWeaker(Earphone)
-//         AddWeaker(HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 2)))
-//         AddWeaker(FaceCover.AdvanceHarness)
-//         AddWeaker(OralDevice.NonMuffler)
-//         AddWeaker(FaceCover.MetalMuzzle1)
+        AddWeakerParams.Lock = 'Cyber2'
+        AddWeaker(Earphone)
+        AddWeaker(HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)))
+        // AddWeaker(FaceCover.SimpleHarness)
+        // AddWeaker(FaceCover.AdvanceHarness)
+        AddWeaker(FaceCover.PanelHarness)
+        // AddWeaker(FaceCover.MetalMuzzle2)
+        AddWeaker(OralDevice.Ball)
+        // AddWeaker(HolographicHeadSet.GetGlassOnlyMaskVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)))
 
-//         AddWeakerParams.Lock = 'Cyber3'
-//         // AddWeakerParams.Lock = undefined!
-//         AddWeaker('NippleClamps')
-//         AddWeaker(LockVibe)
-//         KinkyDungeonRemoveRestraint({
-//             Group: 'ItemVulva',
-//             Keep: false,
-//             NoEvent: true
-//         })
-//         AddWeaker(DenialPlugF)
-//         AddWeaker(DenialPlugR)
-//         KinkyDungeonRemoveRestraint({
-//             Group: 'ItemPelvis',
-//             Keep: false,
-//             NoEvent: true
-//         })
-//         AddWeaker(SlimBelt)
-//         KinkyDungeonRemoveRestraint({
-//             Group: 'ItemBreast',
-//             Keep: false,
-//             NoEvent: true
-//         })
-//         AddWeaker(SlimBra)
-//         AddWeaker(ControlHarness)
+        AddWeakerParams.Lock = 'Cyber3'
+        // AddWeakerParams.Lock = undefined!
+        AddWeaker('NippleClamps3')
+        AddWeaker(LockVibe)
+        KinkyDungeonRemoveRestraint({
+            Group: 'ItemVulva',
+            Keep: false,
+            NoEvent: true
+        })
+        AddWeaker(DenialPlugF)
+        AddWeaker(DenialPlugR)
+        KinkyDungeonRemoveRestraint({
+            Group: 'ItemPelvis',
+            Keep: false,
+            NoEvent: true
+        })
+        // AddWeaker(SlimBelt)
+        AddWeaker(BulkyBelt)
+        KinkyDungeonRemoveRestraint({
+            Group: 'ItemBreast',
+            Keep: false,
+            NoEvent: true
+        })
+        // AddWeaker(SlimBra)
+        AddWeaker(BulkyBra)
+        // AddWeaker(ControlHarness)
 
-//         AddWeakerParams.Lock = 'Cyber'
-//         AddWeaker(HeavyCollar)
-//         AddWeaker(ElbowCuff)
-//         AddWeaker(WristCuff)
-//         // AddWeaker(ArmCuff)
-//         AddWeaker(WaistCuff)
-//         AddWeaker(ThighCuff)
-//         AddWeaker(AnkleCuff)
+        AddWeakerParams.Lock = 'Cyber'
+        // AddWeaker(HeavyCollar)
+        AddWeaker(LightCollar)
+        AddWeaker(ElbowCuff)
+        AddWeaker(WristCuff)
+        // AddWeaker(ArmCuff)
+        AddWeaker(WaistCuff)
+        AddWeaker(ThighCuff)
+        AddWeaker(AnkleCuff)
 
-//         AddWeakerParams.Lock = 'Disc'
-//         // AddWeaker('SteelWBelt')
-//         // KinkyDungeonRestraints
-//         //     .filter(r => ['Steel', 'Cuffs'].every(kw => r.name.includes(kw)))
-//         //     .forEach(AddWeaker)
-//         KinkyDungeonRestraints
-//             .filter(r => ['Link'].every(kw => r.name.includes(kw)))
-//             .filter(r => r.shrine.includes('Chains'))
-//             .filter(r => [/*'Neo', 'Cyber',*/ 'Elbow', 'Wrist', 'Short', 'Raw'].every(kw => !r.name.includes(kw)))
-//             .forEach(AddWeaker)
+        AddWeakerParams.Lock = 'Disc'
+        // AddWeaker('SteelWBelt')
+        // KinkyDungeonRestraints
+        //     .filter(r => ['Steel', 'Cuffs'].every(kw => r.name.includes(kw)))
+        //     .forEach(AddWeaker)
+        KinkyDungeonRestraints
+            .filter(r => ['Link'].every(kw => r.name.includes(kw)))
+            .filter(r => r.shrine.includes('Chains'))
+            .filter(r => [/*'Neo', 'Cyber',*/ 'Elbow', 'Wrist', 'Short', 'Raw'].every(kw => !r.name.includes(kw)))
+            .forEach(AddWeaker)
 
-//         AddWeakerParams.Lock = lockBackup
-//     }
-// })
+        AddWeakerParams.Lock = lockBackup
+    }
+})

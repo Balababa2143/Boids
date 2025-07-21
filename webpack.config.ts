@@ -139,7 +139,9 @@ function Configurate(env: BundleOptions): webpack.Configuration {
         devtool: production ? false : 'inline-source-map',
         plugins: [
             PostBuild(),
-            new CleanWebpackPlugin(),
+            new CleanWebpackPlugin({
+                dangerouslyAllowCleanPatternsOutsideProject: true
+            }),
         ],
         watch: watch
     }

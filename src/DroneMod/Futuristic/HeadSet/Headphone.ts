@@ -44,31 +44,31 @@ const model: Model = KDEx.AddModelWithText({
         {
             Name: 'EarPlugHuman',
             Layer: 'Head',
-            Pri: 0.3,
+            Pri: 0.31,
             Invariant: true,
             InheritColor: InheritColor.BaseMetal,
             HidePoses: ToMap(['AnimalEars', PatchedElfEar.Any]),
-            HideWhenOverridden: true
+            // HideWhenOverridden: true
         },
         {
             Name: 'EarPlugElfLongFront',
             Layer: 'Head',
-            Pri: 0.3,
+            Pri: 0.31,
             Invariant: true,
             InheritColor: InheritColor.BaseMetal,
             RequirePoses: ToMap(['Cosplay', PatchedElfEar.Any]),
             HidePoses: ToMap(['AnimalEars', PatchedElfEar.Floppy]),
-            HideWhenOverridden: true
+            // HideWhenOverridden: true
         },
         {
             Name: 'EarPlugElfLongBack',
             Layer: 'Head',
-            Pri: 0.1,
+            Pri: -0.09,
             Invariant: true,
             InheritColor: InheritColor.BaseMetal,
             RequirePoses: ToMap(['Cosplay', PatchedElfEar.Any]),
             HidePoses: ToMap(['AnimalEars', PatchedElfEar.Floppy]),
-            HideWhenOverridden: true
+            // HideWhenOverridden: true
         }
     ])
 })
