@@ -24,10 +24,6 @@
 
     ],
 	"fileorder": [
-        "TextureAtlas/DroneModAsset-0.png",
-        "TextureAtlas/DroneModAsset-0.json",
-        "TextureAtlas/DroneModAsset-1.png",
-        "TextureAtlas/DroneModAsset-1.json",
         "index.js"
     ]
 }
