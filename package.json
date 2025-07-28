@@ -15,7 +15,6 @@
     "@types/archiver": "latest",
     "@types/webpack": "latest",
     "archiver": "latest",
-    "clean-webpack-plugin": "latest",
     "pixi-filters": "^5.2.0",
     "pixi.js": "^7.4.3",
     "pixi.js-legacy": "^7.2.1",

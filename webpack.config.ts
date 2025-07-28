@@ -2,13 +2,13 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as archiver from 'archiver'
 import webpack from 'webpack'
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 
 const EntryFile = 'src/DroneMod/ModInit.ts'
 const BundleDir = 'Bundle'
 const ArchiveFile = 'Deploy/DroneMod.zip'
 const AssetFolders = [
-    'Asset'
+    'Asset',
+    'ArtworkOutput'
 ]
 
 interface BundleOptions {
@@ -65,14 +65,14 @@ function SetArchiverEventHandlers(writeStream: fs.WriteStream, archiver: archive
  */
 async function BuildArchive() {
     const archiveFilePath = path.resolve(ArchiveFile)
-    const archiveDir = path.dirname(archiveFilePath)
-    if (!fs.existsSync(archiveDir)) {
-        fs.mkdirSync(archiveDir)
-    }
+    // const archiveDir = path.dirname(archiveFilePath)
+    // if (!fs.existsSync(archiveDir)) {
+    //     fs.mkdirSync(archiveDir)
+    // }
 
-    if (fs.existsSync(archiveFilePath)) {
-        fs.unlinkSync(archiveFilePath)
-    }
+    // if (fs.existsSync(archiveFilePath)) {
+    //     fs.unlinkSync(archiveFilePath)
+    // }
     const stream = fs.createWriteStream(archiveFilePath)
     const zipArchiver = archiver('zip', {
         zlib: {
@@ -86,6 +86,24 @@ async function BuildArchive() {
         .directory(BundleDir, false)
         .finalize()
     await new Promise<void>(resolve => stream.on("close", resolve))
+}
+
+function PreBuild(): webpack.WebpackPluginInstance {
+    return {
+        apply: (compiler) => {
+            compiler.hooks.beforeCompile.tapPromise('DoneArchiveBuilding', async (_) => {
+                const archiveFilePath = path.resolve(ArchiveFile)
+                const archiveDir = path.dirname(archiveFilePath)
+                if (!fs.existsSync(archiveDir)) {
+                    fs.mkdirSync(archiveDir)
+                }
+
+                if (fs.existsSync(archiveFilePath)) {
+                    fs.unlinkSync(archiveFilePath)
+                }
+            })
+        }
+    }
 }
 
 function PostBuild(): webpack.WebpackPluginInstance {
@@ -138,10 +156,8 @@ function Configurate(env: BundleOptions): webpack.Configuration {
         mode: production ? 'production' : 'development',
         devtool: production ? false : 'inline-source-map',
         plugins: [
+            PreBuild(),
             PostBuild(),
-            new CleanWebpackPlugin({
-                dangerouslyAllowCleanPatternsOutsideProject: true
-            }),
         ],
         watch: watch
     }
