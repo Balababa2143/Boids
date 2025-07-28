@@ -393,6 +393,11 @@ AddStart({
         AddWeaker(ThighCuff)
         AddWeaker(AnkleCuff)
 
+        AddWeaker(Futuristic.Restraint.Link.Arm.GetItem({
+            Elbow: 'None',
+            Wrist: 'WristToWrist'
+        }))
+
         AddWeakerParams.Lock = 'Disc'
         // AddWeaker('SteelWBelt')
         // KinkyDungeonRestraints

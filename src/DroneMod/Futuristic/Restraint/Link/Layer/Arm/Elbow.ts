@@ -2,7 +2,7 @@
 
 export const Free = {
     Name: 'AttachedElbowLink',
-    Poses: ToMap(["Free"])
+    Poses: ToMap(['Free'])
 } satisfies Partial<ModelLayer>
 export const Front = {
     Name: 'WristLinkChained',

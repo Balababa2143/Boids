@@ -2,6 +2,7 @@ import { AddRestraintWithTextThenGetName, RestraintText } from '../../../../KDIn
 import { FactionFilter } from '../../../../KDInterface/TextKey'
 import { InheritColor } from './Model'
 import * as Model from './Model'
+import { Socket } from '../Link'
 
 
 const ItemBase: restraint = {
@@ -13,13 +14,11 @@ const ItemBase: restraint = {
     shrine: [
         'Metal',
         'Cuffs',
-        // Link.ItemTags.Socket
     ],
     noShrine: true,
     LinkableBy: [
         ...KDDevices,
         ...KDBindable,
-        //Link.ItemTags.Link
     ],
     renderWhenLinked: [
         ...KDBindable
@@ -149,7 +148,8 @@ export const ArmCuff =
             Group: 'ItemArms',
             shrine: [
                 ...ItemBase.shrine,
-                'ArmCuffsBase'
+                'ArmCuffsBase',
+                Socket.Wrist,
             ],
             bindarms: false,
             linkCategory: 'Cuffs',
@@ -191,7 +191,8 @@ export const WristCuff =
             Group: 'ItemArms',
             shrine: [
                 ...ItemBase.shrine,
-                'ArmCuffsBase'
+                'ArmCuffsBase',
+                Socket.Wrist
             ],
             bindarms: false,
             linkCategory: 'Cuffs',

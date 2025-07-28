@@ -67,11 +67,12 @@ export namespace RestraintText {
 }
 
 export const AddRestraintWithText = (restraint: restraint, restraintText?: RestraintText) => {
-    if (KinkyDungeonRestraints.some(r => r.name === restraint.name)) {
+    if (KinkyDungeonRestraintsCache.has(restraint.name)) {
         throw new Error('Adding duplicated restraint.')
     }
     const reserialized = DeepFreezeClone(restraint)
     KinkyDungeonRestraints.push(reserialized)
+    KinkyDungeonRestraintsCache.set(reserialized.name, reserialized)
     if (restraintText != null) {
         KinkyDungeonAddRestraintText(
             reserialized.name,
