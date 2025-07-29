@@ -25,6 +25,7 @@ import { IKinkyDungeonAddRestraintIfWeakerParameters, KinkyDungeonAddRestraintIf
 import { KinkyDungeonRemoveRestraint } from '../../KDInterface/Structured/src/KinkyDungeonRemoveRestraint'
 
 import * as Aroused from './Futuristic/Aroused'
+import * as Coating from './Futuristic/Coating'
 import * as Gag from './Futuristic/Gag'
 import * as HeadSet from './Futuristic/HeadSet'
 import * as Restraint from './Futuristic/Restraint'
@@ -113,6 +114,9 @@ AddStart({
     callBack: () => {
         const lockBackup = AddWeakerParams.Lock
 
+        AddWeakerParams.Lock = undefined
+        AddWeaker(Coating.LatexSuit.HeavyLockableSuit)
+
         AddWeakerParams.Lock = 'Cyber2'
         AddWeaker(HeadSet.Headphone.Earphone)
         AddWeaker(HeadSet.Holographic.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 2)))
@@ -133,7 +137,7 @@ AddStart({
         AddWeaker(Aroused.Chastity.BulkyBra)
 
         AddWeakerParams.Lock = 'Cyber2'
-        AddWeaker(Restraint.Cuff.LightCollar)
+        // AddWeaker(Restraint.Cuff.LightCollar)
         // AddWeaker(Restraint.Cuff.ElbowCuff)
         // AddWeaker(Restraint.Cuff.WristCuff)
         AddWeaker(Restraint.Cuff.ArmCuff)
