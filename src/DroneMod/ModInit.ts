@@ -24,15 +24,10 @@ globalThis[ModDesc.modname] = globalExport;
 import { IKinkyDungeonAddRestraintIfWeakerParameters, KinkyDungeonAddRestraintIfWeaker } from '../../KDInterface/Structured/src/KinkyDungeonAddRestraintIfWeaker'
 import { KinkyDungeonRemoveRestraint } from '../../KDInterface/Structured/src/KinkyDungeonRemoveRestraint'
 
-import { Earphone } from './Futuristic/HeadSet/Headphone'
+import * as Aroused from './Futuristic/Aroused'
+import * as Gag from './Futuristic/Gag'
 import * as HeadSet from './Futuristic/HeadSet'
-import * as HolographicHeadSet from './Futuristic/HeadSet/Holographic'
-import * as OralDevice from './Futuristic/Gag/Muffler'
-import * as FaceCover from './Futuristic/Gag/FaceCover'
-import { BulkyBelt, BulkyBra, SlimBelt, SlimBra } from './Futuristic/Aroused/Chastity'
-import { LockVibe, DenialPlugF, DenialPlugR } from './Futuristic/Aroused/Toys';
-import { ControlHarness } from './Futuristic/Restraint/Belt';
-import { AnkleCuff, ArmCuff, ElbowCuff, HeavyCollar, LightCollar, ThighCuff, WaistCuff, WristCuff } from './Futuristic/Restraint/Cuff';
+import * as Restraint from './Futuristic/Restraint'
 
 const AddWeakerParams: IKinkyDungeonAddRestraintIfWeakerParameters = {
     restraint: '',
@@ -70,7 +65,7 @@ const AddStart = (args: StartPerkInfo) => {
     }
 }
 const PerkBase: KDPerk = {
-    startPriority: 10,
+    startPriority: 1100,
     category: 'Boss',
     id: 0,
     cost: 0,
@@ -85,87 +80,6 @@ const AddDroneMod1Left = (args: StartPerkInfo) =>
             buff: true
         }
     })
-AddDroneMod1Left({
-    name: 'Drone Sensory Harness Set 1',
-    callBack: () => {
-        [
-            Earphone,
-            HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)),
-            FaceCover.SimpleHarness,
-            OralDevice.NonMuffler
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -0.5
-    }
-})
-
-AddDroneMod1Left({
-    name: 'Drone Sensory Harness Set 2',
-    callBack: () => {
-        [
-            Earphone,
-            HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 2)),
-            FaceCover.AdvanceHarness,
-            OralDevice.Ball
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
-AddDroneMod1Left({
-    name: 'Drone Sensory Harness Set 3',
-    callBack: () => {
-        [
-            Earphone,
-            HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 3)),
-            FaceCover.PanelHarness,
-            OralDevice.BigBall
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
-AddDroneMod1Left({
-    name: 'Drone Sensory Harness Set 4',
-    callBack: () => {
-        [
-            Earphone,
-            HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 4)),
-            FaceCover.PanelHarnessWithPort,
-            OralDevice.Plug
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
-AddDroneMod1Left({
-    name: 'Drone Sensory Harness Set 5',
-    callBack: () => {
-        [
-            Earphone,
-            HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Black, 1)),
-            FaceCover.MetalMuzzle1,
-            OralDevice.NonMuffler
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
 const AddDroneMod1Right = (args: StartPerkInfo) =>
     AddStart({
         ...args,
@@ -175,70 +89,6 @@ const AddDroneMod1Right = (args: StartPerkInfo) =>
             debuff: true
         }
     })
-AddDroneMod1Right({
-    name: 'Drone Sensory Muzzle Set 1',
-    callBack: () => {
-        [
-            Earphone,
-            HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Black, 2)),
-            FaceCover.MetalMuzzle1,
-            OralDevice.Ball
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
-AddDroneMod1Right({
-    name: 'Drone Sensory Muzzle Set 2',
-    callBack: () => {
-        [
-            Earphone,
-            HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Black, 2)),
-            FaceCover.MetalMuzzle2,
-            OralDevice.Ball
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
-AddDroneMod1Right({
-    name: 'Drone Sensory Muzzle Set 3',
-    callBack: () => {
-        [
-            Earphone,
-            HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Black, 3)),
-            FaceCover.OTN1,
-            OralDevice.BigBall
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
-AddDroneMod1Right({
-    name: 'Drone Sensory Muzzle Set 4',
-    callBack: () => {
-        [
-            Earphone,
-            HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Black, 4)),
-            FaceCover.OTN2,
-            OralDevice.Plug
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
 
 const AddDroneMod2Left = (args: StartPerkInfo) =>
     AddStart({
@@ -249,89 +99,6 @@ const AddDroneMod2Left = (args: StartPerkInfo) =>
             buff: true
         }
     })
-
-AddDroneMod2Left({
-    name: 'Drone Sensory Muzzle Set 5',
-    callBack: () => {
-        [
-            Earphone,
-            FaceCover.Transparent1,
-            HolographicHeadSet.GetGlassOnlyMaskVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)),
-            OralDevice.NonMuffler
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
-AddDroneMod2Left({
-    name: 'Drone Sensory Muzzle Set 6',
-    callBack: () => {
-        [
-            FaceCover.Transparent2,
-            HolographicHeadSet.GetGlassOnlyMaskVariant(new HeadSet.Variant(HeadSet.GlassType.Black, 1)),
-            OralDevice.Ball
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
-AddDroneMod2Left({
-    name: 'Drone Sensory Muzzle Set 7',
-    callBack: () => {
-        [
-            FaceCover.MetalMuzzle1,
-            HolographicHeadSet.GetGlassOnlyMaskVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 2)),
-            OralDevice.BigBall
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
-AddDroneMod2Left({
-    name: 'Drone Sensory Muzzle Set 8',
-    callBack: () => {
-        [
-            Earphone,
-            FaceCover.AdvanceHarness,
-            FaceCover.MetalMuzzle2,
-            HolographicHeadSet.GetGlassOnlyMaskVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 3)),
-            OralDevice.NonMuffler
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
-
-AddDroneMod2Left({
-    name: 'Drone Sensory Muzzle Set 9',
-    callBack: () => {
-        [
-            Earphone,
-            HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Black, 2)),
-            FaceCover.SimpleHarness,
-            FaceCover.OTN1,
-            HolographicHeadSet.GetGlassOnlyMaskVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 4)),
-            OralDevice.Ball
-        ]
-            .forEach(AddWeaker)
-    },
-    perk: {
-        ...PerkBase,
-        cost: -1
-    }
-})
 
 AddStart({
     name: 'Drone Toys',
@@ -347,51 +114,33 @@ AddStart({
         const lockBackup = AddWeakerParams.Lock
 
         AddWeakerParams.Lock = 'Cyber2'
-        AddWeaker(Earphone)
-        AddWeaker(HolographicHeadSet.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)))
-        // AddWeaker(FaceCover.SimpleHarness)
-        // AddWeaker(FaceCover.AdvanceHarness)
-        AddWeaker(FaceCover.PanelHarness)
-        // AddWeaker(FaceCover.MetalMuzzle2)
-        AddWeaker(OralDevice.Ball)
-        // AddWeaker(HolographicHeadSet.GetGlassOnlyMaskVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)))
+        AddWeaker(HeadSet.Headphone.Earphone)
+        AddWeaker(HeadSet.Holographic.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 2)))
+        AddWeaker(Gag.FaceCover.PanelHarness)
+        // AddWeaker(Gag.FaceCover.MetalMuzzle2)
+        AddWeaker(Gag.Muffler.NonMuffler)
+        // AddWeaker(HeadSet.Holographic.GetGlassOnlyMaskVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)))
 
         AddWeakerParams.Lock = 'Cyber3'
-        // AddWeakerParams.Lock = undefined!
         AddWeaker('NippleClamps3')
-        AddWeaker(LockVibe)
-        KinkyDungeonRemoveRestraint({
-            Group: 'ItemVulva',
-            Keep: false,
-            NoEvent: true
-        })
-        AddWeaker(DenialPlugF)
-        AddWeaker(DenialPlugR)
-        KinkyDungeonRemoveRestraint({
-            Group: 'ItemPelvis',
-            Keep: false,
-            NoEvent: true
-        })
-        // AddWeaker(SlimBelt)
-        AddWeaker(BulkyBelt)
-        KinkyDungeonRemoveRestraint({
-            Group: 'ItemBreast',
-            Keep: false,
-            NoEvent: true
-        })
-        // AddWeaker(SlimBra)
-        AddWeaker(BulkyBra)
-        // AddWeaker(ControlHarness)
+        AddWeaker(Aroused.Toys.LockVibe)
+
+        AddWeaker(Aroused.Toys.DenialPlugF)
+        AddWeaker(Aroused.Toys.DenialPlugR)
+
+        AddWeaker(Aroused.Chastity.BulkyBelt)
+
+        AddWeaker(Aroused.Chastity.BulkyBra)
 
         AddWeakerParams.Lock = 'Cyber2'
-        // AddWeaker(HeavyCollar)
-        AddWeaker(LightCollar)
-        AddWeaker(ElbowCuff)
-        AddWeaker(WristCuff)
-        // AddWeaker(ArmCuff)
-        AddWeaker(WaistCuff)
-        AddWeaker(ThighCuff)
-        AddWeaker(AnkleCuff)
+        AddWeaker(Restraint.Cuff.LightCollar)
+        // AddWeaker(Restraint.Cuff.ElbowCuff)
+        // AddWeaker(Restraint.Cuff.WristCuff)
+        AddWeaker(Restraint.Cuff.ArmCuff)
+        AddWeaker(Restraint.Cuff.WaistCuff)
+        // AddWeaker(Restraint.Strap.ControlHarness)
+        AddWeaker(Restraint.Cuff.ThighCuff)
+        AddWeaker(Restraint.Cuff.AnkleCuff)
 
         AddWeakerParams.Lock = 'Cyber'
         AddWeaker(Futuristic.Restraint.Link.Arm.GetRestraint('BetweenWristCuff'))
