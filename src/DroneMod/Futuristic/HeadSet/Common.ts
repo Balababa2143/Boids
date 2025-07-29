@@ -1,5 +1,5 @@
 import * as KDEx from '../../../KDInterface/KDExtension'
-import { ItemArchetype } from '../Futuristic'
+import { ItemArchetype } from '../Common'
 import * as TextKey from '../../../KDInterface/TextKey'
 
 

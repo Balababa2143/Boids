@@ -14,8 +14,12 @@ export const LockableSuitModel =
             AddPose: ['HideNipples'],
             Layers: ToLayerMap([
                 ...GetModelLayers({ ModelName: 'CatsuitRestraint' }),
-                ...GetModelLayers({ ModelName: 'CyberLinkCollar', Folder: ModelDefs['CyberLinkCollar'].Folder })
-                    .map(layer => ({...layer, HideWhenOverridden: true}))
+                ...GetModelLayers({
+                    ModelName: 'CyberLinkCollar',
+                    Folder: ModelDefs['CyberLinkCollar'].Folder,
+                    PriBonus: -20
+                })
+                    .map(layer => ({ ...layer, HideWhenOverridden: true }))
                     .map(layer => (layer.Name.includes('Display') ? { ...layer, LockLayer: true } : layer))
             ])
         }

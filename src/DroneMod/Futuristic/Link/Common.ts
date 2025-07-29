@@ -1,7 +1,7 @@
-import { ModelText, RestraintText } from '../../../../KDInterface/KDExtension'
-import { FactionFilter } from '../../../../KDInterface/TextKey'
-import { AddModelVariant, AddRestraintVariant, ModelVariantDescriptor, RestraintVariantDescriptor, TransformInstance } from '../../../VariantItem'
-import { ModelSetRootDir } from '../../Futuristic'
+import { ModelText, RestraintText } from '../../../KDInterface/KDExtension'
+import { FactionFilter } from '../../../KDInterface/TextKey'
+import { AddModelVariant, AddRestraintVariant, ModelVariantDescriptor, RestraintVariantDescriptor, TransformInstance } from '../../VariantItem'
+import { ModelSetRootDir } from '../Common'
 
 /* Layer Sprite Naming:
  *     `${BodyPart}/${LeftRight?}${LinkGlow}${Pose}`

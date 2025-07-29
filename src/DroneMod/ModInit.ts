@@ -24,12 +24,6 @@ globalThis[ModDesc.modname] = globalExport;
 import { IKinkyDungeonAddRestraintIfWeakerParameters, KinkyDungeonAddRestraintIfWeaker } from '../../KDInterface/Structured/src/KinkyDungeonAddRestraintIfWeaker'
 import { KinkyDungeonRemoveRestraint } from '../../KDInterface/Structured/src/KinkyDungeonRemoveRestraint'
 
-import * as Aroused from './Futuristic/Aroused'
-import * as Coating from './Futuristic/Coating'
-import * as Gag from './Futuristic/Gag'
-import * as HeadSet from './Futuristic/HeadSet'
-import * as Restraint from './Futuristic/Restraint'
-
 const AddWeakerParams: IKinkyDungeonAddRestraintIfWeakerParameters = {
     restraint: '',
     Tightness: 10,
@@ -114,42 +108,42 @@ AddStart({
     callBack: () => {
         const lockBackup = AddWeakerParams.Lock
 
-        AddWeakerParams.Lock = undefined
-        AddWeaker(Coating.LatexSuit.HeavyLockableSuit)
+        AddWeakerParams.Lock = 'Cyber3'
+        AddWeaker(Futuristic.Suit.LatexSuit.HeavyLockableSuit)
 
         AddWeakerParams.Lock = 'Cyber2'
-        AddWeaker(HeadSet.Headphone.Earphone)
-        AddWeaker(HeadSet.Holographic.GetGoggleVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 2)))
-        AddWeaker(Gag.FaceCover.PanelHarness)
-        // AddWeaker(Gag.FaceCover.MetalMuzzle2)
-        AddWeaker(Gag.Muffler.NonMuffler)
-        // AddWeaker(HeadSet.Holographic.GetGlassOnlyMaskVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)))
+        AddWeaker(Futuristic.HeadSet.Headphone.Earphone)
+        AddWeaker(Futuristic.HeadSet.Holographic.GetGoggleVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 2)))
+        AddWeaker(Futuristic.Gag.FaceCover.PanelHarness)
+        // AddWeaker(Futuristic.Gag.FaceCover.MetalMuzzle2)
+        AddWeaker(Futuristic.Gag.Muffler.NonMuffler)
+        // AddWeaker(Futuristic.HeadSet.Holographic.GetGlassOnlyMaskVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)))
 
         AddWeakerParams.Lock = 'Cyber3'
         AddWeaker('NippleClamps3')
-        AddWeaker(Aroused.Toys.LockVibe)
+        AddWeaker(Futuristic.Aroused.Toys.LockVibe)
 
-        AddWeaker(Aroused.Toys.DenialPlugF)
-        AddWeaker(Aroused.Toys.DenialPlugR)
+        AddWeaker(Futuristic.Aroused.Toys.DenialPlugF)
+        AddWeaker(Futuristic.Aroused.Toys.DenialPlugR)
 
-        AddWeaker(Aroused.Chastity.BulkyBelt)
+        AddWeaker(Futuristic.Aroused.Chastity.BulkyBelt)
 
-        AddWeaker(Aroused.Chastity.BulkyBra)
+        AddWeaker(Futuristic.Aroused.Chastity.BulkyBra)
 
         AddWeakerParams.Lock = 'Cyber2'
-        // AddWeaker(Restraint.Cuff.LightCollar)
-        // AddWeaker(Restraint.Cuff.ElbowCuff)
-        // AddWeaker(Restraint.Cuff.WristCuff)
-        AddWeaker(Restraint.Cuff.ArmCuff)
-        AddWeaker(Restraint.Cuff.WaistCuff)
-        // AddWeaker(Restraint.Strap.ControlHarness)
-        AddWeaker(Restraint.Cuff.ThighCuff)
-        AddWeaker(Restraint.Cuff.AnkleCuff)
+        AddWeaker(Futuristic.Cuff.LightCollar)
+        // AddWeaker(Futuristic.Cuff.ElbowCuff)
+        // AddWeaker(Futuristic.Cuff.WristCuff)
+        AddWeaker(Futuristic.Cuff.ArmCuff)
+        AddWeaker(Futuristic.Cuff.WaistCuff)
+        // AddWeaker(Futuristic.Strap.ControlHarness)
+        AddWeaker(Futuristic.Cuff.ThighCuff)
+        AddWeaker(Futuristic.Cuff.AnkleCuff)
 
         AddWeakerParams.Lock = 'Cyber'
-        AddWeaker(Futuristic.Restraint.Link.Arm.GetRestraint('BetweenWristCuff'))
-        AddWeaker(Futuristic.Restraint.Link.Leg.GetRestraint('BetweenThighCuff'))
-        AddWeaker(Futuristic.Restraint.Link.Leg.GetRestraint('BetweenAnkleCuff'))
+        AddWeaker(Futuristic.Link.Arm.GetRestraint('BetweenWristCuff'))
+        AddWeaker(Futuristic.Link.Leg.GetRestraint('BetweenThighCuff'))
+        AddWeaker(Futuristic.Link.Leg.GetRestraint('BetweenAnkleCuff'))
 
         AddWeakerParams.Lock = lockBackup
     }

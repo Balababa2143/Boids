@@ -2,7 +2,7 @@ import * as KDEx from '../../../KDInterface/KDExtension'
 import * as Enum from '../../../Utilities/Enum'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { Category, GetGagMetal, InheritColor } from './GagMetal'
-import { ItemArchetype } from '../Futuristic'
+import { ItemArchetype } from '../Common'
 
 //#region Variants
 

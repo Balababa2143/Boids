@@ -1,4 +1,4 @@
-import { AddRestraintWithTextThenGetName } from "../../../KDInterface/KDExtension";
+import { AddRestraintWithTextThenGetName } from "../../KDInterface/KDExtension";
 
 export const ControlHarness =
     AddRestraintWithTextThenGetName(

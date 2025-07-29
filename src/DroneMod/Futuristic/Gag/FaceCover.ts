@@ -1,6 +1,6 @@
 import * as KDEx from '../../../KDInterface/KDExtension'
 import * as Enum from '../../../Utilities/Enum'
-import { ItemArchetype } from '../Futuristic'
+import { ItemArchetype } from '../Common'
 import { MaskSocket } from '../HeadSet/Common'
 import { BallKind, Component, MakeItem, MuzzleKind, StrapDetail, StrapKindTags, Variant } from './Common'
 import { Category, } from './GagMetal'

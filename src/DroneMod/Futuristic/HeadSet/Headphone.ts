@@ -1,6 +1,6 @@
 import * as KDEx from '../../../KDInterface/KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
-import { ItemArchetype, ModelSetRootDir } from '../Futuristic'
+import { ItemArchetype, ModelSetRootDir } from '../Common'
 import { VisorSocket } from './Common'
 
 enum PatchedElfEar {

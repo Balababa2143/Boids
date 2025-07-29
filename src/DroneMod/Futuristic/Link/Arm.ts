@@ -1,5 +1,5 @@
-import { RestraintText } from '../../../../KDInterface/KDExtension'
-import { RequireSocket, SetGroup } from '../../Futuristic'
+import { RestraintText } from '../../../KDInterface/KDExtension'
+import { RequireSocket, SetGroup } from '../Common'
 import { BuildLinkSet, Descriptor } from './Common'
 import * as Layer from './Layer'
 import * as Socket from './Socket'

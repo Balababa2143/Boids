@@ -1,5 +1,5 @@
-import { AddRestraintWithTextThenGetName, RestraintText } from '../../../../KDInterface/KDExtension'
-import { FactionFilter } from '../../../../KDInterface/TextKey'
+import { AddRestraintWithTextThenGetName, RestraintText } from '../../../KDInterface/KDExtension'
+import { FactionFilter } from '../../../KDInterface/TextKey'
 import { InheritColor } from './Model'
 import * as Model from './Model'
 import { Socket } from '../Link'

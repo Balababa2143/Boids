@@ -1,5 +1,5 @@
 import * as KDEx from '../../../KDInterface/KDExtension'
-import { ModelSetRootDir } from "../Futuristic"
+import { ModelSetRootDir } from "../Common"
 import { AppendVariantToName, GlassType, InheritColor, MakeModel, Variant } from "./Common"
 
 namespace GlassLayers {
