@@ -255,7 +255,8 @@ export const AnkleCuff =
             Group: 'ItemFeet',
             shrine: [
                 ...ItemBase.shrine,
-                'AnkleCuffsBase'
+                'AnkleCuffsBase',
+                Socket.Ankle
             ],
             linkCategory: 'AnkleCuffs',
             linkSize: 0.55,

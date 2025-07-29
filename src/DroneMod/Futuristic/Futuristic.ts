@@ -31,31 +31,40 @@ export const ItemArchetype = {
 
 export const RequireSocket =
     (sockets: Iterable<string>) =>
-        <RestraintTemplate extends Partial<restraint>>(template: RestraintTemplate) => ({
-            ...template,
-            requireAllTagsToEquip: [
-                ...(function* () {
-                    for (const tag of template.requireAllTagsToEquip ?? []) {
-                        yield tag
+    <RestraintTemplate extends Partial<restraint>>
+    (template: RestraintTemplate) => ({
+        ...template,
+        requireAllTagsToEquip: [
+            ...(function* () {
+                for (const tag of template.requireAllTagsToEquip ?? []) {
+                    yield tag
+                }
+                for (const tag of sockets) {
+                    yield tag
+                }
+            })()
+        ],
+        events: [
+            ...(function* () {
+                for (const event of template.events ?? []) {
+                    yield event
+                }
+                for (const tag of sockets) {
+                    yield <KinkyDungeonEvent>{
+                        trigger: 'postRemoval',
+                        type: 'RequireTag',
+                        requiredTag: tag,
+                        inheritLinked: true
                     }
-                    for (const tag of sockets) {
-                        yield tag
-                    }
-                })()
-            ],
-            events: [
-                ...(function* () {
-                    for (const event of template.events ?? []) {
-                        yield event
-                    }
-                    for (const tag of sockets) {
-                        yield <KinkyDungeonEvent>{
-                            trigger: 'postRemoval',
-                            type: 'RequireTag',
-                            requiredTag: tag,
-                            inheritLinked: true
-                        }
-                    }
-                })()
-            ]
-        } satisfies Partial<restraint>)
+                }
+            })()
+        ]
+    } satisfies Partial<restraint>)
+
+export const SetGroup =
+    (group: string) =>
+    <RestraintTemplate extends Partial<restraint>>
+    (template: RestraintTemplate) => ({
+        ...template,
+        Group: group
+    } satisfies Partial<restraint>)

@@ -383,7 +383,7 @@ AddStart({
         AddWeaker(BulkyBra)
         // AddWeaker(ControlHarness)
 
-        AddWeakerParams.Lock = 'Cyber'
+        AddWeakerParams.Lock = 'Cyber2'
         // AddWeaker(HeavyCollar)
         AddWeaker(LightCollar)
         AddWeaker(ElbowCuff)
@@ -393,21 +393,9 @@ AddStart({
         AddWeaker(ThighCuff)
         AddWeaker(AnkleCuff)
 
-        AddWeaker(Futuristic.Restraint.Link.Arm.GetItem({
-            Elbow: 'None',
-            Wrist: 'WristToWrist'
-        }))
-
-        AddWeakerParams.Lock = 'Disc'
-        // AddWeaker('SteelWBelt')
-        // KinkyDungeonRestraints
-        //     .filter(r => ['Steel', 'Cuffs'].every(kw => r.name.includes(kw)))
-        //     .forEach(AddWeaker)
-        KinkyDungeonRestraints
-            .filter(r => ['Link'].every(kw => r.name.includes(kw)))
-            .filter(r => r.shrine.includes('Chains'))
-            .filter(r => [/*'Neo', 'Cyber',*/ 'Elbow', 'Wrist', 'Short', 'Raw'].every(kw => !r.name.includes(kw)))
-            .forEach(AddWeaker)
+        AddWeakerParams.Lock = 'Cyber'
+        AddWeaker(Futuristic.Restraint.Link.Arm.GetRestraint('BetweenWristCuff'))
+        AddWeaker(Futuristic.Restraint.Link.Leg.GetRestraint('BetweenAnkleCuff'))
 
         AddWeakerParams.Lock = lockBackup
     }

@@ -1,1 +1,2 @@
 export const Wrist = '{6C035995-F25A-4275-82D5-9CC157093E3F}'
+export const Ankle = '{6972C883-57B8-4A0F-B965-F0A42654415B}'
