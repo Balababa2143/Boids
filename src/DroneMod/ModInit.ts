@@ -395,6 +395,7 @@ AddStart({
 
         AddWeakerParams.Lock = 'Cyber'
         AddWeaker(Futuristic.Restraint.Link.Arm.GetRestraint('BetweenWristCuff'))
+        AddWeaker(Futuristic.Restraint.Link.Leg.GetRestraint('BetweenThighCuff'))
         AddWeaker(Futuristic.Restraint.Link.Leg.GetRestraint('BetweenAnkleCuff'))
 
         AddWeakerParams.Lock = lockBackup

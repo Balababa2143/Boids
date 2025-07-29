@@ -25,7 +25,27 @@ const DescriptorMap = {
             DisplayName: 'Drone Leg Link',
             FlavorText: 'Variant: BetweenAnkleCuff'
         },
-    }
+    },
+    BetweenThighCuff: {
+        TransformModel: [
+            (modelTemplate) => ({
+                ...modelTemplate,
+                Layers: {
+                    ...modelTemplate.Layers ?? {},
+                    ...ToLayerMap(Layer.Leg.Thigh.BetweenThighCuff)
+                }
+            })
+        ],
+        TransformRestraint: [
+            SetGroup('ItemLegs'),
+            RequireSocket([Socket.Thigh]),
+        ],
+        RestraintText: {
+            ...RestraintText.Default,
+            DisplayName: 'Drone Leg Link',
+            FlavorText: 'Variant: BetweenThighCuff'
+        },
+    },
 } satisfies Record<string, Descriptor>
 
 export type Variant = keyof typeof DescriptorMap

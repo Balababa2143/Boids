@@ -235,6 +235,7 @@ export const ThighCuff =
             Group: 'ItemLegs',
             shrine: [
                 ...ItemBase.shrine,
+                Socket.Thigh,
                 'LegCuffsBase'
             ],
             linkCategory: 'LegCuffs',
