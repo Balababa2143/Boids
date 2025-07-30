@@ -3,14 +3,13 @@ import { FactionFilter } from '../../../KDInterface/TextKey'
 import { InheritColor } from './Model'
 import * as Model from './Model'
 import { Socket } from '../Link'
+import { MechanichalLockSfx } from '../Common'
 
 
-const ItemBase: restraint = {
-    name: '',
+const ItemBase = {
     special: true,
     inventory: false,
     accessible: true,
-    Group: '',
     shrine: [
         'Metal',
         'Cuffs',
@@ -24,9 +23,9 @@ const ItemBase: restraint = {
         ...KDBindable
     ],
     //alwaysRender: true,
+    
+    ...MechanichalLockSfx,
 
-    sfx: 'HydraulicLock',
-    sfxRemove: 'HydraulicUnlock',
     Model: '',
     factionFilters: {
         [InheritColor.BaseMetal]: {
@@ -75,7 +74,7 @@ const ItemBase: restraint = {
             inheritLinked: true
         }
     ]
-}
+} satisfies Partial<restraint>
 
 export const LightCollar =
     AddRestraintWithTextThenGetName(

@@ -1,6 +1,6 @@
 import * as KDEx from '../../../KDInterface/KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
-import { ItemArchetype, ModelSetRootDir } from '../Common'
+import { ItemArchetype, MechanichalLockSfx, ModelSetRootDir } from '../Common'
 import { VisorSocket } from './Common'
 
 enum PatchedElfEar {
@@ -88,8 +88,7 @@ export const Earphone = KDEx.AddRestraintWithTextThenGetName({
             override: true
         }
     },
-    sfx: 'FutureLock',
-    sfxRemove: 'SciFiConfigure',
+    ...MechanichalLockSfx,
 
     LinkableBy: [
         ...KDVisorLink,

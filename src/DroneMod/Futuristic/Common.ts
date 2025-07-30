@@ -68,3 +68,13 @@ export const SetGroup =
         ...template,
         Group: group
     } satisfies Partial<restraint>)
+
+export const MechanichalLockSfx = {
+    sfx: 'SciFiConfigure',
+    sfxRemove: 'MechUnlock'
+} satisfies Partial<restraint>
+
+export const InflateLockSfx = {
+    sfx: 'MechPumpUp',
+    sfxRemove: 'MechPumpRelease'
+} satisfies Partial<restraint>

@@ -1,4 +1,5 @@
 import * as KDEx from '../../../KDInterface/KDExtension'
+import { InflateLockSfx } from '../Common'
 
 
 const NippleClamps = <restraint>KinkyDungeonRestraints.find(r => r.name === 'NippleClamps')
@@ -53,13 +54,14 @@ export const DenialPlugF =
                 { trigger: "tick", type: "PeriodicDenial", power: 4, time: 4, edgeOnly: true, cooldown: { "normal": 15, "tease": 10 }, chance: 0.0075 },
                 { trigger: "tick", type: "PeriodicDenial", power: 5, time: 6, edgeOnly: true, cooldown: { "normal": 15, "tease": 10 }, chance: 0.0375 },
                 { trigger: "tick", type: "PeriodicTeasing", power: 5, time: 3, edgeOnly: false, cooldown: { "normal": 15, "tease": 10 }, chance: 0.00125 },
-            ]
+            ],
+            ...InflateLockSfx,
         },
         {
 
-            DisplayName: 'Lockable Plug',
+            DisplayName: 'Drone Plug',
             FlavorText: TextProvider.instance.getText(`Restraint${'TrapPlug3'}Desc`),
-            FunctionText: TextProvider.instance.getText(`Restraint${'TrapPlug3'}Desc2`),
+            FunctionText: 'Lockable, Front',
         }
     )
 
@@ -90,11 +92,12 @@ export const DenialPlugR =
                 { trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 2, time: 30, edgeOnly: true },
                 { trigger: "tick", type: "PeriodicDenial", power: 1, time: 24, edgeOnly: true, cooldown: { "normal": 50, "tease": 20 }, chance: 0.015 },
                 { trigger: "tick", type: "PeriodicDenial", power: 2, time: 16, edgeOnly: true, cooldown: { "normal": 50, "tease": 20 }, chance: 0.01 },
-            ]
+            ],
+            ...InflateLockSfx,
         },
         {
-            DisplayName: 'Lockable Rear Plug',
+            DisplayName: 'Drone Plug',
             FlavorText: TextProvider.instance.getText(`Restraint${'RearVibe1'}Desc`),
-            FunctionText: TextProvider.instance.getText(`Restraint${'RearVibe1'}Desc2`),
+            FunctionText: 'Lockable, Back',
         }
     )
