@@ -70,7 +70,7 @@ export const SetGroup =
     } satisfies Partial<restraint>)
 
 export const MechanichalLockSfx = {
-    sfx: 'SciFiConfigure',
+    sfx: 'Mechlock',
     sfxRemove: 'MechUnlock'
 } satisfies Partial<restraint>
 
