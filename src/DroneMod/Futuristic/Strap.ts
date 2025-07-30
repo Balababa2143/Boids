@@ -1,4 +1,5 @@
 import { AddRestraintWithTextThenGetName } from "../../KDInterface/KDExtension";
+import { ElectricMechLockSfx } from "./Common";
 
 export const ControlHarness =
     AddRestraintWithTextThenGetName(
@@ -10,8 +11,7 @@ export const ControlHarness =
             LinkableBy: [...KDHarnessLink],
             accessible: true,
 
-            sfx: "FutureLock",
-            sfxRemove: "SciFiConfigure",
+            ...ElectricMechLockSfx,
             alwaysRender: true,
             Asset: "FuturisticHarness",
             Color: ['#499ed6', '#555555', '#555555', '#000000'],
@@ -22,6 +22,7 @@ export const ControlHarness =
                 Straps: { color: "LightNeutral", override: true },
                 Metal: { color: "DarkNeutral", override: true },
             },
+            preview: 'Harnesses',
 
             // DefaultLock: "Cyber3",
             tightType: "Secure",

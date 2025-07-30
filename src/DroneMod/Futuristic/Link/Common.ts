@@ -90,7 +90,6 @@ export const RestraintTemplate = {
     },
     struggleBreak: true,
 
-    noDupe: true,
     unlimited: true,
     power: 15,
     weight: 0,

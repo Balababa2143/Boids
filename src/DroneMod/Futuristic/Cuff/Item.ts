@@ -22,10 +22,8 @@ const ItemBase = {
     renderWhenLinked: [
         ...KDBindable
     ],
-    //alwaysRender: true,
     
     ...MechanichalLockSfx,
-
     Model: '',
     factionFilters: {
         [InheritColor.BaseMetal]: {
@@ -45,6 +43,7 @@ const ItemBase = {
             override: true
         },
     },
+    preview: 'CyberCuffs',
 
     escapeChance: {
         Remove: 0.2,
