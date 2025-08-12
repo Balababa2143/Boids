@@ -17,7 +17,7 @@
         "inlineSourceMap": true,
         "lib": [
             "DOM",
-            "ES2020"
+            "ESNext"
         ],
         "typeRoots": [
             "./node_modules/@types",
