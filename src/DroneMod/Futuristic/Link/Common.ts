@@ -1,6 +1,6 @@
 import { ModelText, RestraintText } from '../../../KDInterface/KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
-import { AddModelVariant, AddRestraintVariant, ModelVariantDescriptor, RestraintVariantDescriptor, TransformInstance } from '../../VariantItem'
+import { AddModelVariant, AddRestraintVariant, ModelVariantDescriptor, RestraintVariantDescriptor, TransformInstance } from '../../../KDInterface/VariantItem'
 import { ModelSetRootDir } from '../Common'
 
 /* Layer Sprite Naming:
