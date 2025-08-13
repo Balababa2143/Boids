@@ -483,7 +483,7 @@ export const GetGagMetal = (args: { category: Category, variant: Variant }) => {
     const { category, variant } = args
     //TODO: change to GUID and numbers
     const name =
-        `DroneMod.Asset.Gag.GagMetal_${category}_${Variant.ToStringKey(variant)}`
+        `Boids.Asset.Gag.GagMetal_${category}_${Variant.ToStringKey(variant)}`
     if (ModelDefs[name] == null) {
         KDEx.AddModelWithText(
             create({ name, category, variant })

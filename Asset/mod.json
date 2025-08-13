@@ -1,6 +1,6 @@
 {
-    "modname": "DroneMod",
-    "moddesc": "[Placeholder]",
+    "modname": "Boids",
+    "moddesc": "A Dronification Theme Mod",
 	"author": "Balababa2143@gmail.com",
 	"modbuild": "0.2.0",
 	"gamemajor": 5,

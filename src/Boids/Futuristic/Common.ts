@@ -1,4 +1,4 @@
-export const ModelSetRootDir = 'DroneMod/Futuristic'
+export const ModelSetRootDir = 'Boids/Futuristic'
 
 export const ItemArchetype = {
     /**

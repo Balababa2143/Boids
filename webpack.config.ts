@@ -3,9 +3,9 @@ import * as path from 'path'
 import * as archiver from 'archiver'
 import webpack from 'webpack'
 
-const EntryFile = 'src/DroneMod/ModInit.ts'
+const EntryFile = 'src/Boids/ModInit.ts'
 const BundleDir = 'Bundle'
-const ArchiveFile = 'Deploy/DroneMod.zip'
+const ArchiveFile = 'Deploy/Boids.zip'
 const AssetFolders = [
     'Asset',
     'ArtworkOutput'
