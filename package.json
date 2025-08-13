@@ -7,9 +7,9 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "Webpack Bundle: Debug": "webpack --config webpack.config.ts",
-    "Webpack Watch: Debug": "webpack --config webpack.config.ts -w",
-    "Webpack Bundle: Production": "webpack --config webpack.config.ts --env=production"
+    "Webpack Bundle: Debug": "webpack --config webpack.config.ts --mode development",
+    "Webpack Watch: Debug": "webpack watch --config webpack.config.ts --mode development",
+    "Webpack Bundle: Production": "webpack --config webpack.config.ts --mode production"
   },
   "devDependencies": {
     "@types/archiver": "latest",

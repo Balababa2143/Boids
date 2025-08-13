@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import * as archiver from 'archiver'
-import webpack from 'webpack'
+import webpack, { EnvironmentPlugin } from 'webpack'
 
 const EntryFile = 'src/Boids/ModInit.ts'
 const BundleDir = 'Bundle'
@@ -15,19 +15,6 @@ interface BundleOptions {
     production?: true
     watch?: true
 }
-
-// function ProcessArgs() {
-//     const cliArgs = process.argv.slice(2)
-//     const productionMode = cliArgs.includes('-p'); // production flag
-//     const watchMode = cliArgs.includes('-w'); // production flag
-
-//     const ret: BundleOptions = {
-//         productionMode,
-//         watchMode
-//     }
-//     return ret
-// }
-
 
 async function CopyAssets() {
     await Promise.all(
@@ -119,11 +106,7 @@ function PostBuild(): webpack.WebpackPluginInstance {
     }
 }
 
-function Configurate(env: BundleOptions): webpack.Configuration {
-    const {
-        production,
-        watch
-    } = env
+function Configurate(env: Record<string, unknown>, argv: Record<string, string>): webpack.Configuration {
 
     return {
         entry: path.resolve(EntryFile),
@@ -153,13 +136,11 @@ function Configurate(env: BundleOptions): webpack.Configuration {
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],
         },
-        mode: production ? 'production' : 'development',
-        devtool: production ? false : 'inline-source-map',
+        devtool: (argv['mode'] === 'production') ? false : 'inline-source-map',
         plugins: [
             PreBuild(),
             PostBuild(),
-        ],
-        watch: watch
+        ]
     }
 }
 
