@@ -23,5 +23,8 @@
     "typescript": "latest",
     "webpack": "latest",
     "webpack-cli": "latest"
+  },
+  "dependencies": {
+    "kd-structured": "file:KDInterface/Deploy"
   }
 }

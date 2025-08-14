@@ -1,4 +1,4 @@
-import { GetModelLayers } from '../../../../KDInterface/Structured/src/GetModelLayers'
+import { GetModelLayers } from 'kd-structured'
 import { AddModelWithTextThenGetName, AddRestraintWithTextThenGetName } from '../../../KDInterface/KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 

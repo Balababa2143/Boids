@@ -36,9 +36,6 @@
     },
     "references": [
         {
-            "path": "./KDInterface/Structured"
-        },
-        {
             "path": "./KDInterface/KinkyDungeon"
         }
     ]

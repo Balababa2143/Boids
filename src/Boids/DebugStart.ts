@@ -1,5 +1,5 @@
 import * as Futuristic from './Futuristic'
-import { IKinkyDungeonAddRestraintIfWeakerParameters, KinkyDungeonAddRestraintIfWeaker } from '../../KDInterface/Structured/src/KinkyDungeonAddRestraintIfWeaker'
+import { IKinkyDungeonAddRestraintIfWeakerParameters, KinkyDungeonAddRestraintIfWeaker } from 'kd-structured'
 
 const AddWeakerParams: IKinkyDungeonAddRestraintIfWeakerParameters = {
     restraint: '',
