@@ -1,4 +1,4 @@
-import * as KDEx from '../../../KDInterface/KDExtension'
+import { AddModelWithText, AddRestraintWithTextThenGetName } from '../../../KDInterface/KDExtension';
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { ItemArchetype, MechanichalLockSfx, ModelSetRootDir } from '../Common'
 import { VisorSocket } from './Common'
@@ -33,7 +33,7 @@ export enum InheritColor {
     Strap = 'Strap',
 }
 
-const model: Model = KDEx.AddModelWithText({
+const model: Model = AddModelWithText({
     Name: '{A9A9B0AE-BF70-4125-B89C-60984246DEBF}',
     Folder: `${ModelSetRootDir}/Earphone`,
     Categories: ['Accessories', 'Face'],
@@ -73,7 +73,7 @@ const model: Model = KDEx.AddModelWithText({
     ])
 })
 
-export const Earphone = KDEx.AddRestraintWithTextThenGetName({
+export const Earphone = AddRestraintWithTextThenGetName({
     name: '{373643CB-501A-435E-9EDC-0C7F733D3507}',
     Group: 'ItemHead',
     shrine: ['Visors', VisorSocket, ItemArchetype.HeadSet],
@@ -113,6 +113,5 @@ export const Earphone = KDEx.AddRestraintWithTextThenGetName({
     playerTags: {},
     enemyTags: {}
 }, {
-    ...KDEx.RestraintText.Default,
     DisplayName: 'Drone Earphone',
 })

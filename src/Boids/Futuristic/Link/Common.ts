@@ -1,4 +1,4 @@
-import { ModelText, RestraintText } from '../../../KDInterface/KDExtension'
+import { ModelText, IRestraintText } from '../../../KDInterface/KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { AddModelVariant, AddRestraintVariant, ModelVariantDescriptor, RestraintVariantDescriptor, TransformInstance } from '../../../KDInterface/VariantItem'
 import { ModelSetRootDir } from '../Common'
@@ -34,7 +34,7 @@ export interface Descriptor {
     TransformModel: TransformInstance<Model>[]
     ModelText?: ModelText,
     TransformRestraint: TransformInstance<restraint>[],
-    RestraintText?: RestraintText
+    RestraintText?: IRestraintText
 }
 
 export const BuildVariantMap =

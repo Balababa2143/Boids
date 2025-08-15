@@ -1,7 +1,7 @@
-import * as KDEx from '../../../KDInterface/KDExtension'
 import { ItemArchetype } from '../Common'
 import * as TextKey from '../../../KDInterface/TextKey'
 import { Scale } from '../../../Utilities/Math'
+import { AddEventHandler, IRestraintText, AddRestraintWithText } from '../../../KDInterface/KDExtension'
 
 
 /**
@@ -110,7 +110,7 @@ interface CalcVisorFilterEvent extends KinkyDungeonEvent {
     restraint: string
 }
 
-const CalcVisorFilter = KDEx.AddEventHandler({
+const CalcVisorFilter = AddEventHandler({
     eventMap: KDEventMapInventory,
     trigger: 'apply',
     type: '{211FBBC1-0E8D-4CFF-82E3-ADA9713142ED}',
@@ -220,7 +220,7 @@ export const AddHeadSetItem = (args: {
     socket: string,
     GetName: (_: Variant) => string,
     GetModel: (_: Variant) => string,
-    GetText: (_: Variant) => KDEx.RestraintText,
+    GetText: (_: Variant) => IRestraintText,
     variant: Variant
 }) => {
     const {
@@ -231,7 +231,7 @@ export const AddHeadSetItem = (args: {
         variant
     } = args
     const restraintName = GetName(variant)
-    KDEx.AddRestraintWithText({
+    AddRestraintWithText({
         ...ItemBase,
         name: restraintName,
         Model: GetModel(variant),

@@ -2,7 +2,6 @@
  * Holographic displays, require projector item to function
  */
 
-import * as KDEx from '../../../KDInterface/KDExtension'
 import { AddHeadSetItem, AddVariants, AppendVariantToName, GetVariantDebugLabel, MaskSocket, VisorSocket } from './Common'
 import * as Model from './Model'
 
@@ -24,7 +23,6 @@ AddVariants((variant) => AddHeadSetItem({
             Model.AddGoggleModel(variant).Name :
             Model.AddBlindfoldModel(variant).Name,
     GetText: (variant) => ({
-        ...KDEx.RestraintText.Default,
         DisplayName: 'Drone Goggle',
         FlavorText: 'Goggle layer',
         FunctionText: GetVariantDebugLabel(variant)
@@ -50,7 +48,6 @@ AddVariants((variant) => AddHeadSetItem({
     GetName: GetGlassOnlyMaskVariant,
     GetModel: (variant) => Model.AddGlassOnlyMask(variant).Name,
     GetText: (variant) => ({
-        ...KDEx.RestraintText.Default,
         DisplayName: 'Drone Glass Only Mask',
         FlavorText: 'Mask layer',
         FunctionText: GetVariantDebugLabel(variant)
@@ -71,7 +68,6 @@ AddVariants((variant) => AddHeadSetItem({
     GetName: GetGlassOnlyHoodVariant,
     GetModel: (variant) => Model.AddGlassOnlyHood(variant).Name,
     GetText: (variant) => ({
-        ...KDEx.RestraintText.Default,
         DisplayName: 'Drone Glass Only Hood',
         FlavorText: 'Mask layer',
         FunctionText: GetVariantDebugLabel(variant)

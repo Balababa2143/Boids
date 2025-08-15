@@ -1,10 +1,9 @@
-import { AddRestraintWithTextThenGetName, RestraintText } from '../../../KDInterface/KDExtension'
+import { AddRestraintWithTextThenGetName } from '../../../KDInterface/KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { InheritColor } from './Model'
 import * as Model from './Model'
 import { Socket } from '../Link'
 import { MechanichalLockSfx } from '../Common'
-
 
 const ItemBase = {
     special: true,
@@ -100,7 +99,7 @@ export const LightCollar =
             linkSize: 0.55,
         },
         {
-            ...RestraintText.Default,
+            
             DisplayName: 'Drone Collar',
             FlavorText: 'Light'
         }
@@ -131,7 +130,6 @@ export const HeavyCollar =
             linkSize: 0.55,
         },
         {
-            ...RestraintText.Default,
             DisplayName: 'Drone Collar',
             FlavorText: 'Heavy'
         }
@@ -154,7 +152,7 @@ export const ArmCuff =
             linkSize: 0.7,
         },
         {
-            ...RestraintText.Default,
+            
             DisplayName: 'Drone Arm Cuff'
         }
     )
@@ -175,7 +173,6 @@ export const ElbowCuff =
             linkSize: 0.4,
         },
         {
-            ...RestraintText.Default,
             DisplayName: 'Drone Elbow Cuff'
         }
     )
@@ -196,8 +193,7 @@ export const WristCuff =
             linkCategory: 'Cuffs',
             linkSize: 0.4,
         },
-        {
-            ...RestraintText.Default,
+        {   
             DisplayName: 'Drone Wrist Cuff'
         }
     )
@@ -219,7 +215,6 @@ export const WaistCuff =
             linkSize: 0.55,
         },
         {
-            ...RestraintText.Default,
             DisplayName: 'Drone Waist Cuff'
         }
     )
@@ -239,8 +234,7 @@ export const ThighCuff =
             linkCategory: 'LegCuffs',
             linkSize: 0.55,
         },
-        {
-            ...RestraintText.Default,
+        {          
             DisplayName: 'Drone Thigh Cuff'
         }
     )
@@ -261,7 +255,6 @@ export const AnkleCuff =
             linkSize: 0.55,
         },
         {
-            ...RestraintText.Default,
             DisplayName: 'Drone Ankle Cuff'
         }
     )

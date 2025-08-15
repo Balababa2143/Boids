@@ -1,4 +1,4 @@
-import { ModelText, AddModelWithTextThenGetName, RestraintText, AddRestraintWithTextThenGetName } from "./KDExtension"
+import { ModelText, AddModelWithTextThenGetName, IRestraintText, AddRestraintWithTextThenGetName } from "./KDExtension"
 
 export type TransformInstance<Archetype> =
     (template: Partial<Archetype>) => Partial<Archetype>
@@ -14,9 +14,9 @@ export type ModelVariantDescriptor = VariantDescriptor<Model, ModelText>
 
 export type ModelVariantMap<Variant> = VariantMap<Model, Variant, ModelText>
 
-export type RestraintVariantDescriptor = VariantDescriptor<restraint, RestraintText>
+export type RestraintVariantDescriptor = VariantDescriptor<restraint, IRestraintText>
 
-export type RestraintVariantMap<Variant> = VariantMap<restraint, Variant, RestraintText>
+export type RestraintVariantMap<Variant> = VariantMap<restraint, Variant, IRestraintText>
 
 interface AddVariantParams<Archetype, Variant, TextInfo> {
     VariantMap: VariantMap<Archetype, Variant, TextInfo>,

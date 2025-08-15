@@ -1,4 +1,4 @@
-import { AddRestraintWithTextThenGetName, RestraintText } from '../../../../KDInterface/KDExtension'
+import { AddRestraintWithTextThenGetName } from '../../../../KDInterface/KDExtension'
 import { FactionFilter } from '../../../../KDInterface/TextKey'
 import { MechanichalLockSfx } from '../../Common'
 import { Socket } from '../../Link'
@@ -111,7 +111,6 @@ export const Sleeve = AddRestraintWithTextThenGetName(
         ],
     },
     {
-        ...RestraintText.Default,
         DisplayName: 'Drone Sleeve'
     }
 )
@@ -129,7 +128,6 @@ export const WireCuff = AddRestraintWithTextThenGetName(
         ],
     },
     {
-        ...RestraintText.Default,
         DisplayName: 'Drone Wire Cuff'
     }
 )
@@ -149,7 +147,6 @@ export const LongMitten = AddRestraintWithTextThenGetName(
         bindhands: 1.4,
     },
     {
-        ...RestraintText.Default,
         DisplayName: 'Drone Long Mitten'
     }
 )

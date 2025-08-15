@@ -37,7 +37,7 @@ const MakeStrap = (args: { name: string, variant: Variant }) => {
 }
 
 const defaultHarnessText = {
-    ...KDEx.RestraintText.Default,
+    
     DisplayName: 'Drone Harness'
 }
 
@@ -164,7 +164,7 @@ const MakeMuzzle = (args: { name: string, variant: Variant }) => {
 }
 
 const defaultMuzzleText = {
-    ...KDEx.RestraintText.Default,
+    
     DisplayName: 'Drone Muzzle'
 }
 

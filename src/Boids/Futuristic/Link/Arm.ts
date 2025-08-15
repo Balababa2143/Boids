@@ -1,4 +1,3 @@
-import { RestraintText } from '../../../KDInterface/KDExtension'
 import { RequireSocket, SetGroup } from '../Common'
 import { BuildLinkSet, Descriptor } from './Common'
 import * as Layer from './Layer'
@@ -20,7 +19,6 @@ const DescriptorMap = {
             RequireSocket([Socket.Wrist]),
         ],
         RestraintText: {
-            ...RestraintText.Default,
             DisplayName: 'Drone Arm Link',
             FlavorText: 'Variant: BetweenWristCuff'
         },

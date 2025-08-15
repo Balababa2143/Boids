@@ -78,7 +78,7 @@ const MakeBall = (args: { name: string, ball: BallKind }) => {
 const addBall = (args: {
     name: string,
     ball: BallKind,
-    text: KDEx.RestraintText,
+    text: KDEx.IRestraintText,
     modifyItem?: (_: restraint) => restraint
 }) =>
     KDEx.AddRestraintWithTextThenGetName(
@@ -86,8 +86,8 @@ const addBall = (args: {
         args.text
     )
 
-const DefaultText: KDEx.RestraintText = {
-    ...KDEx.RestraintText.Default,
+const DefaultText: KDEx.IRestraintText = {
+    
     DisplayName: 'Drone Muffler',
 }
 
@@ -165,7 +165,7 @@ export const Plug = (() => {
             ]
         },
         {
-            ...KDEx.RestraintText.Default,
+            
             DisplayName: 'Drone Plug',
         }
     )
