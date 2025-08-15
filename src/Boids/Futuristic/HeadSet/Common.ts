@@ -1,6 +1,7 @@
 import * as KDEx from '../../../KDInterface/KDExtension'
 import { ItemArchetype } from '../Common'
 import * as TextKey from '../../../KDInterface/TextKey'
+import { Scale } from '../../../Utilities/Math'
 
 
 /**
@@ -40,13 +41,13 @@ export class Variant {
 }
 
 export const GetVariantDebugLabel = (variant: Variant) => {
-    if(variant.Type === GlassType.Black){
+    if (variant.Type === GlassType.Black) {
         return `Dark Lv.${variant.OpaqueLevel}`
     }
-    else if (variant.Type === GlassType.Color){
+    else if (variant.Type === GlassType.Color) {
         return `Light Lv.${variant.OpaqueLevel}`
     }
-    else{
+    else {
         throw new Error('Unknown headset variant type.')
     }
 }
@@ -105,6 +106,39 @@ export const MakeModel = (
         })()])
     })
 
+interface CalcVisorFilterEvent extends KinkyDungeonEvent {
+    restraint: string
+}
+
+const CalcVisorFilter = KDEx.AddEventHandler({
+    eventMap: KDEventMapInventory,
+    trigger: 'apply',
+    type: '{211FBBC1-0E8D-4CFF-82E3-ADA9713142ED}',
+    handler(e, item, data) {
+        const event = e as CalcVisorFilterEvent
+        if (data.item.name === event.restraint) {
+            console.info('CalcVisorFilter', {
+                e, item, data
+            })
+            const filterKey = InheritColor.Glass
+            const opaqueSetting = globalThis.VisorOpaqueFactor ?? 0
+            const dimSetting = globalThis.VisorDimFactor ?? 0
+            const opaqueFactor = Scale(Scale(0, 0.5, dimSetting) , 1, opaqueSetting)
+            const dimFactor = Scale(Scale(0, 0.4, opaqueSetting) , 1, dimSetting)
+            const filter = data.Filters[filterKey] ?? {}
+            filter.saturation = 0
+            filter.alpha = Scale(1.1, 3.4, opaqueFactor)
+            filter.brightness = Scale(1, 0.2, dimFactor)
+            const colorFactor = Scale(1, 0.4, dimFactor)
+            filter.red *= colorFactor
+            filter.green *= colorFactor
+            filter.blue *= colorFactor
+            console.log('caled Filters', filter)
+            data.Filters[filterKey] = filter
+        }
+    },
+})
+
 const ItemBase: restraint = {
     name: '',
     noShrine: true,
@@ -124,9 +158,16 @@ const ItemBase: restraint = {
     factionFilters: {
         [InheritColor.Glass]: {
             color: TextKey.FactionFilter.Highlight,
-            override: true
+            override: false
         }
     },
+    // Model: 'Goggles',
+    // factionFilters: {
+    //     'Goggles': {
+    //         color: TextKey.FactionFilter.Highlight,
+    //         override: false
+    //     }
+    // },
     sfx: 'FutureLock',
     sfxRemove: 'SciFiConfigure',
 
@@ -189,14 +230,20 @@ export const AddHeadSetItem = (args: {
         GetText,
         variant
     } = args
+    const restraintName = GetName(variant)
     KDEx.AddRestraintWithText({
         ...ItemBase,
-        name: GetName(variant),
+        name: restraintName,
         Model: GetModel(variant),
         blindfold: CalcBlind(variant),
         requireAllTagsToEquip: [socket],
         events: [
             ...ItemBase.events ?? [],
+            {
+                ...CalcVisorFilter,
+                inheritLinked: true,
+                restraint: restraintName
+            } satisfies CalcVisorFilterEvent,
             {
                 trigger: 'postRemoval',
                 type: 'RequireTag',

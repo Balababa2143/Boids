@@ -49,7 +49,7 @@ export const RequireSubItem = AddEventHandler({
             // console.info('event', e)
             // console.info('item', item)
             // console.info('data', data)
-            const {template: restraintName, ...subItemVariantProperties} = event.SubItem
+            const { template: restraintName, ...subItemVariantProperties } = event.SubItem
             KDS.KDLinkUnder({
                 ...AddWeakerParams,
                 ...subItemVariantProperties,
@@ -59,12 +59,14 @@ export const RequireSubItem = AddEventHandler({
     }
 })
 
-export const AddGag = (item: string) =>
+export const AddGag = (restraint: string) =>
     KDS.KDEquipInventoryVariant({
         ...AddWeakerParams,
         variant: {
-            template: item,
+            template: restraint,
+            prefix: 'MachinePrine_',
             events: [
+                ...KinkyDungeonGetRestraintByName(restraint).events ?? [],
                 {
                     ...RequireSubItem,
                     Socket: Futuristic.Gag.Muffler.BallSocket,
@@ -72,7 +74,9 @@ export const AddGag = (item: string) =>
                     inheritLinked: true,
                     SubItem: {
                         template: Futuristic.Gag.Muffler.NonMuffler,
+                        prefix: 'MachinePrine_',
                         events: [
+                            ...KinkyDungeonGetRestraintByName(Futuristic.Gag.Muffler.NonMuffler).events ?? [],
                             {
                                 ...AddTags,
                                 Tags: [MachinePrimeMufflerTag],

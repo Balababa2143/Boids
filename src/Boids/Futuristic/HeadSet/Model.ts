@@ -3,14 +3,14 @@ import { ModelSetRootDir } from "../Common"
 import { AppendVariantToName, GlassType, InheritColor, MakeModel, Variant } from "./Common"
 
 namespace GlassLayers {
-    const Folder = `${ModelSetRootDir}/Visor`
+    const Folder = 'Visors'
 
     const GlassMask: ModelLayer = {
-        Name: 'GlassMask',
+        Name: 'DollmakerFull',
         Layer: "Mask",
         Folder: Folder,
-        OffsetX: 1014,
-        OffsetY: 285,
+        // OffsetX: 1014,
+        // OffsetY: 285,
         Pri: -10,
         InheritColor: InheritColor.Glass,
         Invariant: true,
@@ -18,11 +18,11 @@ namespace GlassLayers {
     }
 
     const GlassGoggle: ModelLayer = {
-        Name: 'GlassGoggle',
+        Name: 'Dollmaker',
         Layer: "Goggles",
         Folder: Folder,
-        OffsetX: 1013,
-        OffsetY: 502,
+        // OffsetX: 1013,
+        // OffsetY: 502,
         Pri: 14,
         InheritColor: InheritColor.Glass,
         Invariant: true,
@@ -40,23 +40,13 @@ namespace GlassLayers {
             (args.variant.Type === GlassType.Black ? undefined : args.baseSprite.InheritColor)
     })
 
-    export const GetGoggleLayer = (variant: Variant) => {
-        const GetSpriteName = AppendVariantToName('Goggles')
-        return [ConvertBaseToVariant({
-            getSprite: GetSpriteName,
-            baseSprite: GlassGoggle,
-            variant
-        })]
-    }
+    export const GetGoggleLayer = (variant: Variant) => [
+        GlassGoggle,
+    ]
 
-    export const GetMaskLayer = (variant: Variant) => {
-        const GetSpriteName = AppendVariantToName('Mask')
-        return [ConvertBaseToVariant({
-            getSprite: GetSpriteName,
-            baseSprite: GlassMask,
-            variant
-        })]
-    }
+    export const GetMaskLayer = (variant: Variant) => [
+        GlassMask,
+    ]
 }
 
 namespace FrameLayers {
@@ -102,7 +92,7 @@ export const AddBlindfoldModel = (variant: Variant) =>
         ),
         Name: AppendVariantToName('{BD830A7F-5C4C-4D39-8F7F-FD0CACD4179A}')(variant)
     })
-    
+
 /**
  * 
  * @param variant 

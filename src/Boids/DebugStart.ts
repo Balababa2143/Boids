@@ -1,6 +1,6 @@
 import * as Futuristic from './Futuristic'
 import * as MachinePrime from './MachinePrime'
-import { KDEquipInventoryVariant, IKDEquipInventoryVariantParameters} from 'kd-structured'
+import { KDEquipInventoryVariant, IKDEquipInventoryVariantParameters, KDMorphToInventoryVariant } from 'kd-structured'
 
 const AddWeakerParams: Partial<IKDEquipInventoryVariantParameters> = {
     Tightness: 10,
@@ -14,7 +14,9 @@ const AddWeaker = (r: string) =>
         ...AddWeakerParams,
         variant: {
             template: r,
-            events: []
+            events: [
+                ...KinkyDungeonGetRestraintByName(r).events ?? []
+            ]
         }
     })
 
@@ -77,17 +79,7 @@ const AddDroneMod2Left = (args: StartPerkInfo) =>
         }
     })
 
-AddStart({
-    name: 'Drone Toys',
-    perk: {
-        startPriority: 10,
-        category: 'Start',
-        id: 0,
-        cost: -2,
-        buff: true,
-        tags: ['start']
-    },
-    callBack: () => {
+const addDroneSet = () => {
         const lockBackup = AddWeakerParams.Lock
 
         AddWeakerParams.Lock = 'Cyber3'
@@ -97,9 +89,22 @@ AddStart({
         AddWeaker(Futuristic.HeadSet.Headphone.Earphone)
         AddWeaker(Futuristic.HeadSet.Holographic.GetGoggleVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 2)))
         MachinePrime.Gag.AddGag(Futuristic.Gag.FaceCover.PanelHarness)
-        // AddWeaker(Futuristic.Gag.FaceCover.MetalMuzzle2)
-        // AddWeaker(Futuristic.Gag.Muffler.NonMuffler)
-        // AddWeaker(Futuristic.HeadSet.Holographic.GetGlassOnlyMaskVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)))
+        KDMorphToInventoryVariant({
+            item: KinkyDungeonInventoryGetWorn(Futuristic.Gag.Muffler.NonMuffler)!,
+            variant: {
+                template: Futuristic.Gag.Muffler.BigBall,
+                events: [
+                    ...KinkyDungeonGetRestraintByName(Futuristic.Gag.Muffler.BigBall).events ?? [],
+                    {
+                        ...MachinePrime.Gag.AddTags,
+                        Tags: [MachinePrime.Gag.MachinePrimeMufflerTag],
+                        inheritLinked: true
+                    } satisfies MachinePrime.Gag.AddTagsEvent as KinkyDungeonEvent
+                ]
+            }
+        })
+        // MachinePrime.Gag.AddGag(Futuristic.Gag.FaceCover.MetalMuzzle2)
+        // AddWeaker(Futuristic.HeadSet.Holographic.GetGlassOnlyMaskVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 1)))
 
         AddWeakerParams.Lock = 'Cyber3'
         AddWeaker('NippleClamps3')
@@ -108,17 +113,17 @@ AddStart({
         AddWeaker(Futuristic.Aroused.Toys.DenialPlugF)
         AddWeaker(Futuristic.Aroused.Toys.DenialPlugR)
 
-        AddWeaker(Futuristic.Aroused.Chastity.BulkyBelt)
+        AddWeaker(Futuristic.Aroused.Chastity.SlimBelt)
 
-        AddWeaker(Futuristic.Aroused.Chastity.BulkyBra)
+        AddWeaker(Futuristic.Aroused.Chastity.SlimBra)
 
         AddWeakerParams.Lock = 'Cyber2'
         AddWeaker(Futuristic.Cuff.LightCollar)
         // AddWeaker(Futuristic.Cuff.ElbowCuff)
         // AddWeaker(Futuristic.Cuff.WristCuff)
         AddWeaker(Futuristic.Cuff.ArmCuff)
-        AddWeaker(Futuristic.Cuff.WaistCuff)
-        // AddWeaker(Futuristic.Strap.ControlHarness)
+        // AddWeaker(Futuristic.Cuff.WaistCuff)
+        AddWeaker(Futuristic.Strap.ControlHarness)
         AddWeaker(Futuristic.Cuff.ThighCuff)
         AddWeaker(Futuristic.Cuff.AnkleCuff)
 
@@ -129,4 +134,18 @@ AddStart({
 
         AddWeakerParams.Lock = lockBackup
     }
+
+AddStart({
+    name: 'Drone Toys',
+    perk: {
+        startPriority: 10,
+        category: 'Start',
+        id: 0,
+        cost: -2,
+        buff: true,
+        tags: ['start']
+    },
+    callBack: addDroneSet
 })
+
+globalThis.AddDroneSet = addDroneSet

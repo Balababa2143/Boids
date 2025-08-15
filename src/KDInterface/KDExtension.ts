@@ -101,14 +101,16 @@ export type KDEventMap =
     typeof KDEventMapSpell |
     typeof KDEventMapWeapon
 
-export interface IAddEventHandlerParameterPack {
-    eventMap: KDEventMap,
-    trigger: keyof KDEventMap,
+export interface IAddEventHandlerParameterPack<EventMap extends KDEventMap, Trigger extends (string & keyof EventMap)> {
+    eventMap: EventMap,
+    trigger: Trigger,
     type: string, // handler key
-    handler: (e: KinkyDungeonEvent, item: item, data: any) => void
+    handler: EventMap[Trigger][keyof EventMap[Trigger]]
 }
 
-export const AddEventHandler = (args: IAddEventHandlerParameterPack) => {
+export const AddEventHandler = 
+    <EventMap extends KDEventMap, Trigger extends (string & keyof EventMap)>
+    (args: IAddEventHandlerParameterPack<EventMap, Trigger>) => {
     const {
         eventMap, trigger, type, handler
     } = args
