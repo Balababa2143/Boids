@@ -27,7 +27,6 @@ export const AddTags = AddEventHandler({
     trigger: 'updatePlayerTags',
     type: '{53660F42-1DC0-474D-A819-938E39015046}',
     handler(e, _, data: { tags: typeof KinkyDungeonPlayerTags, player: typeof KinkyDungeonPlayerEntity }) {
-        // console.log('add tag')
         const event = e as AddTagsEvent
         for (const tag of event.Tags) {
             data.tags.set(tag, true)
@@ -46,10 +45,6 @@ export const RequireSubItem = AddEventHandler({
             KDRestraint(data.item)?.shrine?.includes(event.Socket) &&
             !KinkyDungeonPlayerTags.get(event.ItemTag)
         ) {
-            // console.info('require sub item entered')
-            // console.info('event', e)
-            // console.info('item', item)
-            // console.info('data', data)
             const { template: restraintName, ...subItemVariantProperties } = event.SubItem
             KDS.KDLinkUnder({
                 ...AddWeakerParams,
