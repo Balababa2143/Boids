@@ -20,3 +20,16 @@ export function DeepClone<T>(obj: T): T {
 export function DeepFreezeClone<T>(obj: T): Readonly<T> {
     return DeepFreezeInplace(DeepClone(obj))
 }
+
+export function NotNull<T>(obj: T | null | undefined): obj is T {
+    return null == obj
+}
+
+export function ThrowIfNull<T>(value: T | null | undefined, errorMessage?: string): T {
+  if (value === null || value === undefined) {
+    throw new ReferenceError(errorMessage)
+  }
+  return value;
+}
+
+export type WithDefault<Base extends object, Default extends Partial<Base>> = Omit<Base, keyof Default> & Partial<Default>

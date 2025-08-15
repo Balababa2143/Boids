@@ -1,6 +1,7 @@
+import { EquipInventoryVariantMergeEvents, MorphToInventoryVariantMergeEvents } from '../KDInterface/KDExtension'
 import * as Futuristic from './Futuristic'
 import * as MachinePrime from './MachinePrime'
-import { KDEquipInventoryVariant, IKDEquipInventoryVariantParameters, KDMorphToInventoryVariant } from 'kd-structured'
+import { IKDEquipInventoryVariantParameters } from 'kd-structured'
 
 const AddWeakerParams: Partial<IKDEquipInventoryVariantParameters> = {
     Tightness: 10,
@@ -10,12 +11,11 @@ const AddWeakerParams: Partial<IKDEquipInventoryVariantParameters> = {
 }
 
 const AddWeaker = (r: string) =>
-    KDEquipInventoryVariant({
+    EquipInventoryVariantMergeEvents({
         ...AddWeakerParams,
         variant: {
             template: r,
             events: [
-                ...KinkyDungeonGetRestraintByName(r).events ?? []
             ]
         }
     })
@@ -89,12 +89,11 @@ const addDroneSet = () => {
         AddWeaker(Futuristic.HeadSet.Headphone.Earphone)
         AddWeaker(Futuristic.HeadSet.Holographic.GetGoggleVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 2)))
         MachinePrime.Gag.AddGag(Futuristic.Gag.FaceCover.PanelHarness)
-        KDMorphToInventoryVariant({
+        MorphToInventoryVariantMergeEvents({
             item: KinkyDungeonInventoryGetWorn(Futuristic.Gag.Muffler.NonMuffler)!,
             variant: {
                 template: Futuristic.Gag.Muffler.BigBall,
                 events: [
-                    ...KinkyDungeonGetRestraintByName(Futuristic.Gag.Muffler.BigBall).events ?? [],
                     {
                         ...MachinePrime.Gag.AddTags,
                         Tags: [MachinePrime.Gag.MachinePrimeMufflerTag],
