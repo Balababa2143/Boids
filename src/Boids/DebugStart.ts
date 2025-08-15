@@ -1,19 +1,24 @@
 import * as Futuristic from './Futuristic'
-import { IKinkyDungeonAddRestraintIfWeakerParameters, KinkyDungeonAddRestraintIfWeaker } from 'kd-structured'
+import * as MachinePrime from './MachinePrime'
+import { KDEquipInventoryVariant, IKDEquipInventoryVariantParameters} from 'kd-structured'
 
-const AddWeakerParams: IKinkyDungeonAddRestraintIfWeakerParameters = {
-    restraint: '',
+const AddWeakerParams: Partial<IKDEquipInventoryVariantParameters> = {
     Tightness: 10,
     Bypass: true,
     Deep: true,
     Lock: 'Cyber3',
 }
 
-const AddWeaker = (r: string | restraint) =>
-    KinkyDungeonAddRestraintIfWeaker({
+const AddWeaker = (r: string) =>
+    KDEquipInventoryVariant({
         ...AddWeakerParams,
-        restraint: r,
+        variant: {
+            template: r,
+            events: []
+        }
     })
+
+
 KDCategoriesStart.push(
     { name: 'Drone Sensory Set1', buffs: [], debuffs: [] },
     { name: 'Drone Sensory Set2', buffs: [], debuffs: [] },
@@ -91,9 +96,9 @@ AddStart({
         AddWeakerParams.Lock = 'Cyber2'
         AddWeaker(Futuristic.HeadSet.Headphone.Earphone)
         AddWeaker(Futuristic.HeadSet.Holographic.GetGoggleVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 2)))
-        AddWeaker(Futuristic.Gag.FaceCover.PanelHarness)
+        MachinePrime.Gag.AddGag(Futuristic.Gag.FaceCover.PanelHarness)
         // AddWeaker(Futuristic.Gag.FaceCover.MetalMuzzle2)
-        AddWeaker(Futuristic.Gag.Muffler.NonMuffler)
+        // AddWeaker(Futuristic.Gag.Muffler.NonMuffler)
         // AddWeaker(Futuristic.HeadSet.Holographic.GetGlassOnlyMaskVariant(new HeadSet.Variant(HeadSet.GlassType.Color, 1)))
 
         AddWeakerParams.Lock = 'Cyber3'

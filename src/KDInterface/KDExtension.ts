@@ -86,3 +86,43 @@ export const AddRestraintWithText = (restraint: restraint, restraintText?: Restr
 
 export const AddRestraintWithTextThenGetName = (restraint: restraint, restraintText?: RestraintText) =>
     AddRestraintWithText(restraint, restraintText).name
+
+export type KDEventMap =
+    typeof KDEventMapAlt |
+    typeof KDEventMapBuff |
+    typeof KDEventMapBullet |
+    typeof KDEventMapEnemy |
+    typeof KDEventMapFacility |
+    typeof KDEventMapGeneric |
+    typeof KDEventMapInventory |
+    typeof KDEventMapInventoryIcon |
+    typeof KDEventMapInventorySelected |
+    typeof KDEventMapOutfit |
+    typeof KDEventMapSpell |
+    typeof KDEventMapWeapon
+
+export interface IAddEventHandlerParameterPack {
+    eventMap: KDEventMap,
+    trigger: keyof KDEventMap,
+    type: string, // handler key
+    handler: (e: KinkyDungeonEvent, item: item, data: any) => void
+}
+
+export const AddEventHandler = (args: IAddEventHandlerParameterPack) => {
+    const {
+        eventMap, trigger, type, handler
+    } = args
+    const handlerMap = eventMap[trigger] ?? {}
+    if(type in handlerMap)
+    {
+        throw new Error('Adding event handler.')
+    }
+    else
+    {
+        handlerMap[type] = handler
+    }
+    eventMap[trigger] = handlerMap
+    return {
+        trigger, type
+    } satisfies Partial<KinkyDungeonEvent>
+}

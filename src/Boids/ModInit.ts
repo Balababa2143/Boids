@@ -14,12 +14,14 @@ PIXI.Assets.load({
     loadParser: 'modAtlasLoader'
 })
 import * as Futuristic from './Futuristic'
+import * as MachinePrime from './MachinePrime'
 import * as DebugStart from './DebugStart'
 import ModDesc from '../../Asset/mod.json'
 
 
 const globalExport = {
     Futuristic,
+    MachinePrime,
     DebugStart
 }
 globalThis[ModDesc.modname] = globalExport
