@@ -99,11 +99,12 @@ function Configurate(env: Record<string, unknown>, argv: Record<string, string>)
         entry: path.resolve(EntryFile),
         output: {
             path: path.resolve(BundleDir),
-            filename() {
-                // Minifier don't understand ks extension.
-                return /*production ? 'index.ks' :*/ 'index.js'
-            },
-            clean: true
+            filename: 'index.js', // Minifier don't understand ks extension.
+            clean: true,
+            library:{
+                name: 'Boids',
+                type: 'umd'
+            }
         },
         module: {
             rules: [

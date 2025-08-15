@@ -13,15 +13,9 @@ PIXI.Assets.load({
     src: 'TextureAtlas/DroneModAsset-1.json',
     loadParser: 'modAtlasLoader'
 })
+
 import * as Futuristic from './Futuristic'
 import * as MachinePrime from './MachinePrime'
 import * as DebugStart from './DebugStart'
-import ModDesc from '../../Asset/mod.json'
-
-
-const globalExport = {
-    Futuristic,
-    MachinePrime,
-    DebugStart
-}
-globalThis[ModDesc.modname] = globalExport
+import ModJson from '../../Asset/mod.json'
+export {Futuristic, MachinePrime, DebugStart, ModJson}
