@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import * as archiver from 'archiver'
-import webpack, { EnvironmentPlugin } from 'webpack'
+import webpack from 'webpack'
 
 const EntryFile = 'src/Boids/ModInit.ts'
 const BundleDir = 'Bundle'
@@ -10,11 +10,6 @@ const AssetFolders = [
     'Asset',
     'ArtworkOutput'
 ]
-
-interface BundleOptions {
-    production?: true
-    watch?: true
-}
 
 async function CopyAssets() {
     await Promise.all(
@@ -52,14 +47,6 @@ function SetArchiverEventHandlers(writeStream: fs.WriteStream, archiver: archive
  */
 async function BuildArchive() {
     const archiveFilePath = path.resolve(ArchiveFile)
-    // const archiveDir = path.dirname(archiveFilePath)
-    // if (!fs.existsSync(archiveDir)) {
-    //     fs.mkdirSync(archiveDir)
-    // }
-
-    // if (fs.existsSync(archiveFilePath)) {
-    //     fs.unlinkSync(archiveFilePath)
-    // }
     const stream = fs.createWriteStream(archiveFilePath)
     const zipArchiver = archiver('zip', {
         zlib: {
@@ -125,7 +112,7 @@ function Configurate(env: Record<string, unknown>, argv: Record<string, string>)
                     use: {
                         'loader': 'ts-loader',
                         'options': {
-                            'projectReferences': true,
+                            projectReferences: true,
                             ignoreDiagnostics: [2742]
                         }
                     },

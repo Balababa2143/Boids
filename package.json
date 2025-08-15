@@ -25,6 +25,6 @@
     "webpack-cli": "latest"
   },
   "dependencies": {
-    "kd-structured": "file:KDInterface/Deploy"
+    "kd-structured": "file:KDInterface/Deploy/package"
   }
 }
