@@ -55,28 +55,62 @@ export const RequireSubItem = AddEventHandler({
     }
 })
 
-export const AddGag = (restraint: string) =>
-    EquipInventoryVariantMergeEvents({
-        ...AddWeakerParams,
-        variant: MakeMachinePrimeVariant({
-            template: restraint,
+// TODO: Add event respond to gag strength change
+// TODO: Add event to fetch gag strength
+export const Muffler =
+    MakeMachinePrimeVariant(
+        {
+            template: Futuristic.Gag.Muffler.NonMuffler,
+            events: [
+                {
+                    ...AddTags,
+                    Tags: [MachinePrimeMufflerTag],
+                    inheritLinked: true
+                } satisfies AddTagsEvent as KinkyDungeonEvent
+            ]
+        }
+    )
+
+export const NonMuffler =
+    MakeMachinePrimeVariant(
+        {
+            template: Futuristic.Gag.Muffler.NonMuffler,
+            events: [
+                {
+                    ...AddTags,
+                    Tags: [MachinePrimeMufflerTag],
+                    inheritLinked: true
+                } satisfies AddTagsEvent as KinkyDungeonEvent
+            ]
+        }
+    )
+
+export const BigBall =
+    MakeMachinePrimeVariant(
+        {
+            template: Futuristic.Gag.Muffler.BigBall,
+            events: [
+                {
+                    ...AddTags,
+                    Tags: [MachinePrimeMufflerTag],
+                    inheritLinked: true
+                } satisfies AddTagsEvent as KinkyDungeonEvent
+            ]
+        }
+    )
+
+export const MakeGagVariantWithBallSocket = (template: string) =>
+    MakeMachinePrimeVariant(
+        {
+            template,
             events: [
                 {
                     ...RequireSubItem,
                     Socket: Futuristic.Gag.Muffler.BallSocket,
                     ItemTag: MachinePrimeMufflerTag,
                     inheritLinked: true,
-                    SubItem: MakeMachinePrimeVariant({
-                        template: Futuristic.Gag.Muffler.NonMuffler,
-                        events: [
-                            {
-                                ...AddTags,
-                                Tags: [MachinePrimeMufflerTag],
-                                inheritLinked: true
-                            } satisfies AddTagsEvent as KinkyDungeonEvent
-                        ]
-                    }),
+                    SubItem: Muffler,
                 } satisfies RequireSubItemEvent as KinkyDungeonEvent
             ]
-        })
-    })
+        }
+    )

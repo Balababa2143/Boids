@@ -117,9 +117,9 @@ const CalcVisorFilter = AddEventHandler({
     handler(e, item, data) {
         const event = e as CalcVisorFilterEvent
         if (data.item.name === event.restraint) {
-            console.info('CalcVisorFilter', {
-                e, item, data
-            })
+            // console.info('CalcVisorFilter', {
+            //     e, item, data
+            // })
             const filterKey = InheritColor.Glass
             const opaqueSetting = globalThis.VisorOpaqueFactor ?? 0
             const dimSetting = globalThis.VisorDimFactor ?? 0

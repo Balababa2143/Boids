@@ -10,6 +10,11 @@ const AddWeakerParams: Partial<IKDEquipInventoryVariantParameters> = {
     Lock: 'Cyber3',
 }
 
+const AddVariant = (variant: KDRestraintVariant) =>
+        EquipInventoryVariantMergeEvents({
+        ...AddWeakerParams,
+        variant
+    })
 const AddWeaker = (r: string) =>
     EquipInventoryVariantMergeEvents({
         ...AddWeakerParams,
@@ -79,7 +84,7 @@ const AddDroneMod2Left = (args: StartPerkInfo) =>
         }
     })
 
-const addDroneSet = () => {
+export const AddDroneSet = () => {
         const lockBackup = AddWeakerParams.Lock
 
         AddWeakerParams.Lock = 'Cyber3'
@@ -88,19 +93,10 @@ const addDroneSet = () => {
         AddWeakerParams.Lock = 'Cyber2'
         AddWeaker(Futuristic.HeadSet.Headphone.Earphone)
         AddWeaker(Futuristic.HeadSet.Holographic.GetGoggleVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 2)))
-        MachinePrime.Gag.AddGag(Futuristic.Gag.FaceCover.PanelHarness)
+        AddVariant(MachinePrime.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.PanelHarness))
         MorphToInventoryVariantMergeEvents({
             item: KinkyDungeonInventoryGetWorn(Futuristic.Gag.Muffler.NonMuffler)!,
-            variant: {
-                template: Futuristic.Gag.Muffler.BigBall,
-                events: [
-                    {
-                        ...MachinePrime.Gag.AddTags,
-                        Tags: [MachinePrime.Gag.MachinePrimeMufflerTag],
-                        inheritLinked: true
-                    } satisfies MachinePrime.Gag.AddTagsEvent as KinkyDungeonEvent
-                ]
-            }
+            variant: MachinePrime.Gag.BigBall
         })
         // MachinePrime.Gag.AddGag(Futuristic.Gag.FaceCover.MetalMuzzle2)
         // AddWeaker(Futuristic.HeadSet.Holographic.GetGlassOnlyMaskVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 1)))
@@ -144,7 +140,5 @@ AddStart({
         buff: true,
         tags: ['start']
     },
-    callBack: addDroneSet
+    callBack: AddDroneSet
 })
-
-globalThis.AddDroneSet = addDroneSet

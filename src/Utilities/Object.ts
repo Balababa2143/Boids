@@ -26,10 +26,21 @@ export function NotNull<T>(obj: T | null | undefined): obj is T {
 }
 
 export function ThrowIfNull<T>(value: T | null | undefined, errorMessage?: string): T {
-  if (value === null || value === undefined) {
-    throw new ReferenceError(errorMessage)
-  }
-  return value;
+    if (value === null || value === undefined) {
+        throw new ReferenceError(errorMessage)
+    }
+    return value;
 }
 
 export type WithDefault<Base extends object, Default extends Partial<Base>> = Omit<Base, keyof Default> & Partial<Default>
+
+export type UnionTo<Target, Tuple extends readonly unknown[]> =
+    Tuple[number] extends Target ? unknown : 'Union Constraint Mismatch'
+
+export type Intersection<T extends unknown[]> =
+    T extends [infer Head, ...infer Tail] ?
+    Head & Intersection<Tail> :
+    unknown // Base case for empty array
+
+export type IntersectionTo<Target, T extends unknown[]> =
+    Intersection<T> extends Target ? unknown : 'Intersection Constraint Mismatch'
