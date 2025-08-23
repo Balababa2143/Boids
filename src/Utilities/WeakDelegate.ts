@@ -86,6 +86,15 @@ export const CreateWeakAction = <TArgs extends unknown[]>() =>
             apply(target, _, argArray: TArgs): void {
                 target.Invoke(...argArray)
             },
+            get(target, p, receiver) {
+                const value = Reflect.get(target, p, receiver)
+                if (typeof value === 'function'){
+                    return value.bind(target)
+                }
+                else{
+                    return value
+                }
+            },
         }
     ) as unknown as IMulticastAction<TArgs> // Type assertion to match the interface
     
