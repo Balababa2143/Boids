@@ -75,26 +75,30 @@ export const RegisterGag = {
     inheritLinked: true
 } satisfies KinkyDungeonEvent
 
+const SetGagModelByStrength = (item: item, strength: number) => {
+    const morph = variant => MorphToInventoryVariantMergeEvents({
+        item: item,
+        variant,
+        forceMorph: true,
+    })
+    if (strength < 0.33) {
+        morph(NonMuffler)
+    }
+    else if (strength > 0.66) {
+        morph(BigBall)
+    }
+    else {
+        morph(Ball)
+    }
+}
+
 const MorphOnTargetedGagStrengthUpdate = {
     ...AddEventHandler({
         eventMap: KDEventMapInventory,
         trigger: Coordinater.EventKeys.TargetGagStrengthUpdate,
         type: '2C8CA1C4-48E1-4E38-9019-15715FB80692',
         handler(e, item, data: Coordinater.TargetGagStrengthUpdateEventArgs) {
-            const morph = variant => MorphToInventoryVariantMergeEvents({
-                item: item,
-                variant,
-                forceMorph: true,
-            })
-            if (data.NewStrength < 0.33) {
-                morph(NonMuffler)
-            }
-            else if (data.NewStrength > 0.66) {
-                morph(BigBall)
-            }
-            else {
-                morph(Ball)
-            }
+            SetGagModelByStrength(item, data.NewStrength)
             if (KDSoundEnabled()) {
                 if (data.NewStrength > data.OldStrength) {
                     AudioPlayInstantSoundKD(`${KinkyDungeonRootDirectory}Audio/MechPumpUp.ogg`)
@@ -122,6 +126,22 @@ const MorphOnTargetedGagStrengthUpdate = {
     inheritLinked: true
 } satisfies KinkyDungeonEvent
 
+const InitGagByStrength = {
+    ...AddEventHandler({
+        eventMap: KDEventMapInventory,
+        trigger: 'postApply',
+        type: '2C8CA1C4-48E1-4E38-9019-15715FB80692',
+        handler(e, item, data: KDEventData_PostApply) {
+            if (item.name === data.item?.name) {
+                const strength = Coordinater.GetState().ActivePC.Items[ItemArchetype.Gag].TargetGagStrength
+                console.info('Boids: postApply InitGagByStrength', strength)
+                SetGagModelByStrength(item, strength)
+            }
+        },
+    }),
+    inheritLinked: true
+} satisfies KinkyDungeonEvent
+
 // TODO: Add event respond to gag strength change
 // TODO: Add event to fetch gag strength
 export const Muffler =
@@ -130,6 +150,7 @@ export const Muffler =
             template: Futuristic.Gag.Muffler.NonMuffler,
             events: [
                 RegisterGag,
+                InitGagByStrength,
                 MorphOnTargetedGagStrengthUpdate,
                 {
                     ...AddTags,
@@ -140,47 +161,17 @@ export const Muffler =
         }
     )
 
-export const NonMuffler =
-    MakeMachinePrimeVariant(
-        {
-            template: Futuristic.Gag.Muffler.NonMuffler,
-            events: [
-                {
-                    ...AddTags,
-                    Tags: [ItemArchetype.Gag],
-                    inheritLinked: true
-                } satisfies AddTagsEvent as KinkyDungeonEvent
-            ]
-        }
-    )
+const MakeMuffler = (template: string) =>
+    MakeMachinePrimeVariant({
+        template,
+        events: []
+    })
 
-export const Ball =
-    MakeMachinePrimeVariant(
-        {
-            template: Futuristic.Gag.Muffler.Ball,
-            events: [
-                {
-                    ...AddTags,
-                    Tags: [ItemArchetype.Gag],
-                    inheritLinked: true
-                } satisfies AddTagsEvent as KinkyDungeonEvent
-            ]
-        }
-    )
+export const NonMuffler = MakeMuffler(Futuristic.Gag.Muffler.NonMuffler)
 
-export const BigBall =
-    MakeMachinePrimeVariant(
-        {
-            template: Futuristic.Gag.Muffler.BigBall,
-            events: [
-                {
-                    ...AddTags,
-                    Tags: [ItemArchetype.Gag],
-                    inheritLinked: true
-                } satisfies AddTagsEvent as KinkyDungeonEvent
-            ]
-        }
-    )
+export const Ball = MakeMuffler(Futuristic.Gag.Muffler.Ball)
+
+export const BigBall = MakeMuffler(Futuristic.Gag.Muffler.BigBall)
 
 export const MakeGagVariantWithBallSocket = (template: string) =>
     MakeMachinePrimeVariant(

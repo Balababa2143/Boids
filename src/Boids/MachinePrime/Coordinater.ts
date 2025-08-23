@@ -57,9 +57,9 @@ KDGameDataBase[GameDataStateKey] = Object.freeze({
     },
 } satisfies State)
 
-const GetState = () => KDGameData[GameDataStateKey]
+export const GetState = () => KDGameData[GameDataStateKey]
 
-const SetState = (newState: State) => {
+export const SetState = (newState: State) => {
     // TODO: Handle synchronization across save, etc
     KDGameData[GameDataStateKey] = newState
     return newState
@@ -141,6 +141,7 @@ AddEventHandler({
     trigger: 'tick',
     type: '90F84036-7836-473E-BE57-14009ABE6158',
     handler(e, data) {
+        console.info('Boids: tick')
         SetTargetGagStrength(Math.random())
     },
 })
