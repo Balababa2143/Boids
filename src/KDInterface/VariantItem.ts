@@ -1,4 +1,4 @@
-import { ModelText, AddModelWithTextThenGetName, IRestraintText, AddRestraintWithTextThenGetName } from "./KDExtension"
+import { ModelText, AddModelWithTextThenGetName, IRestraintText, AddRestraintWithTextThenGetName } from './KDExtension'
 
 export type TransformInstance<Archetype> =
     (template: Partial<Archetype>) => Partial<Archetype>

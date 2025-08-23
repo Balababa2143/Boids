@@ -6,17 +6,17 @@ import { Category } from './GagMetal'
 // /**
 //  * Item tag of all mufflers
 //  */
-// export const Muffler = "89CB8E40-CDE3-4D12-B24A-150B61C7FF8B"
+// export const Muffler = '89CB8E40-CDE3-4D12-B24A-150B61C7FF8B'
 
 /**
  * Socket for muffler, required for mufflers to be equipped.
  */
-export const BallSocket = "C48EFD5E-E76F-4ED5-AEDD-C2110FC09EB4"
+export const BallSocket = 'C48EFD5E-E76F-4ED5-AEDD-C2110FC09EB4'
 
 /**
  * Socket for plug, required for plugs to be equipped.
  */
-export const PlugSocket = "2084306E-A3AB-449D-8766-48B5272791FE"
+export const PlugSocket = '2084306E-A3AB-449D-8766-48B5272791FE'
 
 const MakeMuffler = (args: { name: string, variant: Variant }) => {
     const { name, variant } = args
@@ -63,8 +63,8 @@ const MakeBall = (args: { name: string, ball: BallKind }) => {
         events: [
             ...baseItem.events ?? [],
             {
-                trigger: "postRemoval",
-                type: "RequireTag",
+                trigger: 'postRemoval',
+                type: 'RequireTag',
                 requiredTag: BallSocket,
                 inheritLinked: true
             }
@@ -157,8 +157,8 @@ export const Plug = (() => {
             events: [
                 ...baseItem.events ?? [],
                 {
-                    trigger: "postRemoval",
-                    type: "RequireTag",
+                    trigger: 'postRemoval',
+                    type: 'RequireTag',
                     requiredTag: PlugSocket,
                     inheritLinked: true
                 }

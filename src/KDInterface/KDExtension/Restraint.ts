@@ -1,5 +1,5 @@
-import { IKDEquipInventoryVariantParameters, IKDMorphToInventoryVariantParameters, KinkyDungeonAddRestraintIfWeaker, KinkyDungeonRemoveRestraintSpecific } from "kd-structured"
-import { DeepFreezeClone, ThrowIfNull } from "../../Utilities"
+import { IKDEquipInventoryVariantParameters, IKDMorphToInventoryVariantParameters, KinkyDungeonAddRestraintIfWeaker, KinkyDungeonRemoveRestraintSpecific } from 'kd-structured'
+import { DeepFreezeClone, ThrowIfNull } from '../../Utilities'
 
 /**
  * Represents the text information associated with a restraint, including display name, flavor text, and function text.
@@ -129,7 +129,7 @@ const PrepareRestraintVariant = (args: IPrepareRestraintVariantParameterPack) =>
     } satisfies typeof variant
 
     const prefix2 = preparedVariant.prefix ?? ''
-    const newName = prefix2 + variant.template + (ID || (KinkyDungeonGetItemID() + "")) + (curse ? curse : "")
+    const newName = prefix2 + variant.template + (ID || (KinkyDungeonGetItemID() + '')) + (curse ? curse : '')
 
     if (!KinkyDungeonRestraintVariants[newName]) {
         KinkyDungeonRestraintVariants[newName] = preparedVariant

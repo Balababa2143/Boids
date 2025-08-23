@@ -1,7 +1,7 @@
-import * as KDS from "kd-structured"
+import * as KDS from 'kd-structured'
 import * as Futuristic from '../Futuristic'
-import { AddEventHandler, EquipInventoryVariantMergeEvents, MorphToInventoryVariantMergeEvents } from "../../KDInterface/KDExtension"
-import { ItemArchetype, MakeMachinePrimeVariant } from "./Common"
+import { AddEventHandler, EquipInventoryVariantMergeEvents, MorphToInventoryVariantMergeEvents } from '../../KDInterface/KDExtension'
+import { ItemArchetype, MakeMachinePrimeVariant } from './Common'
 import * as Coordinater from './Coordinater'
 
 const AddWeakerParams: Partial<KDS.IKDEquipInventoryVariantParameters> = {

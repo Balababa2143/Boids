@@ -1,4 +1,4 @@
-import { InheritColor } from "../Common"
+import { InheritColor } from '../Common'
 
 export const MakeLeftRight = <Base extends Partial<ModelLayer>>(layerBase: Base) => [
     {

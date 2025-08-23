@@ -1,13 +1,13 @@
 import * as KDEx from '../../../KDInterface/KDExtension'
-import { ModelSetRootDir } from "../Common"
-import { AppendVariantToName, GlassType, InheritColor, MakeModel, Variant } from "./Common"
+import { ModelSetRootDir } from '../Common'
+import { AppendVariantToName, GlassType, InheritColor, MakeModel, Variant } from './Common'
 
 namespace GlassLayers {
     const Folder = 'Visors'
 
     const GlassMask: ModelLayer = {
         Name: 'DollmakerFull',
-        Layer: "Mask",
+        Layer: 'Mask',
         Folder: Folder,
         // OffsetX: 1014,
         // OffsetY: 285,
@@ -19,7 +19,7 @@ namespace GlassLayers {
 
     const GlassGoggle: ModelLayer = {
         Name: 'Dollmaker',
-        Layer: "Goggles",
+        Layer: 'Goggles',
         Folder: Folder,
         // OffsetX: 1013,
         // OffsetY: 502,
@@ -51,13 +51,13 @@ namespace GlassLayers {
 
 namespace FrameLayers {
     export const MaskRim: ModelLayer = {
-        Name: "DollmakerFullRim",
-        Layer: "Mask",
+        Name: 'DollmakerFullRim',
+        Layer: 'Mask',
         Pri: -10.0 + 0.1,
         InheritColor: InheritColor.BaseMetal,
         Invariant: true,
         NoOverride: true,
-        Folder: "Visors"
+        Folder: 'Visors'
     }
 }
 
@@ -72,7 +72,7 @@ export const AddGoggleModel = (variant: Variant) =>
         ...MakeModel(
             variant,
             GlassLayers.GetGoggleLayer(variant),
-            "Goggles"
+            'Goggles'
         ),
         Name: AppendVariantToName('CDCA7F49-7337-481C-81C9-5ACC995493A4')(variant)
     })
@@ -88,7 +88,7 @@ export const AddBlindfoldModel = (variant: Variant) =>
         ...MakeModel(
             variant,
             GlassLayers.GetGoggleLayer(variant),
-            "Blindfold"
+            'Blindfold'
         ),
         Name: AppendVariantToName('BD830A7F-5C4C-4D39-8F7F-FD0CACD4179A')(variant)
     })
@@ -104,7 +104,7 @@ export const AddGlassOnlyMask = (variant: Variant) =>
         ...MakeModel(
             variant,
             GlassLayers.GetMaskLayer(variant),
-            "Mask"
+            'Mask'
         ),
         Name: AppendVariantToName('62C5B6AC-934A-4B4F-B48C-71BFC555A4C7')(variant)
     })
@@ -113,14 +113,14 @@ export const AddGlassOnlyHood = (variant: Variant) => {
     const baseModel = MakeModel(
         variant,
         GlassLayers.GetMaskLayer(variant),
-        "Hood"
+        'Hood'
     )
     return KDEx.AddModelWithText({
         ...baseModel,
         Name: AppendVariantToName('8926839C-9AAE-483E-8667-C1DA4B0AD2DB')(variant),
         AddPose: [
             ...baseModel.AddPose ?? [],
-            "HoodMask" // Push hair to the front
+            'HoodMask' // Push hair to the front
         ]
     })
 }
@@ -139,7 +139,7 @@ export const AddFullMask = (variant: Variant) =>
                 ...GlassLayers.GetMaskLayer(variant),
                 FrameLayers.MaskRim
             ],
-            "Mask"
+            'Mask'
         ),
         Name: AppendVariantToName('8926839C-9AAE-483E-8667-C1DA4B0AD2DB')(variant)
     })
@@ -151,14 +151,14 @@ export const AddFullHood = (variant: Variant) => {
             ...GlassLayers.GetMaskLayer(variant),
             FrameLayers.MaskRim
         ],
-        "Hood"
+        'Hood'
     )
     return KDEx.AddModelWithText({
         ...baseModel,
         Name: AppendVariantToName('F53ADBCD-9519-44FE-830C-E8C60BD3A610')(variant),
         AddPose: [
             ...baseModel.AddPose ?? [],
-            "HoodMask" // Push hair to the front
+            'HoodMask' // Push hair to the front
         ]
     })
 }

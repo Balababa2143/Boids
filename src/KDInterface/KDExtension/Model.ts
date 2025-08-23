@@ -1,4 +1,4 @@
-import { DeepFreezeInplace, DeepFreezeClone } from "../../Utilities"
+import { DeepFreezeInplace, DeepFreezeClone } from '../../Utilities'
 
 export interface ModelText {
     DisplayName: string,
@@ -7,7 +7,7 @@ export interface ModelText {
 
 export namespace ModelText {
     export const Default: ModelText = DeepFreezeInplace({
-        DisplayName: "[Model Name Missing]",
+        DisplayName: '[Model Name Missing]',
         AdditionalTextKey: {}
     })
 }

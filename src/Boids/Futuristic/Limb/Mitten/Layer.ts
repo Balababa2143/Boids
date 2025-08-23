@@ -213,7 +213,7 @@ export const GetSleevesBodyLayers =
             {
                 Name: sleevesLayerName,
                 // Sprite = `LongMitten${suffix}`,
-                Folder: "CyberArms",
+                Folder: 'CyberArms',
                 Layer: `Mitten${suffix}`,
                 Pri: 120,
                 Poses: ArmPoseMap,
@@ -223,7 +223,7 @@ export const GetSleevesBodyLayers =
             {
                 Name: foreSleevesLayerName,
                 Layer: `ForeMitten${suffix}`,
-                Folder: "CyberArms",
+                Folder: 'CyberArms',
                 Pri: 20,
                 Poses: ForeArmPoseMap,
                 InheritColor: InheritColor.Mitten,
@@ -239,7 +239,7 @@ export const GetEmptyBodyLayers =
         return [
             {
                 Name: sleevesLayerName,
-                Sprite: "",
+                Sprite: '',
                 Layer: `Mitten${suffix}`,
                 Pri: 120,
                 Poses: ArmPoseMap,
@@ -248,7 +248,7 @@ export const GetEmptyBodyLayers =
             },
             {
                 Name: foreSleevesLayerName,
-                Sprite: "",
+                Sprite: '',
                 Layer: `ForeMitten${suffix}`,
                 Pri: 20,
                 Poses: ForeArmPoseMap,
@@ -262,7 +262,7 @@ export const GetLongMittenBodyLayers =
     suffix => {
         const sleevesLayerName = GetSleevesLayerName(suffix)
         const foreSleevesLayerName = GetForeSleevesLayerName(suffix)
-        const mittsLayersMap = ToMap(["Mitts"])
+        const mittsLayersMap = ToMap(['Mitts'])
         return [
             {
                 Name: sleevesLayerName,
@@ -273,7 +273,7 @@ export const GetLongMittenBodyLayers =
                 GlobalDefaultOverride: FrontCrossLayerMap,
                 InheritColor: InheritColor.Mitten,
                 NoOverride: true,
-                EraseSprite: "Mitts",
+                EraseSprite: 'Mitts',
                 EraseLayers: mittsLayersMap,
             },
             {
@@ -285,7 +285,7 @@ export const GetLongMittenBodyLayers =
                 GlobalDefaultOverride: FrontCrossLayerMap,
                 SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed, suffix),
                 NoOverride: true,
-                EraseSprite: "Mitts",
+                EraseSprite: 'Mitts',
                 EraseLayers: mittsLayersMap,
             },
         ]

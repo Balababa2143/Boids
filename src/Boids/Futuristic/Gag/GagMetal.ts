@@ -433,7 +433,7 @@ const create = (args: {
                 CategoryToLayerMap[category] === GagLayerBase.GagFlat ?
                     {
                         ...sprite.SwapLayerPose,
-                        "XrayFace": "MaskOver"
+                        'XrayFace': 'MaskOver'
                     } :
                     sprite.SwapLayerPose
         })
@@ -444,28 +444,28 @@ const create = (args: {
             variant.Ball === BallKind.Ball ||
             Enum.HasFlag(variant.Component, Component.Plug)
         ) {
-            yield "StuffMouth"
+            yield 'StuffMouth'
         }
         if (
             variant.Ball === BallKind.BigBall ||
             Enum.HasFlag(variant.Component, Component.Plug)
         ) {
-            yield "HideMouth"
+            yield 'HideMouth'
         }
         if (variant.Ball === BallKind.BigBall) {
-            yield "FaceBigGag"
+            yield 'FaceBigGag'
         }
         if (variant.Muzzle !== MuzzleKind.None) {
-            yield "FaceCoverGag"
+            yield 'FaceCoverGag'
         }
     })()]
 
     return <Model>{
         Name: name,
-        Folder: "GagMetal",
-        Categories: ["Restraints", "Gags"],
+        Folder: 'GagMetal',
+        Categories: ['Restraints', 'Gags'],
         TopLevel: true,
-        Group: "Mouth",
+        Group: 'Mouth',
         Restraint: true,
         AddPose: addPose,
         Layers: ToLayerMap(sprites)

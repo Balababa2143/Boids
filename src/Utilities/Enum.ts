@@ -1,4 +1,4 @@
-import { PowerSet } from "./Seq"
+import { PowerSet } from './Seq'
 
 export interface Enum {
     [_: string | number]: string | number
