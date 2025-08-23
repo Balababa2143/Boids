@@ -19,23 +19,21 @@ export interface IAddEventHandlerParameterPack<EventMap extends KDEventMap, Trig
     handler: EventMap[Trigger][keyof EventMap[Trigger]]
 }
 
-export const AddEventHandler = 
+export const AddEventHandler =
     <EventMap extends KDEventMap, Trigger extends (string & keyof EventMap)>
     (args: IAddEventHandlerParameterPack<EventMap, Trigger>) => {
     const {
         eventMap, trigger, type, handler
     } = args
     const handlerMap = eventMap[trigger] ?? {}
-    if(type in handlerMap)
-    {
+    if (type in handlerMap) {
         throw new Error('Adding event handler.')
     }
-    else
-    {
+    else {
         handlerMap[type] = handler
     }
     eventMap[trigger] = handlerMap
     return {
-        trigger, type
+        trigger, type,
     } satisfies Partial<KinkyDungeonEvent>
 }

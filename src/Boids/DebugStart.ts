@@ -1,4 +1,4 @@
-import { EquipInventoryVariantMergeEvents, MorphToInventoryVariantMergeEvents } from '../KDInterface/KDExtension'
+import { AddEventHandler, EquipInventoryVariantMergeEvents, MorphToInventoryVariantMergeEvents } from '../KDInterface/KDExtension'
 import * as Futuristic from './Futuristic'
 import * as MachinePrime from './MachinePrime'
 import { IKDEquipInventoryVariantParameters } from 'kd-structured'
@@ -94,10 +94,6 @@ export const AddDroneSet = () => {
         AddWeaker(Futuristic.HeadSet.Headphone.Earphone)
         AddWeaker(Futuristic.HeadSet.Holographic.GetGoggleVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 2)))
         AddVariant(MachinePrime.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.PanelHarness))
-        MorphToInventoryVariantMergeEvents({
-            item: KinkyDungeonInventoryGetWorn(Futuristic.Gag.Muffler.NonMuffler)!,
-            variant: MachinePrime.Gag.BigBall
-        })
         // MachinePrime.Gag.AddGag(Futuristic.Gag.FaceCover.MetalMuzzle2)
         // AddWeaker(Futuristic.HeadSet.Holographic.GetGlassOnlyMaskVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 1)))
 

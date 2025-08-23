@@ -116,7 +116,6 @@ const PrepareRestraintVariant = (args: IPrepareRestraintVariantParameterPack) =>
         events
     } = args
     KDUpdateItemEventCache = true
-    const newName = prefix + variant.template + (ID || (KinkyDungeonGetItemID() + "")) + (curse ? curse : "")
     const preparedVariant = {
         ...variant,
         prefix: prefix ?? variant.prefix,
@@ -128,6 +127,9 @@ const PrepareRestraintVariant = (args: IPrepareRestraintVariantParameterPack) =>
                 (powerBonus ?? variant.power),
         events
     } satisfies typeof variant
+
+    const prefix2 = preparedVariant.prefix ?? ''
+    const newName = prefix2 + variant.template + (ID || (KinkyDungeonGetItemID() + "")) + (curse ? curse : "")
 
     if (!KinkyDungeonRestraintVariants[newName]) {
         KinkyDungeonRestraintVariants[newName] = preparedVariant

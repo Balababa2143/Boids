@@ -14,8 +14,8 @@ PIXI.Assets.load({
     loadParser: 'modAtlasLoader'
 })
 
-import * as Futuristic from './Futuristic'
-import * as MachinePrime from './MachinePrime'
-import * as DebugStart from './DebugStart'
+export * as Futuristic from './Futuristic'
+export * as MachinePrime from './MachinePrime'
+export * as DebugStart from './DebugStart'
 import ModJson from '../../Asset/mod.json'
-export {Futuristic, MachinePrime, DebugStart, ModJson}
+export {ModJson}
