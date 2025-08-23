@@ -95,9 +95,9 @@ const SetGagModelByStrength = (item: item, strength: number) => {
 const MorphOnTargetedGagStrengthUpdate = {
     ...AddEventHandler({
         eventMap: KDEventMapInventory,
-        trigger: Coordinater.EventKeys.TargetGagStrengthUpdate,
+        trigger: Coordinater.Gag.EventKeys.TargetGagStrengthUpdate,
         type: '2C8CA1C4-48E1-4E38-9019-15715FB80692',
-        handler(e, item, data: Coordinater.TargetGagStrengthUpdateEventArgs) {
+        handler(e, item, data: Coordinater.Gag.TargetGagStrengthUpdateEventArgs) {
             SetGagModelByStrength(item, data.NewStrength)
             if (KDSoundEnabled()) {
                 if (data.NewStrength > data.OldStrength) {
