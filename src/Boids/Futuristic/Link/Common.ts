@@ -1,6 +1,5 @@
-import { ModelText, IRestraintText } from '../../../KDInterface/KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
-import { AddModelVariant, AddRestraintVariant, ModelVariantDescriptor, RestraintVariantDescriptor, TransformInstance } from '../../../KDInterface/VariantItem'
+import { AddModelVariant, AddRestraintVariant, BuildVariantMap, Descriptor } from '../../../KDInterface/VariantItem'
 import { ModelSetRootDir } from '../Common'
 
 /* Layer Sprite Naming:
@@ -29,28 +28,6 @@ export const ModelTemplate = {
 //#endregion
 
 //#region Item
-
-export interface Descriptor {
-    TransformModel: TransformInstance<Model>[]
-    ModelText?: ModelText,
-    TransformRestraint: TransformInstance<restraint>[],
-    RestraintText?: IRestraintText
-}
-
-export const BuildVariantMap =
-    <DescriptorMap extends Record<string, Descriptor>>
-    (descMap: DescriptorMap) => {
-        return {
-            ModelMap: (variant: keyof DescriptorMap) => ({
-                Transformers: descMap[variant].TransformModel,
-                Text: descMap[variant].ModelText
-            } as ModelVariantDescriptor),
-            RestraintMap: (variant: keyof DescriptorMap) => ({
-                Transformers: descMap[variant].TransformRestraint,
-                Text: descMap[variant].RestraintText
-            } as RestraintVariantDescriptor)
-        }
-    }
 
 export const RestraintTemplate = {
     special: true,

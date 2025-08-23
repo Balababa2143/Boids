@@ -1,4 +1,4 @@
-import { ModelText, AddModelWithTextThenGetName, IRestraintText, AddRestraintWithTextThenGetName } from './KDExtension'
+import { ModelText, AddModelWithTextThenGetName, IRestraintText, AddRestraintWithTextThenGetName } from '../KDExtension'
 
 export type TransformInstance<Archetype> =
     (template: Partial<Archetype>) => Partial<Archetype>
@@ -49,3 +49,25 @@ const AddVariant =
 export const AddModelVariant = AddVariant(AddModelWithTextThenGetName)
 
 export const AddRestraintVariant = AddVariant(AddRestraintWithTextThenGetName)
+
+export interface Descriptor {
+    TransformModel: TransformInstance<Model>[]
+    ModelText?: ModelText,
+    TransformRestraint: TransformInstance<restraint>[],
+    RestraintText?: IRestraintText
+}
+
+export const BuildVariantMap =
+    <DescriptorMap extends Record<string, Descriptor>>
+    (descMap: DescriptorMap) => {
+        return {
+            ModelMap: (variant: keyof DescriptorMap) => ({
+                Transformers: descMap[variant].TransformModel,
+                Text: descMap[variant].ModelText
+            } as ModelVariantDescriptor),
+            RestraintMap: (variant: keyof DescriptorMap) => ({
+                Transformers: descMap[variant].TransformRestraint,
+                Text: descMap[variant].RestraintText
+            } as RestraintVariantDescriptor)
+        }
+    }

@@ -1,4 +1,4 @@
-import * as KDEx from '../../../KDInterface/KDExtension'
+import * as KDEx from '../../../KDExtension'
 import * as Enum from '../../../Utilities/Enum'
 import { ItemArchetype, MechanichalLockSfx } from '../Common'
 import { MaskSocket } from '../HeadSet/Common'

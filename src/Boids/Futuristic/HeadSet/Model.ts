@@ -1,4 +1,4 @@
-import * as KDEx from '../../../KDInterface/KDExtension'
+import * as KDEx from '../../../KDExtension'
 import { ModelSetRootDir } from '../Common'
 import { AppendVariantToName, GlassType, InheritColor, MakeModel, Variant } from './Common'
 

@@ -1,4 +1,4 @@
-import * as KDEx from '../../../KDInterface/KDExtension'
+import * as KDEx from '../../../KDExtension'
 import { InflateLockSfx } from '../Common'
 
 

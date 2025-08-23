@@ -1,4 +1,4 @@
-import * as KDEx from '../../../KDInterface/KDExtension'
+import * as KDEx from '../../../KDExtension'
 import * as Enum from '../../../Utilities/Enum'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { Category, GetGagMetal, InheritColor } from './GagMetal'

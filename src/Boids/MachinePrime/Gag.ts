@@ -1,6 +1,6 @@
 import * as KDS from 'kd-structured'
 import * as Futuristic from '../Futuristic'
-import { AddEventHandler, EquipInventoryVariantMergeEvents, MorphToInventoryVariantMergeEvents } from '../../KDInterface/KDExtension'
+import { AddEventHandler, EquipInventoryVariantMergeEvents, MorphToInventoryVariantMergeEvents } from '../../KDExtension'
 import { ItemArchetype, MakeMachinePrimeVariant } from './Common'
 import * as Coordinater from './Coordinater'
 

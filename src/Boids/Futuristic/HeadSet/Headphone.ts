@@ -1,4 +1,4 @@
-import { AddModelWithText, AddRestraintWithTextThenGetName } from '../../../KDInterface/KDExtension';
+import { AddModelWithText, AddRestraintWithTextThenGetName } from '../../../KDExtension';
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { ItemArchetype, MechanichalLockSfx, ModelSetRootDir } from '../Common'
 import { VisorSocket } from './Common'

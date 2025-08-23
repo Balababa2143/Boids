@@ -1,4 +1,4 @@
-import { AddEventHandler } from '../KDInterface/KDExtension'
+import { AddEventHandler } from '../KDExtension'
 
 interface CharacterProfile {
     // CharacterAppearanceStringify & CharacterAppearanceRestore

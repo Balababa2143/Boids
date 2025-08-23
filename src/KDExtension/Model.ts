@@ -1,4 +1,4 @@
-import { DeepFreezeInplace, DeepFreezeClone } from '../../Utilities'
+import { DeepFreezeInplace, DeepFreezeClone } from '../Utilities'
 
 export interface ModelText {
     DisplayName: string,

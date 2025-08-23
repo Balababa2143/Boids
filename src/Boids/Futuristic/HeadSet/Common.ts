@@ -1,7 +1,7 @@
 import { ItemArchetype } from '../Common'
 import * as TextKey from '../../../KDInterface/TextKey'
 import { Scale } from '../../../Utilities/Math'
-import { AddEventHandler, IRestraintText, AddRestraintWithText } from '../../../KDInterface/KDExtension'
+import { AddEventHandler, IRestraintText, AddRestraintWithText } from '../../../KDExtension'
 
 
 /**

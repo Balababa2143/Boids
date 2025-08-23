@@ -1,4 +1,4 @@
-import { AddRestraintWithTextThenGetName } from '../../../KDInterface/KDExtension';
+import { AddRestraintWithTextThenGetName } from '../../../KDExtension';
 import { ElectricMechLockSfx } from '../Common';
 
 const BeltBase = {

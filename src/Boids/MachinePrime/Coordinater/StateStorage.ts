@@ -1,7 +1,7 @@
 import { v7 as NewUUID } from 'uuid'
 import { KeyPath, PropAtPath, FrozenObject } from '../../../Utilities'
 import { ItemArchetype } from '../Common'
-import { AddEventHandler } from '../../../KDInterface/KDExtension'
+import { AddEventHandler } from '../../../KDExtension'
 import { State } from './State'
 
 const GameDataStateKey = '68C84945-3A9A-4024-8CC6-E3CE092E9154' as const

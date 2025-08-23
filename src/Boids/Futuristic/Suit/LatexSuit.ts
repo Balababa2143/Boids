@@ -1,5 +1,5 @@
 import { GetModelLayers } from 'kd-structured'
-import { AddModelWithTextThenGetName, AddRestraintWithTextThenGetName } from '../../../KDInterface/KDExtension'
+import { AddModelWithTextThenGetName, AddRestraintWithTextThenGetName } from '../../../KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 
 export const LockableSuitModel =

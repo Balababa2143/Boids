@@ -1,4 +1,4 @@
-import { AddEventHandler, EquipInventoryVariantMergeEvents, MorphToInventoryVariantMergeEvents } from '../KDInterface/KDExtension'
+import { AddEventHandler, EquipInventoryVariantMergeEvents, MorphToInventoryVariantMergeEvents } from '../KDExtension'
 import * as Futuristic from './Futuristic'
 import * as MachinePrime from './MachinePrime'
 import { IKDEquipInventoryVariantParameters } from 'kd-structured'

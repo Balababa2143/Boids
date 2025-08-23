@@ -1,5 +1,6 @@
+import { Descriptor } from '../../../KDInterface/VariantItem'
 import { RequireSocket, SetGroup } from '../Common'
-import { BuildLinkSet, Descriptor } from './Common'
+import { BuildLinkSet } from './Common'
 import * as Layer from './Layer'
 import * as Socket from './Socket'
 

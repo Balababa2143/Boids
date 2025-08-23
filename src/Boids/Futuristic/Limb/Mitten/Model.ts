@@ -1,4 +1,4 @@
-import { AddModelWithTextThenGetName } from '../../../../KDInterface/KDExtension'
+import { AddModelWithTextThenGetName } from '../../../../KDExtension'
 import { GetEmptyBodyLayers, GetLongMittenBodyLayers, GetLongMittenCaplayers, GetLongMittenCommonLayers, GetSleevesBodyLayers } from './Layer'
 
 const modelBase = {

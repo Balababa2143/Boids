@@ -1,4 +1,4 @@
-import { AddModelWithTextThenGetName } from '../../../KDInterface/KDExtension'
+import { AddModelWithTextThenGetName } from '../../../KDExtension'
 
 export namespace InheritColor {
     export const BaseMetal = 'BaseMetal'

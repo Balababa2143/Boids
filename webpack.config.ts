@@ -1,3 +1,4 @@
+import { promisify } from 'util'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as archiver from 'archiver'
@@ -5,6 +6,7 @@ import webpack from 'webpack'
 
 const EntryFile = 'src/Boids/ModInit.ts'
 const BundleDir = 'Bundle'
+const DeclarationFolder = 'Declaration'
 const ArchiveFile = 'Deploy/Boids.zip'
 const AssetFolders = [
     'Asset',
@@ -66,15 +68,25 @@ function PreBuild(): webpack.WebpackPluginInstance {
     return {
         apply: (compiler) => {
             compiler.hooks.beforeCompile.tapPromise('DoneArchiveBuilding', async (_) => {
-                const archiveFilePath = path.resolve(ArchiveFile)
-                const archiveDir = path.dirname(archiveFilePath)
-                if (!fs.existsSync(archiveDir)) {
-                    fs.mkdirSync(archiveDir)
-                }
-
-                if (fs.existsSync(archiveFilePath)) {
-                    fs.unlinkSync(archiveFilePath)
-                }
+                const cleanArchive = (async () => {
+                    const archiveFilePath = path.resolve(ArchiveFile)
+                    const archiveDir = path.dirname(archiveFilePath)
+                    if (!fs.existsSync(archiveDir)) {
+                        await promisify(fs.mkdir)(archiveDir)
+                    }
+                    if (fs.existsSync(archiveFilePath)) {
+                        await promisify(fs.rm)(archiveFilePath)
+                    }
+                })()
+                const cleanDeclaration = (async () => {
+                    if (fs.existsSync(DeclarationFolder)) {
+                        await promisify(fs.rm)(DeclarationFolder, {
+                            recursive: true
+                        })
+                    }
+                })()
+                await cleanArchive
+                await cleanDeclaration
             })
         }
     }
@@ -101,7 +113,7 @@ function Configurate(env: Record<string, unknown>, argv: Record<string, string>)
             path: path.resolve(BundleDir),
             filename: 'index.js', // Minifier don't understand ks extension.
             clean: true,
-            library:{
+            library: {
                 name: 'Boids',
                 type: 'umd'
             }

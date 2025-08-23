@@ -1,5 +1,5 @@
 
-import { AddEventHandler } from '../../../KDInterface/KDExtension'
+import { AddEventHandler } from '../../../KDExtension'
 import { KinkyDungeonSendEvent } from 'kd-structured'
 import { ItemArchetype } from '../Common'
 import { SetTargetGagStrength } from './Gag'

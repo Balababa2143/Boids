@@ -1,4 +1,4 @@
-import { AddRestraintWithTextThenGetName } from '../../../../KDInterface/KDExtension'
+import { AddRestraintWithTextThenGetName } from '../../../../KDExtension'
 import { FactionFilter } from '../../../../KDInterface/TextKey'
 import { MechanichalLockSfx } from '../../Common'
 import { Socket } from '../../Link'
