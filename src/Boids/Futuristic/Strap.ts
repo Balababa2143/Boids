@@ -4,7 +4,7 @@ import { ElectricMechLockSfx } from "./Common";
 export const ControlHarness =
     AddRestraintWithTextThenGetName(
         {
-            name: "{76C06708-B150-414C-B402-A57A1A78BC53}",
+            name: "76C06708-B150-414C-B402-A57A1A78BC53",
             Group: "ItemTorso",
             inventory: true,
             shrine: ["Metal", "Harnesses", "Cyber"],

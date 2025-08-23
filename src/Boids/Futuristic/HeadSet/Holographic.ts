@@ -13,7 +13,7 @@ import * as Model from './Model'
  *  Specify the desired variant template.
  */
 export const GetGoggleVariant =
-    AppendVariantToName('{8C6B8355-7152-4937-A7FD-409F0A930CD3}')
+    AppendVariantToName('8C6B8355-7152-4937-A7FD-409F0A930CD3')
 
 AddVariants((variant) => AddHeadSetItem({
     socket: VisorSocket,
@@ -41,7 +41,7 @@ AddVariants((variant) => AddHeadSetItem({
  *  Specify the desired variant template.
  */
 export const GetGlassOnlyMaskVariant =
-    AppendVariantToName('{C1051C87-3A9D-4E32-A2D0-9E664975D33A}')
+    AppendVariantToName('C1051C87-3A9D-4E32-A2D0-9E664975D33A')
 
 AddVariants((variant) => AddHeadSetItem({
     socket: MaskSocket,
@@ -61,7 +61,7 @@ AddVariants((variant) => AddHeadSetItem({
  *  Specify the desired variant template.
  */
 export const GetGlassOnlyHoodVariant =
-    AppendVariantToName('{D03EB58A-110A-42A0-873F-D29F28A7A368}')
+    AppendVariantToName('D03EB58A-110A-42A0-873F-D29F28A7A368')
 
 AddVariants((variant) => AddHeadSetItem({
     socket: MaskSocket,

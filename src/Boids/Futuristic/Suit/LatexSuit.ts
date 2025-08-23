@@ -5,7 +5,7 @@ import { FactionFilter } from '../../../KDInterface/TextKey'
 export const LockableSuitModel =
     AddModelWithTextThenGetName(
         {
-            Name: '{0CA9A21B-5222-48B2-B5B5-2C8AAAA210B9}',
+            Name: '0CA9A21B-5222-48B2-B5B5-2C8AAAA210B9',
             TopLevel: true,
             // Restraint: true,
             Categories: ['Suits'],
@@ -28,7 +28,7 @@ export const LockableSuitModel =
 export const HeavyLockableSuit =
     AddRestraintWithTextThenGetName(
         {
-            name: '{F10BAD9F-53F1-439B-9A00-BA5DB504A646}',
+            name: 'F10BAD9F-53F1-439B-9A00-BA5DB504A646',
             Group: 'ItemTorso',
             inventory: true,
             inaccessible: true,

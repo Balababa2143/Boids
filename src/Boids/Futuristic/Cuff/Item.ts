@@ -78,7 +78,7 @@ export const LightCollar =
     AddRestraintWithTextThenGetName(
         {
             ...ItemBase,
-            name: '{F918EAC6-DEE2-4E71-BA76-8BF84BDA173B}',
+            name: 'F918EAC6-DEE2-4E71-BA76-8BF84BDA173B',
             Model: Model.LightCollar,
             Group: 'ItemNeck',
             shrine: [
@@ -109,7 +109,7 @@ export const HeavyCollar =
     AddRestraintWithTextThenGetName(
         {
             ...ItemBase,
-            name: '{82B14B3F-01C2-4B39-BCD9-6AACEB8E8A95}',
+            name: '82B14B3F-01C2-4B39-BCD9-6AACEB8E8A95',
             Model: Model.HeavyCollar,
             Group: 'ItemNeck',
             shrine: [
@@ -139,7 +139,7 @@ export const ArmCuff =
     AddRestraintWithTextThenGetName(
         {
             ...ItemBase,
-            name: '{081DC364-EEA5-440D-B4BD-E956F72CD9E5}',
+            name: '081DC364-EEA5-440D-B4BD-E956F72CD9E5',
             Model: Model.ArmCuff,
             Group: 'ItemArms',
             shrine: [
@@ -161,7 +161,7 @@ export const ElbowCuff =
     AddRestraintWithTextThenGetName(
         {
             ...ItemBase,
-            name: '{6724991E-F8F0-41FC-9FCF-8941F63CD821}',
+            name: '6724991E-F8F0-41FC-9FCF-8941F63CD821',
             Model: Model.ElbowCuff,
             Group: 'ItemArms',
             shrine: [
@@ -181,7 +181,7 @@ export const WristCuff =
     AddRestraintWithTextThenGetName(
         {
             ...ItemBase,
-            name: '{1E161AB5-4FDA-4AD4-9557-E8816F17A99A}',
+            name: '1E161AB5-4FDA-4AD4-9557-E8816F17A99A',
             Model: Model.WristCuff,
             Group: 'ItemArms',
             shrine: [
@@ -202,7 +202,7 @@ export const WaistCuff =
     AddRestraintWithTextThenGetName(
         {
             ...ItemBase,
-            name: '{D667E4A4-E531-4D2A-B069-6F5CFA7DA2C1}',
+            name: 'D667E4A4-E531-4D2A-B069-6F5CFA7DA2C1',
             Model: Model.WaistCuff,
             Group: 'ItemTorso',
             shrine: [
@@ -223,7 +223,7 @@ export const ThighCuff =
     AddRestraintWithTextThenGetName(
         {
             ...ItemBase,
-            name: '{A5EFD394-8E39-4701-BAD4-5B8623619628}',
+            name: 'A5EFD394-8E39-4701-BAD4-5B8623619628',
             Model: Model.ThighCuff,
             Group: 'ItemLegs',
             shrine: [
@@ -243,7 +243,7 @@ export const AnkleCuff =
     AddRestraintWithTextThenGetName(
         {
             ...ItemBase,
-            name: '{EB56F491-EE14-4431-B641-C3C397292435}',
+            name: 'EB56F491-EE14-4431-B641-C3C397292435',
             Model: Model.AnkleCuff,
             Group: 'ItemFeet',
             shrine: [

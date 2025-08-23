@@ -101,7 +101,7 @@ const ItemBase = {
 export const Sleeve = AddRestraintWithTextThenGetName(
     {
         ...ItemBase,
-        name: '{FC75F4CB-A745-45D4-A7F4-FA9A786F70EC}',
+        name: 'FC75F4CB-A745-45D4-A7F4-FA9A786F70EC',
         Model: Model.Sleeve,
         shrine: [
             ...ItemBase.shrine,
@@ -118,7 +118,7 @@ export const Sleeve = AddRestraintWithTextThenGetName(
 export const WireCuff = AddRestraintWithTextThenGetName(
     {
         ...ItemBase,
-        name: '{CEB2873B-E378-4C2B-A1ED-47618FD801DB}',
+        name: 'CEB2873B-E378-4C2B-A1ED-47618FD801DB',
         Model: Model.WireCuff,
         shrine: [
             ...ItemBase.shrine,
@@ -135,7 +135,7 @@ export const WireCuff = AddRestraintWithTextThenGetName(
 export const LongMitten = AddRestraintWithTextThenGetName(
     {
         ...ItemBase,
-        name: '{D76F027D-E788-42C3-9B49-94B52F0F3C7F}',
+        name: 'D76F027D-E788-42C3-9B49-94B52F0F3C7F',
         Model: Model.LongMitten,
         shrine: [
             ...ItemBase.shrine,

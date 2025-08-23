@@ -10,7 +10,7 @@ export const LockVibe =
     KDEx.AddRestraintWithTextThenGetName(
         {
             ...TrapVibe,
-            name: '{1AB75038-8339-4124-AD71-5F88F2DF5BFF}',
+            name: '1AB75038-8339-4124-AD71-5F88F2DF5BFF',
             escapeChance: {
                 ...NippleClamps!.escapeChance,
                 Struggle: TrapVibe!.escapeChance.Struggle
@@ -28,7 +28,7 @@ export const DenialPlugF =
         {
             inventory: true,
             arousalMode: true,
-            name: "{9CEB10C8-EE87-4AD9-99E2-D7216FB4CF40}",
+            name: "9CEB10C8-EE87-4AD9-99E2-D7216FB4CF40",
             Asset: "VibratingDildo",
             Color: "Default",
             Group: "ItemVulva",
@@ -70,7 +70,7 @@ export const DenialPlugR =
         {
             inventory: true,
             arousalMode: true,
-            name: "{9D1BF9D4-C99D-4BA8-A25B-2A89FF8C2B8D}",
+            name: "9D1BF9D4-C99D-4BA8-A25B-2A89FF8C2B8D",
             Asset: "VibratingDildoPlug",
             Color: "Default",
             Group: "ItemButt",

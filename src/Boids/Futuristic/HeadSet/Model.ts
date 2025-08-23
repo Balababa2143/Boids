@@ -74,7 +74,7 @@ export const AddGoggleModel = (variant: Variant) =>
             GlassLayers.GetGoggleLayer(variant),
             "Goggles"
         ),
-        Name: AppendVariantToName('{CDCA7F49-7337-481C-81C9-5ACC995493A4}')(variant)
+        Name: AppendVariantToName('CDCA7F49-7337-481C-81C9-5ACC995493A4')(variant)
     })
 
 /**
@@ -90,7 +90,7 @@ export const AddBlindfoldModel = (variant: Variant) =>
             GlassLayers.GetGoggleLayer(variant),
             "Blindfold"
         ),
-        Name: AppendVariantToName('{BD830A7F-5C4C-4D39-8F7F-FD0CACD4179A}')(variant)
+        Name: AppendVariantToName('BD830A7F-5C4C-4D39-8F7F-FD0CACD4179A')(variant)
     })
 
 /**
@@ -106,7 +106,7 @@ export const AddGlassOnlyMask = (variant: Variant) =>
             GlassLayers.GetMaskLayer(variant),
             "Mask"
         ),
-        Name: AppendVariantToName('{62C5B6AC-934A-4B4F-B48C-71BFC555A4C7}')(variant)
+        Name: AppendVariantToName('62C5B6AC-934A-4B4F-B48C-71BFC555A4C7')(variant)
     })
 
 export const AddGlassOnlyHood = (variant: Variant) => {
@@ -117,7 +117,7 @@ export const AddGlassOnlyHood = (variant: Variant) => {
     )
     return KDEx.AddModelWithText({
         ...baseModel,
-        Name: AppendVariantToName('{8926839C-9AAE-483E-8667-C1DA4B0AD2DB}')(variant),
+        Name: AppendVariantToName('8926839C-9AAE-483E-8667-C1DA4B0AD2DB')(variant),
         AddPose: [
             ...baseModel.AddPose ?? [],
             "HoodMask" // Push hair to the front
@@ -141,7 +141,7 @@ export const AddFullMask = (variant: Variant) =>
             ],
             "Mask"
         ),
-        Name: AppendVariantToName('{8926839C-9AAE-483E-8667-C1DA4B0AD2DB}')(variant)
+        Name: AppendVariantToName('8926839C-9AAE-483E-8667-C1DA4B0AD2DB')(variant)
     })
 
 export const AddFullHood = (variant: Variant) => {
@@ -155,7 +155,7 @@ export const AddFullHood = (variant: Variant) => {
     )
     return KDEx.AddModelWithText({
         ...baseModel,
-        Name: AppendVariantToName('{F53ADBCD-9519-44FE-830C-E8C60BD3A610}')(variant),
+        Name: AppendVariantToName('F53ADBCD-9519-44FE-830C-E8C60BD3A610')(variant),
         AddPose: [
             ...baseModel.AddPose ?? [],
             "HoodMask" // Push hair to the front

@@ -5,7 +5,7 @@ import { Socket } from '../Link'
 
 export const Heel = AddRestraintWithTextThenGetName(
     {
-        name: '{F913D9BF-E661-4F6E-88EA-E5F509A1A0E9}',
+        name: 'F913D9BF-E661-4F6E-88EA-E5F509A1A0E9',
         Group: 'ItemBoots',
         inventory: true,
         inaccessible: true,

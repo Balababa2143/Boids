@@ -20,9 +20,9 @@ const LayerName = {
 }
 
 const HideLightPose = {
-    PerioralClip: '{7FC08ACF-B177-4103-AD07-157AF174647F}',
-    CheekDisplay: '{A533FA99-24B9-429D-B603-1BAE2237AD9F}',
-    GlabellaDisplay: '{7A5E12DE-49E1-4681-9067-EC6D977475DB}',
+    PerioralClip: '7FC08ACF-B177-4103-AD07-157AF174647F',
+    CheekDisplay: 'A533FA99-24B9-429D-B603-1BAE2237AD9F',
+    GlabellaDisplay: '7A5E12DE-49E1-4681-9067-EC6D977475DB',
 }
 
 enum PriRef {

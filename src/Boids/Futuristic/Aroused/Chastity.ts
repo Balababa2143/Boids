@@ -91,7 +91,7 @@ export const SlimBelt =
     AddRestraintWithTextThenGetName(
         {
             ...BeltBase,
-            name: "{BD8079B8-DCE0-48C4-AA6C-A520E5C00D21}",
+            name: "BD8079B8-DCE0-48C4-AA6C-A520E5C00D21",
             sfx: "FutureLock",
             sfxRemove: "SciFiConfigure",
             Asset: "FuturisticChastityBelt",
@@ -119,7 +119,7 @@ export const SlimBra =
     AddRestraintWithTextThenGetName(
         {
             ...BraBase,
-            name: "{E0261BA0-1396-491B-8901-2A649E01E499}",
+            name: "E0261BA0-1396-491B-8901-2A649E01E499",
             sfx: "FutureLock",
             sfxRemove: "SciFiConfigure",
             Asset: "FuturisticBra2",
@@ -144,7 +144,7 @@ export const BulkyBelt =
     AddRestraintWithTextThenGetName(
         {
             ...BeltBase,
-            name: "{6428F8EA-53AE-4F76-A117-5BB8480D0DC5}",
+            name: "6428F8EA-53AE-4F76-A117-5BB8480D0DC5",
             sfx: "FutureLock",
             sfxRemove: "SciFiConfigure",
             Asset: "FuturisticChastityBelt",
@@ -171,7 +171,7 @@ export const BulkyBra =
     AddRestraintWithTextThenGetName(
         {
             ...BraBase,
-            name: "{EB459BF1-317C-4613-84CC-7E8DEFB3A374}",
+            name: "EB459BF1-317C-4613-84CC-7E8DEFB3A374",
             sfx: "FutureLock",
             sfxRemove: "SciFiConfigure",
             Asset: "FuturisticBra2",

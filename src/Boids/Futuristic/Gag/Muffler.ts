@@ -6,17 +6,17 @@ import { Category } from './GagMetal'
 // /**
 //  * Item tag of all mufflers
 //  */
-// export const Muffler = "{89CB8E40-CDE3-4D12-B24A-150B61C7FF8B}"
+// export const Muffler = "89CB8E40-CDE3-4D12-B24A-150B61C7FF8B"
 
 /**
  * Socket for muffler, required for mufflers to be equipped.
  */
-export const BallSocket = "{C48EFD5E-E76F-4ED5-AEDD-C2110FC09EB4}"
+export const BallSocket = "C48EFD5E-E76F-4ED5-AEDD-C2110FC09EB4"
 
 /**
  * Socket for plug, required for plugs to be equipped.
  */
-export const PlugSocket = "{2084306E-A3AB-449D-8766-48B5272791FE}"
+export const PlugSocket = "2084306E-A3AB-449D-8766-48B5272791FE"
 
 const MakeMuffler = (args: { name: string, variant: Variant }) => {
     const { name, variant } = args
@@ -93,7 +93,7 @@ const DefaultText: KDEx.IRestraintText = {
 
 export const NonMuffler =
     addBall({
-        name: '{0A5E497E-952F-44F8-905B-DC45C9A746EB}',
+        name: '0A5E497E-952F-44F8-905B-DC45C9A746EB',
         ball: BallKind.None,
         text: {
             ...DefaultText,
@@ -107,7 +107,7 @@ export const NonMuffler =
 
 export const Ball =
     addBall({
-        name: '{654C7580-D30C-4C5E-B126-648FE6D2AF27}',
+        name: '654C7580-D30C-4C5E-B126-648FE6D2AF27',
         ball: BallKind.Ball,
         text: {
             ...DefaultText,
@@ -117,7 +117,7 @@ export const Ball =
 
 export const BigBall =
     addBall({
-        name: '{BA7C3009-D024-4875-9BE9-6CD3610E8FAF}',
+        name: 'BA7C3009-D024-4875-9BE9-6CD3610E8FAF',
         ball: BallKind.BigBall,
         text: {
             ...DefaultText,
@@ -134,7 +134,7 @@ export const Plug = (() => {
     }
     const baseItem =
         MakeMuffler({
-            name: '{BD587E0A-854F-46FD-88A8-7EE100571E2F}',
+            name: 'BD587E0A-854F-46FD-88A8-7EE100571E2F',
             variant
         })
     return KDEx.AddRestraintWithTextThenGetName(

@@ -118,7 +118,7 @@ export namespace Variant {
  * Link category for oral devices.
  * Control stacking.
  */
-export const OralDeviceLinkCategory = '{39C79AA5-74A9-4391-8FBA-2B7F23C2D6E0}'
+export const OralDeviceLinkCategory = '39C79AA5-74A9-4391-8FBA-2B7F23C2D6E0'
 
 const GetGagStrength = (variant: Variant) => {
     Variant.Verify(variant)

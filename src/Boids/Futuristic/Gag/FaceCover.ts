@@ -44,7 +44,7 @@ const defaultHarnessText = {
 export const SimpleHarness =
     KDEx.AddRestraintWithTextThenGetName(
         MakeStrap({
-            name: '{1234D2F9-22FB-4D47-974A-DA7FA5F284A4}',
+            name: '1234D2F9-22FB-4D47-974A-DA7FA5F284A4',
             variant: {
                 Ball: BallKind.None,
                 Strap: {
@@ -64,7 +64,7 @@ export const SimpleHarness =
 export const AdvanceHarness =
     KDEx.AddRestraintWithTextThenGetName(
         MakeStrap({
-            name: '{C38F27C2-0DF8-425A-AA80-01DA5CBE6BC4}',
+            name: 'C38F27C2-0DF8-425A-AA80-01DA5CBE6BC4',
             variant: {
                 Ball: BallKind.None,
                 Strap: {
@@ -86,7 +86,7 @@ export const AdvanceHarness =
 export const PanelHarness =
     KDEx.AddRestraintWithTextThenGetName(
         MakeStrap({
-            name: '{3AD95579-5641-4CF0-A039-6C7A9C933579}',
+            name: '3AD95579-5641-4CF0-A039-6C7A9C933579',
             variant: {
                 Ball: BallKind.None,
                 Strap: {
@@ -110,7 +110,7 @@ export const PanelHarness =
 export const PanelHarnessWithPort =
     KDEx.AddRestraintWithTextThenGetName(
         MakeStrap({
-            name: '{BFD88931-19D2-4909-B88C-20E8D08EDFE4}',
+            name: 'BFD88931-19D2-4909-B88C-20E8D08EDFE4',
             variant: {
                 Ball: BallKind.None,
                 Strap: {
@@ -171,7 +171,7 @@ const defaultMuzzleText = {
 export const MetalMuzzle1 =
     KDEx.AddRestraintWithTextThenGetName(
         MakeMuzzle({
-            name: '{805F7C18-E33D-4596-9AD6-AFA1A0391A66}',
+            name: '805F7C18-E33D-4596-9AD6-AFA1A0391A66',
             variant: {
                 Ball: BallKind.None,
                 Strap: { __Type: StrapKindTags.None },
@@ -190,7 +190,7 @@ export const MetalMuzzle1 =
 export const MetalMuzzle2 =
     KDEx.AddRestraintWithTextThenGetName(
         MakeMuzzle({
-            name: '{5AA74A4B-7F42-4B70-B68F-BA85631A9473}',
+            name: '5AA74A4B-7F42-4B70-B68F-BA85631A9473',
             variant: {
                 Ball: BallKind.None,
                 Strap: { __Type: StrapKindTags.None },
@@ -209,7 +209,7 @@ export const MetalMuzzle2 =
 export const OTN1 =
     KDEx.AddRestraintWithTextThenGetName(
         MakeMuzzle({
-            name: '{D61157B2-2A92-4E3F-AA64-0C0B0543CCB9}',
+            name: 'D61157B2-2A92-4E3F-AA64-0C0B0543CCB9',
             variant: {
                 Ball: BallKind.None,
                 Strap: { __Type: StrapKindTags.None },
@@ -229,7 +229,7 @@ export const OTN1 =
 export const OTN2 =
     KDEx.AddRestraintWithTextThenGetName(
         MakeMuzzle({
-            name: '{BD1559C9-773C-4BE4-9439-5140666771F3}',
+            name: 'BD1559C9-773C-4BE4-9439-5140666771F3',
             variant: {
                 Ball: BallKind.None,
                 Strap: { __Type: StrapKindTags.None },
@@ -249,7 +249,7 @@ export const OTN2 =
 export const Transparent1 =
     KDEx.AddRestraintWithTextThenGetName(
         MakeMuzzle({
-            name: '{74668098-8709-4C77-82BE-5FE53D109D54}',
+            name: '74668098-8709-4C77-82BE-5FE53D109D54',
             variant: {
                 Ball: BallKind.None,
                 Strap: { __Type: StrapKindTags.None },
@@ -268,7 +268,7 @@ export const Transparent1 =
 export const Transparent2 =
     KDEx.AddRestraintWithTextThenGetName(
         MakeMuzzle({
-            name: '{0377EC29-363A-4280-9E4E-D01189A0B833}',
+            name: '0377EC29-363A-4280-9E4E-D01189A0B833',
             variant: {
                 Ball: BallKind.None,
                 Strap: {

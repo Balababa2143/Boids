@@ -34,7 +34,7 @@ export enum InheritColor {
 }
 
 const model: Model = AddModelWithText({
-    Name: '{A9A9B0AE-BF70-4125-B89C-60984246DEBF}',
+    Name: 'A9A9B0AE-BF70-4125-B89C-60984246DEBF',
     Folder: `${ModelSetRootDir}/Earphone`,
     Categories: ['Accessories', 'Face'],
     TopLevel: true,
@@ -74,7 +74,7 @@ const model: Model = AddModelWithText({
 })
 
 export const Earphone = AddRestraintWithTextThenGetName({
-    name: '{373643CB-501A-435E-9EDC-0C7F733D3507}',
+    name: '373643CB-501A-435E-9EDC-0C7F733D3507',
     Group: 'ItemHead',
     shrine: ['Visors', VisorSocket, ItemArchetype.HeadSet],
     noShrine: true,

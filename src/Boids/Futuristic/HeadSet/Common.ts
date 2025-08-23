@@ -113,7 +113,7 @@ interface CalcVisorFilterEvent extends KinkyDungeonEvent {
 const CalcVisorFilter = AddEventHandler({
     eventMap: KDEventMapInventory,
     trigger: 'apply',
-    type: '{211FBBC1-0E8D-4CFF-82E3-ADA9713142ED}',
+    type: '211FBBC1-0E8D-4CFF-82E3-ADA9713142ED',
     handler(e, item, data) {
         const event = e as CalcVisorFilterEvent
         if (data.item.name === event.restraint) {
@@ -254,5 +254,5 @@ export const AddHeadSetItem = (args: {
     }, GetText(variant))
 }
 
-export const VisorSocket = '{54EB62BD-0462-46EF-8C96-9219382E75CA}'
-export const MaskSocket = '{EC2F4BFD-A143-4C8E-826C-8C85A1BE2689}'
+export const VisorSocket = '54EB62BD-0462-46EF-8C96-9219382E75CA'
+export const MaskSocket = 'EC2F4BFD-A143-4C8E-826C-8C85A1BE2689'

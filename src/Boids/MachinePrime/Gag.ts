@@ -18,7 +18,7 @@ export interface AddTagsEvent extends KinkyDungeonEvent {
 export const AddTags = AddEventHandler({
     eventMap: KDEventMapInventory,
     trigger: 'updatePlayerTags',
-    type: '{53660F42-1DC0-474D-A819-938E39015046}',
+    type: '53660F42-1DC0-474D-A819-938E39015046',
     handler(e, _, data: { tags: typeof KinkyDungeonPlayerTags, player: typeof KinkyDungeonPlayerEntity }) {
         const event = e as AddTagsEvent
         for (const tag of event.Tags) {
@@ -40,7 +40,7 @@ const HasTag = (item: item | null, tag: string) =>
 export const RequireSubItem = AddEventHandler({
     eventMap: KDEventMapInventory,
     trigger: 'postApply',
-    type: '{23AD0A99-32DC-4CAA-95C4-34C7E3B02EDB}',
+    type: '23AD0A99-32DC-4CAA-95C4-34C7E3B02EDB',
     handler(e, _, data: KDEventData_PostApply) {
         const event = e as RequireSubItemEvent
         if (
