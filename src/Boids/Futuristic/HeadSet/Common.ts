@@ -133,7 +133,7 @@ const CalcVisorFilter = AddEventHandler({
             filter.red *= colorFactor
             filter.green *= colorFactor
             filter.blue *= colorFactor
-            console.log('caled Filters', filter)
+            // console.log('caled Filters', filter)
             data.Filters[filterKey] = filter
         }
     },
