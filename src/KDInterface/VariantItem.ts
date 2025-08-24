@@ -34,6 +34,10 @@ export interface VariantDescriptor<Archetype, TextInfo> {
  */
 export type VariantMap<Archetype, Variant, TextInfo> = (variant: Variant) => VariantDescriptor<Archetype, TextInfo>
 
+export type ModelLayerVariantDescriptor = VariantDescriptor<ModelLayer, undefined>
+
+export type ModelLayerVariantMap<Variant> = VariantMap<ModelLayer, Variant, undefined>
+
 /**
  * Variant descriptor for models.
  * @see VariantDescriptor
@@ -140,20 +144,22 @@ export const AddModelVariant = AddVariant(AddModelWithTextThenGetName)
 export const AddRestraintVariant = AddVariant(AddRestraintWithTextThenGetName)
 
 
-export interface ModelRestraintBundledDescriptorMap {
+export interface ModelRestraintBundledDescriptor {
     Model: VariantDescriptor<Model, ModelText>
     Restraint: VariantDescriptor<restraint, IRestraintText>
 }
 
-export const UnpackDescriptorMap =
-    <DescriptorMap extends Record<string, ModelRestraintBundledDescriptorMap>>
-    (descMap: DescriptorMap) => ({
-            ModelMap: (variant: keyof DescriptorMap) => ({
-                Transformers: descMap[variant].Model.Transformers,
-                Text: descMap[variant].Model.Text!
-            } satisfies ModelVariantDescriptor),
-            RestraintMap: (variant: keyof DescriptorMap) => ({
-                Transformers: descMap[variant].Restraint.Transformers,
-                Text: descMap[variant].Restraint.Text!
-            } satisfies RestraintVariantDescriptor)
-        })
+export const UnpackSimpleKeyVariantMap = 
+    <Desc, Variant extends keyof any, DescMap extends Record<Variant, Desc>>
+    (descMap: DescMap) => {
+        const ret = {}
+        const anyKey = Object.keys(descMap)[0]
+        const firstDescriptor = descMap[anyKey]
+        for(const descKey in firstDescriptor){
+            ret[descKey] = (variant: Variant) => descMap[variant][descKey]
+        }
+        return ret as {
+            [MapName in keyof DescMap[keyof DescMap]]:
+                (variant: Variant) => DescMap[Variant][MapName]
+        }
+    }

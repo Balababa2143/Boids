@@ -1,5 +1,5 @@
 import { FactionFilter } from '../../../KDInterface/TextKey'
-import { AddModelVariant, AddRestraintVariant, ModelRestraintBundledDescriptorMap, UnpackDescriptorMap } from '../../../KDInterface/VariantItem'
+import { AddModelVariant, AddRestraintVariant, ModelRestraintBundledDescriptor, UnpackSimpleKeyVariantMap } from '../../../KDInterface/VariantItem'
 import { ModelSetRootDir } from '../Common'
 
 /* Layer Sprite Naming:
@@ -87,14 +87,14 @@ export const RestraintTemplate = {
 //#endregion
 
 //#region Set
-export interface LinkSetDescriptor<DescriptorMap extends Record<string, ModelRestraintBundledDescriptorMap>> {
+export interface LinkSetDescriptor<DescriptorMap extends Record<string, ModelRestraintBundledDescriptor>> {
     RestraintBaseName: string,
     ModelBaseName: string,
     DescriptorMap: DescriptorMap,
 }
 
 export const BuildLinkSet =
-    <DescriptorMap extends Record<string, ModelRestraintBundledDescriptorMap>>
+    <DescriptorMap extends Record<string, ModelRestraintBundledDescriptor>>
     (args: LinkSetDescriptor<DescriptorMap>) => {
         const {
             RestraintBaseName,
@@ -102,10 +102,11 @@ export const BuildLinkSet =
             DescriptorMap,
         } = args
         const RestraintNameMap = {} as Record<keyof DescriptorMap, string>
+
         const {
-            ModelMap,
-            RestraintMap
-        } = UnpackDescriptorMap(DescriptorMap)
+            Model: ModelMap,
+            Restraint: RestraintMap
+        } = UnpackSimpleKeyVariantMap(DescriptorMap)
 
         const AddModel =
             AddModelVariant({

@@ -1,4 +1,4 @@
-import { ModelRestraintBundledDescriptorMap } from '../../../KDInterface/VariantItem'
+import { ModelRestraintBundledDescriptor } from '../../../KDInterface/VariantItem'
 import { RequireSocket, SetGroup } from '../Common'
 import { BuildLinkSet } from './Common'
 import * as Layer from './Layer'
@@ -54,7 +54,7 @@ const DescriptorMap = {
             },
         }
     },
-} satisfies Record<string, ModelRestraintBundledDescriptorMap>
+} satisfies Record<string, ModelRestraintBundledDescriptor>
 
 export type Variant = keyof typeof DescriptorMap
 
