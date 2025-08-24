@@ -1,4 +1,4 @@
-import { Descriptor } from '../../../KDInterface/VariantItem'
+import { ModelRestraintBundledDescriptorMap } from '../../../KDInterface/VariantItem'
 import { RequireSocket, SetGroup } from '../Common'
 import { BuildLinkSet } from './Common'
 import * as Layer from './Layer'
@@ -6,44 +6,55 @@ import * as Socket from './Socket'
 
 const DescriptorMap = {
     BetweenAnkleCuff: {
-        TransformModel: [
-            (modelTemplate) => ({
-                ...modelTemplate,
-                Layers: {
-                    ...modelTemplate.Layers ?? {},
-                    ...ToLayerMap(Layer.Leg.Ankle.BetweenAnkleCuff)
-                }
-            })
-        ],
-        TransformRestraint: [
-            SetGroup('ItemFeet'),
-            RequireSocket([Socket.Ankle]),
-        ],
-        RestraintText: {
-            DisplayName: 'Drone Leg Link',
-            FlavorText: 'Variant: BetweenAnkleCuff'
+        Model: {
+            Transformers: [
+                (modelTemplate) => ({
+                    ...modelTemplate,
+                    Layers: {
+                        ...modelTemplate.Layers ?? {},
+                        ...ToLayerMap(Layer.Leg.Ankle.BetweenAnkleCuff)
+                    }
+                })
+            ],
         },
+        Restraint: {
+            Transformers: [
+                SetGroup('ItemFeet'),
+                RequireSocket([Socket.Ankle]),
+            ],
+            Text: {
+                DisplayName: 'Drone Leg Link',
+                FlavorText: 'Variant: BetweenAnkleCuff'
+            },
+        },
+
+
+
     },
     BetweenThighCuff: {
-        TransformModel: [
-            (modelTemplate) => ({
-                ...modelTemplate,
-                Layers: {
-                    ...modelTemplate.Layers ?? {},
-                    ...ToLayerMap(Layer.Leg.Thigh.BetweenThighCuff)
-                }
-            })
-        ],
-        TransformRestraint: [
-            SetGroup('ItemLegs'),
-            RequireSocket([Socket.Thigh]),
-        ],
-        RestraintText: {
-            DisplayName: 'Drone Leg Link',
-            FlavorText: 'Variant: BetweenThighCuff'
+        Model: {
+            Transformers: [
+                (modelTemplate) => ({
+                    ...modelTemplate,
+                    Layers: {
+                        ...modelTemplate.Layers ?? {},
+                        ...ToLayerMap(Layer.Leg.Thigh.BetweenThighCuff)
+                    }
+                })
+            ],
         },
+        Restraint: {
+            Transformers: [
+                SetGroup('ItemLegs'),
+                RequireSocket([Socket.Thigh]),
+            ],
+            Text: {
+                DisplayName: 'Drone Leg Link',
+                FlavorText: 'Variant: BetweenThighCuff'
+            },
+        }
     },
-} satisfies Record<string, Descriptor>
+} satisfies Record<string, ModelRestraintBundledDescriptorMap>
 
 export type Variant = keyof typeof DescriptorMap
 

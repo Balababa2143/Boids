@@ -118,7 +118,7 @@ export const AddVariant =
     <Variant>
     (args: MakeOrAddVariantParams<Archetype, Variant, TextInfo>) =>
     (variant: Variant, extraProperty: Partial<Archetype> = {} as Partial<Archetype>) => {
-        const {instance, desc} = MakeVariant(args)(variant)
+        const {instance, desc} = MakeVariant(args)(variant, extraProperty)
         console.info('Boids: AddVariant', {
             addInstance, variant, args, extraProperty, instance,
         })
@@ -139,40 +139,21 @@ export const AddModelVariant = AddVariant(AddModelWithTextThenGetName)
  */
 export const AddRestraintVariant = AddVariant(AddRestraintWithTextThenGetName)
 
-/**
- * Descriptor for both model and restraint transformations and text.
- *
- * @property {TransformInstance<Model>[]} TransformModel - Array of model transformation functions.
- * @property {ModelText} [ModelText] - Optional model text information.
- * @property {TransformInstance<restraint>[]} TransformRestraint - Array of restraint transformation functions.
- * @property {IRestraintText} [RestraintText] - Optional restraint text information.
- */
-export interface Descriptor {
-    TransformModel: TransformInstance<Model>[]
-    ModelText?: ModelText,
-    TransformRestraint: TransformInstance<restraint>[],
-    RestraintText?: IRestraintText
+
+export interface ModelRestraintBundledDescriptorMap {
+    Model: VariantDescriptor<Model, ModelText>
+    Restraint: VariantDescriptor<restraint, IRestraintText>
 }
 
-/**
- * Builds a variant map for models and restraints from a descriptor map.
- *
- * @template DescriptorMap The type of the descriptor map.
- * @param {DescriptorMap} descMap The descriptor map.
- * @returns {{ ModelMap: (variant: keyof DescriptorMap) => ModelVariantDescriptor, RestraintMap: (variant: keyof DescriptorMap) => RestraintVariantDescriptor }}
- *   An object containing ModelMap and RestraintMap functions for looking up variant descriptors.
- */
-export const BuildVariantMap =
-    <DescriptorMap extends Record<string, Descriptor>>
-        (descMap: DescriptorMap) => {
-        return {
+export const UnpackDescriptorMap =
+    <DescriptorMap extends Record<string, ModelRestraintBundledDescriptorMap>>
+    (descMap: DescriptorMap) => ({
             ModelMap: (variant: keyof DescriptorMap) => ({
-                Transformers: descMap[variant].TransformModel,
-                Text: descMap[variant].ModelText
-            } as ModelVariantDescriptor),
+                Transformers: descMap[variant].Model.Transformers,
+                Text: descMap[variant].Model.Text!
+            } satisfies ModelVariantDescriptor),
             RestraintMap: (variant: keyof DescriptorMap) => ({
-                Transformers: descMap[variant].TransformRestraint,
-                Text: descMap[variant].RestraintText
-            } as RestraintVariantDescriptor)
-        }
-    }
+                Transformers: descMap[variant].Restraint.Transformers,
+                Text: descMap[variant].Restraint.Text!
+            } satisfies RestraintVariantDescriptor)
+        })

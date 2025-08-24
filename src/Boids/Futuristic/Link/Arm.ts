@@ -1,4 +1,4 @@
-import { Descriptor } from '../../../KDInterface/VariantItem'
+import { ModelRestraintBundledDescriptorMap } from '../../../KDInterface/VariantItem'
 import { RequireSocket, SetGroup } from '../Common'
 import { BuildLinkSet } from './Common'
 import * as Layer from './Layer'
@@ -6,25 +6,29 @@ import * as Socket from './Socket'
 
 const DescriptorMap = {
     BetweenWristCuff: {
-        TransformModel: [
-            (modelTemplate) => ({
-                ...modelTemplate,
-                Layers: {
-                    ...modelTemplate.Layers ?? {},
-                    ...ToLayerMap(Layer.Arm.Wrist.BetweenWristCuff)
-                }
-            })
-        ],
-        TransformRestraint: [
-            SetGroup('ItemArms'),
-            RequireSocket([Socket.Wrist]),
-        ],
-        RestraintText: {
-            DisplayName: 'Drone Arm Link',
-            FlavorText: 'Variant: BetweenWristCuff'
+        Model: {
+            Transformers: [
+                (modelTemplate) => ({
+                    ...modelTemplate,
+                    Layers: {
+                        ...modelTemplate.Layers ?? {},
+                        ...ToLayerMap(Layer.Arm.Wrist.BetweenWristCuff)
+                    }
+                })
+            ]
+        },
+        Restraint: {
+            Transformers: [
+                SetGroup('ItemArms'),
+                RequireSocket([Socket.Wrist]),
+            ],
+            Text: {
+                DisplayName: 'Drone Arm Link',
+                FlavorText: 'Variant: BetweenWristCuff'
+            },
         },
     }
-} satisfies Record<string, Descriptor>
+} satisfies Record<string, ModelRestraintBundledDescriptorMap>
 
 export type Variant = keyof typeof DescriptorMap
 
