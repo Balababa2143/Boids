@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "Webpack Bundle: Debug": "webpack --config webpack.config.ts --mode development",
-    "Webpack Watch: Debug": "webpack watch --config webpack.config.ts --mode development",
+    "Webpack Watch: Debug": "webpack --config webpack.config.ts --watch --mode development",
     "Webpack Bundle: Production": "webpack --config webpack.config.ts --mode production"
   },
   "devDependencies": {

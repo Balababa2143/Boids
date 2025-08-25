@@ -111,7 +111,7 @@ function Configurate(env: Record<string, unknown>, argv: Record<string, string>)
         entry: path.resolve(EntryFile),
         output: {
             path: path.resolve(BundleDir),
-            filename: 'index.js', // Minifier don't understand ks extension.
+            filename: '[name].bundle.js', // Minifier don't understand ks extension.
             clean: true,
             library: {
                 name: 'Boids',
@@ -140,7 +140,20 @@ function Configurate(env: Record<string, unknown>, argv: Record<string, string>)
         plugins: [
             PreBuild(),
             PostBuild(),
-        ]
+        ],
+        ... (argv['mode'] === 'production') && {
+            optimization: {
+                splitChunks: {
+                    chunks: 'all'
+                }
+            },
+        },
+        stats: 
+            argv['watch'] ? 
+            'errors-warnings' :
+            argv['mode'] === 'production' ?
+                'normal' :
+                'detailed'
     }
 }
 
