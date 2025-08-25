@@ -1,1 +1,1 @@
-[image name][replace, [layer path, [] ], [[[LD]](\d+)], [Lv\1], 1 ]
+[image name][replace, [layer path, [] ], [[[LD]](\d+)], [\1], 1 ]

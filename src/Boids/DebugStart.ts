@@ -1,7 +1,8 @@
 import { AddEventHandler, EquipInventoryVariantMergeEvents, MorphToInventoryVariantMergeEvents } from '../KDExtension'
+import { ThrowIfNull } from '../Utilities'
 import * as Futuristic from './Futuristic'
 import * as MachinePrime from './MachinePrime'
-import { IKDEquipInventoryVariantParameters } from 'kd-structured'
+import { IKDEquipInventoryVariantParameters, KinkyDungeonGetRestraintsWithShrine, KinkyDungeonRemoveRestraintSpecific } from 'kd-structured'
 
 const AddWeakerParams: Partial<IKDEquipInventoryVariantParameters> = {
     Tightness: 10,
@@ -84,6 +85,43 @@ const AddDroneMod2Left = (args: StartPerkInfo) =>
         }
     })
 
+let CurrentVisorVariant = new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 1)
+
+export const ToggleVisor = () => {
+    // const currentVisor = KinkyDungeonGetRestraintItem('ItemHead')
+    // const currentVisor = KinkyDungeonGetRestraintsWithShrine({
+    //     shrine: 'DroneVisor'
+    // })[0]
+    const currentVisor =
+        ThrowIfNull(KinkyDungeonInventoryGetWorn(
+            Futuristic.HeadSet.Holographic.GetGoggleVariant(CurrentVisorVariant)
+        ))
+
+    if(CurrentVisorVariant.OpaqueLevel < 4){
+        CurrentVisorVariant = new Futuristic.HeadSet.Variant(
+            CurrentVisorVariant.Type,
+            CurrentVisorVariant.OpaqueLevel + 1
+        )
+    }
+    else{
+        const type = CurrentVisorVariant.Type === Futuristic.HeadSet.GlassType.Color ? Futuristic.HeadSet.GlassType.Black : Futuristic.HeadSet.GlassType.Color
+        CurrentVisorVariant = new Futuristic.HeadSet.Variant(type, 1)
+    }
+    KinkyDungeonRemoveRestraintSpecific({
+        item: currentVisor!
+    })
+    AddWeaker(Futuristic.HeadSet.Holographic.GetGoggleVariant(CurrentVisorVariant))
+    // MorphToInventoryVariantMergeEvents({
+    //     item: currentVisor!,
+    //     variant: {
+    //         template: Futuristic.HeadSet.Holographic.GetGoggleVariant(CurrentVisorVariant),
+    //         events: []
+    //     },
+    //     forceMorph: true
+    // })
+    KinkyDungeonAdvanceTime(1)
+}
+
 export const AddDroneSet = () => {
         const lockBackup = AddWeakerParams.Lock
 
@@ -92,7 +130,10 @@ export const AddDroneSet = () => {
 
         AddWeakerParams.Lock = 'Cyber2'
         AddWeaker(Futuristic.HeadSet.Headphone.Earphone)
-        AddWeaker(Futuristic.HeadSet.Holographic.GetGoggleVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 2)))
+        AddWeaker(Futuristic.HeadSet.Holographic.GetGoggleVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 1)))
+        // for(let i = 0; i < 8; ++i){
+        //     ToggleVisor()
+        // }
         AddVariant(MachinePrime.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.PanelHarness))
         // MachinePrime.Gag.AddGag(Futuristic.Gag.FaceCover.MetalMuzzle2)
         // AddWeaker(Futuristic.HeadSet.Holographic.GetGlassOnlyMaskVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 1)))

@@ -60,7 +60,7 @@ export const AppendVariantToName = (baseName: string) => (variant: Variant) => {
     else if (variant.Type === GlassType.Black) {
         glassName = 'Dark'
     }
-    return `${baseName}${glassName}Lv${variant.OpaqueLevel}`
+    return `${baseName}${glassName}${variant.OpaqueLevel}`
 }
 
 const ModelCategories = ['Accessories', 'Face']
@@ -141,13 +141,13 @@ const CalcVisorFilter = AddEventHandler({
 
 const ItemBase: restraint = {
     name: '',
-    noShrine: true,
+    // noShrine: true,
     special: true,
     inventory: false,
     accessible: true,
 
     Group: 'ItemHead',
-    shrine: ['Visors', ItemArchetype.HeadSet],
+    shrine: ['Visors', 'DroneVisor', ItemArchetype.HeadSet],
     LinkableBy: ([
         ...KDVisorLink,
         ItemArchetype.HeadSet

@@ -4,6 +4,7 @@ import { AppendVariantToName, GlassType, InheritColor, MakeModel, Variant } from
 
 namespace GlassLayers {
     const Folder = 'Visors'
+    const BoidsGlassVisorFolder = `${ModelSetRootDir}/Visor` as const
 
     const GlassMask: ModelLayer = {
         Name: 'DollmakerFull',
@@ -20,7 +21,7 @@ namespace GlassLayers {
     const GlassGoggle: ModelLayer = {
         Name: 'Dollmaker',
         Layer: 'Goggles',
-        Folder: Folder,
+        Folder: BoidsGlassVisorFolder,
         // OffsetX: 1013,
         // OffsetY: 502,
         Pri: 14,
@@ -40,10 +41,13 @@ namespace GlassLayers {
             (args.variant.Type === GlassType.Black ? undefined : args.baseSprite.InheritColor)
     })
 
-    export const GetGoggleLayer = (variant: Variant) => [
-        GlassGoggle,
+    export const GetGoggleLayer = (variant: Variant) =>[
+        ConvertBaseToVariant({
+            getSprite: AppendVariantToName('Goggles'),
+            baseSprite: GlassGoggle,
+            variant
+        }),
     ]
-
     export const GetMaskLayer = (variant: Variant) => [
         GlassMask,
     ]

@@ -3,26 +3,25 @@ open System
 let psi = 2.0/(1.0+Math.Sqrt(5.0))
 let gen ratio ``a+b`` =
     let a = ratio * ``a+b``
-    let b = ``a+b``-a
-    Some (a, b)
-let level = 4
-let makeSeq ratio max rounding =
+    Some (``a+b``, a)
+
+let makeSeq ratio max =
     Seq.unfold (gen ratio) max
-    |> Seq.take level
-    |> Seq.mapFold (fun acc (x: float) -> 
-            let sum = Math.Round(acc+x, rounding, MidpointRounding.ToEven)
-            (sum, sum)
-        ) 0.0
-    |> fst
+    |> Seq.map (fun x -> Math.Round(x, digits=0, mode=MidpointRounding.ToEven))
 
 printfn "Light Alpha:"
-let alpha = makeSeq psi 255.0 0
+let alpha = 
+    makeSeq psi 245.0
+    |> Seq.take 4
+
 alpha
-|>Seq.iter (printfn "%f")
+|>Seq.iter (printfn "%.0g")
 printfn ""
 
 printfn "Dark Alpha:"
-let alpha' = makeSeq 0.45 250.0 0
+let alpha' = 
+    makeSeq psi  230.0
+    |> Seq.take 4
 
 alpha'
-|>Seq.iter (printfn "%f")
+|>Seq.iter (printfn "%.0g")
