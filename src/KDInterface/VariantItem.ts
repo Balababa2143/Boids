@@ -107,6 +107,14 @@ export const MakeVariant =
         })
     }
 
+export const MakeLayerVariant =
+    <Variant>
+    (args: MakeOrAddVariantParams<ModelLayer, Variant, undefined>) =>
+    (variant: Variant, extraProperty: Partial<ModelLayer> = {} as Partial<ModelLayer>) => {
+        return MakeVariant(args)(variant, extraProperty).instance
+    }
+
+
 /**
  * Creates a function to add a variant instance using a provided addInstance function.
  *
