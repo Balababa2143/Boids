@@ -1,7 +1,6 @@
 
-import { ModelSetRootDir } from '../Common'
-import { MakeLayerVariant, ModelLayerVariantMap, TransformInstance as VariantTransformer } from '../../../KDInterface/VariantItem'
-import { GlassType, Layering, Level, Variant, VariantToString } from './Common'
+import { MakeLayerVariant, ModelLayerVariantMap, VariantTransformer as VariantTransformer } from '../../../KDInterface/VariantItem'
+import { GlassType, Layering, Variant, VariantToString } from './Common'
 import { Function } from '../../../Utilities'
 
 /**
@@ -67,14 +66,6 @@ const GetGlassLayerSpritename =
         }
     }
 
-const DollMakerVisorFolder = 'Visors' as const
-const BoidsGlassVisorFolder = `${ModelSetRootDir}/Visor` as const
-
-const SetFolder = (folder: string) => (template: Partial<ModelLayer>) => ({
-    ...template,
-    Folder: folder
-} satisfies Partial<ModelLayer>)
-
 const VariantMap: ModelLayerVariantMap<Variant> =
     (variant) => {
         const Transformers: VariantTransformer<ModelLayer>[] = []
@@ -101,28 +92,27 @@ export const GetVariant =
             VariantMap
         })
     })
-
-for (let GlassType = 0; GlassType < 4; GlassType++) {
-    for (let _Colorize = 0; _Colorize <= 1; _Colorize++) {
-        const Colorize = _Colorize > 0
-        for (let Layering = 0; Layering < 4; Layering++) {
-            if (GlassType > 1) {
-                for (let Level = 1; Level < 5; Level++) {
-                    console.log('Boids: variant debug GetVariant', GetVariant({
-                        Colorize,
-                        GlassType,
-                        Layering,
-                        Level: Level as Level,
-                    }))
-                }
-            }
-            else {
-                console.log('Boids: variant debug GetVariant', GetVariant({
-                    Colorize,
-                    GlassType,
-                    Layering,
-                }))
-            }
-        }
-    }
-}
+// for (let GlassType = 0; GlassType < 4; GlassType++) {
+//     for (let _Colorize = 0; _Colorize <= 1; _Colorize++) {
+//         const Colorize = _Colorize > 0
+//         for (let Layering = 0; Layering < 4; Layering++) {
+//             if (GlassType > 1) {
+//                 for (let Level = 1; Level < 5; Level++) {
+//                     console.log('Boids: variant debug GetVariant', GetVariant({
+//                         Colorize,
+//                         GlassType,
+//                         Layering,
+//                         Level: Level as Level,
+//                     }))
+//                 }
+//             }
+//             else {
+//                 console.log('Boids: variant debug GetVariant', GetVariant({
+//                     Colorize,
+//                     GlassType,
+//                     Layering,
+//                 }))
+//             }
+//         }
+//     }
+// }

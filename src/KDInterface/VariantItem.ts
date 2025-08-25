@@ -7,7 +7,7 @@ import { ModelText, AddModelWithTextThenGetName, IRestraintText, AddRestraintWit
  * @param {Partial<Archetype>} template The partial archetype instance to transform.
  * @returns {Partial<Archetype>} The transformed partial archetype instance.
  */
-export type TransformInstance<Archetype> =
+export type VariantTransformer<Archetype> =
     (template: Partial<Archetype>) => Partial<Archetype>
 
 /**
@@ -19,7 +19,7 @@ export type TransformInstance<Archetype> =
  * @property {TextInfo} [Text] - Optional text information for the variant.
  */
 export interface VariantDescriptor<Archetype, TextInfo> {
-    Transformers: TransformInstance<Archetype>[],
+    Transformers: VariantTransformer<Archetype>[],
     Text?: TextInfo
 }
 
@@ -33,6 +33,14 @@ export interface VariantDescriptor<Archetype, TextInfo> {
  * @returns {VariantDescriptor<Archetype, TextInfo>} The descriptor for the given variant.
  */
 export type VariantMap<Archetype, Variant, TextInfo> = (variant: Variant) => VariantDescriptor<Archetype, TextInfo>
+
+export const MergeLayer = (newLayers: ModelLayer[]) => ((template) => ({
+    ...template,
+    Layers: {
+        ...template.Layers ?? {},
+        ...ToLayerMap(newLayers)
+    }
+})) satisfies VariantTransformer<Model>
 
 export type ModelLayerVariantDescriptor = VariantDescriptor<ModelLayer, undefined>
 

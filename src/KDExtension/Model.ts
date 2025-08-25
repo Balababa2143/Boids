@@ -2,7 +2,7 @@ import { DeepFreezeInplace, DeepFreezeClone } from '../Utilities'
 
 export interface ModelText {
     DisplayName: string,
-    AdditionalTextKey: Record<string, string>
+    AdditionalTextKey?: Record<string, string>
 }
 
 export namespace ModelText {
