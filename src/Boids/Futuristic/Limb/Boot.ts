@@ -1,6 +1,6 @@
 import { AddRestraintWithTextThenGetName } from '../../../KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
-import { MechanichalLockSfx } from '../Common'
+import { SFX } from '../Common'
 import { Socket } from '../Link'
 
 export const Heel = AddRestraintWithTextThenGetName(
@@ -22,7 +22,7 @@ export const Heel = AddRestraintWithTextThenGetName(
         ],
 
         Model: 'CyberBalletHeels',
-        ...MechanichalLockSfx,
+        ...SFX.MechanichalLockSfx,
         preview: 'BalletHeels',
 
         remove: ['Shoes'],

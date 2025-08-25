@@ -1,3 +1,5 @@
+
+
 export const enum GlassType {
     DollmakerGoggle,
     DollmakerMask,

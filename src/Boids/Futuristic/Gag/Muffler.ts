@@ -1,5 +1,4 @@
 import * as KDEx from '../../../KDExtension'
-import { ItemArchetype } from '../Common'
 import { BallKind, Component, MakeItem, MuzzleKind, OralDeviceLinkCategory, StrapKindTags, Variant } from './Common'
 import { Category } from './GagMetal'
 
@@ -26,7 +25,6 @@ const MakeMuffler = (args: { name: string, variant: Variant }) => {
         ...baseItem,
         shrine: [
             ...baseItem.shrine,
-            ItemArchetype.OralDevice,
         ],
         linkCategory: OralDeviceLinkCategory,
         linkSize: 0.7,

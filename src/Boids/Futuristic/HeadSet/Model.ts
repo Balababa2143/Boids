@@ -1,10 +1,10 @@
 import * as KDEx from '../../../KDExtension'
-import { ModelSetRootDir } from '../Common'
+import { Constant } from '../Common'
 import { AppendVariantToName, GlassType, InheritColor, MakeModel, Variant } from './Common'
 
 namespace GlassLayers {
     const Folder = 'Visors'
-    const BoidsGlassVisorFolder = `${ModelSetRootDir}/Visor` as const
+    const BoidsGlassVisorFolder = `${Constant.ModelSetRootDir}/Visor` as const
 
     const GlassMask: ModelLayer = {
         Name: 'DollmakerFull',

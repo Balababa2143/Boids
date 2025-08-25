@@ -1,5 +1,5 @@
 import * as KDEx from '../../../KDExtension'
-import { InflateLockSfx } from '../Common'
+import { SFX } from '../Common'
 
 
 const NippleClamps = <restraint>KinkyDungeonRestraints.find(r => r.name === 'NippleClamps')
@@ -55,7 +55,7 @@ export const DenialPlugF =
                 { trigger: 'tick', type: 'PeriodicDenial', power: 5, time: 6, edgeOnly: true, cooldown: { 'normal': 15, 'tease': 10 }, chance: 0.0375 },
                 { trigger: 'tick', type: 'PeriodicTeasing', power: 5, time: 3, edgeOnly: false, cooldown: { 'normal': 15, 'tease': 10 }, chance: 0.00125 },
             ],
-            ...InflateLockSfx,
+            ...SFX.InflateLockSfx,
         },
         {
 
@@ -93,7 +93,7 @@ export const DenialPlugR =
                 { trigger: 'tick', type: 'PeriodicDenial', power: 1, time: 24, edgeOnly: true, cooldown: { 'normal': 50, 'tease': 20 }, chance: 0.015 },
                 { trigger: 'tick', type: 'PeriodicDenial', power: 2, time: 16, edgeOnly: true, cooldown: { 'normal': 50, 'tease': 20 }, chance: 0.01 },
             ],
-            ...InflateLockSfx,
+            ...SFX.InflateLockSfx,
         },
         {
             DisplayName: 'Drone Plug',

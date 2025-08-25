@@ -1,7 +1,7 @@
 import { AddModelWithText, AddRestraintWithTextThenGetName } from '../../../KDExtension';
 import { FactionFilter } from '../../../KDInterface/TextKey'
-import { ItemArchetype, MechanichalLockSfx, ModelSetRootDir } from '../Common'
-import { VisorSocket } from './Common'
+import { SFX, Constant } from '../Common'
+import { SocketedVisor, VisorSocket } from './Common'
 
 enum PatchedElfEar {
     Any = 'ElfEar',
@@ -35,7 +35,7 @@ export enum InheritColor {
 
 const model: Model = AddModelWithText({
     Name: 'A9A9B0AE-BF70-4125-B89C-60984246DEBF',
-    Folder: `${ModelSetRootDir}/Earphone`,
+    Folder: `${Constant.ModelSetRootDir}/Earphone`,
     Categories: ['Accessories', 'Face'],
     TopLevel: true,
     //Restraint: true,
@@ -76,7 +76,7 @@ const model: Model = AddModelWithText({
 export const Earphone = AddRestraintWithTextThenGetName({
     name: '373643CB-501A-435E-9EDC-0C7F733D3507',
     Group: 'ItemHead',
-    shrine: ['Visors', VisorSocket, ItemArchetype.HeadSet],
+    shrine: ['Visors', VisorSocket],
     noShrine: true,
     inventory: true,
     special: true,
@@ -88,13 +88,15 @@ export const Earphone = AddRestraintWithTextThenGetName({
             override: true
         }
     },
-    ...MechanichalLockSfx,
+    ...SFX.MechanichalLockSfx,
 
     LinkableBy: [
         ...KDVisorLink,
-        ItemArchetype.HeadSet
+        SocketedVisor
     ],
-    renderWhenLinked: [ItemArchetype.HeadSet],
+    renderWhenLinked: [
+        SocketedVisor
+    ],
     noDupe: true,
 
     escapeChance: {

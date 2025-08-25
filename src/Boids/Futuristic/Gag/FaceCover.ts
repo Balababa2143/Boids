@@ -1,6 +1,6 @@
 import * as KDEx from '../../../KDExtension'
 import * as Enum from '../../../Utilities/Enum'
-import { ItemArchetype, MechanichalLockSfx } from '../Common'
+import { SFX} from '../Common'
 import { MaskSocket } from '../HeadSet/Common'
 import { BallKind, Component, MakeItem, MuzzleKind, StrapDetail, StrapKindTags, Variant } from './Common'
 import { Category, } from './GagMetal'
@@ -15,10 +15,9 @@ const MakeStrap = (args: { name: string, variant: Variant }) => {
     })
     return <restraint>{
         ...baseItem,
-        ...MechanichalLockSfx,
+        ...SFX.MechanichalLockSfx,
         shrine: [
             ...baseItem.shrine,
-            ItemArchetype.FaceCover,
             BallSocket,
             ...(
                 Enum.HasFlag(variant.Component, Component.PlugPort) ?
@@ -141,10 +140,9 @@ const MakeMuzzle = (args: { name: string, variant: Variant }) => {
     })
     return <restraint>{
         ...baseItem,
-        ...MechanichalLockSfx,
+        ...SFX.MechanichalLockSfx,
         shrine: [
             ...baseItem.shrine,
-            ItemArchetype.FaceCover,
             BallSocket,
             MaskSocket,
             ...(

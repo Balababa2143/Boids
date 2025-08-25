@@ -1,5 +1,5 @@
 import { AddRestraintWithTextThenGetName } from '../../../KDExtension';
-import { ElectricMechLockSfx } from '../Common';
+import { SFX } from '../Common';
 
 const BeltBase = {
     inventory: true,
@@ -14,7 +14,7 @@ const BeltBase = {
         'Wrapping'
     ],
 
-    ...ElectricMechLockSfx,
+    ...SFX.ElectricMechLockSfx,
 
     // DefaultLock: 'Cyber3',
     tightType: 'Secure',
@@ -65,7 +65,7 @@ const BraBase = {
         'Pick': -0.35
     },
 
-    ...ElectricMechLockSfx,
+    ...SFX.ElectricMechLockSfx,
 
     arousalMode: false, // Can be worn in non arousal mode without vibe activation etc.
     trappable: true,

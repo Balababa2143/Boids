@@ -1,6 +1,6 @@
 import { AddRestraintWithTextThenGetName } from '../../../../KDExtension'
 import { FactionFilter } from '../../../../KDInterface/TextKey'
-import { MechanichalLockSfx } from '../../Common'
+import { SFX } from '../../Common'
 import { Socket } from '../../Link'
 import { InheritColor } from './Layer'
 import * as Model from './Model'
@@ -20,7 +20,7 @@ const ItemBase = {
     noShrine: true,
 
     Model: '',
-    ...MechanichalLockSfx,
+    ...SFX.MechanichalLockSfx,
 
     LinkableBy: [
         ...KDDevices,

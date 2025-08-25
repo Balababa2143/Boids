@@ -1,6 +1,6 @@
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { AddModelVariant, AddRestraintVariant, ModelRestraintBundledDescriptor, UnpackSimpleKeyVariantMap } from '../../../KDInterface/VariantItem'
-import { ModelSetRootDir } from '../Common'
+import { ModelSetRootDir } from '../Common/Constant'
 
 /* Layer Sprite Naming:
  *     `${BodyPart}/${LeftRight?}${LinkGlow}${Pose}`

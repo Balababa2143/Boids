@@ -1,4 +1,3 @@
-export { ItemArchetype } from './Common'
 export * as Aroused from './Aroused'
 export * as Cuff from './Cuff'
 export * as Strap from './Strap'

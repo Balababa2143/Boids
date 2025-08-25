@@ -3,7 +3,7 @@ import { FactionFilter } from '../../../KDInterface/TextKey'
 import { InheritColor } from './Model'
 import * as Model from './Model'
 import { Socket } from '../Link'
-import { MechanichalLockSfx } from '../Common'
+import { SFX } from '../Common'
 
 const ItemBase = {
     special: true,
@@ -22,7 +22,7 @@ const ItemBase = {
         ...KDBindable
     ],
     
-    ...MechanichalLockSfx,
+    ...SFX.MechanichalLockSfx,
     Model: '',
     factionFilters: {
         [InheritColor.BaseMetal]: {

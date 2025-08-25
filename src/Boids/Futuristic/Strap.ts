@@ -1,5 +1,5 @@
 import { AddRestraintWithTextThenGetName } from '../../KDExtension';
-import { ElectricMechLockSfx } from './Common';
+import { SFX } from './Common';
 
 export const ControlHarness =
     AddRestraintWithTextThenGetName(
@@ -11,7 +11,7 @@ export const ControlHarness =
             LinkableBy: [...KDHarnessLink],
             accessible: true,
 
-            ...ElectricMechLockSfx,
+            ...SFX.ElectricMechLockSfx,
             alwaysRender: true,
             Asset: 'FuturisticHarness',
             Color: ['#499ed6', '#555555', '#555555', '#000000'],

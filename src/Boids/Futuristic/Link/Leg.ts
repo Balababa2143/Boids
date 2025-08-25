@@ -1,5 +1,5 @@
 import { ModelRestraintBundledDescriptor } from '../../../KDInterface/VariantItem'
-import { RequireSocket, SetGroup } from '../Common'
+import { Transformer as CommonTransformer } from '../Common'
 import { BuildLinkSet } from './Common'
 import * as Layer from './Layer'
 import * as Socket from './Socket'
@@ -19,8 +19,8 @@ const DescriptorMap = {
         },
         Restraint: {
             Transformers: [
-                SetGroup('ItemFeet'),
-                RequireSocket([Socket.Ankle]),
+                CommonTransformer.SetGroup('ItemFeet'),
+                CommonTransformer.RequireSocket([Socket.Ankle]),
             ],
             Text: {
                 DisplayName: 'Drone Leg Link',
@@ -45,8 +45,8 @@ const DescriptorMap = {
         },
         Restraint: {
             Transformers: [
-                SetGroup('ItemLegs'),
-                RequireSocket([Socket.Thigh]),
+                CommonTransformer.SetGroup('ItemLegs'),
+                CommonTransformer.RequireSocket([Socket.Thigh]),
             ],
             Text: {
                 DisplayName: 'Drone Leg Link',

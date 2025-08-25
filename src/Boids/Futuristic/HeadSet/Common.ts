@@ -1,4 +1,3 @@
-import { ItemArchetype } from '../Common'
 import * as TextKey from '../../../KDInterface/TextKey'
 import { Scale } from '../../../Utilities/Math'
 import { AddEventHandler, IRestraintText, AddRestraintWithText } from '../../../KDExtension'
@@ -123,8 +122,8 @@ const CalcVisorFilter = AddEventHandler({
             const filterKey = InheritColor.Glass
             const opaqueSetting = globalThis.VisorOpaqueFactor ?? 0
             const dimSetting = globalThis.VisorDimFactor ?? 0
-            const opaqueFactor = Scale(Scale(0, 0.5, dimSetting) , 1, opaqueSetting)
-            const dimFactor = Scale(Scale(0, 0.4, opaqueSetting) , 1, dimSetting)
+            const opaqueFactor = Scale(Scale(0, 0.5, dimSetting), 1, opaqueSetting)
+            const dimFactor = Scale(Scale(0, 0.4, opaqueSetting), 1, dimSetting)
             const filter = data.Filters[filterKey] ?? {}
             filter.saturation = 0
             filter.alpha = Scale(1.1, 3.4, opaqueFactor)
@@ -139,6 +138,10 @@ const CalcVisorFilter = AddEventHandler({
     },
 })
 
+export const VisorSocket = '54EB62BD-0462-46EF-8C96-9219382E75CA'
+export const SocketedVisor = 'E1F99BA2-20C3-450B-AE98-47CE61C94470'
+export const MaskSocket = 'EC2F4BFD-A143-4C8E-826C-8C85A1BE2689'
+
 const ItemBase: restraint = {
     name: '',
     // noShrine: true,
@@ -147,12 +150,14 @@ const ItemBase: restraint = {
     accessible: true,
 
     Group: 'ItemHead',
-    shrine: ['Visors', 'DroneVisor', ItemArchetype.HeadSet],
+    shrine: [
+        'Visors',
+        SocketedVisor,
+        'DroneVisor',
+    ],
     LinkableBy: ([
         ...KDVisorLink,
-        ItemArchetype.HeadSet
     ]),
-    renderWhenLinked: [ItemArchetype.HeadSet],
 
     Model: '',
     factionFilters: {
@@ -253,6 +258,3 @@ export const AddHeadSetItem = (args: {
         ],
     }, GetText(variant))
 }
-
-export const VisorSocket = '54EB62BD-0462-46EF-8C96-9219382E75CA'
-export const MaskSocket = 'EC2F4BFD-A143-4C8E-826C-8C85A1BE2689'

@@ -1,15 +1,8 @@
 
 import { MakeLayerVariant, ModelLayerVariantMap, VariantTransformer as VariantTransformer } from '../../../KDInterface/VariantItem'
-import { GlassType, Layering, Variant, VariantToString } from './Common'
+import { GlassType, Layering, Variant, VariantToString } from './Variant'
 import { Function } from '../../../Utilities'
-
-/**
- * Text keys for coloring components by faction.
- */
-export const enum InheritColor {
-    Glass = 'Glass',
-    BaseMetal = 'BaseMetal'
-}
+import { InheritColor } from './Constant'
 
 export const GlassLayerName = '0307649C-E62D-4AAF-BFFF-BF5F87EE2106' as const
 

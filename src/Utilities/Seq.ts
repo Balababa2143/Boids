@@ -10,3 +10,17 @@ export function* PowerSet<T>(input: Iterable<T>): Iterable<Iterable<T>> {
         })()
     }
 }
+
+export function* Concat<T>(seqs: Iterable<Iterable<T>>): Iterable<T> {
+    for(const seq of seqs){
+        for(const item of seq){
+            yield item
+        }
+    }
+}
+
+export function* Map<T, U>(seq: Iterable<T>, mapper: (_: T) => U): Iterable<U>{
+    for(const item of seq){
+        yield mapper(item)
+    }
+}

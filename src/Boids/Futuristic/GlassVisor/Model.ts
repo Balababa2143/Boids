@@ -1,7 +1,7 @@
 import { v5 as uuidv5 } from 'uuid'
-import { AddModelVariant, MergeLayer, ModelVariantDescriptor, ModelVariantMap, VariantTransformer } from '../../../KDInterface/VariantItem'
-import { ModelSetRootDir } from '../Common'
-import { GlassType, Layering, Level, Variant, VariantToString } from './Common'
+import { AddModelVariant, MergeLayer, ModelVariantMap, VariantTransformer } from '../../../KDInterface/VariantItem'
+import { Constant } from '../Common'
+import { GlassType, Layering, Level, Variant, VariantToString } from './Variant'
 import { GetVariant as GetLayerVariant } from './Layer'
 import { Function } from '../../../Utilities'
 
@@ -12,7 +12,7 @@ const ModelTemplate = {
 } satisfies Partial<Model>
 
 const DollMakerVisorFolder = 'Visors' as const
-const BoidsGlassVisorFolder = `${ModelSetRootDir}/Visor` as const
+const BoidsGlassVisorFolder = `${Constant.ModelSetRootDir}/Visor` as const
 
 const SetFolder = (folder: string) => (template: Partial<ModelLayer>) => ({
     ...template,
