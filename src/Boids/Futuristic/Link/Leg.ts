@@ -19,7 +19,7 @@ const DescriptorMap = {
         },
         Restraint: {
             Transformers: [
-                CommonTransformer.SetGroup('ItemFeet'),
+                CommonTransformer.SetRestraintProps('Group')('ItemFeet'),
                 CommonTransformer.RequireSocket([Socket.Ankle]),
             ],
             Text: {
@@ -45,7 +45,7 @@ const DescriptorMap = {
         },
         Restraint: {
             Transformers: [
-                CommonTransformer.SetGroup('ItemLegs'),
+                CommonTransformer.SetRestraintProps('Group')('ItemLegs'),
                 CommonTransformer.RequireSocket([Socket.Thigh]),
             ],
             Text: {

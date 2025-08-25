@@ -1,7 +1,7 @@
 import * as KDEx from '../../../KDExtension'
 import * as Enum from '../../../Utilities/Enum'
 import { SFX} from '../Common'
-import { MaskSocket } from '../HeadSet/Common'
+import { Constant } from '../GlassVisor'
 import { BallKind, Component, MakeItem, MuzzleKind, StrapDetail, StrapKindTags, Variant } from './Common'
 import { Category, } from './GagMetal'
 import { BallSocket, PlugSocket } from './Muffler'
@@ -144,7 +144,7 @@ const MakeMuzzle = (args: { name: string, variant: Variant }) => {
         shrine: [
             ...baseItem.shrine,
             BallSocket,
-            MaskSocket,
+            Constant.Socket.Mask,
             ...(
                 Enum.HasFlag(variant.Component, Component.PlugPort) ?
                     [PlugSocket] :

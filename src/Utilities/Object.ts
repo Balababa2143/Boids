@@ -44,3 +44,30 @@ export type Intersection<T extends unknown[]> =
 
 export type IntersectionTo<Target, T extends unknown[]> =
     Intersection<T> extends Target ? unknown : 'Intersection Constraint Mismatch'
+
+export type ArrayProperties<T> = Pick<T, {
+  [K in keyof T]: T[K] extends any[] ? K : never
+}[keyof T]>
+
+export const SetProps =
+    <T extends object>
+    () =>
+        <Key extends keyof T>
+        (key: Key) =>
+            (value: T[Key]) =>
+                <Template extends Partial<T>>
+                (template: Template) => ({
+                    ...template,
+                    [key]: value
+                } as Template & Pick<Required<T>, Key>)
+
+export const MergeProps =
+    <T extends object>
+    () =>
+        <Props extends Partial<T>>
+        (props: Props)  =>
+            <Template extends Partial<T>>
+            (template: Template) => ({
+                ...template,
+                ...props
+            })

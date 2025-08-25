@@ -1,9 +1,11 @@
 import { v5 as uuidv5 } from 'uuid'
 import { AddModelVariant, MergeLayer, ModelVariantMap, VariantTransformer } from '../../../KDInterface/VariantItem'
 import { Constant } from '../Common'
-import { GlassType, Layering, Level, Variant, VariantToString } from './Variant'
+import { GlassType, Layering, Level } from './Variant'
+import Variant from './Variant'
 import { GetVariant as GetLayerVariant } from './Layer'
 import { Function } from '../../../Utilities'
+import { Transformer as CommonTransformer } from '../Common'
 
 const ModelTemplate = {
     Categories: ['Accessories', 'Face'],
@@ -27,19 +29,17 @@ const AddHoodMaskPose: VariantTransformer<Model> = (template) => ({
     ]
 })
 
-const ModelBaseName = 'E5050056-23AD-4935-BBC9-68B49F27FB9A'
+const BaseName = 'E5050056-23AD-4935-BBC9-68B49F27FB9A'
 
-const GetModelName = (variant: Variant) => ((template) => ({
-    ...template,
-    Name: uuidv5(VariantToString(variant), ModelBaseName)
-})) satisfies VariantTransformer<Model>
+const GetVariantName = (variant: Variant) => 
+    uuidv5(Variant.ToString(variant), BaseName)
 
-const GetModelDebugDisplayName = (variant: Variant) => `Drone Visor: ${VariantToString(variant)}`
+const GetModelDebugDisplayName = (variant: Variant) => `Drone Visor: ${Variant.ToString(variant)}`
 
 const VariantMap: ModelVariantMap<Variant> = (variant) => {
     const Transformers: VariantTransformer<Model>[] = []
     Transformers.push(
-        GetModelName(variant),
+        CommonTransformer.SetModelProps('Name')(GetVariantName(variant)),
         MergeLayer([GetLayerVariant(variant)])
     )
     switch(variant.GlassType)
@@ -69,34 +69,9 @@ const VariantMap: ModelVariantMap<Variant> = (variant) => {
 
 export const GetGlassModelVariant =
     Function.CacheWith({
-        toString: VariantToString,
+        toString: Variant.ToString,
         func: AddModelVariant({
             template: ModelTemplate,
             VariantMap: VariantMap
         })
     })
-
-for (let GlassType = 0; GlassType < 4; GlassType++) {
-    for (let _Colorize = 0; _Colorize <= 1; _Colorize++) {
-        const Colorize = _Colorize > 0
-        for (let Layering = 0; Layering < 4; Layering++) {
-            if (GlassType > 1) {
-                for (let Level = 1; Level < 5; Level++) {
-                    console.log('Boids: variant debug GetVariant', GetGlassModelVariant({
-                        Colorize,
-                        GlassType,
-                        Layering,
-                        Level: Level as Level,
-                    }))
-                }
-            }
-            else {
-                console.log('Boids: variant debug GetVariant', GetGlassModelVariant({
-                    Colorize,
-                    GlassType,
-                    Layering,
-                }))
-            }
-        }
-    }
-}

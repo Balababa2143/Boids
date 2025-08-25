@@ -1,8 +1,8 @@
-import { AddEventHandler, EquipInventoryVariantMergeEvents, MorphToInventoryVariantMergeEvents } from '../KDExtension'
+import { AddEventHandler, EquipInventoryVariantMergeEvents, MergeEvents, MorphToInventoryVariantMergeEvents } from '../KDExtension'
 import { ThrowIfNull } from '../Utilities'
 import * as Futuristic from './Futuristic'
 import * as MachinePrime from './MachinePrime'
-import { IKDEquipInventoryVariantParameters, KinkyDungeonGetRestraintsWithShrine, KinkyDungeonRemoveRestraintSpecific } from 'kd-structured'
+import { IKDEquipInventoryVariantParameters, KDMorphToInventoryVariant, KinkyDungeonGetRestraintsWithShrine, KinkyDungeonRemoveRestraintSpecific } from 'kd-structured'
 
 const AddWeakerParams: Partial<IKDEquipInventoryVariantParameters> = {
     Tightness: 10,
@@ -12,7 +12,7 @@ const AddWeakerParams: Partial<IKDEquipInventoryVariantParameters> = {
 }
 
 const AddVariant = (variant: KDRestraintVariant) =>
-        EquipInventoryVariantMergeEvents({
+    EquipInventoryVariantMergeEvents({
         ...AddWeakerParams,
         variant
     })
@@ -85,87 +85,114 @@ const AddDroneMod2Left = (args: StartPerkInfo) =>
         }
     })
 
-let CurrentVisorVariant = new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 1)
+let CurrentVisorVariant = {
+    GlassType: Futuristic.GlassVisor.GlassType.BoidsGoggle,
+    Colorize: true as boolean,
+    Layering: Futuristic.GlassVisor.Layering.Goggle,
+    Level: 1 as Futuristic.GlassVisor.Level
+} satisfies Futuristic.GlassVisor.Variant
 
-export const ToggleVisor = () => {
+export const ToggleVisor = (morph: boolean) => {
     // const currentVisor = KinkyDungeonGetRestraintItem('ItemHead')
     // const currentVisor = KinkyDungeonGetRestraintsWithShrine({
     //     shrine: 'DroneVisor'
     // })[0]
     const currentVisor =
         ThrowIfNull(KinkyDungeonInventoryGetWorn(
-            Futuristic.HeadSet.Holographic.GetGoggleVariant(CurrentVisorVariant)
+            Futuristic.GlassVisor.GetSocketedVisorVariant(CurrentVisorVariant)
         ))
 
-    if(CurrentVisorVariant.OpaqueLevel < 4){
-        CurrentVisorVariant = new Futuristic.HeadSet.Variant(
-            CurrentVisorVariant.Type,
-            CurrentVisorVariant.OpaqueLevel + 1
-        )
+    const currentLevel = CurrentVisorVariant.Level
+    if (currentLevel < 4) {
+        CurrentVisorVariant = {
+            ...CurrentVisorVariant,
+            Level: (currentLevel + 1) as Futuristic.GlassVisor.Level
+        }
     }
-    else{
-        const type = CurrentVisorVariant.Type === Futuristic.HeadSet.GlassType.Color ? Futuristic.HeadSet.GlassType.Black : Futuristic.HeadSet.GlassType.Color
-        CurrentVisorVariant = new Futuristic.HeadSet.Variant(type, 1)
+    else {
+        CurrentVisorVariant = {
+            ...CurrentVisorVariant,
+            Colorize: !CurrentVisorVariant.Colorize,
+            Level: 1
+        }
     }
-    KinkyDungeonRemoveRestraintSpecific({
-        item: currentVisor!
-    })
-    AddWeaker(Futuristic.HeadSet.Holographic.GetGoggleVariant(CurrentVisorVariant))
-    // MorphToInventoryVariantMergeEvents({
-    //     item: currentVisor!,
-    //     variant: {
-    //         template: Futuristic.HeadSet.Holographic.GetGoggleVariant(CurrentVisorVariant),
-    //         events: []
-    //     },
-    //     forceMorph: true
-    // })
+    const newVisor = Futuristic.GlassVisor.GetSocketedVisorVariant(CurrentVisorVariant)
+    if (morph) {
+        KDMorphToInventoryVariant({
+            item: currentVisor,
+            variant: {
+                template: newVisor,
+                events: [...MergeEvents([
+                    KDRestraint(currentVisor).events ?? [],
+                    KinkyDungeonRestraints.find(r => r.name === newVisor)?.events ?? []
+                ])]
+            },
+            forceMorph: true
+        })
+        MorphToInventoryVariantMergeEvents({
+            item: currentVisor!,
+            variant: {
+                template: Futuristic.GlassVisor.GetSocketedVisorVariant(CurrentVisorVariant),
+                events: []
+            },
+            forceMorph: true,
+        })
+    }
+    else {
+        KinkyDungeonRemoveRestraintSpecific({
+            item: currentVisor!
+        })
+        AddWeaker(Futuristic.GlassVisor.GetSocketedVisorVariant(CurrentVisorVariant))
+    }
+
+
     KinkyDungeonAdvanceTime(1)
 }
 
 export const AddDroneSet = () => {
-        const lockBackup = AddWeakerParams.Lock
+    const lockBackup = AddWeakerParams.Lock
 
-        AddWeakerParams.Lock = 'Cyber3'
-        AddWeaker(Futuristic.Suit.LatexSuit.HeavyLockableSuit)
+    AddWeakerParams.Lock = 'Cyber3'
+    AddWeaker(Futuristic.Suit.LatexSuit.HeavyLockableSuit)
 
-        AddWeakerParams.Lock = 'Cyber2'
-        AddWeaker(Futuristic.HeadSet.Headphone.Earphone)
-        AddWeaker(Futuristic.HeadSet.Holographic.GetGoggleVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 1)))
-        // for(let i = 0; i < 8; ++i){
-        //     ToggleVisor()
-        // }
-        AddVariant(MachinePrime.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.PanelHarness))
-        // MachinePrime.Gag.AddGag(Futuristic.Gag.FaceCover.MetalMuzzle2)
-        // AddWeaker(Futuristic.HeadSet.Holographic.GetGlassOnlyMaskVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 1)))
+    AddWeakerParams.Lock = 'Cyber2'
+    AddWeaker(Futuristic.Headphone.Earphone)
+    AddWeaker(Futuristic.GlassVisor.GetSocketedVisorVariant(CurrentVisorVariant))
+    // for(let i = 0; i < 8; ++i){
+    //     ToggleVisor()
+    // }
+    AddVariant(MachinePrime.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.PanelHarness))
+    // MachinePrime.Gag.AddGag(Futuristic.Gag.FaceCover.MetalMuzzle2)
+    // AddWeaker(Futuristic.HeadSet.Holographic.GetGlassOnlyMaskVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 1)))
 
-        AddWeakerParams.Lock = 'Cyber3'
-        AddWeaker('NippleClamps3')
-        AddWeaker(Futuristic.Aroused.Toys.LockVibe)
+    AddWeakerParams.Lock = 'Cyber3'
+    AddWeaker('NippleClamps3')
+    AddWeaker(Futuristic.Aroused.Toys.LockVibe)
 
-        AddWeaker(Futuristic.Aroused.Toys.DenialPlugF)
-        AddWeaker(Futuristic.Aroused.Toys.DenialPlugR)
+    AddWeaker(Futuristic.Aroused.Toys.DenialPlugF)
+    AddWeaker(Futuristic.Aroused.Toys.DenialPlugR)
 
-        AddWeaker(Futuristic.Aroused.Chastity.SlimBelt)
+    AddWeaker(Futuristic.Aroused.Chastity.SlimBelt)
 
-        AddWeaker(Futuristic.Aroused.Chastity.SlimBra)
+    AddWeaker(Futuristic.Aroused.Chastity.SlimBra)
 
-        AddWeakerParams.Lock = 'Cyber2'
-        AddWeaker(Futuristic.Cuff.LightCollar)
-        // AddWeaker(Futuristic.Cuff.ElbowCuff)
-        // AddWeaker(Futuristic.Cuff.WristCuff)
-        AddWeaker(Futuristic.Cuff.ArmCuff)
-        // AddWeaker(Futuristic.Cuff.WaistCuff)
-        AddWeaker(Futuristic.Strap.ControlHarness)
-        AddWeaker(Futuristic.Cuff.ThighCuff)
-        AddWeaker(Futuristic.Cuff.AnkleCuff)
+    AddWeakerParams.Lock = 'Cyber2'
+    AddWeaker(Futuristic.Cuff.LightCollar)
+    // AddWeaker(Futuristic.Cuff.ElbowCuff)
+    // AddWeaker(Futuristic.Cuff.WristCuff)
+    AddWeaker(Futuristic.Cuff.ArmCuff)
+    // AddWeaker(Futuristic.Cuff.WaistCuff)
+    AddWeaker(Futuristic.Strap.ControlHarness)
+    AddWeaker(Futuristic.Cuff.ThighCuff)
+    AddWeaker(Futuristic.Cuff.AnkleCuff)
 
-        AddWeakerParams.Lock = 'Cyber'
-        AddWeaker(Futuristic.Link.Arm.GetRestraint('BetweenWristCuff'))
-        AddWeaker(Futuristic.Link.Leg.GetRestraint('BetweenThighCuff'))
-        AddWeaker(Futuristic.Link.Leg.GetRestraint('BetweenAnkleCuff'))
+    AddWeakerParams.Lock = 'Cyber'
+    AddWeaker(Futuristic.Link.Arm.GetRestraint('BetweenWristCuff'))
+    AddWeaker(Futuristic.Link.Leg.GetRestraint('BetweenThighCuff'))
+    AddWeaker(Futuristic.Link.Leg.GetRestraint('BetweenAnkleCuff'))
 
-        AddWeakerParams.Lock = lockBackup
-    }
+    AddWeakerParams.Lock = lockBackup
+}
 
 AddStart({
     name: 'Drone Toys',

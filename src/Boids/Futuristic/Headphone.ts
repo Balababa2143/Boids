@@ -1,7 +1,7 @@
-import { AddModelWithText, AddRestraintWithTextThenGetName } from '../../../KDExtension';
-import { FactionFilter } from '../../../KDInterface/TextKey'
-import { SFX, Constant } from '../Common'
-import { SocketedVisor, VisorSocket } from './Common'
+import { AddModelWithText, AddRestraintWithTextThenGetName } from '../../KDExtension'
+import { FactionFilter } from '../../KDInterface/TextKey'
+import { SFX, Constant } from './Common'
+import { SocketedVisor, Socket } from './GlassVisor/Constant'
 
 enum PatchedElfEar {
     Any = 'ElfEar',
@@ -76,7 +76,7 @@ const model: Model = AddModelWithText({
 export const Earphone = AddRestraintWithTextThenGetName({
     name: '373643CB-501A-435E-9EDC-0C7F733D3507',
     Group: 'ItemHead',
-    shrine: ['Visors', VisorSocket],
+    shrine: ['Visors', Socket.Goggle],
     noShrine: true,
     inventory: true,
     special: true,
@@ -92,10 +92,12 @@ export const Earphone = AddRestraintWithTextThenGetName({
 
     LinkableBy: [
         ...KDVisorLink,
-        SocketedVisor
+        SocketedVisor.Mask,
+        SocketedVisor.Goggle,
     ],
     renderWhenLinked: [
-        SocketedVisor
+        SocketedVisor.Mask,
+        SocketedVisor.Goggle,
     ],
     noDupe: true,
 
