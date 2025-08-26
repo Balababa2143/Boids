@@ -1,6 +1,6 @@
 import * as KDS from 'kd-structured'
 import * as Futuristic from '../Futuristic'
-import { AddEventHandler, EquipInventoryVariantMergeEvents, MorphToInventoryVariantMergeEvents } from '../../KDExtension'
+import { AddEventHandler } from '../../KDExtension'
 import { ItemArchetype, MakeMachinePrimeVariant } from './Common'
 import * as Coordinater from './Coordinater'
 
@@ -76,7 +76,7 @@ export const RegisterGag = {
 } satisfies KinkyDungeonEvent
 
 const SetGagModelByStrength = (item: item, strength: number) => {
-    const morph = variant => MorphToInventoryVariantMergeEvents({
+    const morph = variant => KDS.KDMorphToInventoryVariant({
         item: item,
         variant,
         forceMorph: true,
@@ -142,30 +142,23 @@ const InitGagByStrength = {
     inheritLinked: true
 } satisfies KinkyDungeonEvent
 
-// TODO: Add event respond to gag strength change
-// TODO: Add event to fetch gag strength
-export const Muffler =
-    MakeMachinePrimeVariant(
-        {
-            template: Futuristic.Gag.Muffler.NonMuffler,
-            events: [
-                RegisterGag,
-                InitGagByStrength,
-                MorphOnTargetedGagStrengthUpdate,
-                {
-                    ...AddTags,
-                    Tags: [ItemArchetype.Gag],
-                    inheritLinked: true
-                } satisfies AddTagsEvent as KinkyDungeonEvent
-            ]
-        }
-    )
-
 const MakeMuffler = (template: string) =>
     MakeMachinePrimeVariant({
         template,
-        events: []
+        events: [
+            RegisterGag,
+            InitGagByStrength,
+            MorphOnTargetedGagStrengthUpdate,
+            {
+                ...AddTags,
+                Tags: [ItemArchetype.Gag],
+                inheritLinked: true
+            } satisfies AddTagsEvent as KinkyDungeonEvent
+        ]
     })
+
+export const Muffler =
+    MakeMuffler(Futuristic.Gag.Muffler.NonMuffler)
 
 export const NonMuffler = MakeMuffler(Futuristic.Gag.Muffler.NonMuffler)
 

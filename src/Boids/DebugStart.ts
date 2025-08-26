@@ -1,8 +1,7 @@
-import { AddEventHandler, EquipInventoryVariantMergeEvents, MergeEvents, MorphToInventoryVariantMergeEvents } from '../KDExtension'
 import { ThrowIfNull } from '../Utilities'
 import * as Futuristic from './Futuristic'
 import * as MachinePrime from './MachinePrime'
-import { IKDEquipInventoryVariantParameters, KDMorphToInventoryVariant, KinkyDungeonGetRestraintsWithShrine, KinkyDungeonRemoveRestraintSpecific } from 'kd-structured'
+import { IKDEquipInventoryVariantParameters, KDEquipInventoryVariant, KDMorphToInventoryVariant, KinkyDungeonRemoveRestraintSpecific } from 'kd-structured'
 
 const AddWeakerParams: Partial<IKDEquipInventoryVariantParameters> = {
     Tightness: 10,
@@ -12,12 +11,12 @@ const AddWeakerParams: Partial<IKDEquipInventoryVariantParameters> = {
 }
 
 const AddVariant = (variant: KDRestraintVariant) =>
-    EquipInventoryVariantMergeEvents({
+    KDEquipInventoryVariant({
         ...AddWeakerParams,
         variant
     })
 const AddWeaker = (r: string) =>
-    EquipInventoryVariantMergeEvents({
+    KDEquipInventoryVariant({
         ...AddWeakerParams,
         variant: {
             template: r,
@@ -122,20 +121,9 @@ export const ToggleVisor = (morph: boolean) => {
             item: currentVisor,
             variant: {
                 template: newVisor,
-                events: [...MergeEvents([
-                    KDRestraint(currentVisor).events ?? [],
-                    KinkyDungeonRestraints.find(r => r.name === newVisor)?.events ?? []
-                ])]
-            },
-            forceMorph: true
-        })
-        MorphToInventoryVariantMergeEvents({
-            item: currentVisor!,
-            variant: {
-                template: Futuristic.GlassVisor.GetSocketedVisorVariant(CurrentVisorVariant),
                 events: []
             },
-            forceMorph: true,
+            forceMorph: true
         })
     }
     else {

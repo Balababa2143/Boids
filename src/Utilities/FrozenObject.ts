@@ -6,20 +6,24 @@ type KeyPathMap<T, PKs extends (keyof any)[] = []> =
     never
 
 export type KeyPath<T> =
-    T extends object ?
-    {
-        [Key in keyof Required<T>]: [Key] | [Key, ...KeyPath<T[Key]>]
-    }[keyof Required<T>] :
-    never
+    T extends (infer U)[] ?
+        ([number] | [number, ...KeyPath<U>])
+        : T extends object ?
+            {
+                [Key in keyof Required<T>]: [Key] | [Key, ...KeyPath<T[Key]>]
+            }[keyof Required<T>]
+            : never
 
 export type PropAtPath<T, Path extends readonly any[]> =
-    Path extends [infer K, ...infer Rest]
-        ? K extends keyof T
-            ? Rest extends []
-                ? T[K]
+    Path extends [infer K, ...infer Rest] ?
+    T extends any ?
+        K extends keyof T ?
+            Rest extends [] ? 
+                T[K]
                 : PropAtPath<T[K], Rest>
             : never
-        : T
+        : never
+    : T
 
 type TypeOrPartial<T> =
     T extends object ?
@@ -35,31 +39,38 @@ export const CopyAssign =
         })
 
 export const CopySetIn =
-    <T, Path extends KeyPath<T>> 
-    (target: T, keyPath: Path, value: PropAtPath<T, Path>): T => {
-    const [head, ...tail] = keyPath
-
-    if (tail.length === 0) {
-        return Object.freeze({
-            ...target,
-            [head]: value
-        })
-    }
-    else {
-        const tail2 = tail as KeyPath<T[typeof head]>
-        const value2 = value as PropAtPath<T[typeof head], typeof tail2>
-        const oldHead = target[head]
-        if (null != oldHead && typeof oldHead === 'object') {
-            return Object.freeze({
-                ...target,
-                [head]: CopySetIn(oldHead, tail2 , value2)
-            })
+    <T extends Readonly<unknown>, Path extends KeyPath<T>>
+        (target: T, keyPath: Path, value: PropAtPath<T, Path>): T => {
+        if (typeof target !== 'object') {
+            throw new TypeError('Target is not an object')
         }
         else {
-            return Object.freeze({
-                ...target,
-                [head]: CopySetIn({} as T[typeof head], tail2, value2)
-            })
+            if (Array.isArray(target)) {
+                throw new Error('Not supported')
+            }
+            else {
+                const [head, ...tail] = keyPath
+                if (tail.length === 0) {
+                    return Object.freeze({
+                        ...target,
+                        [head]: value
+                    })
+                }
+                else {
+                    const oldProp = target[head]
+                    if (null != oldProp && typeof oldProp === 'object' && !Array.isArray(oldProp)) {
+                        return Object.freeze({
+                            ...target,
+                            [head]: CopySetIn(oldProp, tail, value)
+                        })
+                    }
+                    else {
+                        return Object.freeze({
+                            ...target,
+                            [head]: CopySetIn({} as typeof oldProp, tail, value)
+                        })
+                    }
+                }
+            }
         }
     }
-}
