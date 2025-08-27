@@ -4,6 +4,7 @@ import * as Coordinater from '../Coordinater'
 import { AddEventHandler, OnPostApplyWhenItemIsEventSource } from '../../../KDExtension'
 import { ItemArchetype } from '../Constant'
 import { MakeMachinePrimeVariant, MakeRegisterItemOnApplyEvent, MakeAddTagsEvent } from './Common'
+import { SetTargetGagStrength } from '../Coordinater/Gag'
 
 const SetGagModelByStrength = (item: item, strength: number) => {
     const morph = variant => KDS.KDMorphToInventoryVariant({
@@ -60,7 +61,7 @@ const InitGagByStrength = {
     ...AddEventHandler({
         eventMap: KDEventMapInventory,
         trigger: 'postApply',
-        type: '2C8CA1C4-48E1-4E38-9019-15715FB80692',
+        type: '7BC556D7-A37B-486B-A3B1-923630EDD1FF',
         handler: OnPostApplyWhenItemIsEventSource((_e, item, _data) => {
             const strength = Coordinater.GetState().ActivePC.Items[ItemArchetype.Gag].TargetGagStrength
             SetGagModelByStrength(item, strength)
@@ -149,3 +150,6 @@ export const MakeGagVariantWithBallSocket = (template: string) =>
             ]
         }
     )
+
+export const SetGagStrength = (value?: number) =>
+    SetTargetGagStrength(value ?? Math.random())

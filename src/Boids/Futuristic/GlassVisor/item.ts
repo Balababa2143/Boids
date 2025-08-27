@@ -92,9 +92,11 @@ const SocketedVariantMap: RestraintVariantMap<Variant> = (variant) => {
             name: GetVariantName(variant),
             Model: GetGlassModelVariant(variant),
             preview: Variant.IsGoggle(variant) ? 'GlassVisor' : 'GlassMask',
-            blindfold: CalcBlind(variant),
         })
     )
+    if(Variant.IsBoids(variant)) {
+        Transformers.push(CommonTransformer.SetRestraintProps('blindfold')(CalcBlind(variant)))
+    }
     Transformers.push(CommonTransformer.RequireSocket({
         sockets: Variant.IsGoggle(variant) ? [Constant.Socket.Goggle] : [Constant.Socket.Mask],
         renderWhenLinkedBySocket: true
@@ -136,45 +138,45 @@ export const GetSocketedVisorVariant =
         })
     })
 
-// const goggleLayers = [Layering.Goggle, Layering.Blindfold] as const
-// const maskLayers = [Layering.Hood, Layering.Mask] as const
+const goggleLayers = [Layering.Goggle, Layering.Blindfold] as const
+const maskLayers = [Layering.Hood, Layering.Mask] as const
 
-// for (const layering of goggleLayers) {
-//     GetSocketedVisorVariant({
-//         GlassType: GlassType.DollmakerGoggle,
-//         Layering: layering
-//     })
-// }
+for (const layering of goggleLayers) {
+    GetSocketedVisorVariant({
+        GlassType: GlassType.DollmakerGoggle,
+        Layering: layering
+    })
+}
 
-// for (const layering of maskLayers) {
-//     GetSocketedVisorVariant({
-//         GlassType: GlassType.DollmakerMask,
-//         Layering: layering
-//     })
-// }
+for (const layering of maskLayers) {
+    GetSocketedVisorVariant({
+        GlassType: GlassType.DollmakerMask,
+        Layering: layering
+    })
+}
 
-// for (const layering of goggleLayers) {
-//     for (const colorize of [false, true]) {
-//         for (const level of [1, 2, 3, 4] as const) {
-//             GetSocketedVisorVariant({
-//                 GlassType: GlassType.BoidsGoggle,
-//                 Layering: layering,
-//                 Colorize: colorize,
-//                 Level: level
-//             })
-//         }
-//     }
-// }
+for (const layering of goggleLayers) {
+    for (const colorize of [false, true]) {
+        for (const level of [1, 2, 3, 4] as const) {
+            GetSocketedVisorVariant({
+                GlassType: GlassType.BoidsGoggle,
+                Layering: layering,
+                Colorize: colorize,
+                Level: level
+            })
+        }
+    }
+}
 
-// for (const layering of maskLayers) {
-//     for (const colorize of [false, true]) {
-//         for (const level of [1, 2, 3, 4] as const) {
-//             GetSocketedVisorVariant({
-//                 GlassType: GlassType.BoidsMask,
-//                 Layering: layering,
-//                 Colorize: colorize,
-//                 Level: level
-//             })
-//         }
-//     }
-// }
+for (const layering of maskLayers) {
+    for (const colorize of [false, true]) {
+        for (const level of [1, 2, 3, 4] as const) {
+            GetSocketedVisorVariant({
+                GlassType: GlassType.BoidsMask,
+                Layering: layering,
+                Colorize: colorize,
+                Level: level
+            })
+        }
+    }
+}

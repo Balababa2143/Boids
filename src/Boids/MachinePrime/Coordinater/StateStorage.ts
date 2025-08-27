@@ -1,63 +1,44 @@
-import { v7 as NewUUID } from 'uuid'
-import { KeyPath, PropAtPath, FrozenObject } from '../../../Utilities'
-import { ItemArchetype } from '../Constant'
 import { AddEventHandler } from '../../../KDExtension'
 import { State } from './State'
+import { KeyPathEx, PropAtPath } from 'immutable'
 
 const GameDataStateKey = '68C84945-3A9A-4024-8CC6-E3CE092E9154' as const
 
 declare global {
     interface KDGameDataBase {
-        [GameDataStateKey]: State
+        [GameDataStateKey]: ReturnType<State['toJS']>
     }
 }
 
-KDGameDataBase[GameDataStateKey] = Object.freeze({
-    ActivePC: {
-        ID: NewUUID(),
-        Items: {
-            [ItemArchetype.Gag]: {
-                TargetGagStrength: 0,
-                RegisteredItems: Object.freeze({})
-            },
-            [ItemArchetype.HeadPhone]: {
-                RegisteredItems: Object.freeze({})
-            },
-            [ItemArchetype.Visor]: {
-                RegisteredItems: Object.freeze({})
-            },
-        },
-    },
-    ActiveNPC: {
-    },
-} satisfies State)
+let CoordinaterState: State = State()
 
-export const InitState = () => {
-    console.info(`Boids: setting KDGameData[${GameDataStateKey}]`)
-    SetState(KDGameDataBase[GameDataStateKey])
-}
-
-export const GetState = () => KDGameData[GameDataStateKey]
+export const GetState = () => CoordinaterState
 
 export const SetState = (newState: State) => {
     // TODO: Handle synchronization across save, etc
-    KDGameData[GameDataStateKey] = newState
+    if(!newState.equals(CoordinaterState)){
+        CoordinaterState = newState
+    }
     return newState
 }
 
-export const SetStateIn = <Path extends KeyPath<State>>(path: Path, newProp: PropAtPath<State, Path>) =>
-    SetState(FrozenObject.CopySetIn(GetState(), path, newProp))
+export const SetStateIn = <Path extends KeyPathEx<State>>(path: Path, newProp: PropAtPath<State, Path>) =>
+    SetState(GetState().setIn(path, newProp))
 
 AddEventHandler({
     eventMap: KDEventMapGeneric,
     trigger: 'afterLoadGame',
     type: 'B8D7875F-EDC2-41AA-B96B-3C91E905C761',
     handler(_e, _data) {
-        if (null == KDGameData[GameDataStateKey]) {
-            InitState()
+        if (null != KDGameData[GameDataStateKey]) {
+            SetState(State.fromJS(KDGameData[GameDataStateKey]))
         }
-        // else {
-        //     console.info(`Boids: afterLoadGame, KDGameData[${GameDataStateKey}] is set.`)
-        // }
     },
 })
+
+const _KinkyDungeonGenerateSaveData = globalThis.KinkyDungeonGenerateSaveData
+
+globalThis.KinkyDungeonGenerateSaveData = function() {
+    KDGameDataBase[GameDataStateKey] = CoordinaterState.toJS()
+    return _KinkyDungeonGenerateSaveData()
+}

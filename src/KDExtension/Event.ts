@@ -22,21 +22,21 @@ export interface IAddEventHandlerParameterPack<EventMap extends KDEventMap, Trig
 export const AddEventHandler =
     <EventMap extends KDEventMap, Trigger extends (string & keyof EventMap)>
     (args: IAddEventHandlerParameterPack<EventMap, Trigger>) => {
-    const {
-        eventMap, trigger, type, handler
-    } = args
-    const handlerMap = eventMap[trigger] ?? {}
-    if (type in handlerMap) {
-        throw new Error('Adding event handler.')
+        const {
+            eventMap, trigger, type, handler
+        } = args
+        const handlerMap = eventMap[trigger] ?? {}
+        if (type in handlerMap) {
+            throw new Error('Duplicate event handler.')
+        }
+        else {
+            handlerMap[type] = handler
+        }
+        eventMap[trigger] = handlerMap
+        return {
+            trigger, type,
+        } satisfies Partial<KinkyDungeonEvent>
     }
-    else {
-        handlerMap[type] = handler
-    }
-    eventMap[trigger] = handlerMap
-    return {
-        trigger, type,
-    } satisfies Partial<KinkyDungeonEvent>
-}
 
 export type PostApplyEventHandler = (e: KinkyDungeonEvent, item: item, data: KDEventData_PostApply) => void
 
@@ -47,3 +47,13 @@ export const OnPostApplyWhenItemIsEventSource = (handler: PostApplyEventHandler)
         }
     }
 ) satisfies PostApplyEventHandler
+
+export interface KinkyDungeonEventPostRemovalData {
+    item: restraint | null
+    Character: Character
+    keep: boolean
+    shrine: boolean
+    add?: true
+    Link?: true
+    dynamic?: true
+}

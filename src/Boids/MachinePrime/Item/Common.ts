@@ -1,7 +1,7 @@
 import * as KDS from 'kd-structured'
 import * as Futuristic from '../../Futuristic'
 import * as Coordinater from '../Coordinater'
-import { AddEventHandler, OnPostApplyWhenItemIsEventSource } from '../../../KDExtension'
+import { AddEventHandler, KinkyDungeonEventPostRemovalData, OnPostApplyWhenItemIsEventSource } from '../../../KDExtension'
 import { Function, IntersectionTo, WithDefault } from '../../../Utilities'
 import { ItemArchetype, MachinePrimeVariantBase } from '../Constant'
 
@@ -30,7 +30,7 @@ const MakeEventBuilder =
         })
     }
 
-export interface AddTagsEvent extends KinkyDungeonEvent {
+export interface EventWithTags extends KinkyDungeonEvent {
     Tags: string[]
 }
 
@@ -40,7 +40,7 @@ export const MakeAddTagsEvent = MakeEventBuilder({
         trigger: 'updatePlayerTags',
         type: '53660F42-1DC0-474D-A819-938E39015046',
         handler: (e, _, data: { tags: typeof KinkyDungeonPlayerTags, player: typeof KinkyDungeonPlayerEntity }) => {
-            const event = e as AddTagsEvent
+            const event = e as EventWithTags
             for (const tag of event.Tags) {
                 data.tags.set(tag, true)
             }
@@ -51,7 +51,7 @@ export const MakeAddTagsEvent = MakeEventBuilder({
     },
     processArgs: (tags: string[]) => ({
         Tags: tags
-    } satisfies Partial<AddTagsEvent>)
+    } satisfies Partial<EventWithTags>)
 })
 
 export interface EventWithItemArchetype extends KinkyDungeonEvent {
@@ -72,6 +72,27 @@ export const MakeRegisterItemOnApplyEvent = MakeEventBuilder({
                 })
             }
         )
+    }),
+    extraEventProps: {
+        inheritLinked: true
+    },
+    processArgs: (itemArcheType: ItemArchetype) => ({
+        ItemArchetype: itemArcheType
+    } satisfies Partial<EventWithItemArchetype>)
+})
+
+export const MakeUnRegisterItemOnRemovalEvent = MakeEventBuilder({
+    eventTemplate: AddEventHandler({
+        eventMap: KDEventMapInventory,
+        trigger: 'postApply',
+        type: '5588B613-0A09-4383-983F-21FF7036755C',
+        handler: (e, item, data: KinkyDungeonEventPostRemovalData) => {
+            const event = e as EventWithItemArchetype
+            Coordinater.Register({
+                restraint: item,
+                type: event.ItemArchetype
+            })
+        } 
     }),
     extraEventProps: {
         inheritLinked: true
