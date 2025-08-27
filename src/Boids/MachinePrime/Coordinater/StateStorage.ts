@@ -1,6 +1,6 @@
 import { v7 as NewUUID } from 'uuid'
 import { KeyPath, PropAtPath, FrozenObject } from '../../../Utilities'
-import { ItemArchetype } from '../Common'
+import { ItemArchetype } from '../Constant'
 import { AddEventHandler } from '../../../KDExtension'
 import { State } from './State'
 
@@ -25,7 +25,7 @@ KDGameDataBase[GameDataStateKey] = Object.freeze({
             },
             [ItemArchetype.Visor]: {
                 RegisteredItems: Object.freeze({})
-            }
+            },
         },
     },
     ActiveNPC: {

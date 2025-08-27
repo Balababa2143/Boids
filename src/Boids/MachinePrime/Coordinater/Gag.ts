@@ -1,5 +1,5 @@
 import { KinkyDungeonSendEvent } from 'kd-structured'
-import { ItemArchetype } from '../Common'
+import { ItemArchetype } from '../Constant'
 import { GetState, SetStateIn } from './StateStorage'
 
 export interface TargetGagStrengthUpdateEventArgs {

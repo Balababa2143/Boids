@@ -149,7 +149,7 @@ export const AddDroneSet = () => {
     // for(let i = 0; i < 8; ++i){
     //     ToggleVisor()
     // }
-    AddVariant(MachinePrime.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.PanelHarness))
+    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.PanelHarness))
     // MachinePrime.Gag.AddGag(Futuristic.Gag.FaceCover.MetalMuzzle2)
     // AddWeaker(Futuristic.HeadSet.Holographic.GetGlassOnlyMaskVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 1)))
 

@@ -1,4 +1,4 @@
-import { ItemArchetype } from '../Common'
+import { ItemArchetype } from '../Constant'
 
 export interface ItemStateBase {
     readonly RegisteredItems: {
@@ -7,6 +7,10 @@ export interface ItemStateBase {
 }
 
 export interface Gag extends ItemStateBase {
+    /**
+     * Value between 0.0 to 1.0,
+     * higher means more severely gagged
+     */
     readonly TargetGagStrength: number
 }
 

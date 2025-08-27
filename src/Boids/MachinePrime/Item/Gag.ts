@@ -1,77 +1,9 @@
 import * as KDS from 'kd-structured'
-import * as Futuristic from '../Futuristic'
-import { AddEventHandler, OnPostApplyWhenItemIsEventSource } from '../../KDExtension'
-import { ItemArchetype, MakeMachinePrimeVariant } from './Common'
-import * as Coordinater from './Coordinater'
-
-const AddWeakerParams: Partial<KDS.IKDEquipInventoryVariantParameters> = {
-    Tightness: 10,
-    Bypass: true,
-    Deep: true,
-    Lock: 'Cyber3',
-}
-
-export interface AddTagsEvent extends KinkyDungeonEvent {
-    Tags: string[]
-}
-
-export const AddTags = AddEventHandler({
-    eventMap: KDEventMapInventory,
-    trigger: 'updatePlayerTags',
-    type: '53660F42-1DC0-474D-A819-938E39015046',
-    handler: (e, _, data: { tags: typeof KinkyDungeonPlayerTags, player: typeof KinkyDungeonPlayerEntity }) => {
-        const event = e as AddTagsEvent
-        for (const tag of event.Tags) {
-            data.tags.set(tag, true)
-        }
-    },
-})
-
-export interface RequireSubItemEvent extends KinkyDungeonEvent {
-    Socket: string,
-    ItemTag: string,
-    SubItem: KDRestraintVariant
-}
-
-const HasTag = (item: item | null, tag: string) =>
-    KinkyDungeonPlayerTags.get(tag) ||
-    (null != item && KDRestraint(item)?.shrine?.includes(tag))
-
-export const RequireSubItem = AddEventHandler({
-    eventMap: KDEventMapInventory,
-    trigger: 'postApply',
-    type: '23AD0A99-32DC-4CAA-95C4-34C7E3B02EDB',
-    handler: (e, _, data: KDEventData_PostApply) => {
-        const event = e as RequireSubItemEvent
-        if (
-            HasTag(data?.item, event.Socket) &&
-            !KinkyDungeonPlayerTags.get(event.ItemTag)
-        ) {
-            const { template: restraintName, ...subItemVariantProperties } = event.SubItem
-            KDS.KDLinkUnder({
-                ...AddWeakerParams,
-                ...subItemVariantProperties,
-                restraint: KinkyDungeonGetRestraintByName(restraintName),
-            })
-        }
-    }
-})
-
-export const RegisterGag = {
-    ...AddEventHandler({
-        eventMap: KDEventMapInventory,
-        trigger: 'postApply',
-        type: '84E37F14-A8F7-4D5B-9B38-C0F89ECC4C2C',
-        handler: OnPostApplyWhenItemIsEventSource((e, item, data) =>{
-            // console.info('Boids: postApply', e, item, data)
-            Coordinater.Register({
-                restraint: item,
-                type: ItemArchetype.Gag
-            })
-        })
-    }),
-    inheritLinked: true
-} satisfies KinkyDungeonEvent
+import * as Futuristic from '../../Futuristic'
+import * as Coordinater from '../Coordinater'
+import { AddEventHandler, OnPostApplyWhenItemIsEventSource } from '../../../KDExtension'
+import { ItemArchetype } from '../Constant'
+import { MakeMachinePrimeVariant, MakeRegisterItemOnApplyEvent, MakeAddTagsEvent } from './Common'
 
 const SetGagModelByStrength = (item: item, strength: number) => {
     const morph = variant => KDS.KDMorphToInventoryVariant({
@@ -129,9 +61,8 @@ const InitGagByStrength = {
         eventMap: KDEventMapInventory,
         trigger: 'postApply',
         type: '2C8CA1C4-48E1-4E38-9019-15715FB80692',
-        handler: OnPostApplyWhenItemIsEventSource((e, item, data) => {
+        handler: OnPostApplyWhenItemIsEventSource((_e, item, _data) => {
             const strength = Coordinater.GetState().ActivePC.Items[ItemArchetype.Gag].TargetGagStrength
-            // console.info('Boids: postApply InitGagByStrength', strength)
             SetGagModelByStrength(item, strength)
         }),
     }),
@@ -142,14 +73,10 @@ const Muffler =
     MakeMachinePrimeVariant({
         template: Futuristic.Gag.Muffler.NonMuffler,
         events: [
-            RegisterGag,
+            MakeRegisterItemOnApplyEvent(ItemArchetype.Gag),
             InitGagByStrength,
             MorphOnTargetedGagStrengthUpdate,
-            {
-                ...AddTags,
-                Tags: [ItemArchetype.Gag],
-                inheritLinked: true
-            } satisfies AddTagsEvent as KinkyDungeonEvent
+            MakeAddTagsEvent([ItemArchetype.Gag]),
         ]
     })
 
@@ -158,11 +85,7 @@ const MakeMuffler = (template: string) =>
         template,
         events: [
             MorphOnTargetedGagStrengthUpdate,
-            {
-                ...AddTags,
-                Tags: [ItemArchetype.Gag],
-                inheritLinked: true
-            } satisfies AddTagsEvent as KinkyDungeonEvent
+            MakeAddTagsEvent([ItemArchetype.Gag]),
         ]
     })
 
@@ -172,13 +95,52 @@ export const Ball = MakeMuffler(Futuristic.Gag.Muffler.Ball)
 
 export const BigBall = MakeMuffler(Futuristic.Gag.Muffler.BigBall)
 
+//TODO: implement an extenable socketed item selection system
+
+const AddWeakerParams: Partial<KDS.IKDEquipInventoryVariantParameters> = {
+    Tightness: 10,
+    Bypass: true,
+    Deep: true,
+    Lock: 'Cyber3',
+}
+
+export interface RequireSubItemEvent extends KinkyDungeonEvent {
+    Socket: string,
+    ItemTag: string,
+    SubItem: KDRestraintVariant
+}
+
+const HasTag = (item: item | null, tag: string) =>
+    KinkyDungeonPlayerTags.get(tag) ||
+    (null != item && KDRestraint(item)?.shrine?.includes(tag))
+
+export const RequireMuffler = AddEventHandler({
+    eventMap: KDEventMapInventory,
+    trigger: 'postApply',
+    type: '23AD0A99-32DC-4CAA-95C4-34C7E3B02EDB',
+    handler: (e, _item, data: KDEventData_PostApply) => {
+        const event = e as RequireSubItemEvent
+        if (
+            HasTag(data?.item, event.Socket) &&
+            !KinkyDungeonPlayerTags.get(event.ItemTag)
+        ) {
+            const { template: restraintName, ...subItemVariantProperties } = event.SubItem
+            KDS.KDLinkUnder({
+                ...AddWeakerParams,
+                ...subItemVariantProperties,
+                restraint: KinkyDungeonGetRestraintByName(restraintName),
+            })
+        }
+    }
+})
+
 export const MakeGagVariantWithBallSocket = (template: string) =>
     MakeMachinePrimeVariant(
         {
             template,
             events: [
                 {
-                    ...RequireSubItem,
+                    ...RequireMuffler,
                     Socket: Futuristic.Gag.Muffler.BallSocket,
                     ItemTag: ItemArchetype.Gag,
                     inheritLinked: true,
