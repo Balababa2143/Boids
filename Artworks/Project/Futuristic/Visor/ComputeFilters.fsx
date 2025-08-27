@@ -10,18 +10,12 @@ let makeSeq ratio max =
     |> Seq.map (fun x -> Math.Round(x, digits=0, mode=MidpointRounding.ToEven))
 
 printfn "Light Alpha:"
-let alpha = 
-    makeSeq psi 245.0
-    |> Seq.take 4
-
-alpha
-|>Seq.iter (printfn "%.0g")
+makeSeq psi 245.0
+|> Seq.take 4
+|> Seq.iter (printfn "%.0g")
 printfn ""
 
 printfn "Dark Alpha:"
-let alpha' = 
-    makeSeq psi  230.0
-    |> Seq.take 4
-
-alpha'
+makeSeq psi 230.0
+|> Seq.take 4
 |>Seq.iter (printfn "%.0g")
