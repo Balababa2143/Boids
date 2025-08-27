@@ -70,11 +70,11 @@ class MultiCastWeakAction<TArgs extends unknown[]> {
                 deleteList.push(ref)
             }
         }
-        if (exList.length > 0) {
-            throw new AggregateError(exList)
-        }
         for (const toDelete of deleteList) {
             this.#handlers.delete(toDelete)
+        }
+        if (exList.length > 0) {
+            throw new AggregateError(exList)
         }
     }
 }

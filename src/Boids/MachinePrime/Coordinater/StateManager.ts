@@ -21,7 +21,7 @@ export const Register = (args: { restraint: Named, type: ItemArchetype }) => {
         data: args
     })
 
-    SetStateIn(['ActivePC', 'Items', ItemArchetype.Gag, 'RegisteredItems', restraint.name], true)
+    SetStateIn(['ActivePC', 'Items', type, 'RegisteredItems', restraint.name], true)
 
     // console.info('Boids: Register', newPC)
 
@@ -39,7 +39,7 @@ AddEventHandler({
     trigger: 'tick',
     type: '90F84036-7836-473E-BE57-14009ABE6158',
     handler(e, data) {
-        console.info('Boids: tick')
+        // console.info('Boids: tick')
         SetTargetGagStrength(Math.random())
     },
 })

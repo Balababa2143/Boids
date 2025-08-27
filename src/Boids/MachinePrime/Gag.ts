@@ -1,6 +1,6 @@
 import * as KDS from 'kd-structured'
 import * as Futuristic from '../Futuristic'
-import { AddEventHandler } from '../../KDExtension'
+import { AddEventHandler, OnPostApplyWhenItemIsEventSource } from '../../KDExtension'
 import { ItemArchetype, MakeMachinePrimeVariant } from './Common'
 import * as Coordinater from './Coordinater'
 
@@ -19,7 +19,7 @@ export const AddTags = AddEventHandler({
     eventMap: KDEventMapInventory,
     trigger: 'updatePlayerTags',
     type: '53660F42-1DC0-474D-A819-938E39015046',
-    handler(e, _, data: { tags: typeof KinkyDungeonPlayerTags, player: typeof KinkyDungeonPlayerEntity }) {
+    handler: (e, _, data: { tags: typeof KinkyDungeonPlayerTags, player: typeof KinkyDungeonPlayerEntity }) => {
         const event = e as AddTagsEvent
         for (const tag of event.Tags) {
             data.tags.set(tag, true)
@@ -41,7 +41,7 @@ export const RequireSubItem = AddEventHandler({
     eventMap: KDEventMapInventory,
     trigger: 'postApply',
     type: '23AD0A99-32DC-4CAA-95C4-34C7E3B02EDB',
-    handler(e, _, data: KDEventData_PostApply) {
+    handler: (e, _, data: KDEventData_PostApply) => {
         const event = e as RequireSubItemEvent
         if (
             HasTag(data?.item, event.Socket) &&
@@ -62,15 +62,13 @@ export const RegisterGag = {
         eventMap: KDEventMapInventory,
         trigger: 'postApply',
         type: '84E37F14-A8F7-4D5B-9B38-C0F89ECC4C2C',
-        handler(e, item, data: KDEventData_PostApply) {
-            if (item.name === data.item?.name) {
-                console.info('Boids: postApply', e, item, data)
-                Coordinater.Register({
-                    restraint: item,
-                    type: ItemArchetype.Gag
-                })
-            }
-        }
+        handler: OnPostApplyWhenItemIsEventSource((e, item, data) =>{
+            // console.info('Boids: postApply', e, item, data)
+            Coordinater.Register({
+                restraint: item,
+                type: ItemArchetype.Gag
+            })
+        })
     }),
     inheritLinked: true
 } satisfies KinkyDungeonEvent
@@ -97,7 +95,7 @@ const MorphOnTargetedGagStrengthUpdate = {
         eventMap: KDEventMapInventory,
         trigger: Coordinater.Gag.EventKeys.TargetGagStrengthUpdate,
         type: '2C8CA1C4-48E1-4E38-9019-15715FB80692',
-        handler(e, item, data: Coordinater.Gag.TargetGagStrengthUpdateEventArgs) {
+        handler: (e, item, data: Coordinater.Gag.TargetGagStrengthUpdateEventArgs) => {
             SetGagModelByStrength(item, data.NewStrength)
             if (KDSoundEnabled()) {
                 if (data.NewStrength > data.OldStrength) {
@@ -131,20 +129,18 @@ const InitGagByStrength = {
         eventMap: KDEventMapInventory,
         trigger: 'postApply',
         type: '2C8CA1C4-48E1-4E38-9019-15715FB80692',
-        handler(e, item, data: KDEventData_PostApply) {
-            if (item.name === data.item?.name) {
-                const strength = Coordinater.GetState().ActivePC.Items[ItemArchetype.Gag].TargetGagStrength
-                console.info('Boids: postApply InitGagByStrength', strength)
-                SetGagModelByStrength(item, strength)
-            }
-        },
+        handler: OnPostApplyWhenItemIsEventSource((e, item, data) => {
+            const strength = Coordinater.GetState().ActivePC.Items[ItemArchetype.Gag].TargetGagStrength
+            // console.info('Boids: postApply InitGagByStrength', strength)
+            SetGagModelByStrength(item, strength)
+        }),
     }),
     inheritLinked: true
 } satisfies KinkyDungeonEvent
 
-const MakeMuffler = (template: string) =>
+const Muffler =
     MakeMachinePrimeVariant({
-        template,
+        template: Futuristic.Gag.Muffler.NonMuffler,
         events: [
             RegisterGag,
             InitGagByStrength,
@@ -157,8 +153,18 @@ const MakeMuffler = (template: string) =>
         ]
     })
 
-export const Muffler =
-    MakeMuffler(Futuristic.Gag.Muffler.NonMuffler)
+const MakeMuffler = (template: string) =>
+    MakeMachinePrimeVariant({
+        template,
+        events: [
+            MorphOnTargetedGagStrengthUpdate,
+            {
+                ...AddTags,
+                Tags: [ItemArchetype.Gag],
+                inheritLinked: true
+            } satisfies AddTagsEvent as KinkyDungeonEvent
+        ]
+    })
 
 export const NonMuffler = MakeMuffler(Futuristic.Gag.Muffler.NonMuffler)
 

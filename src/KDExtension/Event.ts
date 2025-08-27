@@ -37,3 +37,13 @@ export const AddEventHandler =
         trigger, type,
     } satisfies Partial<KinkyDungeonEvent>
 }
+
+export type PostApplyEventHandler = (e: KinkyDungeonEvent, item: item, data: KDEventData_PostApply) => void
+
+export const OnPostApplyWhenItemIsEventSource = (handler: PostApplyEventHandler) => (
+    (e, item, data) => {
+        if (item.name === data.item?.name) {
+            handler(e, item, data)
+        }
+    }
+) satisfies PostApplyEventHandler
