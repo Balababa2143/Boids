@@ -1,6 +1,6 @@
 import { AddEventHandler } from '../../../KDExtension'
 import { State } from './State'
-import { KeyPathEx, PropAtPath } from 'immutable'
+import { KeyPath, PropAtPath } from '../../../Utilities'
 
 const GameDataStateKey = '68C84945-3A9A-4024-8CC6-E3CE092E9154' as const
 
@@ -22,7 +22,7 @@ export const SetState = (newState: State) => {
     return newState
 }
 
-export const SetStateIn = <Path extends KeyPathEx<State>>(path: Path, newProp: PropAtPath<State, Path>) =>
+export const SetStateIn = <Path extends KeyPath<State>>(path: Path, newProp: PropAtPath<State, Path>) =>
     SetState(GetState().setIn(path, newProp))
 
 AddEventHandler({

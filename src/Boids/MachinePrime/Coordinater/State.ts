@@ -1,4 +1,4 @@
-import { DeepCopyEx, Record, RecordOf, Set, Map } from 'immutable'
+import { DeepCopy, Record, RecordOf, Set, Map } from 'immutable'
 import { v7 as NewUUID } from 'uuid'
 import { ItemArchetype } from '../Constant'
 
@@ -13,9 +13,9 @@ export const ItemStateBase = Object.assign(
         RegisteredItems: Set()
     }),
     {
-        fromJS: (js: DeepCopyEx<_ItemStateBase>) =>
+        fromJS: (js: DeepCopy<_ItemStateBase>) =>
             ItemStateBase({
-                RegisteredItems: Set(js.RegisteredItems)
+                RegisteredItems: Set(js.RegisteredItems as Iterable<string>)
             })
     }
 )
@@ -36,7 +36,7 @@ export const Gag = Object.assign(
         TargetGagStrength: 0
     }),
     {
-        fromJS: (js: DeepCopyEx<_Gag>) =>
+        fromJS: (js: DeepCopy<_Gag>) =>
             Gag({
                 ...ItemStateBase.fromJS(js),
                 TargetGagStrength: js.TargetGagStrength
@@ -60,7 +60,7 @@ export const Visor = Object.assign(
         TargetBlindStrength: 0
     }),
     {
-        fromJS: (js: DeepCopyEx<_Visor>) =>
+        fromJS: (js: DeepCopy<_Visor>) =>
             Visor({
                 ...ItemStateBase.fromJS(js),
                 TargetBlindStrength: js.TargetBlindStrength
@@ -83,11 +83,11 @@ export const ItemRegistry = Object.assign(
         [ItemArchetype.Gag]: Gag(),
     }),
     {
-        fromJS: (js: DeepCopyEx<_ItemRegistry>) =>
+        fromJS: (js: DeepCopy<_ItemRegistry>) =>
             ItemRegistry({
-                [ItemArchetype.Visor]: Visor.fromJS(js[ItemArchetype.Visor]),
-                [ItemArchetype.HeadPhone]: ItemStateBase.fromJS(js[ItemArchetype.HeadPhone]),
-                [ItemArchetype.Gag]: Gag.fromJS(js[ItemArchetype.Gag]),
+                [ItemArchetype.Visor]: Visor.fromJS(js[ItemArchetype.Visor] as any),
+                [ItemArchetype.HeadPhone]: ItemStateBase.fromJS(js[ItemArchetype.HeadPhone] as any),
+                [ItemArchetype.Gag]: Gag.fromJS(js[ItemArchetype.Gag] as any),
             })
     }
 )
@@ -114,10 +114,10 @@ export type Entry = RecordOf<_Entry>
 export const Entry = Object.assign(
     Record(EntryDefault),
     {
-        fromJS: (js: DeepCopyEx<_Entry>) =>
+        fromJS: (js: DeepCopy<_Entry>) =>
             Entry({
                 ID: js.ID,
-                Items: ItemRegistry.fromJS(js.Items)
+                Items: ItemRegistry.fromJS(js.Items as any)
             })
     }
 )
@@ -135,11 +135,11 @@ export const State = Object.assign(
         ActiveNPC: Map()
     }),
     {
-        fromJS: (js: DeepCopyEx<_State>) =>
+        fromJS: (js: DeepCopy<_State>) =>
             State({
-                ActivePC: Entry.fromJS(js.ActivePC),
+                ActivePC: Entry.fromJS(js.ActivePC as any),
                 ActiveNPC: 
-                    Map(js.ActiveNPC).map(Entry.fromJS)
+                    Map<string, _Entry>(js.ActiveNPC as any).map(Entry.fromJS)
             })
     }
 )

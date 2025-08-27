@@ -71,3 +71,23 @@ export const MergeProps =
                 ...template,
                 ...props
             })
+
+export type KeyPath<T> =
+        T extends (infer U)[] ?
+            ([number] | [number, ...KeyPath<U>])
+            : T extends object ?
+                {
+                    [Key in keyof Required<T>]: [Key] | [Key, ...KeyPath<T[Key]>]
+                }[keyof Required<T>]
+                : never
+
+export type PropAtPath<T, Path extends readonly any[]> =
+        Path extends [infer K, ...infer Rest] ?
+        T extends any ?
+            K extends keyof T ?
+                Rest extends [] ? 
+                    T[K]
+                    : PropAtPath<T[K], Rest>
+                : never
+            : never
+        : T
