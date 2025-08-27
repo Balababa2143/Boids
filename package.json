@@ -2,8 +2,8 @@
   "name": "boids",
   "version": "0.2.0",
   "description": "",
-  "license": "ISC",
-  "author": "",
+  "license": "MIT",
+  "author": "balababa2143@gmail.com",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
