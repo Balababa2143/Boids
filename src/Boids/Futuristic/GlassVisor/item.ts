@@ -130,13 +130,12 @@ const SocketedVariantMap: RestraintVariantMap<Variant> = (variant) => {
 }
 
 export const GetSocketedVisorVariant =
-    Function.CacheWith({
-        toString: Variant.ToString,
-        func: AddRestraintVariant({
+    Function.Cached(
+        AddRestraintVariant({
             template: ItemTemplate,
             VariantMap: SocketedVariantMap
         })
-    })
+    )
 
 const goggleLayers = [Layering.Goggle, Layering.Blindfold] as const
 const maskLayers = [Layering.Hood, Layering.Mask] as const

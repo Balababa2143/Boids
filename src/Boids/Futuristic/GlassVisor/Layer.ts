@@ -78,10 +78,9 @@ const VariantMap: ModelLayerVariantMap<Variant> =
     }
 
 export const GetVariant =
-    Function.CacheWith({
-        toString: Variant.ToString,
-        func: MakeLayerVariant({
+    Function.Cached(
+        MakeLayerVariant({
             template: GlassLayerTemplate,
             VariantMap
         })
-    })
+    )

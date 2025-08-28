@@ -1,9 +1,11 @@
 import * as KDS from 'kd-structured'
 import * as Futuristic from '../../Futuristic'
 import * as Coordinater from '../Coordinater'
-import { AddEventHandler, HandleItemEventWhenItemIsEventSource } from '../../../KDExtension'
+import * as KDEx from '../../../KDExtension'
+import { Invnetory as EventCommInv } from '../../CommonEvent'
 import { ItemArchetype } from '../Constant'
-import { MakeMachinePrimeVariant, MakeRegisterItemOnApplyEvent, MakeAddTagsEvent, MakeUnRegisterItemOnRemovalEvent } from './Common'
+import { MakeMachinePrimeVariant } from './Common'
+
 
 const SetGagModelByStrength = (item: item, strength: number) => {
     const morph = variant => KDS.KDMorphToInventoryVariant({
@@ -23,7 +25,7 @@ const SetGagModelByStrength = (item: item, strength: number) => {
 }
 
 export const MorphOnTargetedGagStrengthUpdate = {
-    ...AddEventHandler({
+    ...KDEx.AddEventHandler({
         eventMap: KDEventMapInventory,
         trigger: Coordinater.SensoryControl.EventKeys.SensoryLimiterStrengthUpdate,
         type: '2C8CA1C4-48E1-4E38-9019-15715FB80692',
@@ -59,11 +61,11 @@ export const MorphOnTargetedGagStrengthUpdate = {
 } satisfies KinkyDungeonEvent
 
 const InitGagByStrength = {
-    ...AddEventHandler({
+    ...KDEx.AddEventHandler({
         eventMap: KDEventMapInventory,
         trigger: 'postApply',
         type: '7BC556D7-A37B-486B-A3B1-923630EDD1FF',
-        handler: HandleItemEventWhenItemIsEventSource((_e, item, _data) => {
+        handler: KDEx.HandleItemEventWhenItemIsEventSource((_e, item, _data) => {
             const strength = Coordinater.SensoryControl.GetLimiterStrength(ItemArchetype.Gag)
             SetGagModelByStrength(item, strength)
         }),
@@ -75,11 +77,11 @@ const Muffler =
     MakeMachinePrimeVariant({
         template: Futuristic.Gag.Muffler.NonMuffler,
         events: [
-            MakeRegisterItemOnApplyEvent(ItemArchetype.Gag),
-            MakeUnRegisterItemOnRemovalEvent(ItemArchetype.Gag),
+            Coordinater.Event.RegisterItemOnApply(ItemArchetype.Gag),
+            Coordinater.Event.UnRegisterItemOnRemoval(ItemArchetype.Gag),
             InitGagByStrength,
             MorphOnTargetedGagStrengthUpdate,
-            MakeAddTagsEvent([ItemArchetype.Gag]),
+            EventCommInv.AddTags([ItemArchetype.Gag]),
         ]
     })
 
@@ -88,9 +90,9 @@ const MakeMuffler = (template: string) =>
         template,
         events: [
             MorphOnTargetedGagStrengthUpdate,
-            MakeAddTagsEvent([ItemArchetype.Gag]),
-            MakeRegisterItemOnApplyEvent(ItemArchetype.Gag),
-            MakeUnRegisterItemOnRemovalEvent(ItemArchetype.Gag),
+            EventCommInv.AddTags([ItemArchetype.Gag]),
+            Coordinater.Event.RegisterItemOnApply(ItemArchetype.Gag),
+            Coordinater.Event.UnRegisterItemOnRemoval(ItemArchetype.Gag),
         ]
     })
 
@@ -119,7 +121,7 @@ const HasTag = (item: item | null, tag: string) =>
     KinkyDungeonPlayerTags.get(tag) ||
     (null != item && KDRestraint(item)?.shrine?.includes(tag))
 
-export const RequireMuffler = AddEventHandler({
+export const RequireMuffler = KDEx.AddEventHandler({
     eventMap: KDEventMapInventory,
     trigger: 'postApply',
     type: '23AD0A99-32DC-4CAA-95C4-34C7E3B02EDB',

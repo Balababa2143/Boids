@@ -1,5 +1,4 @@
-import { IKDEquipInventoryVariantParameters, IKDMorphToInventoryVariantParameters, KinkyDungeonAddRestraintIfWeaker, KinkyDungeonRemoveRestraintSpecific } from 'kd-structured'
-import { DeepFreezeClone, ThrowIfNull } from '../Utilities'
+import { DeepFreezeClone } from '../Utilities'
 
 /**
  * Represents the text information associated with a restraint, including display name, flavor text, and function text.
@@ -57,7 +56,6 @@ export const AddRestraintWithText = (restraint: restraint, restraintText: IRestr
     return reserialized
 }
 
-
 /**
  * Adds a restraint with optional text and returns its name.
  *
@@ -67,7 +65,6 @@ export const AddRestraintWithText = (restraint: restraint, restraintText: IRestr
  */
 export const AddRestraintWithTextThenGetName = (restraint: restraint, restraintText?: IRestraintText) =>
     AddRestraintWithText(restraint, restraintText).name
-
 
 /**
  * Merges multiple list of `KinkyDungeonEvent` objects into a single generator function,

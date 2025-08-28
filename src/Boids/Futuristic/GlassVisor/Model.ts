@@ -68,10 +68,9 @@ const VariantMap: ModelVariantMap<Variant> = (variant) => {
 }
 
 export const GetGlassModelVariant =
-    Function.CacheWith({
-        toString: Variant.ToString,
-        func: AddModelVariant({
+    Function.Cached(
+        AddModelVariant({
             template: ModelTemplate,
             VariantMap: VariantMap
-        })
-    })
+        }) 
+    )

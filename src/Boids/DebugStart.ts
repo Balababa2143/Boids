@@ -84,58 +84,6 @@ const AddDroneMod2Left = (args: StartPerkInfo) =>
         }
     })
 
-let CurrentVisorVariant = {
-    GlassType: Futuristic.GlassVisor.GlassType.BoidsGoggle,
-    Colorize: true as boolean,
-    Layering: Futuristic.GlassVisor.Layering.Goggle,
-    Level: 1 as Futuristic.GlassVisor.Level
-} satisfies Futuristic.GlassVisor.Variant
-
-export const ToggleVisor = (morph: boolean) => {
-    // const currentVisor = KinkyDungeonGetRestraintItem('ItemHead')
-    // const currentVisor = KinkyDungeonGetRestraintsWithShrine({
-    //     shrine: 'DroneVisor'
-    // })[0]
-    const currentVisor =
-        ThrowIfNull(KinkyDungeonInventoryGetWorn(
-            Futuristic.GlassVisor.GetSocketedVisorVariant(CurrentVisorVariant)
-        ))
-
-    const currentLevel = CurrentVisorVariant.Level
-    if (currentLevel < 4) {
-        CurrentVisorVariant = {
-            ...CurrentVisorVariant,
-            Level: (currentLevel + 1) as Futuristic.GlassVisor.Level
-        }
-    }
-    else {
-        CurrentVisorVariant = {
-            ...CurrentVisorVariant,
-            Colorize: !CurrentVisorVariant.Colorize,
-            Level: 1
-        }
-    }
-    const newVisor = Futuristic.GlassVisor.GetSocketedVisorVariant(CurrentVisorVariant)
-    if (morph) {
-        KDMorphToInventoryVariant({
-            item: currentVisor,
-            variant: {
-                template: newVisor,
-                events: []
-            },
-            forceMorph: true
-        })
-    }
-    else {
-        KinkyDungeonRemoveRestraintSpecific({
-            item: currentVisor!
-        })
-        AddWeaker(Futuristic.GlassVisor.GetSocketedVisorVariant(CurrentVisorVariant))
-    }
-
-
-    KinkyDungeonAdvanceTime(1)
-}
 
 export const AddDroneSet = () => {
     const lockBackup = AddWeakerParams.Lock
@@ -149,12 +97,14 @@ export const AddDroneSet = () => {
         GlassType: Futuristic.GlassVisor.GlassType.DollmakerGoggle,
         Layering: Futuristic.GlassVisor.Layering.Goggle
     }))
-    // for(let i = 0; i < 8; ++i){
-    //     ToggleVisor()
-    // }
+
     AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.PanelHarness))
-    // MachinePrime.Gag.AddGag(Futuristic.Gag.FaceCover.MetalMuzzle2)
-    // AddWeaker(Futuristic.HeadSet.Holographic.GetGlassOnlyMaskVariant(new Futuristic.HeadSet.Variant(Futuristic.HeadSet.GlassType.Color, 1)))
+    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.MetalMuzzle1))
+
+    AddVariant(MachinePrime.Item.Visor.Dollmaker.GetVisor({
+        GlassType: Futuristic.GlassVisor.GlassType.DollmakerMask,
+        Layering: Futuristic.GlassVisor.Layering.Mask
+    }))
 
     AddWeakerParams.Lock = 'Cyber3'
     AddWeaker('NippleClamps3')

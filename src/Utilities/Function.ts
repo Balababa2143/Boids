@@ -1,4 +1,4 @@
-import { UUIDTypes, v5 as uuidv5, v7 as uuidv7 } from 'uuid'
+import {FromJS, fromJS, Map } from 'immutable'
 
 export const CacheSymbol = Symbol('CacheSymbol')
 
@@ -11,29 +11,28 @@ export interface CachedFunc<T, R> extends Func<T, R> {
     [CacheSymbol]: Record<string, R>
 }
 
-export const IsCachedFunc = 
+export const IsCachedFunc =
     <T, R>
-    (f: Func<T, R>): f is CachedFunc<T, R> =>
+        (f: Func<T, R>): f is CachedFunc<T, R> =>
         CacheSymbol in f && CacheKeyFuncSymbol in f
 
-export const CacheWith =
+
+export const Cached =
     <Key, Value>
-    (cacheParams: { BaseKey?: UUIDTypes, toString?: (_: Key) => string, func: (_: Key) => Value }) => {
-        const BaseKey = cacheParams.BaseKey ?? uuidv7()
-        const toString = cacheParams.toString ?? JSON.stringify
-        const Cache: Record<string, Value> = {}
+    (func: (_: Key) => Value) => {
+        let Cache = Map<FromJS<Key>, Value>()
         const ret = (key: Key) => {
-            const stringKey = uuidv5(toString(key), BaseKey)
-            if (stringKey in Cache) {
-                return Cache[stringKey]
+            const convertedKey = fromJS(key)
+            if (Cache.has(convertedKey)) {
+                return Cache.get(convertedKey)
             }
             else {
-                const newValue = cacheParams.func(key)
-                Cache[stringKey] = newValue
+                const newValue = func(key)
+                Cache = Cache.set(convertedKey, newValue)
                 return newValue
             }
         }
         ret[CacheKeyFuncSymbol] = toString
         ret[CacheSymbol] = Cache
-        return ret as typeof cacheParams.func
+        return ret as typeof func
     }

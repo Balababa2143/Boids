@@ -45,6 +45,7 @@ export const SetLimiterStrength = (type: ItemArchetype, newStrength: number) => 
             } satisfies LimiterStrengthUpdateEventArgs
         })
     }
+    KinkyDungeonAdvanceTime(1)
 }
 
 AddEventHandler({

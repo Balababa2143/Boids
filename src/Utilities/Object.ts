@@ -32,7 +32,8 @@ export function ThrowIfNull<T>(value: T | null | undefined, errorMessage?: strin
     return value;
 }
 
-export type WithDefault<Base extends object, Default extends Partial<Base>> = Omit<Base, keyof Default> & Partial<Default>
+export type WithDefault<Base extends object, Default> =
+    Omit<Base, keyof Default> & Partial<Default>
 
 export type UnionTo<Target, Tuple extends readonly unknown[]> =
     Tuple[number] extends Target ? unknown : 'Union Constraint Mismatch'

@@ -4,7 +4,7 @@ import * as path from 'path'
 import * as archiver from 'archiver'
 import webpack from 'webpack'
 
-const EntryFile = 'src/Boids/ModInit.ts'
+const EntryFile = 'src/Boids/index.ts'
 const BundleDir = 'Bundle'
 const DeclarationFolder = 'Declaration'
 const ArchiveFile = 'Deploy/Boids.zip'

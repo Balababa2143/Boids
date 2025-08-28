@@ -6,6 +6,9 @@
   "author": "balababa2143@gmail.com",
   "type": "commonjs",
   "main": "index.js",
+  "sideEffects": [
+    "./src/Boids"
+],
   "scripts": {
     "Webpack Bundle: Debug": "webpack --config webpack.config.ts --mode development",
     "Webpack Watch: Debug": "webpack --config webpack.config.ts --watch --mode development",
