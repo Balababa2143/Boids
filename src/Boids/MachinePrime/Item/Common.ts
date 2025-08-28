@@ -1,7 +1,7 @@
 import * as KDS from 'kd-structured'
 import * as Futuristic from '../../Futuristic'
 import * as Coordinater from '../Coordinater'
-import { AddEventHandler, KinkyDungeonEventPostRemovalData, OnPostApplyWhenItemIsEventSource } from '../../../KDExtension'
+import { AddEventHandler, KinkyDungeonEventPostRemovalData, HandleItemEventWhenItemIsEventSource } from '../../../KDExtension'
 import { Function, IntersectionTo, WithDefault } from '../../../Utilities'
 import { ItemArchetype, MachinePrimeVariantBase } from '../Constant'
 
@@ -10,7 +10,7 @@ export const MakeMachinePrimeVariant =
         (...variantParts: VariantParts): KDRestraintVariant =>
         Object.assign({}, MachinePrimeVariantBase, ...variantParts)
 
-const MakeEventBuilder =
+export const MakeEventBuilder =
     <BuilderArgs>(args: {
         eventTemplate: ReturnType<typeof AddEventHandler>,
         extraEventProps: Partial<KinkyDungeonEvent>,
@@ -21,13 +21,11 @@ const MakeEventBuilder =
             extraEventProps,
             processArgs
         } = args
-        return Function.CacheWith({
-            func: (builderArgs: BuilderArgs) => ({
+        return (builderArgs: BuilderArgs) => ({
                 ...eventTemplate,
                 ...extraEventProps,
                 ...processArgs(builderArgs)
-            } as KinkyDungeonEvent)
-        })
+            })
     }
 
 export interface EventWithTags extends KinkyDungeonEvent {
@@ -63,7 +61,7 @@ export const MakeRegisterItemOnApplyEvent = MakeEventBuilder({
         eventMap: KDEventMapInventory,
         trigger: 'postApply',
         type: '84E37F14-A8F7-4D5B-9B38-C0F89ECC4C2C',
-        handler: OnPostApplyWhenItemIsEventSource(
+        handler: HandleItemEventWhenItemIsEventSource(
             (e, item, _data) => {
                 const event = e as EventWithItemArchetype
                 Coordinater.Register({
@@ -86,9 +84,9 @@ export const MakeUnRegisterItemOnRemovalEvent = MakeEventBuilder({
         eventMap: KDEventMapInventory,
         trigger: 'postApply',
         type: '5588B613-0A09-4383-983F-21FF7036755C',
-        handler: (e, item, data: KinkyDungeonEventPostRemovalData) => {
+        handler: (e, item, _data: KinkyDungeonEventPostRemovalData) => {
             const event = e as EventWithItemArchetype
-            Coordinater.Register({
+            Coordinater.UnRegister({
                 restraint: item,
                 type: event.ItemArchetype
             })

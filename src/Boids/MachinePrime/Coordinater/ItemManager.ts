@@ -2,7 +2,7 @@
 import { AddEventHandler } from '../../../KDExtension'
 import { KinkyDungeonSendEvent } from 'kd-structured'
 import { ItemArchetype } from '../Constant'
-import { SetTargetGagStrength } from './Gag'
+import { SetLimiterStrength } from './SensoryControl'
 import { GetState, SetStateIn } from './StateStorage'
 
 export const enum EventKeys {

@@ -8,10 +8,12 @@ interface _ItemStateBase {
 
 export type ItemStateBase = RecordOf<_ItemStateBase>
 
+const _ItemBaseDefault = {
+    RegisteredItems: Set()
+} satisfies _ItemStateBase
+
 export const ItemStateBase = Object.assign(
-    Record<_ItemStateBase>({
-        RegisteredItems: Set()
-    }),
+    Record<_ItemStateBase>(_ItemBaseDefault),
     {
         fromJS: (js: DeepCopy<_ItemStateBase>) =>
             ItemStateBase({
@@ -20,57 +22,73 @@ export const ItemStateBase = Object.assign(
     }
 )
 
-interface _Gag extends _ItemStateBase {
-    /**
-     * Value between 0.0 to 1.0,
-     * higher means more severely gagged
-     */
-    readonly TargetGagStrength: number
+interface _SensoryLimiter extends _ItemStateBase {
+    Strength: number
 }
 
-export type Gag = RecordOf<_Gag>
+const _SensoryLimiterDefault = {
+    ..._ItemBaseDefault,
+    Strength: 0
+} satisfies _SensoryLimiter
 
-export const Gag = Object.assign(
-    Record<_Gag>({
-        RegisteredItems: Set(),
-        TargetGagStrength: 0
-    }),
+export type SensoryLimiter = RecordOf<_SensoryLimiter>
+
+export const SensoryLimiter = Object.assign(
+    Record<_SensoryLimiter>(_SensoryLimiterDefault),
     {
-        fromJS: (js: DeepCopy<_Gag>) =>
-            Gag({
+        fromJS: (js: DeepCopy<_SensoryLimiter>) =>
+            SensoryLimiter({
                 ...ItemStateBase.fromJS(js),
-                TargetGagStrength: js.TargetGagStrength
+                Strength: js.Strength
             })
     }
 )
 
-interface _Visor extends _ItemStateBase {
+interface _Gag extends _SensoryLimiter {
+    /**
+     * Value between 0.0 to 1.0,
+     * higher means more severely gagged
+     */
+}
+
+const _GagDefsult = _SensoryLimiterDefault
+
+export type Gag = RecordOf<_Gag>
+
+export const Gag = Object.assign(
+    Record<_Gag>(_GagDefsult),
+    {
+        fromJS: (js: DeepCopy<_Gag>) =>
+            Gag({
+                ...SensoryLimiter.fromJS(js)
+            })
+    }
+)
+
+interface _Visor extends _SensoryLimiter {
     /**
      * Value between 0.0 to 10.0,
      * higher means more blinded
      */
-    readonly TargetBlindStrength: number
 }
+
+const _VisorDefsult = _SensoryLimiterDefault
 
 export type Visor = RecordOf<_Visor>
 
 export const Visor = Object.assign(
-    Record<_Visor>({
-        RegisteredItems: Set(),
-        TargetBlindStrength: 0
-    }),
+    Record<_Visor>(_VisorDefsult),
     {
         fromJS: (js: DeepCopy<_Visor>) =>
             Visor({
-                ...ItemStateBase.fromJS(js),
-                TargetBlindStrength: js.TargetBlindStrength
+                ...SensoryLimiter.fromJS(js)
             })
     }
 )
 
 interface _ItemRegistry {
     readonly [ItemArchetype.Visor]: _Visor
-    readonly [ItemArchetype.HeadPhone]: _ItemStateBase
+    readonly [ItemArchetype.HeadPhone]: _SensoryLimiter
     readonly [ItemArchetype.Gag]: _Gag
 }
 
@@ -79,14 +97,14 @@ export type ItemRegistry = RecordOf<_ItemRegistry>
 export const ItemRegistry = Object.assign(
     Record<_ItemRegistry>({
         [ItemArchetype.Visor]: Visor(),
-        [ItemArchetype.HeadPhone]: ItemStateBase(),
+        [ItemArchetype.HeadPhone]: SensoryLimiter(),
         [ItemArchetype.Gag]: Gag(),
     }),
     {
         fromJS: (js: DeepCopy<_ItemRegistry>) =>
             ItemRegistry({
                 [ItemArchetype.Visor]: Visor.fromJS(js[ItemArchetype.Visor] as any),
-                [ItemArchetype.HeadPhone]: ItemStateBase.fromJS(js[ItemArchetype.HeadPhone] as any),
+                [ItemArchetype.HeadPhone]: SensoryLimiter.fromJS(js[ItemArchetype.HeadPhone] as any),
                 [ItemArchetype.Gag]: Gag.fromJS(js[ItemArchetype.Gag] as any),
             })
     }

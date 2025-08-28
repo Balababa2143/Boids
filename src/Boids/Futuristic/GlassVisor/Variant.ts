@@ -19,12 +19,12 @@ interface Variantbase {
 
 export type Level = 1 | 2 | 3 | 4
 
-interface DollmakerGoggle extends Variantbase {
+export interface DollmakerGoggle extends Variantbase {
     Layering: Layering.Blindfold | Layering.Goggle
     GlassType: GlassType.DollmakerGoggle
 }
 
-interface DollmakerMask extends Variantbase {
+export interface DollmakerMask extends Variantbase {
     Layering: Layering.Mask | Layering.Hood
     GlassType: GlassType.DollmakerMask
 }
@@ -34,12 +34,12 @@ interface BoidsVariantBase extends Variantbase {
     Level: Level
 }
 
-interface BoidsGoggle extends BoidsVariantBase {
+export interface BoidsGoggle extends BoidsVariantBase {
     Layering: Layering.Blindfold | Layering.Goggle
     GlassType: GlassType.BoidsGoggle
 }
 
-interface BoidsMask extends BoidsVariantBase {
+export interface BoidsMask extends BoidsVariantBase {
     Layering: Layering.Mask | Layering.Hood
     GlassType: GlassType.BoidsMask
 }
@@ -51,7 +51,6 @@ type Variant =
     BoidsMask
 
 namespace Variant {
-
     export const ToString = <BaseName extends string>(variant: Variant) =>
         [...(function* () {
             yield variant.Layering

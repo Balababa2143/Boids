@@ -1,3 +1,5 @@
+import { ThrowIfNull } from '../Utilities'
+
 export type KDEventMap =
     typeof KDEventMapAlt |
     typeof KDEventMapBuff |
@@ -38,15 +40,15 @@ export const AddEventHandler =
         } satisfies Partial<KinkyDungeonEvent>
     }
 
-export type PostApplyEventHandler = (e: KinkyDungeonEvent, item: item, data: KDEventData_PostApply) => void
+export type ItemEventHandler = (e: KinkyDungeonEvent, item: item, data: {item: item}) => void
 
-export const OnPostApplyWhenItemIsEventSource = (handler: PostApplyEventHandler) => (
+export const HandleItemEventWhenItemIsEventSource = (handler: ItemEventHandler) => (
     (e, item, data) => {
-        if (item.name === data.item?.name) {
+        if (ThrowIfNull(item?.id) === ThrowIfNull(data?.item?.id)) {
             handler(e, item, data)
         }
     }
-) satisfies PostApplyEventHandler
+) satisfies ItemEventHandler
 
 export interface KinkyDungeonEventPostRemovalData {
     item: restraint | null

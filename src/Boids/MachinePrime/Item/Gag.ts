@@ -1,10 +1,9 @@
 import * as KDS from 'kd-structured'
 import * as Futuristic from '../../Futuristic'
 import * as Coordinater from '../Coordinater'
-import { AddEventHandler, OnPostApplyWhenItemIsEventSource } from '../../../KDExtension'
+import { AddEventHandler, HandleItemEventWhenItemIsEventSource } from '../../../KDExtension'
 import { ItemArchetype } from '../Constant'
-import { MakeMachinePrimeVariant, MakeRegisterItemOnApplyEvent, MakeAddTagsEvent } from './Common'
-import { SetTargetGagStrength } from '../Coordinater/Gag'
+import { MakeMachinePrimeVariant, MakeRegisterItemOnApplyEvent, MakeAddTagsEvent, MakeUnRegisterItemOnRemovalEvent } from './Common'
 
 const SetGagModelByStrength = (item: item, strength: number) => {
     const morph = variant => KDS.KDMorphToInventoryVariant({
@@ -23,33 +22,35 @@ const SetGagModelByStrength = (item: item, strength: number) => {
     }
 }
 
-const MorphOnTargetedGagStrengthUpdate = {
+export const MorphOnTargetedGagStrengthUpdate = {
     ...AddEventHandler({
         eventMap: KDEventMapInventory,
-        trigger: Coordinater.Gag.EventKeys.TargetGagStrengthUpdate,
+        trigger: Coordinater.SensoryControl.EventKeys.SensoryLimiterStrengthUpdate,
         type: '2C8CA1C4-48E1-4E38-9019-15715FB80692',
-        handler: (e, item, data: Coordinater.Gag.TargetGagStrengthUpdateEventArgs) => {
-            SetGagModelByStrength(item, data.NewStrength)
-            if (KDSoundEnabled()) {
-                if (data.NewStrength > data.OldStrength) {
-                    AudioPlayInstantSoundKD(`${KinkyDungeonRootDirectory}Audio/MechPumpUp.ogg`)
-                    KDS.KinkyDungeonSendTextMessage({
-                        priority: 5,
-                        text: 'Muffler inflates',
-                        color: '#d66c21',
-                        time: 1,
-                        noPush: true
-                    })
-                }
-                else {
-                    AudioPlayInstantSoundKD(`${KinkyDungeonRootDirectory}Audio/MechPumpRelease.ogg`)
-                    KDS.KinkyDungeonSendTextMessage({
-                        priority: 5,
-                        text: 'Muffler deflates',
-                        color: '#33c3dd',
-                        time: 1,
-                        noPush: true
-                    })
+        handler: (e, item, data: Coordinater.SensoryControl.LimiterStrengthUpdateEventArgs) => {
+            if (data.Type === ItemArchetype.Gag) {
+                SetGagModelByStrength(item, data.NewStrength)
+                if (KDSoundEnabled()) {
+                    if (data.NewStrength > data.OldStrength) {
+                        AudioPlayInstantSoundKD(`${KinkyDungeonRootDirectory}Audio/MechPumpUp.ogg`)
+                        KDS.KinkyDungeonSendTextMessage({
+                            priority: 5,
+                            text: 'Muffler inflates',
+                            color: '#d66c21',
+                            time: 2,
+                            // noPush: true
+                        })
+                    }
+                    else {
+                        AudioPlayInstantSoundKD(`${KinkyDungeonRootDirectory}Audio/MechPumpRelease.ogg`)
+                        KDS.KinkyDungeonSendTextMessage({
+                            priority: 5,
+                            text: 'Muffler deflates',
+                            color: '#33c3dd',
+                            time: 2,
+                            // noPush: true
+                        })
+                    }
                 }
             }
         },
@@ -62,8 +63,8 @@ const InitGagByStrength = {
         eventMap: KDEventMapInventory,
         trigger: 'postApply',
         type: '7BC556D7-A37B-486B-A3B1-923630EDD1FF',
-        handler: OnPostApplyWhenItemIsEventSource((_e, item, _data) => {
-            const strength = Coordinater.GetState().ActivePC.Items[ItemArchetype.Gag].TargetGagStrength
+        handler: HandleItemEventWhenItemIsEventSource((_e, item, _data) => {
+            const strength = Coordinater.SensoryControl.GetLimiterStrength(ItemArchetype.Gag)
             SetGagModelByStrength(item, strength)
         }),
     }),
@@ -75,6 +76,7 @@ const Muffler =
         template: Futuristic.Gag.Muffler.NonMuffler,
         events: [
             MakeRegisterItemOnApplyEvent(ItemArchetype.Gag),
+            MakeUnRegisterItemOnRemovalEvent(ItemArchetype.Gag),
             InitGagByStrength,
             MorphOnTargetedGagStrengthUpdate,
             MakeAddTagsEvent([ItemArchetype.Gag]),
@@ -87,6 +89,8 @@ const MakeMuffler = (template: string) =>
         events: [
             MorphOnTargetedGagStrengthUpdate,
             MakeAddTagsEvent([ItemArchetype.Gag]),
+            MakeRegisterItemOnApplyEvent(ItemArchetype.Gag),
+            MakeUnRegisterItemOnRemovalEvent(ItemArchetype.Gag),
         ]
     })
 
@@ -152,4 +156,6 @@ export const MakeGagVariantWithBallSocket = (template: string) =>
     )
 
 export const SetGagStrength = (value?: number) =>
-    SetTargetGagStrength(value ?? Math.random())
+    Coordinater
+        .SensoryControl
+        .SetLimiterStrength(ItemArchetype.Gag, value ?? Math.random())
