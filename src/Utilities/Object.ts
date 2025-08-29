@@ -1,3 +1,5 @@
+// import { Set } from 'immutable'
+
 export function DeepFreezeInplace<T>(obj: T): Readonly<T> {
     if (Object.isFrozen(obj)) {
         return obj
@@ -71,6 +73,27 @@ export const MergeProps =
             (template: Template) => ({
                 ...template,
                 ...props
+            })
+// ... import {Set} from 'immutable'
+export type ArrayPropertyKeys<T extends object> = {
+    [K in keyof Required<T>]: Required<T>[K] extends readonly unknown[] ? K : never
+}[keyof T]
+
+export type ArrayElement<T> = T extends (infer U)[] ? U : never
+
+export const MergeSet = <T extends object>() =>
+    <Key extends ArrayPropertyKeys<T>>
+    (arrayKey: Key) =>
+        (newItems: Iterable<ArrayElement<Required<T>[Key]>>) => 
+            <Template extends Partial<T>>
+            (template: Template) => ({
+                ...template,
+                [arrayKey]: Array.from(
+                    new Set([
+                        ...((template[arrayKey] ?? []) as ArrayElement<Required<T>[Key]>[]),
+                        ...newItems
+                    ])
+                )
             })
 
 export type KeyPath<T> =

@@ -89,22 +89,22 @@ export const AddDroneSet = () => {
     const lockBackup = AddWeakerParams.Lock
 
     AddWeakerParams.Lock = 'Cyber3'
-    AddWeaker(Futuristic.Suit.LatexSuit.HeavyLockableSuit)
+    // AddWeaker(Futuristic.Suit.LatexSuit.HeavyLockableSuit)
 
     AddWeakerParams.Lock = 'Cyber2'
     AddWeaker(Futuristic.Headphone.Earphone)
-    AddVariant(MachinePrime.Item.Visor.Dollmaker.GetVisor({
-        GlassType: Futuristic.GlassVisor.GlassType.DollmakerGoggle,
-        Layering: Futuristic.GlassVisor.Layering.Goggle
+    AddVariant(MachinePrime.Item.Visor.Dollmaker.GetHardLightVariant({
+        GlassType: Futuristic.GlassVisor.Constant.GlassType.DollmakerGoggle,
+        Layering: Futuristic.GlassVisor.Constant.Layering.Goggle
     }))
 
-    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.PanelHarness))
-    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.MetalMuzzle1))
+    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.AdvanceHarness))
+    // AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.MetalMuzzle1))
 
-    AddVariant(MachinePrime.Item.Visor.Dollmaker.GetVisor({
-        GlassType: Futuristic.GlassVisor.GlassType.DollmakerMask,
-        Layering: Futuristic.GlassVisor.Layering.Mask
-    }))
+    // AddVariant(MachinePrime.Item.Visor.Dollmaker.GetHardLightVariant({
+    //     GlassType: Futuristic.GlassVisor.Constant.GlassType.DollmakerMask,
+    //     Layering: Futuristic.GlassVisor.Constant.Layering.Mask
+    // }))
 
     AddWeakerParams.Lock = 'Cyber3'
     AddWeaker('NippleClamps3')
@@ -113,17 +113,17 @@ export const AddDroneSet = () => {
     AddWeaker(Futuristic.Aroused.Toys.DenialPlugF)
     AddWeaker(Futuristic.Aroused.Toys.DenialPlugR)
 
-    AddWeaker(Futuristic.Aroused.Chastity.SlimBelt)
+    AddWeaker(Futuristic.Aroused.Chastity.BulkyBelt)
 
-    AddWeaker(Futuristic.Aroused.Chastity.SlimBra)
+    AddWeaker(Futuristic.Aroused.Chastity.BulkyBra)
 
     AddWeakerParams.Lock = 'Cyber2'
     AddWeaker(Futuristic.Cuff.LightCollar)
     // AddWeaker(Futuristic.Cuff.ElbowCuff)
     // AddWeaker(Futuristic.Cuff.WristCuff)
     AddWeaker(Futuristic.Cuff.ArmCuff)
-    // AddWeaker(Futuristic.Cuff.WaistCuff)
-    AddWeaker(Futuristic.Strap.ControlHarness)
+    AddWeaker(Futuristic.Cuff.WaistCuff)
+    // AddWeaker(Futuristic.Strap.ControlHarness)
     AddWeaker(Futuristic.Cuff.ThighCuff)
     AddWeaker(Futuristic.Cuff.AnkleCuff)
 

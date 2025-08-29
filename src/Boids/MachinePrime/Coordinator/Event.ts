@@ -1,4 +1,4 @@
-import * as Coordinater from '../Coordinater'
+import * as Coordinater from '.'
 import * as KDEx from '../../../KDExtension'
 import { KinkyDungeonEventPostRemovalData } from '../../../KDInterface/Event'
 import { ItemArchetype } from '../Constant'

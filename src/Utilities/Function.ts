@@ -1,4 +1,4 @@
-import {FromJS, fromJS, Map } from 'immutable'
+import { v4 as uuidv4, v5 as uuidv5 } from 'uuid'
 
 export const CacheSymbol = Symbol('CacheSymbol')
 
@@ -16,19 +16,20 @@ export const IsCachedFunc =
         (f: Func<T, R>): f is CachedFunc<T, R> =>
         CacheSymbol in f && CacheKeyFuncSymbol in f
 
-
 export const Cached =
     <Key, Value>
     (func: (_: Key) => Value) => {
-        let Cache = Map<FromJS<Key>, Value>()
+        const BaseKey = uuidv4()
+        const Cache = new Map<string, Value>()
         const ret = (key: Key) => {
-            const convertedKey = fromJS(key)
+            const stringKey = JSON.stringify(key)
+            const convertedKey = uuidv5(stringKey, BaseKey)
             if (Cache.has(convertedKey)) {
                 return Cache.get(convertedKey)
             }
             else {
                 const newValue = func(key)
-                Cache = Cache.set(convertedKey, newValue)
+                Cache.set(convertedKey, newValue)
                 return newValue
             }
         }

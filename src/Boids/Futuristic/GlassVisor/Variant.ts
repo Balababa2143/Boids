@@ -1,20 +1,10 @@
-export const enum GlassType {
-    DollmakerGoggle,
-    DollmakerMask,
-    BoidsGoggle,
-    BoidsMask,
-}
+import { GlassType, Layering } from './Constant'
 
-// Ordered from bottom to top
-export const enum Layering {
-    Goggle,
-    Mask,
-    Blindfold,
-    Hood,
-}
 
 interface Variantbase {
     Layering: Layering
+    Socketed: boolean
+    HideBrows: boolean
 }
 
 export type Level = 1 | 2 | 3 | 4
@@ -30,47 +20,67 @@ export interface DollmakerMask extends Variantbase {
 }
 
 interface BoidsVariantBase extends Variantbase {
+    GlassType: GlassType.BoidsGoggle | GlassType.BoidsMask
     Colorize: boolean,
     Level: Level
 }
 
-export interface BoidsGoggle extends BoidsVariantBase {
+export interface BoidsShowBrows extends BoidsVariantBase {
+    HideBrows: false,
+    Level: 1 | 2
+}
+
+export interface BoidsHideBrows extends BoidsVariantBase {
+    HideBrows: true,
+    Level: 3 | 4
+}
+
+interface _BoidsGoggle extends BoidsVariantBase {
     Layering: Layering.Blindfold | Layering.Goggle
     GlassType: GlassType.BoidsGoggle
 }
 
-export interface BoidsMask extends BoidsVariantBase {
+export type BoidsGoggle =
+    _BoidsGoggle & BoidsShowBrows |
+    _BoidsGoggle & BoidsHideBrows
+
+export type BoidsMask =
+    _BoidsMask & BoidsShowBrows |
+    _BoidsMask & BoidsHideBrows
+
+interface _BoidsMask extends BoidsVariantBase {
     Layering: Layering.Mask | Layering.Hood
     GlassType: GlassType.BoidsMask
 }
 
-type Variant =
+export type DollmakerVariant =
     DollmakerGoggle |
-    DollmakerMask |
+    DollmakerMask
+
+export type BoidsVariant =
     BoidsGoggle |
     BoidsMask
 
+type Variant =
+    DollmakerVariant |
+    BoidsVariant
+
 namespace Variant {
     export const ToString = <BaseName extends string>(variant: Variant) =>
-        [...(function* () {
-            yield variant.Layering
-            yield variant.GlassType
-            if ('Colorize' in variant) {
-                yield variant.Colorize
-            }
-            else {
-                yield '#'
-            }
-            if ('Level' in variant) {
-                yield variant.Level
-            }
-            else {
-                yield '#'
-            }
-        })()].join('')
+        JSON.stringify(variant)
 
-    export const IsGoggle = (variant: Variant): variant is DollmakerGoggle | BoidsGoggle => {
-        switch (variant.GlassType) {
+    export const GlassTypes = [
+        GlassType.DollmakerGoggle,
+        GlassType.DollmakerMask,
+        GlassType.BoidsGoggle,
+        GlassType.BoidsMask,
+    ] as const
+
+    export const GoggleLayers = [Layering.Goggle, Layering.Blindfold] as const
+    export const MaskLayers = [Layering.Hood, Layering.Mask] as const
+
+    export const IsGoggle = (glassType: GlassType) => {
+        switch (glassType) {
             case GlassType.BoidsGoggle:
             case GlassType.DollmakerGoggle:
                 return true
@@ -82,8 +92,11 @@ namespace Variant {
         }
     }
 
-    export const IsBoids = (variant: Variant): variant is BoidsGoggle | BoidsMask => {
-        switch (variant.GlassType) {
+    export const IsGoggleVariant = (variant: Variant): variant is DollmakerGoggle | BoidsGoggle =>
+        IsGoggle(variant.GlassType)
+
+    export const IsBoids = (glassType: GlassType) => {
+        switch (glassType) {
             case GlassType.BoidsGoggle:
             case GlassType.BoidsMask:
                 return true
@@ -94,6 +107,9 @@ namespace Variant {
                 throw new TypeError('Unknown GlassType')
         }
     }
+
+    export const IsBoidsVariant = (variant: Variant): variant is BoidsGoggle | BoidsMask =>
+        IsBoids(variant.GlassType)
 }
 
 export default Variant

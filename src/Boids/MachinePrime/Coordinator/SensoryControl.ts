@@ -1,4 +1,4 @@
-import { KinkyDungeonSendEvent } from 'kd-structured'
+import * as KDS from 'kd-structured'
 import { ItemArchetype } from '../Constant'
 import { GetState, SetStateIn } from './StateStorage'
 import { AddEventHandler } from '../../../KDExtension'
@@ -36,7 +36,7 @@ export const SetLimiterStrength = (type: ItemArchetype, newStrength: number) => 
     const oldStrength = GetState().ActivePC.Items[controllerType].Strength
     if (oldStrength !== newStrength) {
         SetStateIn(['ActivePC', 'Items', controllerType, 'Strength'], newStrength)
-        KinkyDungeonSendEvent({
+        KDS.KinkyDungeonSendEvent({
             Event: EventKeys.SensoryLimiterStrengthUpdate,
             data: {
                 Type: controllerType,
@@ -48,13 +48,49 @@ export const SetLimiterStrength = (type: ItemArchetype, newStrength: number) => 
     KinkyDungeonAdvanceTime(1)
 }
 
+export const ShowEffectsOnItemMorph = (args:{
+    delta: number,
+    sfxIncrease?: string,
+    sfxDecrease?: string,
+    messageIncrease?: KDS.IKinkyDungeonSendTextMessageParameters
+    messageDecrease?: KDS.IKinkyDungeonSendTextMessageParameters
+}) => {
+    const {
+        delta,
+        sfxIncrease,
+        sfxDecrease,
+        messageIncrease,
+        messageDecrease
+    } = args
+    if(delta > 0 && null != messageIncrease){
+        KDS.KinkyDungeonSendTextMessage(messageIncrease)
+    }
+    else if(null != messageDecrease){
+        KDS.KinkyDungeonSendTextMessage(messageDecrease)
+    }
+
+    if (KDSoundEnabled()) {
+        if (delta > 0 && null != sfxIncrease) {
+            AudioPlayInstantSoundKD(`${KinkyDungeonRootDirectory}Audio/${sfxIncrease}.ogg`)
+        }
+        else if(null != sfxDecrease) {
+            AudioPlayInstantSoundKD(`${KinkyDungeonRootDirectory}Audio/${sfxDecrease}.ogg`)
+        }
+    }
+}
+
+
 AddEventHandler({
     eventMap: KDEventMapGeneric,
-    trigger: 'calcBlind',
-    type: '7BCC6086-764D-42A6-B92C-93E230E7086F',
-    handler: (_e, data) => {
-        if (KinkyDungeonPlayerTags.get(ItemArchetype.Visor)) {
-            data['blindness'] = Math.max(data['blindness'], GetLimiterStrength(ItemArchetype.Visor))
+    trigger: 'tick',
+    type: '90F84036-7836-473E-BE57-14009ABE6158',
+    handler(e, data) {
+        // console.info('Boids: tick')
+        if(Math.random() < 0.25){
+            SetLimiterStrength(ItemArchetype.Gag, Math.random())
+        }
+        else if(Math.random() < 0.2){
+            SetLimiterStrength(ItemArchetype.Visor, Math.random() * 4)
         }
     },
 })

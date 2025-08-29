@@ -1,2 +1,2 @@
-export * as Coordinater from './Coordinater'
+export * as Coordinator from './Coordinator'
 export * as Item from './Item'

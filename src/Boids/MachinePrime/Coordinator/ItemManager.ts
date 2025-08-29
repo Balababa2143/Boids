@@ -1,8 +1,4 @@
-
-import { AddEventHandler } from '../../../KDExtension'
-import { KinkyDungeonSendEvent } from 'kd-structured'
 import { ItemArchetype } from '../Constant'
-import { SetLimiterStrength } from './SensoryControl'
 import { GetState, SetStateIn } from './StateStorage'
 
 export const enum EventKeys {
@@ -31,13 +27,3 @@ export const UnRegister = (args: { restraint: Named, type: ItemArchetype }) => {
         GetState().ActivePC.Items[type].RegisteredItems.remove(restraint.name)
     )
 }
-
-// AddEventHandler({
-//     eventMap: KDEventMapGeneric,
-//     trigger: 'tick',
-//     type: '90F84036-7836-473E-BE57-14009ABE6158',
-//     handler(e, data) {
-//         console.info('Boids: tick')
-//         SetTargetGagStrength(Math.random())
-//     },
-// })

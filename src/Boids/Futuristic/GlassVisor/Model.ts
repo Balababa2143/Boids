@@ -1,15 +1,15 @@
 import { v5 as uuidv5 } from 'uuid'
 import { AddModelVariant, MergeLayer, ModelVariantMap, VariantTransformer } from '../../../KDInterface/VariantItem'
 import { Constant } from '../Common'
-import { GlassType, Layering, Level } from './Variant'
 import Variant from './Variant'
 import { GetVariant as GetLayerVariant } from './Layer'
 import { Function } from '../../../Utilities'
 import { Transformer as CommonTransformer } from '../Common'
+import { GlassType, Layering } from './Constant'
 
 const ModelTemplate = {
     Categories: ['Accessories', 'Face'],
-    //Restraint: true,
+    Restraint: true,
     TopLevel: true,
 } satisfies Partial<Model>
 
@@ -54,6 +54,9 @@ const VariantMap: ModelVariantMap<Variant> = (variant) => {
             break
         default:
             throw new TypeError('Unknown GlassType')
+    }
+    if(variant.HideBrows){
+        Transformers.push(CommonTransformer.MergeModelArray('HideLayers')(["Brows"]))
     }
     if(variant.Layering === Layering.Hood){
         Transformers.push(AddHoodMaskPose)

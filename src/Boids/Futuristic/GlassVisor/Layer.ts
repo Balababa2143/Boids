@@ -1,8 +1,8 @@
 
 import { MakeLayerVariant, ModelLayerVariantMap, VariantTransformer as VariantTransformer } from '../../../KDInterface/VariantItem'
-import { GlassType, Layering, default as Variant} from './Variant'
+import { default as Variant} from './Variant'
 import { Function } from '../../../Utilities'
-import { InheritColor } from './Constant'
+import { GlassType, InheritColor, Layering } from './Constant'
 
 export const GlassLayerName = '0307649C-E62D-4AAF-BFFF-BF5F87EE2106' as const
 

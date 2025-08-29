@@ -1,5 +1,6 @@
 import { VariantTransformer } from '../../../KDInterface/VariantItem'
-import { ArrayProperties, MergeProps, Seq, SetProps } from '../../../Utilities'
+import { ArrayProperties, MergeSet, MergeProps, Seq, SetProps } from '../../../Utilities'
+import {Seq as CSeq} from 'immutable'
 
 interface IRequireSocket {
     (sockets: Iterable<string>, renderWhenLinkedBySocket?: boolean): VariantTransformer<restraint>
@@ -78,17 +79,23 @@ export const MergeModelProps = MergeProps<Model>() satisfies (_:any) => (_:any) 
 
 export const MergeRestraintProps = MergeProps<restraint>() satisfies (_:any) => (_:any) => VariantTransformer<restraint>
 
-export const MergeArray =
-    <Key extends keyof ArrayProperties<Required<restraint>>>
-    (arrayKey: Key) =>
-        (newItems: Iterable<Required<restraint>[Key][0]>) => (
-            template => ({
-                ...template,
-                [arrayKey]: [
-                    ...new Set(Seq.Concat([
-                        template[arrayKey] ?? [],
-                        newItems
-                    ]))
-                ]
-            })
-        ) satisfies VariantTransformer<restraint>
+export const MergeModelLayerArray = MergeSet<ModelLayer>() satisfies (_:any) => (_:any) => VariantTransformer<ModelLayer>
+
+export const MergeModelArray = MergeSet<Model>() satisfies (_:any) => (_:any) => VariantTransformer<Model>
+
+export const MergeRestraintArray = MergeSet<restraint>() satisfies (_:any) => (_:any) => VariantTransformer<restraint>
+
+// export const MergeRestraintArray =
+//     <Key extends keyof ArrayProperties<Required<restraint>>>
+//     (arrayKey: Key) =>
+//         (newItems: Iterable<Required<restraint>[Key][number]>) => (
+//             template => ({
+//                 ...template,
+//                 [arrayKey]: [
+//                     ...new Set(Seq.Concat([
+//                         template[arrayKey] ?? [],
+//                         newItems
+//                     ]))
+//                 ]
+//             })
+//         ) satisfies VariantTransformer<restraint>
