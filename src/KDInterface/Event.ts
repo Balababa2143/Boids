@@ -21,3 +21,6 @@ export interface KinkyDungeonEventPostRemovalData {
     Link?: true
     dynamic?: true
 }
+
+export type KinkyDungeonInventoryEventHandler<EventData> =
+    (e: KinkyDungeonEvent, item: item, data: EventData) => void
