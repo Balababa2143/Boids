@@ -1,7 +1,7 @@
 import * as KDS from 'kd-structured'
 import * as KDEx from '../../../../KDExtension'
 import * as Futuristic from '../../../Futuristic'
-import * as Coordinater from '../../Coordinator'
+import * as Coordinator from '../../Coordinator'
 import { ItemArchetype } from '../../Constant'
 import { Function, Logistic, Scale, ThrowIfNull } from '../../../../Utilities'
 import { MakeMachinePrimeVariant } from '../Common'
@@ -11,11 +11,19 @@ import {
     HandleBlindLimiterStrengthUpdate,
     MorphableVisorCommonEvents,
     ShouldHideBrows,
-    VariantOf as VisorVariantOf,
-    Variant as VisorVariant
 } from './Common'
 import { HardLightVisor, VariantInfo } from './Constant'
-import { DollmakerVariant } from '../../../Futuristic/GlassVisor/Variant'
+import { DollmakerGoggle, DollmakerMask, Variant as ModelVariant } from '../../../Futuristic/GlassVisor'
+import { Layering } from '../../../Futuristic/GlassVisor/Constant'
+
+export type VariantOf<T extends ModelVariant> = Omit<T, 'Socketed' | 'Layering' | 'HideBrows'>
+export type Goggle = VariantOf<DollmakerGoggle> & { Layering: Layering.Goggle }
+export type Mask = VariantOf<DollmakerMask> & { Layering: Layering.Mask }
+export type OverMask = VariantOf<DollmakerMask> & { Layering: Layering.Hood }
+export type Variant =
+    Goggle |
+    Mask |
+    OverMask
 
 export const CalcVisorFilter = KDEx.AddEventHandler({
     eventMap: KDEventMapInventory,
@@ -25,7 +33,7 @@ export const CalcVisorFilter = KDEx.AddEventHandler({
         (_e, item, data) => {
             if (item.data?.[HardLightVisor]) {
                 console.log('Boids: CalcVisorFilter exec', _e, item, data)
-                const targetBlindLevel = Coordinater.SensoryControl.GetLimiterStrength(ItemArchetype.Visor)
+                const targetBlindLevel = Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Visor)
                 const opaqueFactor = Logistic(3, 2)(targetBlindLevel)
                 const dimFactor = Scale(0, 0.8, opaqueFactor)
                 const filter: LayerFilter = data['Filters'][GlassLayerName] ?? {}
@@ -38,16 +46,14 @@ export const CalcVisorFilter = KDEx.AddEventHandler({
     ),
 })
 
-export type HardLightVariant = VisorVariant & VisorVariantOf<DollmakerVariant>
-
 export const MorphOnBlindLimiterStrengthUpdate =
     KDEx.AddEventHandler({
         eventMap: KDEventMapInventory,
-        trigger: Coordinater.SensoryControl.EventKeys.SensoryLimiterStrengthUpdate,
+        trigger: Coordinator.SensoryControl.EventKeys.SensoryLimiterStrengthUpdate,
         type: '11D8DFAE-F831-4D7C-BB21-8987B8234A63',
         handler: HandleBlindLimiterStrengthUpdate({
             DoMorph: (_e, item, data) => {
-                const partialVariant = ThrowIfNull<HardLightVariant>(item.data?.[VariantInfo])
+                const partialVariant = ThrowIfNull<Variant>(item.data?.[VariantInfo])
                 const template = GetTemplateForHardLightVariant({ partialVariant, strength: data.NewStrength })
                 KDS.KDMorphToInventoryVariant({
                     item,
@@ -65,7 +71,7 @@ export const MorphOnBlindLimiterStrengthUpdate =
 
 const GetTemplateForHardLightVariant =
     (args: {
-        partialVariant: HardLightVariant,
+        partialVariant: Variant,
         strength: number
     }) => {
         const {
@@ -80,11 +86,11 @@ const GetTemplateForHardLightVariant =
     }
 
 export const GetHardLightVariant = Function.Cached(
-    (partialVariant: HardLightVariant) => {
+    (partialVariant: Variant) => {
         const template = Futuristic.GlassVisor.GetVariant({
             ...partialVariant,
             Socketed: true,
-            HideBrows: ShouldHideBrows(Coordinater.SensoryControl.GetLimiterStrength(ItemArchetype.Visor))
+            HideBrows: ShouldHideBrows(Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Visor))
         })
         return MakeMachinePrimeVariant({
             template,
@@ -96,8 +102,3 @@ export const GetHardLightVariant = Function.Cached(
         })
     }
 )
-
-export const SetBlindStrength = (value?: number) =>
-    Coordinater
-        .SensoryControl
-        .SetLimiterStrength(ItemArchetype.Visor, value ?? Math.random())

@@ -187,7 +187,7 @@ export const ValidVariants = (() => {
                 for (const Socketed of [true, false] as const) {
                     for (const Colorize of [true, false] as const) {
                         for (const Level of [1, 2, 3, 4] as const) {
-                            const HideBrows = Level < 3
+                            const HideBrows = Level > Variant.BoidsHideBrowsThreshold
                             const variant = {
                                 Socketed,
                                 HideBrows,

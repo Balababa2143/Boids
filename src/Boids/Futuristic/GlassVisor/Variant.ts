@@ -110,6 +110,9 @@ namespace Variant {
 
     export const IsBoidsVariant = (variant: Variant): variant is BoidsGoggle | BoidsMask =>
         IsBoids(variant.GlassType)
+
+    // Greater than level 2
+    export const BoidsHideBrowsThreshold = 2 as const
 }
 
 export default Variant

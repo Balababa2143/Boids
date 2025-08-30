@@ -1,21 +1,10 @@
 import * as KDEx from '../../../../KDExtension'
 import { KinkyDungeonInventoryEventHandler } from '../../../../KDInterface/Event'
 import { Invnetory as EventCommInv } from '../../../CommonEvent'
-import { BoidsGoggle, BoidsMask, DollmakerGoggle, DollmakerMask, Variant as ModelVariant } from '../../../Futuristic/GlassVisor'
-import { Layering } from '../../../Futuristic/GlassVisor/Constant'
+import { Variant } from '../../../Futuristic/GlassVisor'
 import { ItemArchetype } from '../../Constant'
 import * as Coordinater from '../../Coordinator'
 import { HardLightVisor as MorphableVisor, VariantInfo } from './Constant'
-
-export type VariantOf<T extends ModelVariant> = Omit<T, 'Socketed' | 'Layering' | 'HideBrows'>
-
-export type Goggle = VariantOf<DollmakerGoggle | BoidsGoggle> & { Layering: Layering.Goggle }
-export type Mask = VariantOf<DollmakerMask | BoidsMask> & { Layering: Layering.Mask }
-export type OverMask = VariantOf<DollmakerMask | BoidsMask> & { Layering: Layering.Hood }
-export type Variant =
-    Goggle |
-    Mask |
-    OverMask
 
 export const CalcBlind = KDEx.AddEventHandler({
     eventMap: KDEventMapInventory,
@@ -28,7 +17,7 @@ export const CalcBlind = KDEx.AddEventHandler({
     },
 })
 
-export const MorphableVisorCommonEvents = (visorVariant: Variant) => [
+export const MorphableVisorCommonEvents = (visorVariant: Partial<Variant>) => [
     CalcBlind,
     EventCommInv.AddTags([ItemArchetype.Visor]),
     Coordinater.Eventhandler.RegisterItemOnApply(ItemArchetype.Visor),
@@ -39,7 +28,7 @@ export const MorphableVisorCommonEvents = (visorVariant: Variant) => [
     }),
 ] satisfies KinkyDungeonEvent[]
 
-const HideBrowsThreshold = 4 as const
+const HideBrowsThreshold = 2 as const
 
 export const ShouldHideBrows = (strength: number) => 
     HideBrowsThreshold <  strength

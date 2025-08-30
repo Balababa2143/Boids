@@ -16,10 +16,6 @@ const ModelTemplate = {
 const DollMakerVisorFolder = 'Visors' as const
 const BoidsGlassVisorFolder = `${Constant.ModelSetRootDir}/Visor` as const
 
-const SetFolder = (folder: string) => (template: Partial<ModelLayer>) => ({
-    ...template,
-    Folder: folder
-} satisfies Partial<ModelLayer>)
 
 const AddHoodMaskPose: VariantTransformer<Model> = (template) => ({
     ...template,
@@ -42,18 +38,11 @@ const VariantMap: ModelVariantMap<Variant> = (variant) => {
         CommonTransformer.SetModelProps('Name')(GetVariantName(variant)),
         MergeLayer([GetLayerVariant(variant)])
     )
-    switch(variant.GlassType)
-    {
-        case GlassType.DollmakerGoggle:
-        case GlassType.DollmakerMask:
-            Transformers.push(SetFolder(DollMakerVisorFolder))
-            break
-        case GlassType.BoidsGoggle:
-        case GlassType.BoidsMask:
-            Transformers.push(SetFolder(BoidsGlassVisorFolder))
-            break
-        default:
-            throw new TypeError('Unknown GlassType')
+    if(Variant.IsBoidsVariant(variant)){
+        Transformers.push(CommonTransformer.SetModelProps('Folder')(BoidsGlassVisorFolder))
+    }
+    else{
+        Transformers.push(CommonTransformer.SetModelProps('Folder')(DollMakerVisorFolder))
     }
     if(variant.HideBrows){
         Transformers.push(CommonTransformer.MergeModelArray('HideLayers')(["Brows"]))
