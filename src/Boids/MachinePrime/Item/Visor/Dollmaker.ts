@@ -85,7 +85,7 @@ const GetTemplateForHardLightVariant =
         })
     }
 
-export const GetHardLightVariant = Function.Cached(
+export const Variant = Function.Cached(
     (partialVariant: Variant) => {
         const template = Futuristic.GlassVisor.GetVariant({
             ...partialVariant,

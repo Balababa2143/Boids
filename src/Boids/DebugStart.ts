@@ -93,19 +93,20 @@ export const AddDroneSet = () => {
 
     AddWeakerParams.Lock = 'Cyber2'
     AddWeaker(Futuristic.Headphone.Earphone)
-    AddVariant(MachinePrime.Item.Visor.Boids.GetHardLightVariant({
+    AddVariant(MachinePrime.Item.Visor.Boids.Variant({
         GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsGoggle,
         Colorize: false,
         Layering: Futuristic.GlassVisor.Constant.Layering.Goggle
     }))
 
     AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.AdvanceHarness))
-    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.Transparent1))
+    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.MetalMuzzle1))
 
-    // AddVariant(MachinePrime.Item.Visor.Dollmaker.GetHardLightVariant({
-    //     GlassType: Futuristic.GlassVisor.Constant.GlassType.DollmakerMask,
-    //     Layering: Futuristic.GlassVisor.Constant.Layering.Mask
-    // }))
+    AddVariant(MachinePrime.Item.Visor.Boids.Variant({
+        GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsMask,
+        Colorize: true,
+        Layering: Futuristic.GlassVisor.Constant.Layering.Mask
+    }))
 
     AddWeakerParams.Lock = 'Cyber3'
     AddWeaker('NippleClamps3')

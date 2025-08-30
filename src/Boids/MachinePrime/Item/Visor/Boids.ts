@@ -75,7 +75,7 @@ export const MorphOnBlindLimiterStrengthUpdate =
 
 
 
-export const GetHardLightVariant = Function.Cached(
+export const Variant = Function.Cached(
     (partialVariant: Variant) => {
         const template = GetTemplateForVariant({
             partialVariant,
