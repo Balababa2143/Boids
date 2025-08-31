@@ -86,7 +86,7 @@ const GetDebugText = (variant: Variant) => ({
     ].join('\n')
 } satisfies IRestraintText)
 
-export const ValidVariants = (() => {
+export const ValidVariantMap = (() => {
     const restraintVariantBuilder = new VariantBuilder<Variant, RestraintVariant>({
         receiver: RestraintReceiver,
         getVariantValueDependentParts: (variantValue) => [({
@@ -171,4 +171,4 @@ export const ValidVariants = (() => {
 })()
 
 export const GetVariant =
-    (variant: VariantOrKey<Variant>) => ThrowIfNull(ValidVariants.get(AsVariantKey<Variant>(variant)))
+    (variant: VariantOrKey<Variant>) => ThrowIfNull(ValidVariantMap.get(AsVariantKey<Variant>(variant)))

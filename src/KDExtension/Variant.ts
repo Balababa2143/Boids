@@ -1,4 +1,4 @@
-import { FromJS, fromJS, FromJSObject, isCollection, isKeyed, isList, isMap, isSet, Map, mergeDeep, Seq, Set } from 'immutable'
+import { FromJS, fromJS, isCollection, isKeyed, Map, mergeDeep, Seq, Set } from 'immutable'
 import { ArrayElement, ArrayPropertyKeys } from '../Utilities'
 
 
@@ -132,7 +132,7 @@ export class VariantBuilder<Variant, ArcheType extends object> {
     constructor(args:{
         receiver?: JSReceiver,
         getVariantValueDependentParts?: (variantValue: VariantKey<Variant>) => Iterable<VariantPart<ArcheType>>
-    }) {
+    } = {}) {
         const {
             receiver = DefaultReceiver,
             getVariantValueDependentParts = (_) => []
@@ -144,6 +144,7 @@ export class VariantBuilder<Variant, ArcheType extends object> {
 
     Add(variant: Variant, parts: Iterable<VariantPart<ArcheType>>) {
         const variantValue = GetVariantKey(variant)
+        const previousParts = this.#variantMap.get(variantValue) ?? this.#fromJS({} as VariantPart<ArcheType>)
         const mergedParts =
             Seq(parts)
                 .map(this.#fromJS)
@@ -152,7 +153,7 @@ export class VariantBuilder<Variant, ArcheType extends object> {
                         this.#getVariantValueDependentParts(variantValue)
                         : []
                 )
-                .reduce((merged, part) => mergeDeep(merged, part as any), this.#fromJS({} as VariantPart<ArcheType>))
+                .reduce((merged, part) => mergeDeep(merged, part as any), previousParts)
 
         this.#variantMap = this.#variantMap.set(
             variantValue,
@@ -164,7 +165,7 @@ export class VariantBuilder<Variant, ArcheType extends object> {
         template: VariantPart<ArcheType>,
         isComplete?: IsComplete<Result>,
         finalize?: (_:FromJS<VariantPart<ArcheType>>) => FromJS<Result>
-    }) {
+    }): Map<VariantKey<Variant>, Result> {
         const {
             template,
             isComplete = (_ => true) as IsComplete<Result>,

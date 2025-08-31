@@ -18,7 +18,7 @@ const BoidsGlassVisorFolder = `${Constant.ModelSetRootDir}/Visor` as const
 
 const BaseName = 'E5050056-23AD-4935-BBC9-68B49F27FB9A'
 
-const ValidVariants = (() => {
+export const ValidVariantMap = (() => {
     const builder = new VariantBuilder<Variant, ModelWithLayerSet>({
         receiver: ModelReceiver,
         getVariantValueDependentParts: (variantValue) => [({
@@ -70,4 +70,4 @@ const ValidVariants = (() => {
 })()
 
 export const GetGlassModelVariant =
-    (variant: VariantOrKey<Variant>) => ThrowIfNull(ValidVariants.get(AsVariantKey<Variant>(variant)))
+    (variant: VariantOrKey<Variant>) => ThrowIfNull(ValidVariantMap.get(AsVariantKey<Variant>(variant)))

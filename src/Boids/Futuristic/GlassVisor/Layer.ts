@@ -1,8 +1,9 @@
 
-import { MakeLayerVariant, ModelLayerVariantMap, VariantTransformer as VariantTransformer } from '../../../KDInterface/VariantItem'
-import { default as Variant} from './Variant'
-import { Function } from '../../../Utilities'
+import { AddValidVariants, default as Variant} from './Variant'
 import { GlassType, InheritColor, Layering } from './Constant'
+import { AsVariantKey, VariantBuilder, VariantKey, VariantOrKey, VariantPart } from '../../../KDExtension'
+import { Map } from 'immutable'
+import { ThrowIfNull } from '../../../Utilities'
 
 export const GlassLayerName = '0307649C-E62D-4AAF-BFFF-BF5F87EE2106' as const
 
@@ -12,33 +13,29 @@ const GlassLayerTemplate = {
     HideWhenOverridden: false
 } as const satisfies Partial<ModelLayer>
 
-const GlassLayerPartColorization: VariantTransformer<ModelLayer> = (layer) => ({
-    ...layer,
+
+const GlassLayerPartColorization: VariantPart<ModelLayer> = {
     InheritColor: InheritColor.Glass,
-})
+}
 
 const GlassLayerPartLayering = {
-    [Layering.Goggle]: (layer) => ({
-        ...layer,
+    [Layering.Goggle]: {
         Layer: 'Goggles',
         Pri: 14
-    }),
-    [Layering.Mask]: (layer) => ({
-        ...layer,
+    },
+    [Layering.Mask]: {
         Layer: 'Mask',
         Pri: -10
-    }),
-    [Layering.Blindfold]: (layer) => ({
-        ...layer,
+    },
+    [Layering.Blindfold]: {
         Layer: 'Blindfold',
         Pri: 14
-    }),
-    [Layering.Hood]: (layer) => ({
-        ...layer,
+    },
+    [Layering.Hood]: {
         Layer: 'Hood',
         Pri: -10
-    }),
-} as const satisfies Record<string, VariantTransformer<ModelLayer>>
+    },
+} as const satisfies Record<string, VariantPart<ModelLayer>>
 
 const GlassSpriteBaseName = {
     [GlassType.DollmakerGoggle]: 'Dollmaker',
@@ -59,28 +56,33 @@ const GetGlassLayerSpritename =
         }
     }
 
-const VariantMap: ModelLayerVariantMap<Variant> =
-    (variant) => {
-        const Transformers: VariantTransformer<ModelLayer>[] = []
-        Transformers.push(GlassLayerPartLayering[variant.Layering])
-        Transformers.push((layer) => ({
-            ...layer,
+export const ValidVariantMap = (() => {
+    const builder = new VariantBuilder<Variant, ModelLayer>()
+
+    const AddVariant = (variant) => {
+        const parts: VariantPart<ModelLayer>[] = []
+        parts.push(GlassLayerPartLayering[variant.Layering])
+        parts.push({
             Sprite: GetGlassLayerSpritename(variant)
-        }))
+        })
         switch (variant.GlassType) {
             case GlassType.BoidsGoggle:
             case GlassType.BoidsMask:
                 if (variant.Colorize) {
-                    Transformers.push(GlassLayerPartColorization)
+                    parts.push(GlassLayerPartColorization)
                 }
         }
-        return { Transformers }
+        builder.Add(variant, parts)
     }
 
+    AddValidVariants(AddVariant)
+
+    const variantMap = builder.BuildVariantMap({
+        template: GlassLayerTemplate
+    })
+
+    return variantMap as Map<VariantKey<Variant>, ModelLayer>
+})()
+
 export const GetVariant =
-    Function.Cached(
-        MakeLayerVariant({
-            template: GlassLayerTemplate,
-            VariantMap
-        })
-    )
+    (variant: VariantOrKey<Variant>) => ThrowIfNull(ValidVariantMap.get(AsVariantKey<Variant>(variant)))
