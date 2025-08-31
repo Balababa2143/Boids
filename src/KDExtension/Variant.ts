@@ -1,18 +1,8 @@
-import { FromJS, fromJS, isCollection, isKeyed, isList, isMap, isSet, Map, mergeDeep, Seq } from 'immutable'
+import { FromJS, fromJS, FromJSObject, isCollection, isKeyed, isList, isMap, isSet, Map, mergeDeep, Seq, Set } from 'immutable'
 import { ArrayElement, ArrayPropertyKeys } from '../Utilities'
 
-import VariantTypeSuite from './VariantTypesSuite'
-import { createCheckers, CheckerT } from 'ts-interface-checker'
+
 import { IRestraintText } from './Restraint'
-const {
-    Model: ModelChecker,
-    ModelLayer: ModelLayerChecker,
-    restraint: RestraintChecker
-} = createCheckers(VariantTypeSuite) as {
-    Model: CheckerT<Model>
-    ModelLayer: CheckerT<ModelLayer>
-    restraint: CheckerT<restraint>
-}
 
 export type ArraySemanticsSet = true
 export type ArraySemanticsTuple = false
@@ -90,28 +80,63 @@ export type IsComplete<T> =
 
 export type VariantPart<T extends object> = {
     [K in keyof T]?:
-    T[K] extends infer Elm ?
-    Elm extends readonly unknown[] ?
-    Iterable<ArrayElement<Elm>>
-    : Elm extends object ?
-    VariantPart<Elm>
-    : Elm
-    : never
+        T[K] extends infer Elm ?
+            Elm extends readonly unknown[] ?
+                Iterable<ArrayElement<Elm>>
+                : Elm extends object ?
+                    VariantPart<Elm>
+                    : Elm
+            : never
 }
+
+export type ModelWithLayerSet =
+    Omit<Model, 'Layers'> & {
+        Layers: ModelLayer[]
+    }
+
+export const ModelWithLayerSetToModel =
+    (modelValue: FromJS<VariantPart<ModelWithLayerSet>>) =>
+    modelValue.update(
+        'Layers',
+        (ls) =>
+            Map(
+                (ls as Set<FromJS<ModelLayer>>)
+                    .map(ls => {
+                        const name = ls.get('Name')
+                        return [name, ls]
+                    })
+            )
+    )
+
+export type VariantKey<Variant> = FromJS<Variant>
+
+export type VariantOrKey<Variant> = Variant | VariantKey<Variant>
 
 export const GetVariantKey = 
     <Variant>
     (variant: Variant)  =>
-        fromJS(variant, DefaultReceiver) as FromJS<Variant>
+        fromJS(variant, DefaultReceiver) as VariantKey<Variant>
+
+export const IsVariantKey =
+    isCollection as <Variant>(variant: VariantOrKey<Variant>) => variant is VariantKey<Variant>
+
+export const AsVariantKey = 
+    <Variant>
+    (variant: Variant | VariantKey<Variant>)  =>
+        IsVariantKey(variant) ? variant as VariantKey<Variant> : GetVariantKey(variant)
 
 export class VariantBuilder<Variant, ArcheType extends object> {
-    #variantMap: Map<FromJS<Variant>, FromJS<VariantPart<ArcheType>>>
+    #variantMap: Map<VariantKey<Variant>, FromJS<VariantPart<ArcheType>>>
     #fromJS: (js: VariantPart<ArcheType>) => FromJS<VariantPart<ArcheType>>
-    #getVariantValueDependentParts?: (variantValue: FromJS<Variant>) => Iterable<VariantPart<ArcheType>>
-    constructor(
-        receiver: JSReceiver = DefaultReceiver,
-        getVariantValueDependentParts?: (variantValue: FromJS<Variant>) => Iterable<VariantPart<ArcheType>>
-    ) {
+    #getVariantValueDependentParts?: (variantValue: VariantKey<Variant>) => Iterable<VariantPart<ArcheType>>
+    constructor(args:{
+        receiver?: JSReceiver,
+        getVariantValueDependentParts?: (variantValue: VariantKey<Variant>) => Iterable<VariantPart<ArcheType>>
+    }) {
+        const {
+            receiver = DefaultReceiver,
+            getVariantValueDependentParts = (_) => []
+        } = args
         this.#variantMap = Map()
         this.#fromJS = (js) => fromJS(js, receiver) as FromJS<VariantPart<ArcheType>>
         this.#getVariantValueDependentParts = getVariantValueDependentParts
@@ -135,10 +160,19 @@ export class VariantBuilder<Variant, ArcheType extends object> {
         )
     }
 
-    BuildVariantMap(template: VariantPart<ArcheType>, isComplete = (_ => true) as IsComplete<ArcheType>) {
+    BuildVariantMap<Result=ArcheType>(args: {
+        template: VariantPart<ArcheType>,
+        isComplete?: IsComplete<Result>,
+        finalize?: (_:FromJS<VariantPart<ArcheType>>) => FromJS<Result>
+    }) {
+        const {
+            template,
+            isComplete = (_ => true) as IsComplete<Result>,
+            finalize = x => x
+        } = args
         const CheckType = (x) => {
             if (isComplete(x)) {
-                return x as ArcheType
+                return x
             }
             else {
                 throw new Error('Variant is incomplete', {
@@ -154,19 +188,21 @@ export class VariantBuilder<Variant, ArcheType extends object> {
             this.#variantMap
                 .map(mergedParts => {
                     const templated = mergeDeep(templateValue, mergedParts as any)
+                    const finalObj = finalize(templated)
                     return CheckType(
-                        isCollection(templated) ? templated.toJS() : templated
+                        isCollection(finalObj) ? finalObj.toJS() : finalObj
                     )
                 })
         return completeVariantMap
     }
 }
 
+export interface ModelVariant {
+    Model: Model,
+    TextInfo: IRestraintText
+}
+
 export interface RestraintVariant {
     Restraint: restraint,
     TextInfo: IRestraintText
 }
-
-export const IsRestraintVariantComplete =
-    (v: VariantPart<RestraintVariant>): v is RestraintVariant =>
-        RestraintChecker.test(v.Restraint)

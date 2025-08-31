@@ -116,3 +116,55 @@ namespace Variant {
 }
 
 export default Variant
+
+export const AddValidVariants = (AddVariant: (_: Variant) => void) => {
+        const AddDollMaker =
+        <
+            G extends Readonly<DollmakerVariant['GlassType']>,
+            L extends Readonly<Extract<DollmakerVariant, { GlassType: G }>['Layering'][]>
+        >(glassType: G, Layerings: L) => {
+            for (const Layering of Layerings) {
+                for (const Socketed of [true, false] as const) {
+                    for (const HideBrows of [true, false] as const) {
+                        const variant = {
+                            Socketed,
+                            HideBrows,
+                            GlassType: glassType,
+                            Layering
+                        } as DollmakerVariant
+                        AddVariant(variant)
+                    }
+                }
+            }
+        }
+    AddDollMaker(GlassType.DollmakerGoggle, Variant.GoggleLayers)
+    AddDollMaker(GlassType.DollmakerMask, Variant.MaskLayers)
+
+    const AddBoids =
+        <
+            G extends Readonly<BoidsVariant['GlassType']>,
+            L extends Readonly<Extract<BoidsVariant, { GlassType: G }>['Layering'][]>
+        >(glassType: G, Layerings: L) => {
+            for (const Layering of Layerings) {
+                for (const Socketed of [true, false] as const) {
+                    for (const Colorize of [true, false] as const) {
+                        for (const Level of [1, 2, 3, 4] as const) {
+                            const HideBrows = Level > Variant.BoidsHideBrowsThreshold
+                            const variant = {
+                                Socketed,
+                                HideBrows,
+                                GlassType: glassType,
+                                Layering,
+                                Colorize,
+                                Level
+                            } as BoidsVariant
+                            AddVariant(variant)
+                        }
+                    }
+                }
+            }
+        }
+
+    AddBoids(GlassType.BoidsGoggle, Variant.GoggleLayers)
+    AddBoids(GlassType.BoidsMask, Variant.MaskLayers)
+}

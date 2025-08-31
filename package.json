@@ -6,9 +6,6 @@
   "author": "balababa2143@gmail.com",
   "type": "commonjs",
   "main": "index.js",
-  "sideEffects": [
-    "./src/Boids"
-],
   "scripts": {
     "Webpack Bundle: Debug": "webpack --config webpack.config.ts --mode development",
     "Webpack Watch: Debug": "webpack --config webpack.config.ts --watch --mode development",
@@ -28,9 +25,8 @@
     "webpack-cli": "latest"
   },
   "dependencies": {
-    "kd-structured": "file:KDInterface/Deploy/package",
-    "uuid": "latest",
     "immutable": "latest",
-    "ts-interface-checker": "latest"
+    "kd-structured": "file:KDInterface/Deploy/package",
+    "uuid": "latest"
   }
 }

@@ -1,10 +1,10 @@
 import { v5 as uuidv5 } from 'uuid'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { GlassType, InheritColor, ItemTags, Layering } from './Constant'
-import Variant, { BoidsVariant, DollmakerVariant } from './Variant'
+import Variant, { AddValidVariants } from './Variant'
 import { Transformer as CommonTransformer } from '../Common'
 import { GetGlassModelVariant } from './Model'
-import { AddRestraintWithTextThenGetName, GetVariantKey, IRestraintText, IsRestraintVariantComplete, RestraintReceiver, RestraintVariant, VariantBuilder, VariantPart } from '../../../KDExtension'
+import { AddRestraintWithTextThenGetName, AsVariantKey, IRestraintText, RestraintReceiver, RestraintVariant, VariantBuilder, VariantOrKey, VariantPart } from '../../../KDExtension'
 import { ThrowIfNull } from '../../../Utilities'
 import { FromJS, Map, Seq } from 'immutable'
 
@@ -87,20 +87,19 @@ const GetDebugText = (variant: Variant) => ({
 } satisfies IRestraintText)
 
 export const ValidVariants = (() => {
-    const restraintVariantBuilder = new VariantBuilder<Variant, RestraintVariant>(
-        RestraintReceiver,
-        (variantValue) => [({
+    const restraintVariantBuilder = new VariantBuilder<Variant, RestraintVariant>({
+        receiver: RestraintReceiver,
+        getVariantValueDependentParts: (variantValue) => [({
             Restraint: {
-                name: uuidv5(JSON.stringify(variantValue.toJS()), BaseName)
+                name: uuidv5(JSON.stringify(variantValue.toJS()), BaseName),
+                Model: GetGlassModelVariant(variantValue),
             }
         })]
-    )
+    })
 
-    const AddVaraint = (variant) => {
+    const AddVariant = (variant) => {
         const restraintParts: VariantPart<restraint>[] = []
-        restraintParts.push({
-            name: GetRestraintVariantName(variant),
-            Model: GetGlassModelVariant(variant),
+        restraintParts.push({            
             preview: Variant.IsGoggleVariant(variant) ? 'GlassVisor' : 'GlassMask',
         })
         if(Variant.IsBoidsVariant(variant)) {
@@ -154,70 +153,22 @@ export const ValidVariants = (() => {
         restraintVariantBuilder.Add(variant, parts)
     }
 
-    const AddDollMaker =
-        <
-            G extends Readonly<DollmakerVariant['GlassType']>,
-            L extends Readonly<Extract<DollmakerVariant, { GlassType: G }>['Layering'][]>
-        >(glassType: G, Layerings: L) => {
-            for (const Layering of Layerings) {
-                for (const Socketed of [true, false] as const) {
-                    for (const HideBrows of [true, false] as const) {
-                        const variant = {
-                            Socketed,
-                            HideBrows,
-                            GlassType: glassType,
-                            Layering
-                        } as DollmakerVariant
-                        AddVaraint(variant)
-                    }
-                }
-            }
-        }
-    AddDollMaker(GlassType.DollmakerGoggle, Variant.GoggleLayers)
-    AddDollMaker(GlassType.DollmakerMask, Variant.MaskLayers)
+    AddValidVariants(AddVariant)
 
-    const AddBoids =
-        <
-            G extends Readonly<BoidsVariant['GlassType']>,
-            L extends Readonly<Extract<BoidsVariant, { GlassType: G }>['Layering'][]>
-        >(glassType: G, Layerings: L) => {
-            for (const Layering of Layerings) {
-                for (const Socketed of [true, false] as const) {
-                    for (const Colorize of [true, false] as const) {
-                        for (const Level of [1, 2, 3, 4] as const) {
-                            const HideBrows = Level > Variant.BoidsHideBrowsThreshold
-                            const variant = {
-                                Socketed,
-                                HideBrows,
-                                GlassType: glassType,
-                                Layering,
-                                Colorize,
-                                Level
-                            } as BoidsVariant
-                            AddVaraint(variant)
-                        }
-                    }
-                }
-            }
-        }
-
-    AddBoids(GlassType.BoidsGoggle, Variant.GoggleLayers)
-    AddBoids(GlassType.BoidsMask, Variant.MaskLayers)
-    const restraintVariantMap = restraintVariantBuilder.BuildVariantMap(
-        {
+    const variantMap = restraintVariantBuilder.BuildVariantMap({
+        template: {
             Restraint: ItemTemplate
-        },
-        IsRestraintVariantComplete
-    )
-    const variantToRestraintNameMap: Map<FromJS<Variant>, string> =
-        restraintVariantMap.map(({Restraint, TextInfo}, variant) => 
+        }
+    })
+    const variantToNameMap: Map<FromJS<Variant>, string> =
+        variantMap.map(({Restraint, TextInfo}) => 
             AddRestraintWithTextThenGetName(
                 Restraint,
                 TextInfo
             )
         )
-    return variantToRestraintNameMap
+    return variantToNameMap
 })()
 
 export const GetVariant =
-    (variant: Variant) => ThrowIfNull(ValidVariants.get(GetVariantKey(variant)))
+    (variant: VariantOrKey<Variant>) => ThrowIfNull(ValidVariants.get(AsVariantKey<Variant>(variant)))
