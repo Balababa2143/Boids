@@ -16,6 +16,11 @@ for(const [k, v] of Object.entries(InitLayers(LAYERS_BASE))){
 
 export * as Futuristic from './Futuristic'
 export * as MachinePrime from './MachinePrime'
+export * as KDExtension from '../KDExtension'
 export * as DebugStart from './DebugStart'
 import ModJson from '../../Asset/mod.json'
 export {ModJson}
+
+import * as Immutable from 'immutable'
+
+export { Immutable }

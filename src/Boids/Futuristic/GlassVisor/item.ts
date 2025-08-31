@@ -1,13 +1,12 @@
 import { v5 as uuidv5 } from 'uuid'
 import { FactionFilter } from '../../../KDInterface/TextKey'
-import { AddRestraintVariant, RestraintVariantMap, VariantTransformer } from '../../../KDInterface/VariantItem'
 import { GlassType, InheritColor, ItemTags, Layering } from './Constant'
 import Variant, { BoidsVariant, DollmakerVariant } from './Variant'
 import { Transformer as CommonTransformer } from '../Common'
 import { GetGlassModelVariant } from './Model'
-import { IRestraintText } from '../../../KDExtension'
-import { Function, ThrowIfNull } from '../../../Utilities'
-import { fromJS, FromJS, Map } from 'immutable'
+import { AddRestraintWithTextThenGetName, GetVariantKey, IRestraintText, IsRestraintVariantComplete, RestraintReceiver, RestraintVariant, VariantBuilder, VariantPart } from '../../../KDExtension'
+import { ThrowIfNull } from '../../../Utilities'
+import { FromJS, Map, Seq } from 'immutable'
 
 
 const ItemTemplate = {
@@ -87,72 +86,73 @@ const GetDebugText = (variant: Variant) => ({
     ].join('\n')
 } satisfies IRestraintText)
 
-const SocketedVariantMap: RestraintVariantMap<Variant> = (variant) => {
-    const Transformers: VariantTransformer<restraint>[] = []
-    Transformers.push(
-        CommonTransformer.MergeRestraintProps({
+export const ValidVariants = (() => {
+    const restraintVariantBuilder = new VariantBuilder<Variant, RestraintVariant>(
+        RestraintReceiver,
+        (variantValue) => [({
+            Restraint: {
+                name: uuidv5(JSON.stringify(variantValue.toJS()), BaseName)
+            }
+        })]
+    )
+
+    const AddVaraint = (variant) => {
+        const restraintParts: VariantPart<restraint>[] = []
+        restraintParts.push({
             name: GetRestraintVariantName(variant),
             Model: GetGlassModelVariant(variant),
             preview: Variant.IsGoggleVariant(variant) ? 'GlassVisor' : 'GlassMask',
         })
-    )
-    if(Variant.IsBoidsVariant(variant)) {
-        Transformers.push(CommonTransformer.SetRestraintProps('blindfold')(CalcBlind(variant)))
-    }
-    const tagCollection = ItemTags[variant.Layering]
-    if (variant.Socketed) {
-        
-        Transformers.push(
-            CommonTransformer.RequireSocket({
+        if(Variant.IsBoidsVariant(variant)) {
+            restraintParts.push({
+                blindfold: CalcBlind(variant)
+            })
+        }
+        const tagCollection = ItemTags[variant.Layering]
+        if (variant.Socketed) {
+            restraintParts.push(CommonTransformer.RequireSocket2({
                 sockets: [tagCollection.Socket],
                 renderWhenLinkedBySocket: true
-            })
-        )
-    }
-    Transformers.push(
-        CommonTransformer.MergeRestraintArray('shrine')(
-            variant.Socketed ?
-            [tagCollection.SocketedItem] :
-            [tagCollection.NonSocketedItem]
-        )
-    )
-
-    const [link, shrine] = ThrowIfNull(({
-        [Layering.Mask]: [
-            KDMaskLink,
-            ['Masks']
-        ],
-        [Layering.Hood]: [
-            KDMaskLink,
-            ['Masks']
-        ],
-        [Layering.Blindfold]: [
-            KDBlindfoldLink,
-            ['Blindfolds']
-        ],
-        [Layering.Goggle]: [
-            KDVisorLink,
-            ['Visors']
-        ],
-    } as const)[variant.Layering])
-    Transformers.push(
-        CommonTransformer.MergeRestraintArray('LinkableBy')(link),
-        CommonTransformer.MergeRestraintArray('shrine')(shrine)
-    )
-    return {
-        Transformers: Transformers,
-        Text: GetDebugText(variant)
-    }
-}
-
-export const ValidVariants = (() => {
-    let ret = Map<FromJS<Variant>, string>()
-    const AddVariant =
-        AddRestraintVariant({
-            template: ItemTemplate,
-            VariantMap: SocketedVariantMap
+            }))
+        }
+        restraintParts.push({
+            shrine: variant.Socketed ?
+                [tagCollection.SocketedItem] :
+                [tagCollection.NonSocketedItem]
         })
 
+        const [link, shrine] = ThrowIfNull(({
+            [Layering.Mask]: [
+                KDMaskLink,
+                ['Masks']
+            ],
+            [Layering.Hood]: [
+                KDMaskLink,
+                ['Masks']
+            ],
+            [Layering.Blindfold]: [
+                KDBlindfoldLink,
+                ['Blindfolds']
+            ],
+            [Layering.Goggle]: [
+                KDVisorLink,
+                ['Visors']
+            ],
+        } as const)[variant.Layering])
+        restraintParts.push({
+            LinkableBy: link,
+            shrine
+        })
+        const parts =
+            Seq(restraintParts)
+                .map(r => ({
+                    Restraint: r
+                } satisfies VariantPart<RestraintVariant>))
+                .concat({
+                    TextInfo: GetDebugText(variant)
+                } satisfies VariantPart<RestraintVariant>)
+        restraintVariantBuilder.Add(variant, parts)
+    }
 
     const AddDollMaker =
         <
@@ -168,13 +168,11 @@ export const ValidVariants = (() => {
                             GlassType: glassType,
                             Layering
                         } as DollmakerVariant
-                        const restraintTemplateName = AddVariant(variant)
-                        ret = ret.set(fromJS(variant), restraintTemplateName)
+                        AddVaraint(variant)
                     }
                 }
             }
         }
-
     AddDollMaker(GlassType.DollmakerGoggle, Variant.GoggleLayers)
     AddDollMaker(GlassType.DollmakerMask, Variant.MaskLayers)
 
@@ -196,8 +194,7 @@ export const ValidVariants = (() => {
                                 Colorize,
                                 Level
                             } as BoidsVariant
-                            const restraintTemplateName = AddVariant(variant)
-                            ret = ret.set(fromJS(variant), restraintTemplateName)
+                            AddVaraint(variant)
                         }
                     }
                 }
@@ -206,8 +203,21 @@ export const ValidVariants = (() => {
 
     AddBoids(GlassType.BoidsGoggle, Variant.GoggleLayers)
     AddBoids(GlassType.BoidsMask, Variant.MaskLayers)
-    return ret
+    const restraintVariantMap = restraintVariantBuilder.BuildVariantMap(
+        {
+            Restraint: ItemTemplate
+        },
+        IsRestraintVariantComplete
+    )
+    const variantToRestraintNameMap: Map<FromJS<Variant>, string> =
+        restraintVariantMap.map(({Restraint, TextInfo}, variant) => 
+            AddRestraintWithTextThenGetName(
+                Restraint,
+                TextInfo
+            )
+        )
+    return variantToRestraintNameMap
 })()
 
 export const GetVariant =
-    (variant: Variant) => ThrowIfNull(ValidVariants.get(fromJS(variant)))
+    (variant: Variant) => ThrowIfNull(ValidVariants.get(GetVariantKey(variant)))

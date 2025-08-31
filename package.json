@@ -30,6 +30,7 @@
   "dependencies": {
     "kd-structured": "file:KDInterface/Deploy/package",
     "uuid": "latest",
-    "immutable": "latest"
+    "immutable": "latest",
+    "ts-interface-checker": "latest"
   }
 }

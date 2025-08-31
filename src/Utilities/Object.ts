@@ -75,9 +75,17 @@ export const MergeProps =
                 ...props
             })
 // ... import {Set} from 'immutable'
+
+export type IsArray<T> = T extends ArrayLike<T> ? true : false
+
 export type ArrayPropertyKeys<T extends object> = {
-    [K in keyof Required<T>]: Required<T>[K] extends readonly unknown[] ? K : never
-}[keyof T]
+    [K in keyof Required<T>]: 
+        Required<T>[K] extends infer Elm ?
+            Elm extends readonly unknown[] ?
+                K
+                : never
+            : never
+}[keyof Required<T>]
 
 export type ArrayElement<T> = T extends (infer U)[] ? U : never
 
