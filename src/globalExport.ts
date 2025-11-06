@@ -1,0 +1,1 @@
+declare var Boids: typeof import('./Boids')

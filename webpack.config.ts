@@ -72,15 +72,15 @@ function PreBuild(): webpack.WebpackPluginInstance {
                     const archiveFilePath = path.resolve(ArchiveFile)
                     const archiveDir = path.dirname(archiveFilePath)
                     if (!fs.existsSync(archiveDir)) {
-                        await promisify(fs.mkdir)(archiveDir)
+                        await fs.promises.mkdir(archiveDir)
                     }
                     if (fs.existsSync(archiveFilePath)) {
-                        await promisify(fs.rm)(archiveFilePath)
+                        await fs.promises.rm(archiveFilePath)
                     }
                 })()
                 const cleanDeclaration = (async () => {
                     if (fs.existsSync(DeclarationFolder)) {
-                        await promisify(fs.rm)(DeclarationFolder, {
+                        await fs.promises.rm(DeclarationFolder, {
                             recursive: true
                         })
                     }
