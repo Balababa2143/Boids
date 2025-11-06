@@ -1,7 +1,6 @@
 import { LinkFolder } from '../../Common'
 import { AddGlow, MakeLeftRight } from '../Common'
 
-
 const MakeWristLayers = <Base extends Partial<ModelLayer>>(layerBase: Base) => {
     const [left, right] = MakeLeftRight(layerBase)
     return [

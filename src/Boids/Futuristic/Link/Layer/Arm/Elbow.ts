@@ -1,5 +1,3 @@
-
-
 export const Free = {
     Name: 'AttachedElbowLink',
     Poses: ToMap(['Free'])
