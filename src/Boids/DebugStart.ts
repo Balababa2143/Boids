@@ -20,8 +20,7 @@ const AddWeaker = (r: string) =>
         ...AddWeakerParams,
         variant: {
             template: r,
-            events: [
-            ]
+            events: null!
         }
     })
 
@@ -95,37 +94,38 @@ export const AddDroneSet = () => {
     AddWeaker(Futuristic.Headphone.Earphone)
     AddVariant(MachinePrime.Item.Visor.Boids.Variant({
         GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsGoggle,
-        Colorize: false,
+        Colorize: true,
         Layering: Futuristic.GlassVisor.Constant.Layering.Goggle
     }))
 
-    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.AdvanceHarness))
-    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.MetalMuzzle1))
+    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.SimpleHarness))
+    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.Transparent1))
 
-    AddVariant(MachinePrime.Item.Visor.Boids.Variant({
-        GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsMask,
-        Colorize: true,
-        Layering: Futuristic.GlassVisor.Constant.Layering.Mask
-    }))
+    // AddVariant(MachinePrime.Item.Visor.Boids.Variant({
+    //     GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsMask,
+    //     Colorize: false,
+    //     Layering: Futuristic.GlassVisor.Constant.Layering.Mask
+    // }))
 
     AddWeakerParams.Lock = 'Cyber3'
     AddWeaker('NippleClamps3')
+    // AddWeaker('NippleWeights')
     AddWeaker(Futuristic.Aroused.Toys.LockVibe)
 
     AddWeaker(Futuristic.Aroused.Toys.DenialPlugF)
     AddWeaker(Futuristic.Aroused.Toys.DenialPlugR)
 
-    AddWeaker(Futuristic.Aroused.Chastity.BulkyBelt)
+    AddWeaker(Futuristic.Aroused.Chastity.SlimBelt)
 
-    AddWeaker(Futuristic.Aroused.Chastity.BulkyBra)
+    AddWeaker(Futuristic.Aroused.Chastity.SlimBra)
 
     AddWeakerParams.Lock = 'Cyber2'
-    AddWeaker(Futuristic.Cuff.LightCollar)
+    AddWeaker(Futuristic.Cuff.HeavyCollar)
     // AddWeaker(Futuristic.Cuff.ElbowCuff)
     // AddWeaker(Futuristic.Cuff.WristCuff)
     AddWeaker(Futuristic.Cuff.ArmCuff)
-    AddWeaker(Futuristic.Cuff.WaistCuff)
-    // AddWeaker(Futuristic.Strap.ControlHarness)
+    // AddWeaker(Futuristic.Cuff.WaistCuff)
+    AddWeaker(Futuristic.Strap.ControlHarness)
     AddWeaker(Futuristic.Cuff.ThighCuff)
     AddWeaker(Futuristic.Cuff.AnkleCuff)
 
