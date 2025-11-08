@@ -26,6 +26,27 @@ const DescriptorMap = {
                 FlavorText: 'Variant: BetweenWristCuff'
             },
         },
+    },
+    BetweenElbowCuff: {
+        Model: {
+            Parts: [
+                {
+                    Layers: Layer.Arm.Elbow.BetweenElbowCuff
+                }
+            ]
+        },
+        Restraint: {
+            Parts: [
+                {
+                    Group: 'ItemArms'
+                },
+                RequireSocket([Socket.Elbow])
+            ],
+            Text: {
+                DisplayName: 'Drone Arm Link',
+                FlavorText: 'Variant: BetweenElbowCuff'
+            },
+        },
     }
 } satisfies Record<string, ModelRestraintBundledVariantDesc>
 

@@ -146,6 +146,7 @@ export const ArmCuff =
                 ...ItemBase.shrine,
                 'ArmCuffsBase',
                 Socket.Wrist,
+                Socket.Elbow
             ],
             bindarms: false,
             linkCategory: 'Cuffs',

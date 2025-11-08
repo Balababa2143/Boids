@@ -1,12 +1,16 @@
-export const Free = {
-    Name: 'AttachedElbowLink',
-    Poses: ToMap(['Free'])
-} satisfies Partial<ModelLayer>
-export const Front = {
-    Name: 'WristLinkChained',
-    Poses: ToMap(['Front']),
-} satisfies Partial<ModelLayer>
-export const Yoked = {
-    Name: 'ElbowYokedLink',
-    Poses: ToMap(['Yoked']),
-} satisfies Partial<ModelLayer>
+import { LinkFolder } from '../../Common';
+import { AddGlow } from '../Common';
+
+export const BetweenElbowCuff: ModelLayer[] =
+    [
+        {
+            Name: '',
+            Poses: ToMap(['Free', 'Yoked', 'Up']),
+            Layer: 'BindChainLinksUnder'
+        }
+    ]
+        .map(layer => ({
+            ...layer,
+            Folder: `${LinkFolder}/BetweenElbowCuff`,
+        }))
+        .flatMap(AddGlow)
