@@ -173,36 +173,6 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../ArtworkOutput/Items/Restraint/GlassMask.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0,0</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>137,137,274,274</rect>
-                <key>scale9Paddings</key>
-                <rect>137,137,274,274</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../../ArtworkOutput/Items/Restraint/GlassVisor.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0,0</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>104,104,207,207</rect>
-                <key>scale9Paddings</key>
-                <rect>104,104,207,207</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">../../ArtworkOutput/Models/Boids/Futuristic/Cuff/WaistCuffPort/PortBase.png</key>
             <key type="filename">../../ArtworkOutput/Models/Boids/Futuristic/Cuff/WaistCuffPort/PortGlow.png</key>
             <key type="filename">../../ArtworkOutput/Models/Boids/Futuristic/Earphone/EarPlugElfLongBack.png</key>
@@ -226,6 +196,8 @@
             <key type="filename">../../ArtworkOutput/Models/Boids/Futuristic/Link/BetweenWristCuff/LinkYoked.png</key>
             <key type="filename">../../ArtworkOutput/Models/Boids/Futuristic/Link/BetweenWristCuff/RightGlowFront.png</key>
             <key type="filename">../../ArtworkOutput/Models/Boids/Futuristic/Link/BetweenWristCuff/RightLinkFront.png</key>
+            <key type="filename">../../ArtworkOutput/Models/Boids/Futuristic/Link/BetweenWristCuff/TieGlowFront.png</key>
+            <key type="filename">../../ArtworkOutput/Models/Boids/Futuristic/Link/BetweenWristCuff/TieLinkFront.png</key>
             <key type="filename">../../ArtworkOutput/Models/Boids/Futuristic/Link/WristToCollar/LeftGlowYoked.png</key>
             <key type="filename">../../ArtworkOutput/Models/Boids/Futuristic/Link/WristToCollar/LeftLinkYoked.png</key>
             <key type="filename">../../ArtworkOutput/Models/Boids/Futuristic/Link/WristToCollar/RightGlowYoked.png</key>
@@ -282,7 +254,6 @@
             <struct type="SpriteSheet">
                 <key>files</key>
                 <array>
-                    <filename>../../ArtworkOutput/Items</filename>
                     <filename>../../ArtworkOutput/Models</filename>
                 </array>
             </struct>
