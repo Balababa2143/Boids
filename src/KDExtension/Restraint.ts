@@ -3,7 +3,7 @@ import { DeepFreezeClone } from '../Utilities'
 /**
  * Represents the text information associated with a restraint, including display name, flavor text, and function text.
  */
-export interface IRestraintText {
+export interface RestraintText {
     DisplayName?: string
     FlavorText?: string
     FunctionText?: string
@@ -20,7 +20,7 @@ export interface IRestraintText {
  * - `Restraint{name}Flavor`: The flavor text.
  * - `Restraint{name}Desc`: The function description.
  */
-export function AddRestraintText(name: string, restraintText: IRestraintText): void {
+export function AddRestraintText(name: string, restraintText: RestraintText): void {
     const baseKey = `Restraint${name}`;
 
     if (restraintText.DisplayName) {
@@ -43,7 +43,7 @@ export function AddRestraintText(name: string, restraintText: IRestraintText): v
  * @returns The newly added, deeply frozen restraint object.
  * @throws {Error} If a restraint with the same name already exists in the cache.
  */
-export const AddRestraintWithText = (restraint: restraint, restraintText: IRestraintText = {}) => {
+export const AddRestraintWithText = (restraint: restraint, restraintText: RestraintText = {}) => {
     if (KinkyDungeonRestraintsCache.has(restraint.name)) {
         throw new Error('Adding duplicated restraint.')
     }
@@ -63,7 +63,7 @@ export const AddRestraintWithText = (restraint: restraint, restraintText: IRestr
  * @param restraintText - Optional text information for the restraint.
  * @returns The name of the added restraint.
  */
-export const AddRestraintWithTextThenGetName = (restraint: restraint, restraintText?: IRestraintText) =>
+export const AddRestraintWithTextThenGetName = (restraint: restraint, restraintText?: RestraintText) =>
     AddRestraintWithText(restraint, restraintText).name
 
 /**

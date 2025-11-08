@@ -2,11 +2,11 @@ import { v5 as uuidv5 } from 'uuid'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { GlassType, InheritColor, ItemTags, Layering } from './Constant'
 import Variant, { AddValidVariants } from './Variant'
-import { Transformer as CommonTransformer } from '../Common'
 import { GetGlassModelVariant } from './Model'
-import { AddRestraintWithTextThenGetName, IRestraintText, RestraintVariant, VariantKeyOrImmutable, VariantPart, RestraintVariantMapBuilder, VariantKeyToImmutable } from '../../../KDExtension'
+import { AddRestraintWithTextThenGetName, RestraintText, RestraintVariant, VariantKeyOrImmutable, VariantPart, RestraintVariantMapBuilder, VariantKeyToImmutable } from '../../../KDExtension'
 import { ThrowIfNull } from '../../../Utilities'
 import { FromJS, Map } from 'immutable'
+import { RequireSocket } from '../Common/VariantPart'
 
 
 const ItemTemplate = {
@@ -84,7 +84,7 @@ const GetDebugText = (variant: Variant) => ({
             }
         }()
     ].join('\n')
-} satisfies IRestraintText)
+} satisfies RestraintText)
 
 class VisorVariantMapBuilder extends RestraintVariantMapBuilder<Variant>
 {
@@ -116,7 +116,7 @@ export const ValidVariantMap = (() => {
         if (variant.Socketed) {
             variantMapBuilder.AddVariantPart(
                 immutableVariantKey,
-                CommonTransformer.RequireSocket2({
+                RequireSocket({
                 sockets: [tagCollection.Socket],
                 renderWhenLinkedBySocket: true
             })

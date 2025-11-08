@@ -1,5 +1,6 @@
+import { RestraintText, ModelText } from '../../../KDExtension'
+import { AddModelVariantMapToGame, AddRestraintVariantMapToGame, ModelVariantMapBuilder, ModelWithLayerSet, RestraintVariantMapBuilder, VariantPart } from '../../../KDExtension/Variant'
 import { FactionFilter } from '../../../KDInterface/TextKey'
-import { AddModelVariant, AddRestraintVariant, ModelRestraintBundledDescriptor, UnpackSimpleKeyVariantMap } from '../../../KDInterface/VariantItem'
 import { ModelSetRootDir } from '../Common/Constant'
 
 /* Layer Sprite Naming:
@@ -87,49 +88,68 @@ export const RestraintTemplate = {
 //#endregion
 
 //#region Set
-export interface LinkSetDescriptor<DescriptorMap extends Record<string, ModelRestraintBundledDescriptor>> {
+
+export interface ModelRestraintBundledVariantDesc {
+    Model: {
+        Parts: Iterable<VariantPart<ModelWithLayerSet>>,
+        Text?: ModelText
+    },
+    Restraint: {
+        Parts: Iterable<VariantPart<restraint>>
+        Text?: RestraintText
+    }
+}
+
+export interface LinkSetDescriptor<DescriptorMap extends Record<string, ModelRestraintBundledVariantDesc>> {
     RestraintBaseName: string,
     ModelBaseName: string,
     DescriptorMap: DescriptorMap,
 }
 
 export const BuildLinkSet =
-    <DescriptorMap extends Record<string, ModelRestraintBundledDescriptor>>
-    (args: LinkSetDescriptor<DescriptorMap>) => {
+    <DescriptorMap extends Record<string, ModelRestraintBundledVariantDesc>>
+        (args: LinkSetDescriptor<DescriptorMap>) => {
         const {
             RestraintBaseName,
             ModelBaseName,
             DescriptorMap,
         } = args
-        const RestraintNameMap = {} as Record<keyof DescriptorMap, string>
+
+        const modelVariantMapBuilder = new ModelVariantMapBuilder({ baseName: ModelBaseName })
+        const restraintVariantMapBuilder = new RestraintVariantMapBuilder({ baseName: RestraintBaseName })
+
+        for (const variantKey in DescriptorMap) {
+            modelVariantMapBuilder.AddVariantParts(variantKey, DescriptorMap[variantKey].Model.Parts)
+            const modelText = DescriptorMap[variantKey].Model.Text
+            if (null != modelText) {
+                modelVariantMapBuilder.AddText(variantKey, modelText)
+            }
+        }
+        const {
+            ValidVariantMap: ValidModelVariantMap,
+            GetVariant: GetModelVariant
+        } = AddModelVariantMapToGame(modelVariantMapBuilder.BuildVariantMap(ModelTemplate))
+
+        for (const variantKey in DescriptorMap) {
+            restraintVariantMapBuilder.AddVariantParts(variantKey, DescriptorMap[variantKey].Restraint.Parts)
+            restraintVariantMapBuilder.AddVariantPart(variantKey, {
+                Model: ValidModelVariantMap.get(variantKey)
+            })
+            const restraintText = DescriptorMap[variantKey].Restraint.Text
+            if (null != restraintText) {
+                restraintVariantMapBuilder.AddText(variantKey, restraintText)
+            }
+        }
 
         const {
-            Model: ModelMap,
-            Restraint: RestraintMap
-        } = UnpackSimpleKeyVariantMap(DescriptorMap)
-
-        const AddModel =
-            AddModelVariant({
-                VariantMap: ModelMap,
-                template: ModelTemplate
-            })
-
-        const AddRestraint =
-            AddRestraintVariant({
-                VariantMap: RestraintMap,
-                template: RestraintTemplate
-            })
-
-        for (const variant in DescriptorMap) {
-            const modelName = `${ModelBaseName}.${variant}`
-            AddModel(variant, {
-                Name: modelName,
-            })
-            RestraintNameMap[variant] = AddRestraint(variant, {
-                name: `${RestraintBaseName}.${variant}`,
-                Model: modelName
-            })
+            ValidVariantMap: ValidRestraintVariantMap,
+            GetVariant: GetRestraintVariant
+        } = AddRestraintVariantMapToGame(restraintVariantMapBuilder.BuildVariantMap(RestraintTemplate))
+        return {
+            ValidModelVariantMap,
+            GetModelVariant,
+            ValidRestraintVariantMap,
+            GetRestraintVariant
         }
-        return (variant: keyof DescriptorMap) => RestraintNameMap[variant]
     }
 //#endregion

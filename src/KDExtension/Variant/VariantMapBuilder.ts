@@ -1,6 +1,7 @@
 import { FromJS, fromJS, isCollection, Map, mergeDeep, Seq, List as IMList } from 'immutable'
 import { DefaultReceiver, IsComplete, JSReceiver, VariantKeyOrImmutable, VariantKeyToImmutable, VariantPart } from './Common'
 
+export type VariantMap<VariantKey, ArcheType> = Map<FromJS<VariantKey>, ArcheType>
 
 export class VariantMapBuilder<VariantKey, WorkingType extends object, ArcheType extends Object = WorkingType> {
     #variantMap: Map<FromJS<VariantKey>, Immutable.List<FromJS<VariantPart<WorkingType>>>>
@@ -53,7 +54,7 @@ export class VariantMapBuilder<VariantKey, WorkingType extends object, ArcheType
         return this
     }
 
-    BuildVariantMap(template: VariantPart<WorkingType>): Map<FromJS<VariantKey>, ArcheType> {
+    BuildVariantMap(template: VariantPart<WorkingType>): VariantMap<VariantKey, ArcheType> {
         const CheckType = (x) => {
             if (this._IsItemComplete(x)) {
                 return x

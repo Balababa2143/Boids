@@ -1,7 +1,8 @@
 import { FromJS, fromJS, isKeyed, Map, Set } from 'immutable'
-import { ModelText } from '../Model'
-import { JSReceiver, VariantKeyOrImmutable, IsComplete, GetVariantNameFromBase, VariantPart } from './Common'
-import { VariantMapBuilder } from './VariantMapBuilder'
+import { AddModelWithTextThenGetName, ModelText } from '../Model'
+import { JSReceiver, VariantKeyOrImmutable, IsComplete, GetVariantNameFromBase, VariantPart, VariantKeyToImmutable } from './Common'
+import { VariantMap, VariantMapBuilder } from './VariantMapBuilder'
+import { ThrowIfNull } from '../../Utilities'
 
 export const ModelReceiver: JSReceiver =
     (key, value, _path) =>
@@ -19,10 +20,15 @@ export interface ModelVariant {
     TextInfo: ModelText
 }
 
-export class ModelVariantMapBuilder<VariantKey> extends VariantMapBuilder<VariantKey, ModelWithLayerSet, ModelVariant>
-{
+export type ModelVariantMap<VariantKey> = VariantMap<VariantKey, ModelVariant>
+
+export class ModelVariantMapBuilder<VariantKey> extends VariantMapBuilder<VariantKey, ModelWithLayerSet, ModelVariant> {
     #GetVariantName: (variantKey: VariantKeyOrImmutable<VariantKey>) => string
-    protected get _GetVariantName() { return this.#GetVariantName}
+    protected get _GetVariantName() { return this.#GetVariantName }
+
+    #textInfoMap: Map<FromJS<VariantKey>, ModelText>
+    protected get _TextInfoMap() { return this.#textInfoMap }
+
     constructor(args: {
         baseName: string,
         receiver?: JSReceiver,
@@ -34,10 +40,11 @@ export class ModelVariantMapBuilder<VariantKey> extends VariantMapBuilder<Varian
         }
         super(args2)
         this.#GetVariantName = GetVariantNameFromBase(args.baseName)
+        this.#textInfoMap = Map()
     }
 
-    protected _GetTextInfo(variantKey: FromJS<VariantKey>, workingItem: FromJS<Model>): ModelText | undefined {
-        return undefined
+    public AddText(variantKey: VariantKeyOrImmutable<VariantKey>, text: ModelText) {
+        this.#textInfoMap = this.#textInfoMap.set(VariantKeyToImmutable(variantKey), text)
     }
 
     protected override _PostProcess(variantKey: FromJS<VariantKey>, workingItem: FromJS<VariantPart<ModelWithLayerSet>>): FromJS<ModelVariant> {
@@ -52,16 +59,30 @@ export class ModelVariantMapBuilder<VariantKey> extends VariantMapBuilder<Varian
                         })
                 )
         )
-        .set('Name', this.#GetVariantName(variantKey))
-        const text = this._GetTextInfo(variantKey, completeItem)
+            .set('Name', this.#GetVariantName(variantKey))
         return fromJS({
             Model: completeItem,
-            ... text && {TextInfo: text}
+            ... this._TextInfoMap.has(variantKey) && { TextInfo: this._TextInfoMap.get(variantKey) }
         }) as FromJS<ModelVariant>
     }
 
     protected static IsItemComplete(x: Partial<Model> | undefined): x is Model {
         //TODO: Implement type check
         return true
+    }
+}
+
+export function AddModelVariantMapToGame<VariantKey>(variantMap: ModelVariantMap<VariantKey>) {
+    const validVariantMap =
+        variantMap.map(({ Model, TextInfo }) =>
+            AddModelWithTextThenGetName(
+                Model,
+                TextInfo
+            )
+        )
+    return {
+        ValidVariantMap: validVariantMap,
+        GetVariant:
+            (variant: VariantKeyOrImmutable<VariantKey>) => ThrowIfNull(validVariantMap.get(VariantKeyToImmutable<VariantKey>(variant)))
     }
 }

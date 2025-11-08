@@ -130,9 +130,9 @@ export const AddDroneSet = () => {
     AddWeaker(Futuristic.Cuff.AnkleCuff)
 
     AddWeakerParams.Lock = 'Cyber'
-    AddWeaker(Futuristic.Link.Arm.GetRestraint('BetweenWristCuff'))
-    AddWeaker(Futuristic.Link.Leg.GetRestraint('BetweenThighCuff'))
-    AddWeaker(Futuristic.Link.Leg.GetRestraint('BetweenAnkleCuff'))
+    AddWeaker(Futuristic.Link.Arm.GetRestraintVariant('BetweenWristCuff'))
+    AddWeaker(Futuristic.Link.Leg.GetRestraintVariant('BetweenThighCuff'))
+    AddWeaker(Futuristic.Link.Leg.GetRestraintVariant('BetweenAnkleCuff'))
 
     AddWeakerParams.Lock = lockBackup
 }
