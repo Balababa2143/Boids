@@ -1,0 +1,347 @@
+{"frames": {
+
+"Models/Boids/Futuristic/Cuff/WaistCuffPort/PortBase.png":
+{
+	"frame": {"x":1896,"y":1670,"w":41,"h":58},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1348,"y":1374,"w":41,"h":58},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Cuff/WaistCuffPort/PortGlow.png":
+{
+	"frame": {"x":1338,"y":1578,"w":33,"h":47},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1352,"y":1380,"w":33,"h":47},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Earphone/EarPlugElfLongBack.png":
+{
+	"frame": {"x":1738,"y":1826,"w":182,"h":117},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":952,"y":545,"w":182,"h":117},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Earphone/EarPlugElfStandard.png":
+{
+	"frame": {"x":1738,"y":1670,"w":156,"h":154},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1362,"y":499,"w":156,"h":154},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenAnkleCuff/GlowSpread.png":
+{
+	"frame": {"x":254,"y":1475,"w":339,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1074,"y":2859,"w":339,"h":116},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenAnkleCuff/LinkSpread.png":
+{
+	"frame": {"x":157,"y":1594,"w":276,"h":55},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1105,"y":2890,"w":276,"h":55},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenElbowCuff/GlowFree.png":
+{
+	"frame": {"x":1311,"y":520,"w":466,"h":164},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":995,"y":1177,"w":466,"h":164},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenElbowCuff/GlowUp.png":
+{
+	"frame": {"x":1114,"y":1146,"w":489,"h":108},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1014,"y":513,"w":489,"h":108},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenElbowCuff/GlowYoked.png":
+{
+	"frame": {"x":626,"y":463,"w":686,"h":184},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":872,"y":1073,"w":686,"h":184},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenElbowCuff/LinkFree.png":
+{
+	"frame": {"x":939,"y":1026,"w":405,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1026,"y":1207,"w":405,"h":104},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenElbowCuff/LinkUp.png":
+{
+	"frame": {"x":1338,"y":1146,"w":430,"h":47},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1045,"y":544,"w":430,"h":47},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenElbowCuff/LinkYoked.png":
+{
+	"frame": {"x":812,"y":463,"w":628,"h":125},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":902,"y":1102,"w":628,"h":125},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenThighCuff/GlowSpread.png":
+{
+	"frame": {"x":1902,"y":137,"w":135,"h":99},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1134,"y":1996,"w":135,"h":99},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenThighCuff/LinkSpread.png":
+{
+	"frame": {"x":812,"y":1093,"w":73,"h":39},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1164,"y":2026,"w":73,"h":39},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenWristCuff/GlowFree.png":
+{
+	"frame": {"x":1,"y":1,"w":978,"h":460},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":703,"y":1249,"w":978,"h":460},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenWristCuff/GlowYoked.png":
+{
+	"frame": {"x":1,"y":463,"w":1186,"h":154},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":639,"y":791,"w":1186,"h":154},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenWristCuff/LeftGlowFront.png":
+{
+	"frame": {"x":1774,"y":1533,"w":135,"h":182},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1370,"y":1125,"w":135,"h":182},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenWristCuff/LeftLinkFront.png":
+{
+	"frame": {"x":1346,"y":988,"w":100,"h":133},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1376,"y":1161,"w":100,"h":133},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenWristCuff/LinkFree.png":
+{
+	"frame": {"x":981,"y":1,"w":919,"h":399},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":733,"y":1280,"w":919,"h":399},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenWristCuff/LinkYoked.png":
+{
+	"frame": {"x":157,"y":463,"w":1129,"h":95},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":669,"y":820,"w":1129,"h":95},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenWristCuff/RightLinkFront.png":
+{
+	"frame": {"x":1902,"y":1,"w":104,"h":134},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":867,"y":1147,"w":104,"h":134},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/WristToCollar/LeftGlowYoked.png":
+{
+	"frame": {"x":998,"y":1146,"w":498,"h":114},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1301,"y":753,"w":498,"h":114},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/WristToCollar/LeftLinkYoked.png":
+{
+	"frame": {"x":1282,"y":1146,"w":443,"h":54},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1325,"y":783,"w":443,"h":54},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/WristToCollar/RightGlowYoked.png":
+{
+	"frame": {"x":981,"y":402,"w":528,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":688,"y":768,"w":528,"h":116},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/WristToCollar/RightLinkYoked.png":
+{
+	"frame": {"x":1224,"y":1146,"w":474,"h":56},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":719,"y":798,"w":474,"h":56},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/GogglesDark1.png":
+{
+	"frame": {"x":1013,"y":1646,"w":385,"h":167},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1012,"y":501,"w":385,"h":167},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/GogglesDark2.png":
+{
+	"frame": {"x":1387,"y":1146,"w":385,"h":167},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1012,"y":501,"w":385,"h":167},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/GogglesDark3.png":
+{
+	"frame": {"x":1387,"y":1315,"w":385,"h":167},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1012,"y":501,"w":385,"h":167},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/GogglesDark4.png":
+{
+	"frame": {"x":1774,"y":1146,"w":385,"h":167},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1012,"y":501,"w":385,"h":167},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/GogglesLight1.png":
+{
+	"frame": {"x":1387,"y":1484,"w":385,"h":167},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1012,"y":501,"w":385,"h":167},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/GogglesLight2.png":
+{
+	"frame": {"x":1182,"y":1637,"w":385,"h":167},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1012,"y":501,"w":385,"h":167},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/GogglesLight3.png":
+{
+	"frame": {"x":1351,"y":1653,"w":385,"h":167},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1012,"y":501,"w":385,"h":167},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/GogglesLight4.png":
+{
+	"frame": {"x":1351,"y":1822,"w":385,"h":167},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1012,"y":501,"w":385,"h":167},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/MaskDark1.png":
+{
+	"frame": {"x":254,"y":463,"w":370,"h":504},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1013,"y":284,"w":370,"h":504},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/MaskDark2.png":
+{
+	"frame": {"x":254,"y":969,"w":370,"h":504},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1013,"y":284,"w":370,"h":504},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/MaskDark3.png":
+{
+	"frame": {"x":1511,"y":402,"w":370,"h":504},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1013,"y":284,"w":370,"h":504},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/MaskDark4.png":
+{
+	"frame": {"x":939,"y":520,"w":370,"h":504},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1013,"y":284,"w":370,"h":504},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/MaskLight1.png":
+{
+	"frame": {"x":1477,"y":774,"w":370,"h":504},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1013,"y":284,"w":370,"h":504},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/MaskLight2.png":
+{
+	"frame": {"x":1,"y":1651,"w":370,"h":504},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1013,"y":284,"w":370,"h":504},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/MaskLight3.png":
+{
+	"frame": {"x":626,"y":1151,"w":370,"h":504},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1013,"y":284,"w":370,"h":504},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Visor/MaskLight4.png":
+{
+	"frame": {"x":507,"y":1657,"w":370,"h":504},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1013,"y":284,"w":370,"h":504},
+	"sourceSize": {"w":2480,"h":3508}
+}},
+"animations": {
+	"Models/Boids/Futuristic/Visor/GogglesDark": ["Models/Boids/Futuristic/Visor/GogglesDark1.png","Models/Boids/Futuristic/Visor/GogglesDark2.png","Models/Boids/Futuristic/Visor/GogglesDark3.png","Models/Boids/Futuristic/Visor/GogglesDark4.png"],
+	"Models/Boids/Futuristic/Visor/GogglesLight": ["Models/Boids/Futuristic/Visor/GogglesLight1.png","Models/Boids/Futuristic/Visor/GogglesLight2.png","Models/Boids/Futuristic/Visor/GogglesLight3.png","Models/Boids/Futuristic/Visor/GogglesLight4.png"],
+	"Models/Boids/Futuristic/Visor/MaskDark": ["Models/Boids/Futuristic/Visor/MaskDark1.png","Models/Boids/Futuristic/Visor/MaskDark2.png","Models/Boids/Futuristic/Visor/MaskDark3.png","Models/Boids/Futuristic/Visor/MaskDark4.png"],
+	"Models/Boids/Futuristic/Visor/MaskLight": ["Models/Boids/Futuristic/Visor/MaskLight1.png","Models/Boids/Futuristic/Visor/MaskLight2.png","Models/Boids/Futuristic/Visor/MaskLight3.png","Models/Boids/Futuristic/Visor/MaskLight4.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "BoidsAsset0.webp",
+	"format": "RGBA8888",
+	"size": {"w":2016,"h":2032},
+	"scale": "1",
+	"related_multi_packs": [ "BoidsAsset1.json" ],
+	"smartupdate": "$TexturePacker:SmartUpdate:4e21e490cfe2fa389a1de0e61f704738:c5fe4cd37725baf35d4a18d3856d2270:fd1720d3b374ca86d6393d851bc3a0a3$"
+}
+}

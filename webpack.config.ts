@@ -10,7 +10,7 @@ const DeclarationFolder = 'Declaration'
 const ArchiveFile = 'Deploy/Boids.zip'
 const AssetFolders = [
     'Asset',
-    'ArtworkOutput'
+    // 'ArtworkOutput'
 ]
 
 async function CopyAssets() {

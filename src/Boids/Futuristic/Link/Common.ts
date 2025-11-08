@@ -1,3 +1,4 @@
+import { FromJS } from 'immutable'
 import { RestraintText, ModelText } from '../../../KDExtension'
 import { AddModelVariantMapToGame, AddRestraintVariantMapToGame, ModelVariantMapBuilder, ModelWithLayerSet, RestraintVariantMapBuilder, VariantPart } from '../../../KDExtension/Variant'
 import { FactionFilter } from '../../../KDInterface/TextKey'
@@ -31,7 +32,8 @@ export const ModelTemplate = {
 //#region Item
 
 export const RestraintTemplate = {
-    special: true,
+    // special: true,
+    binding: true,
     // inventory: false,
     accessible: true,
     shrine: [
@@ -114,9 +116,9 @@ export const BuildLinkSet =
             ModelBaseName,
             DescriptorMap,
         } = args
-
-        const modelVariantMapBuilder = new ModelVariantMapBuilder({ baseName: ModelBaseName })
-        const restraintVariantMapBuilder = new RestraintVariantMapBuilder({ baseName: RestraintBaseName })
+        type VariantKey = keyof typeof DescriptorMap
+        const modelVariantMapBuilder = new ModelVariantMapBuilder<VariantKey>({ baseName: ModelBaseName })
+        const restraintVariantMapBuilder = new RestraintVariantMapBuilder<VariantKey>({ baseName: RestraintBaseName })
 
         for (const variantKey in DescriptorMap) {
             modelVariantMapBuilder.AddVariantParts(variantKey, DescriptorMap[variantKey].Model.Parts)
@@ -133,7 +135,7 @@ export const BuildLinkSet =
         for (const variantKey in DescriptorMap) {
             restraintVariantMapBuilder.AddVariantParts(variantKey, DescriptorMap[variantKey].Restraint.Parts)
             restraintVariantMapBuilder.AddVariantPart(variantKey, {
-                Model: ValidModelVariantMap.get(variantKey)
+                Model: ValidModelVariantMap.get(variantKey as FromJS<VariantKey>)
             })
             const restraintText = DescriptorMap[variantKey].Restraint.Text
             if (null != restraintText) {

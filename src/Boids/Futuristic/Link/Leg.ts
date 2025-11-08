@@ -17,7 +17,9 @@ const DescriptorMap = {
         Restraint: {
             Parts: [
                 {
-                    Group: 'ItemFeet'
+                    Group: 'ItemFeet',
+                    heelpower: 0.2,
+                    hobble: 0.3
                 },
                 RequireSocket([Socket.Ankle])
             ],
@@ -26,9 +28,31 @@ const DescriptorMap = {
                 FlavorText: 'Variant: BetweenAnkleCuff'
             },
         },
-
-
-
+    },
+    TiedAnkle: {
+        Model: {
+            Parts: [
+                {
+                    Layers: []
+                }
+            ]
+        },
+        Restraint: {
+            Parts: [
+                {
+                    Group: 'ItemFeet',
+                    heelpower: 0.7,
+                    hobble: 2,
+                    blockfeet: true,
+                    addTag: ['FeetLinked']
+                },
+                RequireSocket([Socket.Ankle])
+            ],
+            Text: {
+                DisplayName: 'Drone Leg Link',
+                FlavorText: 'Variant: Tied Ankle'
+            },
+        },
     },
     BetweenThighCuff: {
         Model: {
@@ -41,13 +65,41 @@ const DescriptorMap = {
         Restraint: {
             Parts: [
                 {
-                    Group: 'ItemLegs'
+                    Group: 'ItemLegs',
+                    // shrine: ['ThighLink'],
+                    heelpower: 0.15,
+                    hobble: 0.25
                 },
                 RequireSocket([Socket.Thigh])
             ],
             Text: {
                 DisplayName: 'Drone Leg Link',
                 FlavorText: 'Variant: BetweenThighCuff'
+            },
+        }
+    },
+    TiedThigh: {
+        Model: {
+            Parts: [
+                {
+                    Layers: []
+                }
+            ]
+        },
+        Restraint: {
+            Parts: [
+                {
+                    Group: 'ItemFeet',
+                    heelpower: 0.5,
+                    hobble: 1,
+                    blockfeet: true,
+                    addTag: ['FeetLinked']
+                },
+                RequireSocket([Socket.Thigh])
+            ],
+            Text: {
+                DisplayName: 'Drone Leg Link',
+                FlavorText: 'Variant: TiedThigh'
             },
         }
     },

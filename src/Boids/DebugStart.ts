@@ -98,8 +98,8 @@ export const AddDroneSet = () => {
         Layering: Futuristic.GlassVisor.Constant.Layering.Goggle
     }))
 
-    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.SimpleHarness))
-    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.Transparent1))
+    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.PanelHarness))
+    // AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.MetalMuzzle2))
 
     // AddVariant(MachinePrime.Item.Visor.Boids.Variant({
     //     GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsMask,
@@ -108,7 +108,7 @@ export const AddDroneSet = () => {
     // }))
 
     AddWeakerParams.Lock = 'Cyber3'
-    AddWeaker('NippleClamps3')
+    AddWeaker('NippleClamps2')
     // AddWeaker('NippleWeights')
     AddWeaker(Futuristic.Aroused.Toys.LockVibe)
 
@@ -121,16 +121,16 @@ export const AddDroneSet = () => {
 
     AddWeakerParams.Lock = 'Cyber2'
     AddWeaker(Futuristic.Cuff.HeavyCollar)
-    // AddWeaker(Futuristic.Cuff.ElbowCuff)
-    // AddWeaker(Futuristic.Cuff.WristCuff)
-    AddWeaker(Futuristic.Cuff.ArmCuff)
+    AddWeaker(Futuristic.Cuff.ElbowCuff)
+    AddWeaker(Futuristic.Cuff.WristCuff)
+    // AddWeaker(Futuristic.Cuff.ArmCuff)
     // AddWeaker(Futuristic.Cuff.WaistCuff)
     AddWeaker(Futuristic.Strap.ControlHarness)
     AddWeaker(Futuristic.Cuff.ThighCuff)
     AddWeaker(Futuristic.Cuff.AnkleCuff)
 
     AddWeakerParams.Lock = 'Cyber'
-    AddWeaker(Futuristic.Link.Arm.GetRestraintVariant('BetweenWristCuff'))
+    AddWeaker(Futuristic.Link.Arm.GetRestraintVariant('BoxTie'))
     AddWeaker(Futuristic.Link.Arm.GetRestraintVariant('BetweenElbowCuff'))
     AddWeaker(Futuristic.Link.Leg.GetRestraintVariant('BetweenThighCuff'))
     AddWeaker(Futuristic.Link.Leg.GetRestraintVariant('BetweenAnkleCuff'))

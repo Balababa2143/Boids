@@ -167,7 +167,8 @@ export const ElbowCuff =
             Group: 'ItemArms',
             shrine: [
                 ...ItemBase.shrine,
-                'ArmCuffsBase'
+                'ArmCuffsBase',
+                Socket.Elbow
             ],
             bindarms: false,
             linkCategory: 'Cuffs',

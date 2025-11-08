@@ -1,5 +1,3 @@
-import { VariantKeyOrImmutable, VariantKeyToImmutable } from '../../../KDExtension'
-import { ThrowIfNull } from '../../../Utilities'
 import { RequireSocket } from '../Common/VariantPart'
 import { BuildLinkSet, ModelRestraintBundledVariantDesc } from './Common'
 import * as Layer from './Layer'
@@ -47,7 +45,75 @@ const DescriptorMap = {
                 FlavorText: 'Variant: BetweenElbowCuff'
             },
         },
-    }
+    },
+    WristToCollar: {
+        Model: {
+            Parts: [
+                {
+                    Layers: Layer.Arm.Wrist.WristToCollar
+                }
+            ]
+        },
+        Restraint: {
+            Parts: [
+                {
+                    Group: 'ItemArms',
+                    shrine: ['Yokes'],
+                    bindarms: true
+                },
+                RequireSocket([Socket.Wrist])
+            ],
+            Text: {
+                DisplayName: 'Drone Arm Link',
+                FlavorText: 'Variant: WristToCollar'
+            },
+        },
+    },
+    BoxTie: {
+        Model: {
+            Parts: [
+                {
+                    Layers: []
+                }
+            ]
+        },
+        Restraint: {
+            Parts: [
+                {
+                    Group: 'ItemArms',
+                    bindarms: true
+                },
+                RequireSocket([Socket.Wrist])
+            ],
+            Text: {
+                DisplayName: 'Drone Arm Link',
+                FlavorText: 'Variant: BoxTie'
+            },
+        },
+    },
+    ElbowTie: {
+        Model: {
+            Parts: [
+                {
+                    Layers: []
+                }
+            ]
+        },
+        Restraint: {
+            Parts: [
+                {
+                    Group: 'ItemArms',
+                    addTag: ['ElbowTied'],
+                    bindarms: true
+                },
+                RequireSocket([Socket.Elbow])
+            ],
+            Text: {
+                DisplayName: 'Drone Arm Link',
+                FlavorText: 'Variant: Elbow Tie'
+            },
+        },
+    },
 } satisfies Record<string, ModelRestraintBundledVariantDesc>
 
 export type Variant = keyof typeof DescriptorMap

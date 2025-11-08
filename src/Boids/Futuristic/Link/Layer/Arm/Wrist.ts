@@ -40,3 +40,17 @@ export const BetweenWristCuff: ModelLayer[] =
             Folder: `${LinkFolder}/BetweenWristCuff`,
         }))
         .flatMap(AddGlow)
+
+export const WristToCollar: ModelLayer[] =
+    [
+        ...MakeLeftRight({
+            Name: '',
+            Poses: ToMap(['Yoked']),
+            Layer: 'BindChainLinksUnder'
+        })
+    ]
+        .map(layer => ({
+            ...layer,
+            Folder: `${LinkFolder}/WristToCollar`,
+        }))
+        .flatMap(AddGlow)

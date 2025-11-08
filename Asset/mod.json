@@ -24,6 +24,10 @@
 
     ],
 	"fileorder": [
-        "index.js"
+		"TextureAtlas/BoidsAsset0.webp",
+		"TextureAtlas/BoidsAsset0.json",
+		"TextureAtlas/BoidsAsset1.webp",
+		"TextureAtlas/BoidsAsset1.json",
+        "main.bundle.js"
     ]
 }

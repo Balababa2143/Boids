@@ -5,7 +5,7 @@ export const BetweenAnkleCuff: ModelLayer[] =
     [
         {
             Name: '',
-            Poses: ToMap(['Spread', 'Closed']),
+            Poses: ToMap(['Spread']),
             Layer: 'BindChainLinksUnder'
         },
     ]

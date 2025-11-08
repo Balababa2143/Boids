@@ -1,0 +1,37 @@
+{"frames": {
+
+"Models/Boids/Futuristic/Earphone/EarPlugElfLongFront.png":
+{
+	"frame": {"x":1,"y":351,"w":158,"h":132},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1376,"y":525,"w":158,"h":132},
+	"sourceSize": {"w":2477,"h":3505}
+},
+"Models/Boids/Futuristic/Earphone/EarPlugHuman.png":
+{
+	"frame": {"x":1,"y":1,"w":143,"h":167},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1375,"y":499,"w":143,"h":167},
+	"sourceSize": {"w":2480,"h":3508}
+},
+"Models/Boids/Futuristic/Link/BetweenWristCuff/RightGlowFront.png":
+{
+	"frame": {"x":1,"y":170,"w":128,"h":179},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":829,"y":1130,"w":128,"h":179},
+	"sourceSize": {"w":2480,"h":3508}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "BoidsAsset1.webp",
+	"format": "RGBA8888",
+	"size": {"w":145,"h":510},
+	"scale": "1",
+	"related_multi_packs": [ "BoidsAsset0.json" ],
+	"smartupdate": "$TexturePacker:SmartUpdate:4e21e490cfe2fa389a1de0e61f704738:c5fe4cd37725baf35d4a18d3856d2270:fd1720d3b374ca86d6393d851bc3a0a3$"
+}
+}
