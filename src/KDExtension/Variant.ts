@@ -1,8 +1,10 @@
-import { FromJS, fromJS, isCollection, isKeyed, Map, mergeDeep, Seq, Set } from 'immutable'
+import { v5 as uuidv5 } from 'uuid'
+import { Collection, FromJS, fromJS, isCollection, isImmutable, isKeyed, Map, mergeDeep, Seq, Set, List as IMList } from 'immutable'
 import { ArrayElement, ArrayPropertyKeys } from '../Utilities'
 
 
 import { IRestraintText } from './Restraint'
+import { ModelText } from './Model'
 
 export type ArraySemanticsSet = true
 export type ArraySemanticsTuple = false
@@ -108,71 +110,69 @@ export const ModelWithLayerSetToModel =
             )
     )
 
-export type VariantKey<Variant> = FromJS<Variant>
+export type VariantKeyOrImmutable<VariantKey> = VariantKey | FromJS<VariantKey>
 
-export type VariantOrKey<Variant> = Variant | VariantKey<Variant>
+export const VariantKeyToImmutable = 
+    <VariantKey>
+    (variant: VariantKeyOrImmutable<VariantKey>)  =>
+        fromJS(variant, DefaultReceiver) as FromJS<VariantKey>
 
-export const GetVariantKey = 
-    <Variant>
-    (variant: Variant)  =>
-        fromJS(variant, DefaultReceiver) as VariantKey<Variant>
+export class VariantMapBuilder<VariantKey, WorkingType extends object, ArcheType extends Object = WorkingType> {
+    #variantMap: Map<FromJS<VariantKey>, Immutable.List<FromJS<VariantPart<WorkingType>>>>
+    protected get _VariantMap() { return this.#variantMap }
 
-export const IsVariantKey =
-    isCollection as <Variant>(variant: VariantOrKey<Variant>) => variant is VariantKey<Variant>
+    #variantPartFromJS: (js: VariantPart<WorkingType>) => FromJS<VariantPart<WorkingType>>
+    protected get _VariantPartFromJS() {return this.#variantPartFromJS}
 
-export const AsVariantKey = 
-    <Variant>
-    (variant: Variant | VariantKey<Variant>)  =>
-        IsVariantKey(variant) ? variant as VariantKey<Variant> : GetVariantKey(variant)
+    #isItemComplete: IsComplete<ArcheType>
+    protected get _IsItemComplete() {return this.#isItemComplete}
 
-export class VariantBuilder<Variant, ArcheType extends object> {
-    #variantMap: Map<VariantKey<Variant>, FromJS<VariantPart<ArcheType>>>
-    #fromJS: (js: VariantPart<ArcheType>) => FromJS<VariantPart<ArcheType>>
-    #getVariantValueDependentParts?: (variantValue: VariantKey<Variant>) => Iterable<VariantPart<ArcheType>>
     constructor(args:{
-        receiver?: JSReceiver,
-        getVariantValueDependentParts?: (variantValue: VariantKey<Variant>) => Iterable<VariantPart<ArcheType>>
+        receiver?: JSReceiver
+        isItemComplete?: IsComplete<ArcheType>,
     } = {}) {
         const {
             receiver = DefaultReceiver,
-            getVariantValueDependentParts = (_) => []
+            isItemComplete = (_ => true) as IsComplete<ArcheType>
         } = args
         this.#variantMap = Map()
-        this.#fromJS = (js) => fromJS(js, receiver) as FromJS<VariantPart<ArcheType>>
-        this.#getVariantValueDependentParts = getVariantValueDependentParts
+        this.#variantPartFromJS = (js) => fromJS(js, receiver) as FromJS<VariantPart<WorkingType>>
+        this.#isItemComplete = isItemComplete
     }
 
-    Add(variant: Variant, parts: Iterable<VariantPart<ArcheType>>) {
-        const variantValue = GetVariantKey(variant)
-        const previousParts = this.#variantMap.get(variantValue) ?? this.#fromJS({} as VariantPart<ArcheType>)
-        const mergedParts =
-            Seq(parts)
-                .map(this.#fromJS)
-                .concat(
-                    this.#getVariantValueDependentParts ?
-                        this.#getVariantValueDependentParts(variantValue)
-                        : []
-                )
-                .reduce((merged, part) => mergeDeep(merged, part as any), previousParts)
+    protected _PostProcess(variant: FromJS<VariantKey>, workingItem: FromJS<VariantPart<WorkingType>>): FromJS<ArcheType> {
+        return workingItem as FromJS<ArcheType>
+    }
+
+    #UpdateVariant(variant: VariantKeyOrImmutable<VariantKey>, updater: (prev: IMList<FromJS<VariantPart<WorkingType>>>) => IMList<FromJS<VariantPart<WorkingType>>>)
+    {
+        const immutableVariantKey = VariantKeyToImmutable<VariantKey>(variant)
+        const previousParts = this.#variantMap.get(immutableVariantKey) ?? IMList()
+        const updatedParts = updater(previousParts)
 
         this.#variantMap = this.#variantMap.set(
-            variantValue,
-            mergedParts
+            immutableVariantKey,
+            updatedParts
         )
     }
 
-    BuildVariantMap<Result=ArcheType>(args: {
-        template: VariantPart<ArcheType>,
-        isComplete?: IsComplete<Result>,
-        finalize?: (_:FromJS<VariantPart<ArcheType>>) => FromJS<Result>
-    }): Map<VariantKey<Variant>, Result> {
-        const {
-            template,
-            isComplete = (_ => true) as IsComplete<Result>,
-            finalize = x => x
-        } = args
+    AddVariantPart(variantKey: VariantKeyOrImmutable<VariantKey>, part: VariantPart<WorkingType>)
+    {
+        this.#UpdateVariant(variantKey, previousParts => previousParts.push(this._VariantPartFromJS(part)))
+        return this
+    }
+
+    AddVariantParts(variantKey: VariantKeyOrImmutable<VariantKey>, parts: Iterable<VariantPart<WorkingType>>) {
+        this.#UpdateVariant(variantKey, previousParts =>
+            Seq(parts)
+            .reduce((prev, part) => prev.push(this._VariantPartFromJS(part)), previousParts)
+        )
+        return this
+    }
+
+    BuildVariantMap(template: VariantPart<WorkingType>): Map<FromJS<VariantKey>, ArcheType> {
         const CheckType = (x) => {
-            if (isComplete(x)) {
+            if (this._IsItemComplete(x)) {
                 return x
             }
             else {
@@ -184,12 +184,14 @@ export class VariantBuilder<Variant, ArcheType extends object> {
                 })
             }
         }
-        const templateValue = fromJS(template)
+        const templateValue = this._VariantPartFromJS(template)
         const completeVariantMap =
             this.#variantMap
-                .map(mergedParts => {
-                    const templated = mergeDeep(templateValue, mergedParts as any)
-                    const finalObj = finalize(templated)
+                .map((parts, key) => {
+                    const merged =
+                        parts
+                        .reduce((prev, part) =>mergeDeep(prev, part as any), templateValue)
+                    const finalObj = this._PostProcess(key, merged)
                     return CheckType(
                         isCollection(finalObj) ? finalObj.toJS() : finalObj
                     )
@@ -200,10 +202,106 @@ export class VariantBuilder<Variant, ArcheType extends object> {
 
 export interface ModelVariant {
     Model: Model,
-    TextInfo: IRestraintText
+    TextInfo: ModelText
 }
 
 export interface RestraintVariant {
     Restraint: restraint,
     TextInfo: IRestraintText
+}
+
+export const GetVariantNameFromBase =
+    <Variant>
+    (BaseName: string) =>
+    (variantKey: VariantKeyOrImmutable<Variant>) =>
+        uuidv5(JSON.stringify(isImmutable(variantKey) ? variantKey.toJS() : variantKey), BaseName)
+
+export class ModelVariantMapBuilder<VariantKey> extends VariantMapBuilder<VariantKey, ModelWithLayerSet, ModelVariant>
+{
+    #GetVariantName: (variantKey: VariantKeyOrImmutable<VariantKey>) => string
+    protected get _GetVariantName() { return this.#GetVariantName}
+    constructor(args: {
+        baseName: string,
+        receiver?: JSReceiver,
+        isItemComplete?: IsComplete<ModelVariant>,
+    }) {
+        const args2 = {
+            receiver: args.receiver ?? ModelReceiver,
+            isItemComplete: args.isItemComplete ?? (maybeModelVariant => ModelVariantMapBuilder.IsItemComplete(maybeModelVariant?.Model)) as IsComplete<ModelVariant>
+        }
+        super(args2)
+        this.#GetVariantName = GetVariantNameFromBase(args.baseName)
+    }
+
+    protected _GetTextInfo(variantKey: FromJS<VariantKey>, workingItem: FromJS<Model>): ModelText | undefined {
+        return undefined
+    }
+
+    protected override _PostProcess(variantKey: FromJS<VariantKey>, workingItem: FromJS<VariantPart<ModelWithLayerSet>>): FromJS<ModelVariant> {
+        const completeItem = workingItem.update(
+            'Layers',
+            (ls) =>
+                Map(
+                    (ls as Set<FromJS<ModelLayer>>)
+                        .map(ls => {
+                            const name = ls.get('Name')
+                            return [name, ls]
+                        })
+                )
+        )
+        .set('Name', this.#GetVariantName(variantKey))
+        const text = this._GetTextInfo(variantKey, completeItem)
+        return fromJS({
+            Model: completeItem,
+            ... text && {TextInfo: text}
+        }) as FromJS<ModelVariant>
+    }
+
+    protected static IsItemComplete(x: Partial<Model> | undefined): x is Model {
+        //TODO: Implement type check
+        return true
+    }
+}
+
+export class RestraintVariantMapBuilder<VariantKey> extends VariantMapBuilder<VariantKey, restraint, RestraintVariant>
+{
+    #GetVariantName: (variantKey: VariantKeyOrImmutable<VariantKey>) => string
+    protected get _GetVariantName() { return this.#GetVariantName}
+
+    #textInfoMap: Map<FromJS<VariantKey>, IRestraintText>
+    protected get _TextInfoMap() { return this.#textInfoMap }
+
+    constructor(args: {
+        baseName: string,
+        receiver?: JSReceiver,
+        isItemComplete?: IsComplete<RestraintVariant>,
+    }) {
+        const args2 = {
+            receiver: args.receiver ?? ModelReceiver,
+            isItemComplete: args.isItemComplete ?? (maybeComplete => RestraintVariantMapBuilder.IsItemComplete(maybeComplete?.Restraint)) as IsComplete<RestraintVariant>
+        }
+        super(args2)
+        this.#GetVariantName = GetVariantNameFromBase(args.baseName)
+        this.#textInfoMap = Map()
+    }
+
+    public AddText(variantKey: VariantKeyOrImmutable<VariantKey>, text: IRestraintText)
+    {
+        this.#textInfoMap = this.#textInfoMap.set(VariantKeyToImmutable(variantKey), text)
+    }
+
+    protected override _PostProcess(variantKey: FromJS<VariantKey>, workingItem: FromJS<VariantPart<restraint>>): FromJS<RestraintVariant> {
+        const completeItem = 
+            workingItem
+            .set('name', this.#GetVariantName(variantKey))
+        return fromJS({
+            Restraint: completeItem,
+            ... this._TextInfoMap.has(variantKey) && {TextInfo: this._TextInfoMap.get(variantKey)}
+        }) as FromJS<RestraintVariant>
+    }
+
+    protected static IsItemComplete(x: Partial<restraint> | undefined): x is restraint {
+        //TODO: Implement type check
+        return true
+    }
 }

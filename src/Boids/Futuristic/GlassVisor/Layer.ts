@@ -1,8 +1,7 @@
 
 import { AddValidVariants, default as Variant} from './Variant'
 import { GlassType, InheritColor, Layering } from './Constant'
-import { AsVariantKey, VariantBuilder, VariantKey, VariantOrKey, VariantPart } from '../../../KDExtension'
-import { Map } from 'immutable'
+import { VariantMapBuilder, VariantKeyOrImmutable, VariantPart, VariantKeyToImmutable } from '../../../KDExtension'
 import { ThrowIfNull } from '../../../Utilities'
 
 export const GlassLayerName = '0307649C-E62D-4AAF-BFFF-BF5F87EE2106' as const
@@ -57,32 +56,29 @@ const GetGlassLayerSpritename =
     }
 
 export const ValidVariantMap = (() => {
-    const builder = new VariantBuilder<Variant, ModelLayer>()
+    const builder = new VariantMapBuilder<Variant, ModelLayer>()
 
     const AddVariant = (variant) => {
-        const parts: VariantPart<ModelLayer>[] = []
-        parts.push(GlassLayerPartLayering[variant.Layering])
-        parts.push({
-            Sprite: GetGlassLayerSpritename(variant)
-        })
+        const variantKey = VariantKeyToImmutable(variant)
+        builder.AddVariantParts(variantKey, [
+            GlassLayerPartLayering[variant.Layering],
+            {
+                Sprite: GetGlassLayerSpritename(variant)
+            }
+        ])
         switch (variant.GlassType) {
             case GlassType.BoidsGoggle:
             case GlassType.BoidsMask:
                 if (variant.Colorize) {
-                    parts.push(GlassLayerPartColorization)
+                    builder.AddVariantPart(variantKey, GlassLayerPartColorization)
                 }
         }
-        builder.Add(variant, parts)
     }
 
     AddValidVariants(AddVariant)
 
-    const variantMap = builder.BuildVariantMap({
-        template: GlassLayerTemplate
-    })
-
-    return variantMap as Map<VariantKey<Variant>, ModelLayer>
+    return builder.BuildVariantMap(GlassLayerTemplate)
 })()
 
 export const GetVariant =
-    (variant: VariantOrKey<Variant>) => ThrowIfNull(ValidVariantMap.get(AsVariantKey<Variant>(variant)))
+    (variant: VariantKeyOrImmutable<Variant>) => ThrowIfNull(ValidVariantMap.get(VariantKeyToImmutable<Variant>(variant)))

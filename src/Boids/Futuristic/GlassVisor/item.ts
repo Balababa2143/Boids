@@ -4,9 +4,9 @@ import { GlassType, InheritColor, ItemTags, Layering } from './Constant'
 import Variant, { AddValidVariants } from './Variant'
 import { Transformer as CommonTransformer } from '../Common'
 import { GetGlassModelVariant } from './Model'
-import { AddRestraintWithTextThenGetName, AsVariantKey, IRestraintText, RestraintReceiver, RestraintVariant, VariantBuilder, VariantOrKey, VariantPart } from '../../../KDExtension'
+import { AddRestraintWithTextThenGetName, IRestraintText, RestraintVariant, VariantKeyOrImmutable, VariantPart, RestraintVariantMapBuilder, VariantKeyToImmutable } from '../../../KDExtension'
 import { ThrowIfNull } from '../../../Utilities'
-import { FromJS, Map, Seq } from 'immutable'
+import { FromJS, Map } from 'immutable'
 
 
 const ItemTemplate = {
@@ -86,35 +86,43 @@ const GetDebugText = (variant: Variant) => ({
     ].join('\n')
 } satisfies IRestraintText)
 
+class VisorVariantMapBuilder extends RestraintVariantMapBuilder<Variant>
+{
+    protected override _PostProcess(variantKey: FromJS<Variant>, workingItem: FromJS<VariantPart<restraint>>): FromJS<RestraintVariant> {
+        return super._PostProcess(
+            variantKey,
+            workingItem
+                .set('Model', GetGlassModelVariant(variantKey))
+        )
+    }
+}
+
 export const ValidVariantMap = (() => {
-    const restraintVariantBuilder = new VariantBuilder<Variant, RestraintVariant>({
-        receiver: RestraintReceiver,
-        getVariantValueDependentParts: (variantValue) => [({
-            Restraint: {
-                name: uuidv5(JSON.stringify(variantValue.toJS()), BaseName),
-                Model: GetGlassModelVariant(variantValue),
-            }
-        })]
+    const variantMapBuilder = new VisorVariantMapBuilder({
+        baseName: BaseName
     })
 
     const AddVariant = (variant) => {
-        const restraintParts: VariantPart<restraint>[] = []
-        restraintParts.push({            
+        const immutableVariantKey = VariantKeyToImmutable(variant)
+        variantMapBuilder.AddVariantPart(immutableVariantKey, {
             preview: Variant.IsGoggleVariant(variant) ? 'GlassVisor' : 'GlassMask',
         })
         if(Variant.IsBoidsVariant(variant)) {
-            restraintParts.push({
+            variantMapBuilder.AddVariantPart(immutableVariantKey, {
                 blindfold: CalcBlind(variant)
             })
         }
         const tagCollection = ItemTags[variant.Layering]
         if (variant.Socketed) {
-            restraintParts.push(CommonTransformer.RequireSocket2({
+            variantMapBuilder.AddVariantPart(
+                immutableVariantKey,
+                CommonTransformer.RequireSocket2({
                 sockets: [tagCollection.Socket],
                 renderWhenLinkedBySocket: true
-            }))
+            })
+            )
         }
-        restraintParts.push({
+        variantMapBuilder.AddVariantPart(immutableVariantKey, {
             shrine: variant.Socketed ?
                 [tagCollection.SocketedItem] :
                 [tagCollection.NonSocketedItem]
@@ -138,28 +146,16 @@ export const ValidVariantMap = (() => {
                 ['Visors']
             ],
         } as const)[variant.Layering])
-        restraintParts.push({
+        variantMapBuilder.AddVariantPart(immutableVariantKey, {
             LinkableBy: link,
             shrine
         })
-        const parts =
-            Seq(restraintParts)
-                .map(r => ({
-                    Restraint: r
-                } satisfies VariantPart<RestraintVariant>))
-                .concat({
-                    TextInfo: GetDebugText(variant)
-                } satisfies VariantPart<RestraintVariant>)
-        restraintVariantBuilder.Add(variant, parts)
+        variantMapBuilder.AddText(variant, GetDebugText(variant))
     }
 
     AddValidVariants(AddVariant)
 
-    const variantMap = restraintVariantBuilder.BuildVariantMap({
-        template: {
-            Restraint: ItemTemplate
-        }
-    })
+    const variantMap = variantMapBuilder.BuildVariantMap(ItemTemplate)
     const variantToNameMap: Map<FromJS<Variant>, string> =
         variantMap.map(({Restraint, TextInfo}) => 
             AddRestraintWithTextThenGetName(
@@ -171,4 +167,4 @@ export const ValidVariantMap = (() => {
 })()
 
 export const GetVariant =
-    (variant: VariantOrKey<Variant>) => ThrowIfNull(ValidVariantMap.get(AsVariantKey<Variant>(variant)))
+    (variant: VariantKeyOrImmutable<Variant>) => ThrowIfNull(ValidVariantMap.get(VariantKeyToImmutable<Variant>(variant)))
