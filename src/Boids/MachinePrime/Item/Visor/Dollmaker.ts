@@ -25,6 +25,9 @@ export type Variant =
     Mask |
     OverMask
 
+const LN_SHIFT = 1/(Math.E-1)
+const LN_CORRECTION = Math.log(LN_SHIFT)
+
 export const CalcVisorFilter = KDEx.AddEventHandler({
     eventMap: KDEventMapInventory,
     trigger: 'apply',
@@ -34,7 +37,7 @@ export const CalcVisorFilter = KDEx.AddEventHandler({
             if (item.data?.[HardLightVisor]) {
                 console.log('Boids: CalcVisorFilter exec', _e, item, data)
                 const targetBlindLevel = Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Visor)
-                const opaqueFactor = Logistic(3, 2)(targetBlindLevel)
+                const opaqueFactor = Math.log(targetBlindLevel + LN_SHIFT) - LN_CORRECTION
                 const dimFactor = Scale(0, 0.8, opaqueFactor)
                 const filter: LayerFilter = data['Filters'][GlassLayerName] ?? {}
                 filter.saturation = 1

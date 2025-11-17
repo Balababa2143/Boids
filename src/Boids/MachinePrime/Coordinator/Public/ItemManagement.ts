@@ -1,8 +1,16 @@
-import { ItemArchetype } from '../Constant'
-import { GetState, SetStateIn } from './StateStorage'
+/**
+ * Registar for drone equipments
+ * @module Boids/MachinePrime/Coordinator/ItemManagement
+ * @see module:Boids/MachinePrime/Coordinator/ItemManagement
+ */
+
+import { ItemArchetype } from '../../Constant'
+import { GetState, SetStateIn } from '../Internal/StateStorage'
 
 export const enum EventKeys {
 }
+
+
 
 export const Register = (args: { restraint: Named, type: ItemArchetype }) => {
     const {

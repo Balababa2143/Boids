@@ -92,9 +92,9 @@ export const AddDroneSet = () => {
 
     AddWeakerParams.Lock = 'Cyber2'
     AddWeaker(Futuristic.Headphone.Earphone)
-    AddVariant(MachinePrime.Item.Visor.Boids.Variant({
-        GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsGoggle,
-        Colorize: true,
+    AddVariant(MachinePrime.Item.Visor.Dollmaker.Variant({
+        GlassType: Futuristic.GlassVisor.Constant.GlassType.DollmakerGoggle,
+        // Colorize: true,
         Layering: Futuristic.GlassVisor.Constant.Layering.Goggle
     }))
 

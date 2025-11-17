@@ -97,7 +97,10 @@ class VisorVariantMapBuilder extends RestraintVariantMapBuilder<Variant>
     }
 }
 
-export const ValidVariantMap = (() => {
+const {
+    variantToNameMap:ValidVariantNameMap,
+    variantMap: ValidVariantRestraintMap
+} = (() => {
     const variantMapBuilder = new VisorVariantMapBuilder({
         baseName: BaseName
     })
@@ -163,8 +166,13 @@ export const ValidVariantMap = (() => {
                 TextInfo
             )
         )
-    return variantToNameMap
+    return {
+        variantMap,
+        variantToNameMap
+    }
 })()
 
+export { ValidVariantNameMap, ValidVariantRestraintMap }
+
 export const GetVariant =
-    (variant: VariantKeyOrImmutable<Variant>) => ThrowIfNull(ValidVariantMap.get(VariantKeyToImmutable<Variant>(variant)))
+    (variant: VariantKeyOrImmutable<Variant>) => ThrowIfNull(ValidVariantNameMap.get(VariantKeyToImmutable<Variant>(variant)))

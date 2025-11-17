@@ -12,7 +12,7 @@ export const CalcBlind = KDEx.AddEventHandler({
     type: '7BCC6086-764D-42A6-B92C-93E230E7086F',
     handler: (_e, item, data) => {
         if (item.data?.[MorphableVisor]) {
-            data['blindness'] = Math.max(data['blindness'], Coordinater.SensoryControl.GetLimiterStrength(ItemArchetype.Visor))
+            data['blindness'] = Math.max(data['blindness'], Coordinater.SensoryControl.GetLimiterStrength(ItemArchetype.Visor) * 6)
         }
     },
 })
@@ -20,15 +20,15 @@ export const CalcBlind = KDEx.AddEventHandler({
 export const MorphableVisorCommonEvents = (visorVariant: Partial<Variant>) => [
     CalcBlind,
     EventCommInv.AddTags([ItemArchetype.Visor]),
-    Coordinater.Eventhandler.RegisterItemOnApply(ItemArchetype.Visor),
-    Coordinater.Eventhandler.UnRegisterItemOnRemoval(ItemArchetype.Visor),
+    Coordinater.RegisterItemOnApply(ItemArchetype.Visor),
+    Coordinater.UnRegisterItemOnRemoval(ItemArchetype.Visor),
     EventCommInv.SetItemDataOnApply({
         [MorphableVisor]: 1,
         [VariantInfo]: visorVariant
     }),
 ] satisfies KinkyDungeonEvent[]
 
-const HideBrowsThreshold = 2 as const
+const HideBrowsThreshold = 0.6667 as const
 
 export const ShouldHideBrows = (strength: number) => 
     HideBrowsThreshold <  strength

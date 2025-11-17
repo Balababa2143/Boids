@@ -75,8 +75,8 @@ const Muffler =
     MakeMachinePrimeVariant({
         template: Futuristic.Gag.Muffler.NonMuffler,
         events: [
-            Coordinator.Eventhandler.RegisterItemOnApply(ItemArchetype.Gag),
-            Coordinator.Eventhandler.UnRegisterItemOnRemoval(ItemArchetype.Gag),
+            Coordinator.RegisterItemOnApply(ItemArchetype.Gag),
+            Coordinator.UnRegisterItemOnRemoval(ItemArchetype.Gag),
             InitGagByStrength,
             MorphOnTargetedGagStrengthUpdate,
             EventCommInv.AddTags([ItemArchetype.Gag]),
@@ -89,8 +89,8 @@ const MakeMuffler = (template: string) =>
         events: [
             MorphOnTargetedGagStrengthUpdate,
             EventCommInv.AddTags([ItemArchetype.Gag]),
-            Coordinator.Eventhandler.RegisterItemOnApply(ItemArchetype.Gag),
-            Coordinator.Eventhandler.UnRegisterItemOnRemoval(ItemArchetype.Gag),
+            Coordinator.RegisterItemOnApply(ItemArchetype.Gag),
+            Coordinator.UnRegisterItemOnRemoval(ItemArchetype.Gag),
         ]
     })
 

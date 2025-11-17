@@ -1,6 +1,6 @@
 import { DeepCopy, Record, RecordOf, Set, Map } from 'immutable'
 import { v7 as NewUUID } from 'uuid'
-import { ItemArchetype } from '../Constant'
+import { ItemArchetype } from '../../Constant'
 
 interface _ItemStateBase {
     readonly RegisteredItems: Set<string>
@@ -23,12 +23,16 @@ export const ItemStateBase = Object.assign(
 )
 
 interface _SensoryLimiter extends _ItemStateBase {
-    Strength: number
+    /**
+     * Value between 0.0 to 1.0,
+     * higher means more severe
+     */
+    TargetStrength: number
 }
 
 const _SensoryLimiterDefault = {
     ..._ItemBaseDefault,
-    Strength: 0
+    TargetStrength: 0
 } satisfies _SensoryLimiter
 
 export type SensoryLimiter = RecordOf<_SensoryLimiter>
@@ -39,24 +43,21 @@ export const SensoryLimiter = Object.assign(
         fromJS: (js: DeepCopy<_SensoryLimiter>) =>
             SensoryLimiter({
                 ...ItemStateBase.fromJS(js),
-                Strength: js.Strength
+                TargetStrength: js.TargetStrength
             })
     }
 )
 
 interface _Gag extends _SensoryLimiter {
-    /**
-     * Value between 0.0 to 1.0,
-     * higher means more severely gagged
-     */
+
 }
 
-const _GagDefsult = _SensoryLimiterDefault
+const _GagDefeult = _SensoryLimiterDefault
 
 export type Gag = RecordOf<_Gag>
 
 export const Gag = Object.assign(
-    Record<_Gag>(_GagDefsult),
+    Record<_Gag>(_GagDefeult),
     {
         fromJS: (js: DeepCopy<_Gag>) =>
             Gag({
@@ -66,10 +67,7 @@ export const Gag = Object.assign(
 )
 
 interface _Visor extends _SensoryLimiter {
-    /**
-     * Value between 0.0 to 10.0,
-     * higher means more blinded
-     */
+
 }
 
 const _VisorDefsult = _SensoryLimiterDefault

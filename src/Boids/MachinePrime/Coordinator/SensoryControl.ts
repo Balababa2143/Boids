@@ -1,6 +1,6 @@
 import * as KDS from 'kd-structured'
 import { ItemArchetype } from '../Constant'
-import { GetState, SetStateIn } from './StateStorage'
+import { GetState, SetStateIn } from './Internal/StateStorage'
 import { AddEventHandler } from '../../../KDExtension'
 
 type SensoryController = ItemArchetype.HeadPhone | ItemArchetype.Visor | ItemArchetype.Gag
@@ -29,13 +29,13 @@ export const enum EventKeys {
 export const GetLimiterStrength = (type: ItemArchetype) =>
     GetState().ActivePC.Items[
         ThrowIfNotIsSensoryController(type)
-    ].Strength
+    ].TargetStrength
 
 export const SetLimiterStrength = (type: ItemArchetype, newStrength: number) => {
     const controllerType = ThrowIfNotIsSensoryController(type)
-    const oldStrength = GetState().ActivePC.Items[controllerType].Strength
+    const oldStrength = GetState().ActivePC.Items[controllerType].TargetStrength
     if (oldStrength !== newStrength) {
-        SetStateIn(['ActivePC', 'Items', controllerType, 'Strength'], newStrength)
+        SetStateIn(['ActivePC', 'Items', controllerType, 'TargetStrength'], newStrength)
         KDS.KinkyDungeonSendEvent({
             Event: EventKeys.SensoryLimiterStrengthUpdate,
             data: {
@@ -79,7 +79,7 @@ export const ShowEffectsOnItemMorph = (args:{
     }
 }
 
-
+//TODO: Test event, remove later
 AddEventHandler({
     eventMap: KDEventMapGeneric,
     trigger: 'tick',
@@ -90,7 +90,7 @@ AddEventHandler({
             SetLimiterStrength(ItemArchetype.Gag, Math.random())
         }
         else if(Math.random() < 0.2){
-            SetLimiterStrength(ItemArchetype.Visor, Math.random() * 4)
+            SetLimiterStrength(ItemArchetype.Visor, Math.random())
         }
     },
 })

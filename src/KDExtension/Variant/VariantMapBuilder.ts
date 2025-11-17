@@ -4,7 +4,7 @@ import { DefaultReceiver, IsComplete, JSReceiver, VariantKeyOrImmutable, Variant
 export type VariantMap<VariantKey, ArcheType> = Map<FromJS<VariantKey>, ArcheType>
 
 export class VariantMapBuilder<VariantKey, WorkingType extends object, ArcheType extends Object = WorkingType> {
-    #variantMap: Map<FromJS<VariantKey>, Immutable.List<FromJS<VariantPart<WorkingType>>>>
+    #variantMap: Map<FromJS<VariantKey>, IMList<FromJS<VariantPart<WorkingType>>>>
     protected get _VariantMap() { return this.#variantMap }
 
     #variantPartFromJS: (js: VariantPart<WorkingType>) => FromJS<VariantPart<WorkingType>>
@@ -81,5 +81,13 @@ export class VariantMapBuilder<VariantKey, WorkingType extends object, ArcheType
                     )
                 })
         return completeVariantMap
+    }
+
+    Clone(): this {
+        const other = Object.create(Object.getPrototypeOf(this)) as typeof this
+        other.#variantMap = this.#variantMap
+        other.#variantPartFromJS = this.#variantPartFromJS
+        other.#isItemComplete = this.#isItemComplete
+        return other
     }
 }

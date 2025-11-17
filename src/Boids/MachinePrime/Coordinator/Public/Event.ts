@@ -1,7 +1,13 @@
-import * as Coordinater from '.'
-import * as KDEx from '../../../KDExtension'
-import { KinkyDungeonEventPostRemovalData } from '../../../KDInterface/Event'
-import { ItemArchetype } from '../Constant'
+/**
+ * Events emitted from the coordinator
+ * @module Boids/MachinePrime/Coordinator/Event
+ * @see module:Boids/MachinePrime/Coordinator/Event
+ */
+
+import * as ItemManagement from './ItemManagement'
+import * as KDEx from '../../../../KDExtension'
+import { KinkyDungeonEventPostRemovalData } from '../../../../KDInterface/Event'
+import { ItemArchetype } from '../../Constant'
 
 export interface EventWithItemArchetype extends KinkyDungeonEvent {
     ItemArchetype: ItemArchetype
@@ -15,7 +21,7 @@ export const RegisterItemOnApply = KDEx.MakeEventBuilder<EventWithItemArchetype>
         handler: KDEx.HandleItemEventWhenItemIsEventSource(
             (e, item, _data) => {
                 const event = e as EventWithItemArchetype
-                Coordinater.Register({
+                ItemManagement.Register({
                     restraint: item,
                     type: event.ItemArchetype
                 })
@@ -37,7 +43,7 @@ export const UnRegisterItemOnRemoval = KDEx.MakeEventBuilder<EventWithItemArchet
         type: '5588B613-0A09-4383-983F-21FF7036755C',
         handler: (e, item, _data: KinkyDungeonEventPostRemovalData) => {
             const event = e as EventWithItemArchetype
-            Coordinater.UnRegister({
+            ItemManagement.UnRegister({
                 restraint: item,
                 type: event.ItemArchetype
             })

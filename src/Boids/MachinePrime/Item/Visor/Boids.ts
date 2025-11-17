@@ -25,7 +25,7 @@ export type Variant =
     Mask |
     OverMask
 
-const MorphLevelThreshold = [0, 1, 2, 4] as const
+const MorphLevelThreshold = [0, 0.25, 0.5, 0.75] as const
 
 const GetTemplateForVariant =
     (args: {

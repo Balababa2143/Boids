@@ -1,6 +1,6 @@
-import { AddEventHandler } from '../../../KDExtension'
+import { AddEventHandler } from '../../../../KDExtension'
 import { State } from './State'
-import { KeyPath, PropAtPath } from '../../../Utilities'
+import { KeyPath, PropAtPath } from '../../../../Utilities'
 
 const GameDataStateKey = '68C84945-3A9A-4024-8CC6-E3CE092E9154' as const
 
