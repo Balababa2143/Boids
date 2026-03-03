@@ -15,6 +15,9 @@ export const CalcBlind = KDEx.AddEventHandler({
             data['blindness'] = Math.max(data['blindness'], Coordinater.SensoryControl.GetLimiterStrength(ItemArchetype.Visor) * 6)
         }
     },
+    eventData: {
+        inheritLinked: true,
+     }
 })
 
 export const MorphableVisorCommonEvents = (visorVariant: Partial<Variant>) => [

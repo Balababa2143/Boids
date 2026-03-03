@@ -92,23 +92,43 @@ export const AddDroneSet = () => {
 
     AddWeakerParams.Lock = 'Cyber2'
     AddWeaker(Futuristic.Headphone.Earphone)
-    AddVariant(MachinePrime.Item.Visor.Dollmaker.Variant({
-        GlassType: Futuristic.GlassVisor.Constant.GlassType.DollmakerGoggle,
-        // Colorize: true,
-        Layering: Futuristic.GlassVisor.Constant.Layering.Goggle
-    }))
-
-    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.PanelHarness))
-    // AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.MetalMuzzle2))
-
-    // AddVariant(MachinePrime.Item.Visor.Boids.Variant({
-    //     GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsMask,
+    // AddWeaker(Futuristic.GlassVisor.GetVariant({
+    //     GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsGoggle,
     //     Colorize: false,
-    //     Layering: Futuristic.GlassVisor.Constant.Layering.Mask
+    //     Layering: Futuristic.GlassVisor.Constant.Layering.Goggle,
+    //     Socketed: true,
+    //     Level: 2,
+    //     HideBrows: false,
+    // }))
+    // AddVariant(MachinePrime.Item.Visor.Dollmaker.Variant({
+    //     GlassType: Futuristic.GlassVisor.Constant.GlassType.DollmakerGoggle,
+    //     // Colorize: true,
+    //     Layering: Futuristic.GlassVisor.Constant.Layering.Goggle
     // }))
 
+    AddWeaker(Futuristic.GlassVisor.FullMaskMount)
+
+    // AddWeaker(Futuristic.GlassVisor.GetVariant({
+    //     GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsMask,
+    //     Colorize: false,
+    //     Layering: Futuristic.GlassVisor.Constant.Layering.Hood,
+    //     Socketed: true,
+    //     Level: 1,
+    //     HideBrows: false,
+    // }))
+    AddVariant(MachinePrime.Item.Visor.Boids.Variant({
+        GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsMask,
+        Colorize: true,
+        Layering: Futuristic.GlassVisor.Constant.Layering.Hood
+    }))
+
+    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.SimpleHarness))
+    // AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.MetalMuzzle1))
+
+
+
     AddWeakerParams.Lock = 'Cyber3'
-    AddWeaker('NippleClamps2')
+    AddWeaker('NippleClamps3')
     // AddWeaker('NippleWeights')
     AddWeaker(Futuristic.Aroused.Toys.LockVibe)
 
@@ -120,14 +140,14 @@ export const AddDroneSet = () => {
     AddWeaker(Futuristic.Aroused.Chastity.SlimBra)
 
     AddWeakerParams.Lock = 'Cyber2'
-    AddWeaker(Futuristic.Cuff.HeavyCollar)
-    AddWeaker(Futuristic.Cuff.ElbowCuff)
+    AddWeaker(Futuristic.Cuff.LightCollar)
+    // AddWeaker(Futuristic.Cuff.ElbowCuff)
     AddWeaker(Futuristic.Cuff.WristCuff)
     // AddWeaker(Futuristic.Cuff.ArmCuff)
     // AddWeaker(Futuristic.Cuff.WaistCuff)
     AddWeaker(Futuristic.Strap.ControlHarness)
     AddWeaker(Futuristic.Cuff.ThighCuff)
-    AddWeaker(Futuristic.Cuff.AnkleCuff)
+    // AddWeaker(Futuristic.Cuff.AnkleCuff)
 
     AddWeakerParams.Lock = 'Cyber'
     AddWeaker(Futuristic.Link.Arm.GetRestraintVariant('BetweenWristCuff'))

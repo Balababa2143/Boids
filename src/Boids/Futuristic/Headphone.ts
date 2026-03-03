@@ -76,7 +76,11 @@ const model: Model = AddModelWithText({
 export const Earphone = AddRestraintWithTextThenGetName({
     name: '373643CB-501A-435E-9EDC-0C7F733D3507',
     Group: 'ItemHead',
-    shrine: ['Visors', ItemTags[Layering.Goggle].Socket],
+    shrine: [
+        'Visors',
+        ItemTags[Layering.Goggle].Socket,
+        ItemTags[Layering.Blindfold].Socket,
+    ],
     noShrine: true,
     inventory: true,
     special: true,

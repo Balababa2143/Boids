@@ -17,7 +17,7 @@ import { Layering } from '../../../Futuristic/GlassVisor/Constant'
 
 export type VariantOf<T extends ModelVariant> = Omit<T, 'Socketed' | 'Layering' | 'HideBrows' | 'Level'>
 
-export type Goggle = VariantOf<BoidsGoggle> & { Layering: Layering.Goggle }
+export type Goggle = VariantOf<BoidsGoggle> & { Layering: Layering.Goggle | Layering.Blindfold }
 export type Mask = VariantOf<BoidsMask> & { Layering: Layering.Mask }
 export type OverMask = VariantOf<BoidsMask> & { Layering: Layering.Hood }
 export type Variant =
@@ -55,6 +55,9 @@ export const MorphOnBlindLimiterStrengthUpdate =
         eventMap: KDEventMapInventory,
         trigger: Coordinator.SensoryControl.EventKeys.SensoryLimiterStrengthUpdate,
         type: '33790C6F-4629-4387-896E-A999E6641B40',
+        eventData: {
+            inheritLinked: true,
+        },
         handler: HandleBlindLimiterStrengthUpdate({
             DoMorph: (_e, item, data) => {
                 const partialVariant = ThrowIfNull<Variant>(item.data?.[VariantInfo])

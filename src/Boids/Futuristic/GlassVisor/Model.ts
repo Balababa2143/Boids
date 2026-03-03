@@ -3,8 +3,9 @@ import Variant, { AddValidVariants } from './Variant'
 import { GetVariant as GetLayerVariant } from './Layer'
 import { ThrowIfNull } from '../../../Utilities'
 import { Layering } from './Constant'
-import { AddModelWithTextThenGetName, VariantKeyOrImmutable, ModelVariantMapBuilder, VariantKeyToImmutable } from '../../../KDExtension'
+import { AddModelWithTextThenGetName, VariantKeyOrImmutable, ModelVariantMapBuilder, VariantKeyToImmutable, AddRestraintWithTextThenGetName } from '../../../KDExtension'
 import { FromJS, Map } from 'immutable'
+import { InheritColor } from '../Visor/Common'
 
 const ModelTemplate = {
     Categories: ['Accessories', 'Face'],
@@ -61,3 +62,19 @@ export const ValidVariantMap = (() => {
 
 export const GetGlassModelVariant =
     (variant: VariantKeyOrImmutable<Variant>) => ThrowIfNull(ValidVariantMap.get(VariantKeyToImmutable<Variant>(variant)))
+
+export const MaskMountModel = AddModelWithTextThenGetName({
+    ...ModelTemplate,
+    Name: 'A76D546D-D8D9-40AD-86A7-C7C69B396DD4',
+    Folder: "Visors",
+    Layers: ToLayerMap([
+		{ Name: "DollmakerFullRim",
+            Layer: "MaskOver",
+            Pri: 50.1,
+			InheritColor: InheritColor.BaseMetal,
+			Invariant: true,
+			NoOverride: true
+		},
+	])
+} satisfies Model)
+

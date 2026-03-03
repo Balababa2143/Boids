@@ -17,7 +17,7 @@ import { DollmakerGoggle, DollmakerMask, Variant as ModelVariant } from '../../.
 import { Layering } from '../../../Futuristic/GlassVisor/Constant'
 
 export type VariantOf<T extends ModelVariant> = Omit<T, 'Socketed' | 'Layering' | 'HideBrows'>
-export type Goggle = VariantOf<DollmakerGoggle> & { Layering: Layering.Goggle }
+export type Goggle = VariantOf<DollmakerGoggle> & { Layering: Layering.Goggle | Layering.Blindfold }
 export type Mask = VariantOf<DollmakerMask> & { Layering: Layering.Mask }
 export type OverMask = VariantOf<DollmakerMask> & { Layering: Layering.Hood }
 export type Variant =
@@ -32,6 +32,9 @@ export const CalcVisorFilter = KDEx.AddEventHandler({
     eventMap: KDEventMapInventory,
     trigger: 'apply',
     type: '211FBBC1-0E8D-4CFF-82E3-ADA9713142ED',
+    eventData: {
+        inheritLinked: true,
+    },
     handler: KDEx.HandleItemEventWhenItemIsEventSource(
         (_e, item, data) => {
             if (item.data?.[HardLightVisor]) {

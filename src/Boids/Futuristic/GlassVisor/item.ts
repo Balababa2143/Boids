@@ -2,7 +2,7 @@ import { v5 as uuidv5 } from 'uuid'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { GlassType, InheritColor, ItemTags, Layering } from './Constant'
 import Variant, { AddValidVariants } from './Variant'
-import { GetGlassModelVariant } from './Model'
+import { GetGlassModelVariant, MaskMountModel } from './Model'
 import { AddRestraintWithTextThenGetName, RestraintText, RestraintVariant, VariantKeyOrImmutable, VariantPart, RestraintVariantMapBuilder, VariantKeyToImmutable } from '../../../KDExtension'
 import { ThrowIfNull } from '../../../Utilities'
 import { FromJS, Map } from 'immutable'
@@ -176,3 +176,22 @@ export { ValidVariantNameMap, ValidVariantRestraintMap }
 
 export const GetVariant =
     (variant: VariantKeyOrImmutable<Variant>) => ThrowIfNull(ValidVariantNameMap.get(VariantKeyToImmutable<Variant>(variant)))
+
+export const FullMaskMount = AddRestraintWithTextThenGetName({
+    ...ItemTemplate,
+    name: 'B599D065-0BEA-4CA7-8E17-7F4BE959A0A8',
+    Model: MaskMountModel,
+    shrine: [
+        'Masks',
+        ItemTags[Layering.Hood].Socket,
+        ItemTags[Layering.Mask].Socket,
+
+    ],
+    LinkableBy: [
+        ...KDMaskLink,
+        ...KDVisorLink,
+    ]
+} satisfies restraint, {
+    DisplayName: 'Mask Mount',
+    FunctionText: 'A mount for attaching visors and masks. Can be used as a base for more powerful variants.'
+}) 
