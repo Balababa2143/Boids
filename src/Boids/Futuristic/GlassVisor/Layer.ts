@@ -3,6 +3,7 @@ import { AddValidVariants, default as Variant} from './Variant'
 import { GlassType, InheritColor, Layering } from './Constant'
 import { VariantMapBuilder, VariantKeyOrImmutable, VariantPart, VariantKeyToImmutable } from '../../../KDExtension'
 import { ThrowIfNull } from '../../../Utilities'
+import { FromJS } from 'immutable'
 
 export const GlassLayerName = '0307649C-E62D-4AAF-BFFF-BF5F87EE2106' as const
 
@@ -16,6 +17,8 @@ const GlassLayerTemplate = {
 const GlassLayerPartColorization: VariantPart<ModelLayer> = {
     InheritColor: InheritColor.Glass,
 }
+
+
 
 const GlassLayerPartLayering = {
     [Layering.Goggle]: {
@@ -56,7 +59,7 @@ const GetGlassLayerSpritename =
     }
 
 export const ValidVariantMap = (() => {
-    const builder = new VariantMapBuilder<Variant, ModelLayer>()
+    const builder = new VariantMapBuilder<FromJS<Variant>, ModelLayer>()
 
     const AddVariant = (variant) => {
         const variantKey = VariantKeyToImmutable(variant)

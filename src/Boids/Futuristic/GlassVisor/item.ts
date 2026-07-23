@@ -86,13 +86,13 @@ const GetDebugText = (variant: Variant) => ({
     ].join('\n')
 } satisfies RestraintText)
 
-class VisorVariantMapBuilder extends RestraintVariantMapBuilder<Variant>
+class VisorVariantMapBuilder extends RestraintVariantMapBuilder<FromJS<Variant>>
 {
-    protected override _PostProcess(variantKey: FromJS<Variant>, workingItem: FromJS<VariantPart<restraint>>): FromJS<RestraintVariant> {
-        return super._PostProcess(
-            variantKey,
+    protected override _DoFinalizeWorkingDraft(workingItem: FromJS<VariantPart<restraint>>, variantKey: FromJS<Variant>): FromJS<Partial<RestraintVariant>> {
+        return super._DoFinalizeWorkingDraft(
             workingItem
-                .set('Model', GetGlassModelVariant(variantKey))
+                .set('Model', GetGlassModelVariant(variantKey)),
+                variantKey
         )
     }
 }
@@ -102,7 +102,7 @@ const {
     variantMap: ValidVariantRestraintMap
 } = (() => {
     const variantMapBuilder = new VisorVariantMapBuilder({
-        baseName: BaseName
+        baseId: BaseName
     })
 
     const AddVariant = (variant) => {

@@ -23,6 +23,8 @@
             "./Types"
         ],
         "declaration": true,
+        "rootDir": ".",
+        "sourceRoot": "src",
         "declarationDir": "Declaration"
     },
     "include": [

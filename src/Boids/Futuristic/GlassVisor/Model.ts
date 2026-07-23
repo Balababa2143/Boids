@@ -2,10 +2,9 @@ import { Constant } from '../Common'
 import Variant, { AddValidVariants } from './Variant'
 import { GetVariant as GetLayerVariant } from './Layer'
 import { ThrowIfNull } from '../../../Utilities'
-import { Layering } from './Constant'
+import { InheritColor, Layering } from './Constant'
 import { AddModelWithTextThenGetName, VariantKeyOrImmutable, ModelVariantMapBuilder, VariantKeyToImmutable, AddRestraintWithTextThenGetName } from '../../../KDExtension'
 import { FromJS, Map } from 'immutable'
-import { InheritColor } from '../Visor/Common'
 
 const ModelTemplate = {
     Categories: ['Accessories', 'Face'],
@@ -19,7 +18,7 @@ const BoidsGlassVisorFolder = `${Constant.ModelSetRootDir}/Visor` as const
 const BaseName = 'E5050056-23AD-4935-BBC9-68B49F27FB9A' as const
 
 export const ValidVariantMap = (() => {
-    const builder = new ModelVariantMapBuilder<Variant>({ baseName: BaseName })
+    const builder = new ModelVariantMapBuilder<FromJS<Variant>>({ baseId: BaseName })
 
     const AddVariant = (variant: Variant) => {
         const immutableVariantKey = VariantKeyToImmutable<Variant>(variant)

@@ -88,7 +88,14 @@ export const AddDroneSet = () => {
     const lockBackup = AddWeakerParams.Lock
 
     AddWeakerParams.Lock = 'Cyber3'
-    // AddWeaker(Futuristic.Suit.LatexSuit.HeavyLockableSuit)
+    KDEquipInventoryVariant({
+        ...AddWeakerParams,
+        variant: {
+            template: Futuristic.Suit.LatexSuit.HeavyLockableSuit,
+            events: null!
+        },
+        faction: 'AncientRobot'
+    })
 
     AddWeakerParams.Lock = 'Cyber2'
     AddWeaker(Futuristic.Headphone.Earphone)
@@ -122,8 +129,8 @@ export const AddDroneSet = () => {
         Layering: Futuristic.GlassVisor.Constant.Layering.Hood
     }))
 
-    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.SimpleHarness))
-    // AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.MetalMuzzle1))
+    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.AdvanceHarness))
+    AddVariant(MachinePrime.Item.Gag.MakeGagVariantWithBallSocket(Futuristic.Gag.FaceCover.MetalMuzzle1))
 
 
 
@@ -141,13 +148,13 @@ export const AddDroneSet = () => {
 
     AddWeakerParams.Lock = 'Cyber2'
     AddWeaker(Futuristic.Cuff.LightCollar)
-    // AddWeaker(Futuristic.Cuff.ElbowCuff)
+    AddWeaker(Futuristic.Cuff.ElbowCuff)
     AddWeaker(Futuristic.Cuff.WristCuff)
     // AddWeaker(Futuristic.Cuff.ArmCuff)
     // AddWeaker(Futuristic.Cuff.WaistCuff)
     AddWeaker(Futuristic.Strap.ControlHarness)
     AddWeaker(Futuristic.Cuff.ThighCuff)
-    // AddWeaker(Futuristic.Cuff.AnkleCuff)
+    AddWeaker(Futuristic.Cuff.AnkleCuff)
 
     AddWeakerParams.Lock = 'Cyber'
     AddWeaker(Futuristic.Link.Arm.GetRestraintVariant('BetweenWristCuff'))

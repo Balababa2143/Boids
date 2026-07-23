@@ -1,11 +1,9 @@
-import { FromJS, fromJS, isKeyed, Map } from 'immutable'
+import { FromJS, fromJS, isKeyed, Map as IMMap } from 'immutable'
 import { AddRestraintWithTextThenGetName, RestraintText } from '../Restraint'
-import { JSReceiver, VariantKeyOrImmutable, IsComplete, GetVariantNameFromBase, VariantKeyToImmutable, VariantPart } from './Common'
-import { ModelReceiver } from './ModelVariantMapBuilder'
+import { JSReceiver, GetVariantIdFromBase, IMVariantPart } from './Common'
 import { ArraySemantics, RestraintArraySemantics } from './Semantics'
 import { VariantMap, VariantMapBuilder } from './VariantMapBuilder'
-import { ThrowIfNull } from '../../Utilities'
-import { AddModelWithTextThenGetName } from '../Model'
+import { NamedVariantMapBuilder } from './NamedVariantMapBuilder'
 
 export const RestraintReceiver: JSReceiver =
     (key, value, _path) => {
@@ -30,44 +28,26 @@ export interface RestraintVariant {
 
 export type RestraintVariantMap<VariantKey> = VariantMap<VariantKey, RestraintVariant>
 
-export class RestraintVariantMapBuilder<VariantKey> extends VariantMapBuilder<VariantKey, restraint, RestraintVariant> {
-    #GetVariantName: (variantKey: VariantKeyOrImmutable<VariantKey>) => string
-    protected get _GetVariantName() { return this.#GetVariantName }
-
-    #textInfoMap: Map<FromJS<VariantKey>, RestraintText>
-    protected get _TextInfoMap() { return this.#textInfoMap }
+export class RestraintVariantMapBuilder<VariantKey> 
+    extends NamedVariantMapBuilder<VariantKey, RestraintText, restraint, RestraintVariant> {
 
     constructor(args: {
-        baseName: string,
+        baseId: string,
+        baseName?: string,
         receiver?: JSReceiver,
-        isItemComplete?: IsComplete<RestraintVariant>,
     }) {
-        const args2 = {
-            receiver: args.receiver ?? ModelReceiver,
-            isItemComplete: args.isItemComplete ?? (maybeComplete => RestraintVariantMapBuilder.IsItemComplete(maybeComplete?.Restraint)) as IsComplete<RestraintVariant>
-        }
-        super(args2)
-        this.#GetVariantName = GetVariantNameFromBase(args.baseName)
-        this.#textInfoMap = Map()
+        args.receiver = args.receiver ?? RestraintReceiver
+        super(args)
     }
 
-    public AddText(variantKey: VariantKeyOrImmutable<VariantKey>, text: RestraintText) {
-        this.#textInfoMap = this.#textInfoMap.set(VariantKeyToImmutable(variantKey), text)
-    }
-
-    protected override _PostProcess(variantKey: FromJS<VariantKey>, workingItem: FromJS<VariantPart<restraint>>): FromJS<RestraintVariant> {
-        const completeItem =
+    protected override _DoFinalizeWorkingDraft(workingItem: IMVariantPart<restraint>, variantKey: VariantKey) : FromJS<Partial<RestraintVariant>> {
+        const completeItem: IMVariantPart<restraint> =
             workingItem
-                .set('name', this.#GetVariantName(variantKey))
+                .set('name', this._GetVariantId(variantKey))
         return fromJS({
             Restraint: completeItem,
-            ... this._TextInfoMap.has(variantKey) && { TextInfo: this._TextInfoMap.get(variantKey) }
-        }) as FromJS<RestraintVariant>
-    }
-
-    protected static IsItemComplete(x: Partial<restraint> | undefined): x is restraint {
-        //TODO: Implement type check
-        return true
+            ... this._GetTextInfo(variantKey)
+        })
     }
 }
 
@@ -79,9 +59,5 @@ export function AddRestraintVariantMapToGame<VariantKey>(variantMap: RestraintVa
                 TextInfo
             )
         )
-    return {
-        ValidVariantMap: validVariantMap,
-        GetVariant:
-            (variant: VariantKeyOrImmutable<VariantKey>) => ThrowIfNull(validVariantMap.get(VariantKeyToImmutable<VariantKey>(variant)))
-    }
+    return validVariantMap
 }

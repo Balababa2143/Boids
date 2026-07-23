@@ -1,93 +1,115 @@
-import { FromJS, fromJS, isCollection, Map, mergeDeep, Seq, List as IMList } from 'immutable'
-import { DefaultReceiver, IsComplete, JSReceiver, VariantKeyOrImmutable, VariantKeyToImmutable, VariantPart } from './Common'
+import { FromJS, fromJS, isCollection, mergeDeep, Seq, List as IMList, Map as IMMap } from 'immutable'
+import { DefaultReceiver, IMVariantPart, IsComplete, JSReceiver, VariantPart, VariantPartToIM } from './Common'
+import { ThrowIfNull } from '../../Utilities'
 
-export type VariantMap<VariantKey, ArcheType> = Map<FromJS<VariantKey>, ArcheType>
+export type VariantMap<VariantKey, ArcheType> = IMMap<VariantKey, ArcheType>
+
+export class VariantBuilder<WorkingType extends Object> {
+    #VariantPartToIM: VariantPartToIM<WorkingType>
+    #workingDraft: IMList<IMVariantPart<WorkingType>>
+
+    get WorkingDraft() {return this.#workingDraft}
+
+    constructor(variantPartToIM: VariantPartToIM<WorkingType>) {
+        this.#VariantPartToIM = variantPartToIM
+        this.#workingDraft = IMList()
+    }
+
+    Update(update: (prev: IMList<IMVariantPart<WorkingType>>) => IMList<IMVariantPart<WorkingType>>): this{
+        this.#workingDraft = update(this.#workingDraft)
+        return this
+    }
+
+    AddPart(part: VariantPart<WorkingType>): this {
+        return this.Update(prev => prev.push(this.#VariantPartToIM(part)))
+    }
+
+    AddParts(parts: Iterable<VariantPart<WorkingType>>): this {
+        return this.Update(prev =>
+            Seq(parts)
+                .map(this.#VariantPartToIM)
+                .reduce((acc, newPart) => acc.push(newPart), prev)
+        )
+    }
+
+    Build(template: IMVariantPart<WorkingType>): IMVariantPart<WorkingType> {
+        return this.#workingDraft
+            .reduce((acc, part) => mergeDeep(acc, part as any), template)
+    }
+}
 
 export class VariantMapBuilder<VariantKey, WorkingType extends object, ArcheType extends Object = WorkingType> {
-    #variantMap: Map<FromJS<VariantKey>, IMList<FromJS<VariantPart<WorkingType>>>>
+    #variantMap: IMMap<VariantKey, VariantBuilder<WorkingType>>
     protected get _VariantMap() { return this.#variantMap }
-
-    #variantPartFromJS: (js: VariantPart<WorkingType>) => FromJS<VariantPart<WorkingType>>
-    protected get _VariantPartFromJS() { return this.#variantPartFromJS }
-
-    #isItemComplete: IsComplete<ArcheType>
-    protected get _IsItemComplete() { return this.#isItemComplete }
-
-    constructor(args: {
-        receiver?: JSReceiver
-        isItemComplete?: IsComplete<ArcheType>,
-    } = {}) {
-        const {
-            receiver = DefaultReceiver,
-            isItemComplete = (_ => true) as IsComplete<ArcheType>
-        } = args
-        this.#variantMap = Map()
-        this.#variantPartFromJS = (js) => fromJS(js, receiver) as FromJS<VariantPart<WorkingType>>
-        this.#isItemComplete = isItemComplete
+    protected set _VariantMap(newVal: IMMap<VariantKey, VariantBuilder<WorkingType>>) {
+        if(this.#variantMap !== newVal)
+        {
+            this.#variantMap = newVal
+        }
     }
 
-    protected _PostProcess(variant: FromJS<VariantKey>, workingItem: FromJS<VariantPart<WorkingType>>): FromJS<ArcheType> {
-        return workingItem as FromJS<ArcheType>
+    #variantPartToIM: (js: VariantPart<WorkingType>) => IMVariantPart<WorkingType>
+    protected get _VariantPartToIM() { return this.#variantPartToIM }
+
+
+    protected _IsVariantComplete(variant) : variant is ArcheType {
+        return true
     }
 
-    #UpdateVariant(variant: VariantKeyOrImmutable<VariantKey>, updater: (prev: IMList<FromJS<VariantPart<WorkingType>>>) => IMList<FromJS<VariantPart<WorkingType>>>) {
-        const immutableVariantKey = VariantKeyToImmutable<VariantKey>(variant)
-        const previousParts = this.#variantMap.get(immutableVariantKey) ?? IMList()
-        const updatedParts = updater(previousParts)
+    #ThrowIfVariantIncomplete(obj: Partial<ArcheType>, options?: ErrorOptions | undefined): ArcheType{
+        if (this._IsVariantComplete(obj)) {
+            return obj
+        }
+        else {
+            throw new Error('Variant is incomplete', options)
+        }
+    }
 
-        this.#variantMap = this.#variantMap.set(
-            immutableVariantKey,
-            updatedParts
+    constructor(receiver?: JSReceiver) {
+        this.#variantMap = IMMap()
+        this.#variantPartToIM = (js) => fromJS(js, receiver) as IMVariantPart<WorkingType>
+    }
+
+    protected /* virtual */ _DoFinalizeWorkingDraft(workingDraft: IMVariantPart<WorkingType>, variantKey: VariantKey): FromJS<Partial<ArcheType>> {
+        return workingDraft as FromJS<Partial<ArcheType>>
+    }
+
+    #FinalizeWorkingItem(workingDraft: IMVariantPart<WorkingType>, variantKey: VariantKey): ArcheType {
+        const finalDraft = this._DoFinalizeWorkingDraft(workingDraft, variantKey)
+        return this.#ThrowIfVariantIncomplete(
+            isCollection(finalDraft) ? finalDraft.toJS() as Partial<ArcheType> : finalDraft as Partial<ArcheType>
         )
     }
 
-    AddVariantPart(variantKey: VariantKeyOrImmutable<VariantKey>, part: VariantPart<WorkingType>) {
-        this.#UpdateVariant(variantKey, previousParts => previousParts.push(this._VariantPartFromJS(part)))
+
+    WithVariant(variantKey: VariantKey, doWork: (variantBuilder: VariantBuilder<WorkingType>) => VariantBuilder<WorkingType>): this {
+        const builder =
+            this._VariantMap.has(variantKey) ?
+            ThrowIfNull(this._VariantMap.get(variantKey), 'VariantBuilder should have been initialized') :
+            (() => {
+                const newBuilder = new VariantBuilder<WorkingType>(this._VariantPartToIM)
+                this._VariantMap = this._VariantMap.set(variantKey, newBuilder)
+                return newBuilder
+            })()
+        doWork(builder)
         return this
     }
 
-    AddVariantParts(variantKey: VariantKeyOrImmutable<VariantKey>, parts: Iterable<VariantPart<WorkingType>>) {
-        this.#UpdateVariant(variantKey, previousParts =>
-            Seq(parts)
-                .reduce((prev, part) => prev.push(this._VariantPartFromJS(part)), previousParts)
-        )
-        return this
+    AddVariantPart(variantKey: VariantKey, part: VariantPart<WorkingType>) {
+        return this.WithVariant(variantKey, (variantBuilder) => variantBuilder.AddPart(part))
+    }
+
+    AddVariantParts(variantKey: VariantKey, parts: Iterable<VariantPart<WorkingType>>) {
+        return this.WithVariant(variantKey, (variantBuilder) => variantBuilder.AddParts(parts))
     }
 
     BuildVariantMap(template: VariantPart<WorkingType>): VariantMap<VariantKey, ArcheType> {
-        const CheckType = (x) => {
-            if (this._IsItemComplete(x)) {
-                return x
-            }
-            else {
-                throw new Error('Variant is incomplete', {
-                    cause: {
-                        template,
-                        variant: x
-                    }
-                })
-            }
-        }
-        const templateValue = this._VariantPartFromJS(template)
+        const IMTemplate = this._VariantPartToIM(template)
         const completeVariantMap =
             this.#variantMap
-                .map((parts, key) => {
-                    const merged =
-                        parts
-                            .reduce((prev, part) => mergeDeep(prev, part as any), templateValue)
-                    const finalObj = this._PostProcess(key, merged)
-                    return CheckType(
-                        isCollection(finalObj) ? finalObj.toJS() : finalObj
-                    )
-                })
+                .map((variantBuilder, _) => variantBuilder.Build(IMTemplate))
+                .map((v, k) => this.#FinalizeWorkingItem(v, k))
         return completeVariantMap
     }
 
-    Clone(): this {
-        const other = Object.create(Object.getPrototypeOf(this)) as typeof this
-        other.#variantMap = this.#variantMap
-        other.#variantPartFromJS = this.#variantPartFromJS
-        other.#isItemComplete = this.#isItemComplete
-        return other
-    }
 }

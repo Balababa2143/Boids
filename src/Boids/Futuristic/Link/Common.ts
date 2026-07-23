@@ -3,6 +3,7 @@ import { RestraintText, ModelText } from '../../../KDExtension'
 import { AddModelVariantMapToGame, AddRestraintVariantMapToGame, ModelVariantMapBuilder, ModelWithLayerSet, RestraintVariantMapBuilder, VariantPart } from '../../../KDExtension/Variant'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { ModelSetRootDir } from '../Common/Constant'
+import { ThrowIfNull } from '../../../Utilities'
 
 /* Layer Sprite Naming:
  *     `${BodyPart}/${LeftRight?}${LinkGlow}${Pose}`
@@ -117,8 +118,8 @@ export const BuildLinkSet =
             DescriptorMap,
         } = args
         type VariantKey = keyof typeof DescriptorMap
-        const modelVariantMapBuilder = new ModelVariantMapBuilder<VariantKey>({ baseName: ModelBaseName })
-        const restraintVariantMapBuilder = new RestraintVariantMapBuilder<VariantKey>({ baseName: RestraintBaseName })
+        const modelVariantMapBuilder = new ModelVariantMapBuilder<VariantKey>({ baseId: ModelBaseName })
+        const restraintVariantMapBuilder = new RestraintVariantMapBuilder<VariantKey>({ baseId: RestraintBaseName })
 
         for (const variantKey in DescriptorMap) {
             modelVariantMapBuilder.AddVariantParts(variantKey, DescriptorMap[variantKey].Model.Parts)
@@ -127,15 +128,13 @@ export const BuildLinkSet =
                 modelVariantMapBuilder.AddText(variantKey, modelText)
             }
         }
-        const {
-            ValidVariantMap: ValidModelVariantMap,
-            GetVariant: GetModelVariant
-        } = AddModelVariantMapToGame(modelVariantMapBuilder.BuildVariantMap(ModelTemplate))
+        const ValidModelVariantMap = AddModelVariantMapToGame(modelVariantMapBuilder.BuildVariantMap(ModelTemplate))
+        const GetModelVariant = (variant: keyof DescriptorMap) => ThrowIfNull(ValidModelVariantMap.get(variant))
 
         for (const variantKey in DescriptorMap) {
             restraintVariantMapBuilder.AddVariantParts(variantKey, DescriptorMap[variantKey].Restraint.Parts)
             restraintVariantMapBuilder.AddVariantPart(variantKey, {
-                Model: ValidModelVariantMap.get(variantKey as FromJS<VariantKey>)
+                Model: ValidModelVariantMap.get(variantKey)
             })
             const restraintText = DescriptorMap[variantKey].Restraint.Text
             if (null != restraintText) {
@@ -143,10 +142,8 @@ export const BuildLinkSet =
             }
         }
 
-        const {
-            ValidVariantMap: ValidRestraintVariantMap,
-            GetVariant: GetRestraintVariant
-        } = AddRestraintVariantMapToGame(restraintVariantMapBuilder.BuildVariantMap(RestraintTemplate))
+        const ValidRestraintVariantMap = AddRestraintVariantMapToGame(restraintVariantMapBuilder.BuildVariantMap(RestraintTemplate))
+        const GetRestraintVariant = (variant: keyof DescriptorMap) => ThrowIfNull(ValidRestraintVariantMap.get(variant), 'Invalid variant')
         return {
             ValidModelVariantMap,
             GetModelVariant,
