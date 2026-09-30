@@ -39,7 +39,7 @@ export const CalcVisorFilter = KDEx.AddEventHandler({
         (_e, item, data) => {
             if (item.data?.[HardLightVisor]) {
                 console.log('Boids: CalcVisorFilter exec', _e, item, data)
-                const targetBlindLevel = Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Visor)
+                const targetBlindLevel = Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Blinder)
                 const opaqueFactor = Math.log(targetBlindLevel + LN_SHIFT) - LN_CORRECTION
                 const dimFactor = Scale(0, 0.8, opaqueFactor)
                 const filter: LayerFilter = data['Filters'][GlassLayerName] ?? {}
@@ -96,7 +96,7 @@ export const Variant = Function.Cached(
         const template = Futuristic.GlassVisor.GetVariant({
             ...partialVariant,
             Socketed: true,
-            HideBrows: ShouldHideBrows(Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Visor))
+            HideBrows: ShouldHideBrows(Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Blinder))
         })
         return MakeMachinePrimeVariant({
             template,

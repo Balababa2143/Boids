@@ -10,4 +10,4 @@ import { ItemArchetype } from '../../Constant'
 export const SetBlindStrength = (value?: number) =>
     Coordinater
         .SensoryControl
-        .SetLimiterStrength(ItemArchetype.Visor, value ?? Math.random())
+        .SetLimiterStrength(ItemArchetype.Blinder, value ?? Math.random())

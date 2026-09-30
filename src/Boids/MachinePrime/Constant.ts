@@ -12,7 +12,7 @@ export const enum ItemArchetype {
     /**
      * Devices controlling vision.
      */
-    Visor = '7F7A268D-D8AE-4142-8B88-069D3BB65361',
+    Blinder = '7F7A268D-D8AE-4142-8B88-069D3BB65361',
 
     /**
      * Devices controlling hearing
@@ -20,7 +20,7 @@ export const enum ItemArchetype {
      *  Until the game splits head items,
      *  this shares slots with visors
      */
-    HeadPhone = '31E7AC3B-6FF2-4F1F-A52F-ECE6101AC70C',
+    Deafener = '31E7AC3B-6FF2-4F1F-A52F-ECE6101AC70C',
 
     /**
      * Devices providing gag strength

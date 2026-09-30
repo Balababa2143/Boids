@@ -12,7 +12,7 @@ export const CalcBlind = KDEx.AddEventHandler({
     type: '7BCC6086-764D-42A6-B92C-93E230E7086F',
     handler: (_e, item, data) => {
         if (item.data?.[MorphableVisor]) {
-            data['blindness'] = Math.max(data['blindness'], Coordinater.SensoryControl.GetLimiterStrength(ItemArchetype.Visor) * 6)
+            data['blindness'] = Math.max(data['blindness'], Coordinater.SensoryControl.GetLimiterStrength(ItemArchetype.Blinder) * 6)
         }
     },
     eventData: {
@@ -22,9 +22,9 @@ export const CalcBlind = KDEx.AddEventHandler({
 
 export const MorphableVisorCommonEvents = (visorVariant: Partial<Variant>) => [
     CalcBlind,
-    EventCommInv.AddTags([ItemArchetype.Visor]),
-    Coordinater.RegisterItemOnApply(ItemArchetype.Visor),
-    Coordinater.UnRegisterItemOnRemoval(ItemArchetype.Visor),
+    EventCommInv.AddTags([ItemArchetype.Blinder]),
+    Coordinater.RegisterItemOnApply(ItemArchetype.Blinder),
+    Coordinater.UnRegisterItemOnRemoval(ItemArchetype.Blinder),
     EventCommInv.SetItemDataOnApply({
         [MorphableVisor]: 1,
         [VariantInfo]: visorVariant
@@ -63,7 +63,7 @@ export const HandleBlindLimiterStrengthUpdate =
         ShowEffect: typeof DefaultShowEffectsOnItemMorph
     }) =>
     ((e, item, data: Coordinater.SensoryControl.LimiterStrengthUpdateEventArgs) => {
-        if (data.Type === ItemArchetype.Visor) {
+        if (data.Type === ItemArchetype.Blinder) {
             if(ShouldHideBrows(data.OldStrength) !== ShouldHideBrows(data.NewStrength)){ // XOR
                 args.DoMorph(e, item, data)
             }

@@ -82,7 +82,7 @@ export const Variant = Function.Cached(
     (partialVariant: Variant) => {
         const template = GetTemplateForVariant({
             partialVariant,
-            strength: Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Visor)
+            strength: Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Blinder)
         })
         return MakeMachinePrimeVariant({
             template,

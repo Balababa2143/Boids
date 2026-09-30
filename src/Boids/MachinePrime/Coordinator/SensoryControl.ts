@@ -3,12 +3,12 @@ import { ItemArchetype } from '../Constant'
 import { GetState, SetStateIn } from './Internal/StateStorage'
 import { AddEventHandler } from '../../../KDExtension'
 
-type SensoryController = ItemArchetype.HeadPhone | ItemArchetype.Visor | ItemArchetype.Gag
+type SensoryController = ItemArchetype.Deafener | ItemArchetype.Blinder | ItemArchetype.Gag
 
 const ThrowIfNotIsSensoryController = (type: ItemArchetype): SensoryController => {
     switch (type) {
-        case ItemArchetype.HeadPhone:
-        case ItemArchetype.Visor:
+        case ItemArchetype.Deafener:
+        case ItemArchetype.Blinder:
         case ItemArchetype.Gag:
             return type
         default:
@@ -90,7 +90,7 @@ AddEventHandler({
             SetLimiterStrength(ItemArchetype.Gag, Math.random())
         }
         else if(Math.random() < 0.2){
-            SetLimiterStrength(ItemArchetype.Visor, Math.random())
+            SetLimiterStrength(ItemArchetype.Blinder, Math.random())
         }
     },
 })

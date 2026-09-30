@@ -85,8 +85,8 @@ export const Visor = Object.assign(
 )
 
 interface _ItemRegistry {
-    readonly [ItemArchetype.Visor]: _Visor
-    readonly [ItemArchetype.HeadPhone]: _SensoryLimiter
+    readonly [ItemArchetype.Blinder]: _Visor
+    readonly [ItemArchetype.Deafener]: _SensoryLimiter
     readonly [ItemArchetype.Gag]: _Gag
 }
 
@@ -94,15 +94,15 @@ export type ItemRegistry = RecordOf<_ItemRegistry>
 
 export const ItemRegistry = Object.assign(
     Record<_ItemRegistry>({
-        [ItemArchetype.Visor]: Visor(),
-        [ItemArchetype.HeadPhone]: SensoryLimiter(),
+        [ItemArchetype.Blinder]: Visor(),
+        [ItemArchetype.Deafener]: SensoryLimiter(),
         [ItemArchetype.Gag]: Gag(),
     }),
     {
         fromJS: (js: DeepCopy<_ItemRegistry>) =>
             ItemRegistry({
-                [ItemArchetype.Visor]: Visor.fromJS(js[ItemArchetype.Visor] as any),
-                [ItemArchetype.HeadPhone]: SensoryLimiter.fromJS(js[ItemArchetype.HeadPhone] as any),
+                [ItemArchetype.Blinder]: Visor.fromJS(js[ItemArchetype.Blinder] as any),
+                [ItemArchetype.Deafener]: SensoryLimiter.fromJS(js[ItemArchetype.Deafener] as any),
                 [ItemArchetype.Gag]: Gag.fromJS(js[ItemArchetype.Gag] as any),
             })
     }

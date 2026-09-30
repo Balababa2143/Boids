@@ -8,6 +8,7 @@ const AddWeakerParams: Partial<IKDEquipInventoryVariantParameters> = {
     Bypass: true,
     Deep: true,
     Lock: 'Cyber3',
+    faction: 'Dollmaker'
 }
 
 const AddVariant = (variant: KDRestraintVariant) =>
@@ -88,44 +89,48 @@ export const AddDroneSet = () => {
     const lockBackup = AddWeakerParams.Lock
 
     AddWeakerParams.Lock = 'Cyber3'
-    KDEquipInventoryVariant({
-        ...AddWeakerParams,
-        variant: {
-            template: Futuristic.Suit.LatexSuit.HeavyLockableSuit,
-            events: null!
-        },
-        faction: 'AncientRobot'
-    })
+    // KDEquipInventoryVariant({
+    //     ...AddWeakerParams,
+    //     variant: {
+    //         template: Futuristic.Suit.LatexSuit.HeavyLockableSuit,
+    //         events: null!
+    //     },
+    //     faction: 'AncientRobot'
+    // })
 
     AddWeakerParams.Lock = 'Cyber2'
     AddWeaker(Futuristic.Headphone.Earphone)
     // AddWeaker(Futuristic.GlassVisor.GetVariant({
     //     GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsGoggle,
-    //     Colorize: false,
+    //     Colorize: true,
     //     Layering: Futuristic.GlassVisor.Constant.Layering.Goggle,
     //     Socketed: true,
-    //     Level: 2,
-    //     HideBrows: false,
+    //     Level: 4,
+    //     HideBrows: true,
     // }))
-    // AddVariant(MachinePrime.Item.Visor.Dollmaker.Variant({
-    //     GlassType: Futuristic.GlassVisor.Constant.GlassType.DollmakerGoggle,
-    //     // Colorize: true,
-    //     Layering: Futuristic.GlassVisor.Constant.Layering.Goggle
-    // }))
+    AddVariant(MachinePrime.Item.Visor.Dollmaker.Variant({
+        GlassType: Futuristic.GlassVisor.Constant.GlassType.DollmakerGoggle,
+        // Colorize: true,
+        Layering: Futuristic.GlassVisor.Constant.Layering.Goggle
+    }))
 
     AddWeaker(Futuristic.GlassVisor.FullMaskMount)
-
-    // AddWeaker(Futuristic.GlassVisor.GetVariant({
+    AddWeaker(Futuristic.GlassVisor.GetVariant({
+        GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsMask,
+        Colorize: false,
+        Layering: Futuristic.GlassVisor.Constant.Layering.Hood,
+        Socketed: true,
+        Level: 2,
+        HideBrows: false,
+    }))
+    // AddVariant(MachinePrime.Item.Visor.Boids.Variant({
     //     GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsMask,
-    //     Colorize: false,
-    //     Layering: Futuristic.GlassVisor.Constant.Layering.Hood,
-    //     Socketed: true,
-    //     Level: 1,
-    //     HideBrows: false,
+    //     Colorize: true,
+    //     Layering: Futuristic.GlassVisor.Constant.Layering.Hood
     // }))
     AddVariant(MachinePrime.Item.Visor.Boids.Variant({
         GlassType: Futuristic.GlassVisor.Constant.GlassType.BoidsMask,
-        Colorize: true,
+        Colorize: false,
         Layering: Futuristic.GlassVisor.Constant.Layering.Hood
     }))
 
@@ -142,19 +147,21 @@ export const AddDroneSet = () => {
     AddWeaker(Futuristic.Aroused.Toys.DenialPlugF)
     AddWeaker(Futuristic.Aroused.Toys.DenialPlugR)
 
-    AddWeaker(Futuristic.Aroused.Chastity.SlimBelt)
+    AddWeaker(Futuristic.Aroused.Chastity.BulkyBelt)
 
-    AddWeaker(Futuristic.Aroused.Chastity.SlimBra)
+    AddWeaker(Futuristic.Aroused.Chastity.BulkyBra)
 
     AddWeakerParams.Lock = 'Cyber2'
     AddWeaker(Futuristic.Cuff.LightCollar)
     AddWeaker(Futuristic.Cuff.ElbowCuff)
     AddWeaker(Futuristic.Cuff.WristCuff)
     // AddWeaker(Futuristic.Cuff.ArmCuff)
-    // AddWeaker(Futuristic.Cuff.WaistCuff)
-    AddWeaker(Futuristic.Strap.ControlHarness)
+    AddWeaker(Futuristic.Cuff.WaistCuff)
+    // AddWeaker(Futuristic.Strap.ControlHarness)
     AddWeaker(Futuristic.Cuff.ThighCuff)
     AddWeaker(Futuristic.Cuff.AnkleCuff)
+    // AddWeaker(Futuristic.Limb.Boot.Heel)
+    // AddWeaker(Futuristic.Limb.Mitten.WireCuff)
 
     AddWeakerParams.Lock = 'Cyber'
     AddWeaker(Futuristic.Link.Arm.GetRestraintVariant('BetweenWristCuff'))
@@ -163,6 +170,14 @@ export const AddDroneSet = () => {
     AddWeaker(Futuristic.Link.Leg.GetRestraintVariant('BetweenAnkleCuff'))
 
     AddWeakerParams.Lock = lockBackup
+
+    const outfitName = 'DollSuit'
+
+    const outfit = {name: outfitName, id: KinkyDungeonGetItemID(), type: Outfit}
+    if (!KinkyDungeonInventoryGet(outfitName)){
+        KinkyDungeonInventoryAdd(outfit)
+    } 
+    KinkyDungeonSetDress(outfitName, outfitName)
 }
 
 AddStart({
