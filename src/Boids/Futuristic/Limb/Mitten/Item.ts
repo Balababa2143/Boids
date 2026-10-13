@@ -20,7 +20,7 @@ const ItemBase = {
     noShrine: true,
 
     Model: '',
-    ...SFX.MechanichalLockSfx,
+    ...SFX.MechanicalLockSfx,
 
     LinkableBy: [
         ...KDDevices,

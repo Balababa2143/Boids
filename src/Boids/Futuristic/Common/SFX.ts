@@ -1,4 +1,4 @@
-export const MechanichalLockSfx = {
+export const MechanicalLockSfx = {
     sfx: 'Mechlock',
     sfxRemove: 'MechUnlock'
 } satisfies Partial<restraint>

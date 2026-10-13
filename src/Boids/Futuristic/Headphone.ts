@@ -75,12 +75,16 @@ const model: Model = AddModelWithText({
 
 export const Earphone = AddRestraintWithTextThenGetName({
     name: '373643CB-501A-435E-9EDC-0C7F733D3507',
-    Group: 'ItemHead',
+    Group: 'ItemEars',
     shrine: [
-        'Visors',
+        'Earplugs',
         ItemTags[Layering.Goggle].Socket,
         ItemTags[Layering.Blindfold].Socket,
     ],
+
+    // TODO: dynamic control
+    deaf: 2,
+
     noShrine: true,
     inventory: true,
     special: true,
@@ -92,7 +96,9 @@ export const Earphone = AddRestraintWithTextThenGetName({
             override: true
         }
     },
-    ...SFX.MechanichalLockSfx,
+    ...SFX.MechanicalLockSfx,
+
+    failSuffix: {"Struggle": "Earplugs", Remove: "Earplugs"},
 
     LinkableBy: [
         ...KDVisorLink,

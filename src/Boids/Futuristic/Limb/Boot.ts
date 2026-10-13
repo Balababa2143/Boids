@@ -22,7 +22,7 @@ export const Heel = AddRestraintWithTextThenGetName(
         ],
 
         Model: 'CyberBalletHeels',
-        ...SFX.MechanichalLockSfx,
+        ...SFX.MechanicalLockSfx,
         preview: 'BalletHeels',
 
         remove: ['Shoes'],

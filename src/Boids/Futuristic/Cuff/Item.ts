@@ -22,7 +22,7 @@ const ItemBase = {
         ...KDBindable
     ],
     
-    ...SFX.MechanichalLockSfx,
+    ...SFX.MechanicalLockSfx,
     Model: '',
     factionFilters: {
         [InheritColor.BaseMetal]: {

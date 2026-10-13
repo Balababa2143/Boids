@@ -16,7 +16,7 @@ const MakeStrap = (args: { name: string, variant: Variant }) => {
     })
     return <restraint>{
         ...baseItem,
-        ...SFX.MechanichalLockSfx,
+        ...SFX.MechanicalLockSfx,
         renderWhenLinked: [
             ...baseItem.renderWhenLinked ?? [],
             Category.FlatGags,
@@ -147,7 +147,7 @@ const MakeMuzzle = (args: { name: string, variant: Variant }) => {
     })
     return <restraint>{
         ...baseItem,
-        ...SFX.MechanichalLockSfx,
+        ...SFX.MechanicalLockSfx,
         shrine: [
             ...baseItem.shrine,
             BallSocket,
