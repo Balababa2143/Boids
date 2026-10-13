@@ -1,12 +1,11 @@
-import { promisify } from 'util'
 import * as fs from 'fs'
 import * as path from 'path'
-import * as archiver from 'archiver'
+import { ZipArchive, Archiver } from 'archiver'
 import webpack from 'webpack'
 
 const EntryFile = 'src/Boids/index.ts'
+const LoaderFile = 'src/kd-structured-loader.ts'
 const BundleDir = 'Bundle'
-const DeclarationFolder = 'Declaration'
 const ArchiveFile = 'Deploy/Boids.zip'
 const AssetFolders = [
     'Asset',
@@ -22,7 +21,11 @@ async function CopyAssets() {
     )
 }
 
-function SetArchiverEventHandlers(writeStream: fs.WriteStream, archiver: archiver.Archiver) {
+async function CopyInterface() {
+    await fs.promises.cp('kd-structured/Deploy/kd-structured.zip', 'Deploy/kd-structured.zip')
+}
+
+function SetArchiverEventHandlers(writeStream: fs.WriteStream, archiver: Archiver) {
     writeStream.on('close', function () {
         console.log(archiver.pointer() + ' total bytes');
         console.log('archiver has been finalized and the output file descriptor has closed.');
@@ -50,7 +53,7 @@ function SetArchiverEventHandlers(writeStream: fs.WriteStream, archiver: archive
 async function BuildArchive() {
     const archiveFilePath = path.resolve(ArchiveFile)
     const stream = fs.createWriteStream(archiveFilePath)
-    const zipArchiver = archiver('zip', {
+    const zipArchiver = new ZipArchive({
         zlib: {
             level: 9
         }
@@ -68,25 +71,14 @@ function PreBuild(): webpack.WebpackPluginInstance {
     return {
         apply: (compiler) => {
             compiler.hooks.beforeCompile.tapPromise('DoneArchiveBuilding', async (_) => {
-                const cleanArchive = (async () => {
-                    const archiveFilePath = path.resolve(ArchiveFile)
-                    const archiveDir = path.dirname(archiveFilePath)
-                    if (!fs.existsSync(archiveDir)) {
-                        await fs.promises.mkdir(archiveDir)
-                    }
-                    if (fs.existsSync(archiveFilePath)) {
-                        await fs.promises.rm(archiveFilePath)
-                    }
-                })()
-                const cleanDeclaration = (async () => {
-                    if (fs.existsSync(DeclarationFolder)) {
-                        await fs.promises.rm(DeclarationFolder, {
-                            recursive: true
-                        })
-                    }
-                })()
-                await cleanArchive
-                await cleanDeclaration
+                const archiveFilePath = path.resolve(ArchiveFile)
+                const archiveDir = path.dirname(archiveFilePath)
+                if (!fs.existsSync(archiveDir)) {
+                    await fs.promises.mkdir(archiveDir)
+                }
+                if (fs.existsSync(archiveFilePath)) {
+                    await fs.promises.rm(archiveFilePath)
+                }
             })
         }
     }
@@ -99,6 +91,7 @@ function PostBuild(): webpack.WebpackPluginInstance {
                 if (!stats.hasErrors()) {
                     await CopyAssets()
                     await BuildArchive()
+                    await CopyInterface()
                 }
             })
         }
@@ -108,26 +101,30 @@ function PostBuild(): webpack.WebpackPluginInstance {
 function Configurate(env: Record<string, unknown>, argv: Record<string, string>): webpack.Configuration {
 
     return {
-        entry: path.resolve(EntryFile),
+        entry: [
+            path.resolve(LoaderFile),
+            path.resolve(EntryFile)
+        ],
         output: {
             path: path.resolve(BundleDir),
-            filename: '[name].bundle.js', // Minifier don't understand ks extension.
+            filename: '[name].bundle.js',
             clean: true,
             library: {
                 name: 'Boids',
                 type: 'umd'
             }
         },
+        externalsType: 'promise',
+        externals: {
+            // Loaded at runtime through the import map published by the kd-structured mod.
+            'kd-structured': 'globalThis.__loadKDStructured()'
+        },
         module: {
             rules: [
                 {
                     test: /\.ts?$/,
                     use: {
-                        'loader': 'ts-loader',
-                        'options': {
-                            projectReferences: true,
-                            ignoreDiagnostics: [2742]
-                        }
+                        'loader': 'ts-loader'
                     },
                     exclude: /node_modules/,
                 },
@@ -141,13 +138,6 @@ function Configurate(env: Record<string, unknown>, argv: Record<string, string>)
             PreBuild(),
             PostBuild(),
         ],
-        ... (argv['mode'] === 'production') && {
-            optimization: {
-                splitChunks: {
-                    chunks: 'all'
-                }
-            },
-        },
         stats: 
             argv['watch'] ? 
             'errors-warnings' :

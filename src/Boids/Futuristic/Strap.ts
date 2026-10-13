@@ -13,9 +13,6 @@ export const ControlHarness =
 
             ...SFX.ElectricMechLockSfx,
             alwaysRender: true,
-            Asset: 'FuturisticHarness',
-            Color: ['#499ed6', '#555555', '#555555', '#000000'],
-            factionColor: [[], [], [0]],
             Model: 'FutureHarness',
             factionFilters: {
                 Display: { color: 'Highlight', override: false },

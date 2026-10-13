@@ -94,12 +94,7 @@ export const SlimBelt =
             name: 'BD8079B8-DCE0-48C4-AA6C-A520E5C00D21',
             sfx: 'FutureLock',
             sfxRemove: 'SciFiConfigure',
-            Asset: 'FuturisticChastityBelt',
-            Modules: [3, 1, 1, 1, 1],
-            OverridePriority: 26,
-            Color: ['#222222', '#499ed6', '#555555', '#000000', '#555555', '#b927a8', '#3868E8', '#555555', '#222222'],
             // Body, Display, Panel, Lock, band, trim, band, underplug, plug, strap
-            factionColor: [[0], [5], [1]],
             Model: 'CyberBelt',
             factionFilters: {
                 Lining: { color: 'LightNeutral', override: true },
@@ -122,10 +117,6 @@ export const SlimBra =
             name: 'E0261BA0-1396-491B-8901-2A649E01E499',
             sfx: 'FutureLock',
             sfxRemove: 'SciFiConfigure',
-            Asset: 'FuturisticBra2',
-            OverridePriority: 26,
-            Color: ['#499ed6', '#555555', '#222222', '#ffffff', '#555555', '#000000', KDBaseBlack],
-            factionColor: [[2, 5], [2], [0]],
             Model: 'BraCyber',
             factionFilters: {
                 Display: { color: 'Highlight', override: false },
@@ -147,10 +138,6 @@ export const BulkyBelt =
             name: '6428F8EA-53AE-4F76-A117-5BB8480D0DC5',
             sfx: 'FutureLock',
             sfxRemove: 'SciFiConfigure',
-            Asset: 'FuturisticChastityBelt',
-            Modules: [3, 1, 1, 1, 1],
-            OverridePriority: 26,
-            Color: ['#222222', '#499ed6', '#555555', '#000000', '#555555', '#b927a8', '#3868E8', '#555555', '#222222'],
             // Body, Display, Panel, Lock, band, trim, band, underplug, plug, strap
             Model: 'ProtoBelt',
             factionFilters: {
@@ -174,10 +161,6 @@ export const BulkyBra =
             name: 'EB459BF1-317C-4613-84CC-7E8DEFB3A374',
             sfx: 'FutureLock',
             sfxRemove: 'SciFiConfigure',
-            Asset: 'FuturisticBra2',
-            OverridePriority: 26,
-            Color: ['#499ed6', '#555555', '#222222', '#ffffff', '#555555', '#000000', KDBaseBlack],
-            factionColor: [[2, 5], [2], [0]],
             Model: 'BraProto',
             factionFilters: {
                 Display: { color: 'Highlight', override: false },

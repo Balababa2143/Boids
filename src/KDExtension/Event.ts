@@ -44,10 +44,10 @@ export const HandleItemEventWhenItemIsEventSource = (handler: ItemEventHandler) 
 
 export const MakeEventBuilder =
     <EventType extends KinkyDungeonEvent>() =>
-        <BuilderArgs, ExtraEventParops extends Partial<KinkyDungeonEvent>>(args: {
+        <BuilderArgs, ExtraEventProps extends Partial<KinkyDungeonEvent>>(args: {
             eventTemplate: ReturnType<typeof AddEventHandler>,
-            extraEventProps?: ExtraEventParops,
-            processArgs: (_: BuilderArgs) => WithDefault<EventType, ExtraEventParops & ReturnType<typeof AddEventHandler>>
+            extraEventProps?: ExtraEventProps,
+            processArgs: (_: BuilderArgs) => WithDefault<EventType, ExtraEventProps & ReturnType<typeof AddEventHandler>>
         }) => {
             const {
                 eventTemplate,

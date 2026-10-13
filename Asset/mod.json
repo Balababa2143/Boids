@@ -2,11 +2,11 @@
     "modname": "Boids",
     "moddesc": "A Dronification Theme Mod",
 	"author": "Balababa2143@gmail.com",
-	"modbuild": "0.2.0",
+	"modbuild": "0.3.0",
 	"gamemajor": 5,
-	"gameminor": 4,
-	"gamepatch_min": 66,
-	"gamepatch_max": 78,
+	"gameminor": 3,
+	"gamepatch_min": 0,
+	"gamepatch_max": 3,
 	"priority": 10,
 	"dependencies": {
 

@@ -4,29 +4,30 @@
   "description": "",
   "license": "MIT",
   "author": "balababa2143@gmail.com",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "Webpack Bundle: Debug": "webpack --config webpack.config.ts --mode development",
     "Webpack Watch: Debug": "webpack --config webpack.config.ts --watch --mode development",
     "Webpack Bundle: Production": "webpack --config webpack.config.ts --mode production"
   },
   "devDependencies": {
-    "@types/archiver": "latest",
-    "@types/webpack": "latest",
-    "archiver": "latest",
+    "@types/archiver": "^8.0.0",
+    "@types/node": "^26.6.5",
+    "archiver": "^8.0.0",
     "pixi-filters": "^5.2.0",
     "pixi.js": "^7.4.3",
     "pixi.js-legacy": "^7.2.1",
-    "ts-loader": "latest",
-    "ts-node": "latest",
-    "typescript": "latest",
-    "webpack": "latest",
-    "webpack-cli": "latest"
+    "ts-loader": "^9.6.2",
+    "typescript": "^6.0.3",
+    "webpack": "^5.111.1",
+    "webpack-cli": "^7.2.3"
   },
   "dependencies": {
-    "immutable": "latest",
-    "kd-structured": "file:KDInterface/Deploy/package",
-    "uuid": "latest"
+    "immutable": "^5.1.9",
+    "uuid": "^13.0.0"
   }
 }

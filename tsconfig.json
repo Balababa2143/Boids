@@ -18,26 +18,17 @@
             "DOM",
             "ESNext"
         ],
+        "types": [
+            "node"
+        ],
         "typeRoots": [
             "./node_modules/@types",
-            "./Types"
+            "./kd-structured/Generated/@type"
         ],
-        "declaration": true,
-        "rootDir": ".",
-        "sourceRoot": "src",
-        "declarationDir": "Declaration"
+        "skipLibCheck": true
     },
     "include": [
-        "src/**/*.ts"
-    ],
-    "ts-node": {
-        "compilerOptions": {
-            "module": "CommonJS"
-        }
-    },
-    "references": [
-        {
-            "path": "./KDInterface/KinkyDungeon"
-        }
+        "src/**/*.ts",
+        "kd-structured/KinkyDungeon/out/main.d.ts"
     ]
 }

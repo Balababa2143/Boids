@@ -17,9 +17,6 @@ export const RestraintArraySemantics = {
     'specStruggleTypes': ArraySemantics.Set,
     'alwaysDressModel': ArraySemantics.Set,
     'shrine': ArraySemantics.Set,
-    'Color': ArraySemantics.Tuple,
-    'factionColor': ArraySemantics.Tuple,
-    'Modules': ArraySemantics.Tuple,
     'remove': ArraySemantics.Set,
     'strictnessZones': ArraySemantics.Set,
     'removeShrine': ArraySemantics.Set,
@@ -41,5 +38,9 @@ export const RestraintArraySemantics = {
     'addPoseIfTopLevel': ArraySemantics.Set,
     'ignoreMaxLevelTags': ArraySemantics.Set,
     'forbidPose': ArraySemantics.Set,
+    'blockedBy': ArraySemantics.Set,
+    'requireNoTagToEquip': ArraySemantics.Set,
+    'blockRestraintsWithTag': ArraySemantics.Set,
+    'allowOverrideBasedOnTagFilters': ArraySemantics.Set,
     'removePose': ArraySemantics.Set
 } satisfies Record<ArrayPropertyKeys<restraint>, ArraySemantics>

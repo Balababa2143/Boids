@@ -44,10 +44,6 @@ export const HeavyLockableSuit =
             alwaysAccessible: true,
 
             sfxGroup: 'Rubber',
-            AssetGroup: 'Suit',
-            Asset: 'SeamlessCatsuit',
-            Color: ['#3873C3'],
-            factionColor: [[0]],
             Model: LockableSuitModel,
 
             factionFilters: {
