@@ -1,0 +1,152 @@
+# Boids
+
+A dronification-themed mod for **Kinky Dungeon**, packaged as a texture/asset set
+plus a single webpack bundle that the game evaluates at load time.
+
+The mod registers models, restraints, text keys and event handlers into the game's
+globals as a side effect of being imported. There is no plugin API to hook into and
+no runtime to own — by the time anything can ask this mod a question, all of its
+content already exists in the game.
+
+## Layout
+
+| Path | What it is |
+| --- | --- |
+| `src/Boids/` | The mod. `index.ts` is the bundle entry point. |
+| `src/KDExtension/` | Registration helpers and the variant-map builders (the "new infrastructure"). |
+| `src/KDInterface/` | Types that describe the game's event map and text keys. |
+| `src/Utilities/` | Small generic helpers. |
+| `Asset/` | Shipped assets: `mod.json`, audio, item sprites, texture atlases. |
+| `test/` | The verification suite (see below). |
+| `kd-structured/` | Submodule (`KDInterface`). Owns the generated KD typings and drops `kd-structured.zip`, a separate mod this one loads through an import map. |
+| `Bundle/`, `Deploy/`, `Declaration/`, `Generated/` | Build output. All gitignored. |
+
+## Building
+
+```sh
+npm install
+npm run "Webpack Bundle: Debug"      # -> Bundle/main.bundle.js + Deploy/Boids.zip
+npm run "Webpack Watch: Debug"
+npm run "Webpack Bundle: Production"
+```
+
+The build also stages the published type package (`Deploy/types/`,
+`Declaration/Boids-types.zip`) and copies `kd-structured/Deploy/kd-structured.zip`
+into `Deploy/`. That submodule has to be built first; `npm install` alone does not
+produce it.
+
+## Verifying
+
+```sh
+npm run typecheck   # tsc over src/ and test/
+npm run test        # bundle the suite, then run it with node
+npm run verify      # both
+npm run verify:full # both, then a full mod build
+```
+
+`test/` is bundled by `webpack.test.config.ts` — the project's own webpack +
+ts-loader pipeline, so tests are compiled by the same toolchain as the mod — and
+executed with plain `node`. `fast-check` is the only test dependency.
+
+The mod cannot run outside the game, so the suite installs recording KD global
+stubs *before* the module graph is evaluated (`test/setup/install.ts`) and imports
+`src/Boids/index.ts` directly.
+
+### The registration manifest
+
+`test/registration-manifest.test.ts` is the equivalence gate. It records
+everything the mod registers — models, restraints, text keys, event handlers, the
+layer table, asset loads — and compares it against
+`test/__manifest__/registration-manifest.json`.
+
+The contract for any change to `src/`:
+
+* refactoring that is meant to preserve behaviour **must leave the manifest
+  byte-identical**; and
+* a defect fix may change it, but only with a reviewed diff.
+
+That makes `git status` a useful signal: after a behaviour-preserving change, the
+manifest should not appear. If it does, the test prints which entries changed and
+writes the new manifest to `registration-manifest.next.json` for inspection.
+
+Determinism is enforced across runs by the committed baseline. Nothing randomised
+may be captured: the coordinator's save slot is asserted absent, and a uuid v7 that
+decodes to roughly "now" fails the suite.
+
+Regenerate deliberately:
+
+```sh
+UPDATE_REGISTRATION_MANIFEST=1 npm test
+```
+
+### Property tests
+
+`fast-check` covers what load-time registration cannot reach: the
+`VariantMapBuilder` deep-merge contract (template preservation, last-writer-wins,
+`Set` union versus `List` concatenation), variant-key identity including its
+field-order sensitivity, receiver semantics, the coordinator's `toJS`/`fromJS`
+round-trip, and the mitten layer factories. Known defects are pinned to their
+current behaviour so that fixing them is a visible edit to a test.
+
+A new `*.test.ts` must also be added to `test/run-all.ts`; `self-check.test.ts`
+fails if it is not, so a suite cannot be silently skipped.
+
+## Invariants to respect
+
+These are the things that bite. None of them are obvious from reading a single
+file.
+
+### Registration is a one-shot, throw-on-duplicate side effect
+
+`AddModelWithText`, `AddRestraintWithText` and `AddEventHandler` all throw on a
+duplicate, and they run at module-evaluation time. The practical consequences:
+
+* anything that makes a registration module reachable under two specifiers, or
+  copies one, crashes the mod at load rather than failing a build;
+* event handler `type` GUIDs must be unique across the game *and every other mod*;
+* handler registration happens at load, not at first use, so a refactor that
+  defers it changes when the game can dispatch to it.
+
+### Variant field order *is* the save format
+
+Model and restraint names are `uuidv5(JSON.stringify(variantKey), baseId)`, with
+the key's fields in literal insertion order. Renaming, adding, removing or
+reordering a field in a variant literal changes every generated name, so existing
+saves stop resolving their items. Two keys with the same fields in a different
+order are different variants.
+
+This is pinned by a property test rather than left as folklore. If a variant
+literal has to change, that is a save-migration decision, not a cleanup.
+
+### The entry module's body runs after everything it imports
+
+`src/Boids/index.ts` swaps two entries of `LAYERS_BASE` and rebuilds `ModelLayers`
+at the top of the file, but `export * as … from …` declarations are hoisted, so
+every dependency — that is, the entire registration tree — is evaluated *first*.
+The textual order is misleading, and moving that block into a separate imported
+module changes when `ModelLayers` is populated. Models are registered into
+`ModelDefs` before it runs, which works only because layer priorities are resolved
+by name at render time.
+
+### Time advances from inside the game's tick dispatch
+
+`MachinePrime/Debug.ts` registers a `tick` handler that calls
+`SetLimiterStrength`, which ends with `KinkyDungeonAdvanceTime(1)` and
+re-enters the game's event bus via `KinkyDungeonSendEvent`. Every morph handler
+chains off that. It is the current prototype's only input to the sensory limiters,
+which is why it lives in an explicitly-named debug module instead of being deleted
+— see #19 and #40.
+
+## Known rough edges
+
+Tracked as issues rather than fixed here:
+
+* **#47** — the UMD global `Boids` is a Promise, not the module namespace, because
+  the `kd-structured` promise external makes the entry an async webpack module.
+  Console entry points like `MachinePrime.Debug.SetBlindStrength` need
+  `(await Boids)`.
+* **#48** — the coordinator writes its save data to `KDGameDataBase` and reads it
+  back from `KDGameData`; whether those alias at runtime is unverified.
+* **#49** — `MakeSwapLayerPose` uses a bitwise OR in a truthiness position, so all
+  18 mitten layers end up with both swap entries. Pinned by a test; changing it
+  renders differently.
