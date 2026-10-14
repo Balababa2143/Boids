@@ -43,166 +43,66 @@ const GetSleevesLayerName =
 const GetForeSleevesLayerName =
     suffix => `ForeLongMitten${suffix}`
 
+/**
+ * The nine layer bands that make up the long mitten: the cuff, display, lock and
+ * glow bands, the strap layer, and the four `Upper*` bands that exist only on the
+ * mitten itself.
+ *
+ * Each band declares both of its priorities rather than computing them. The two
+ * families share fractions, and `20 + 1/10` is not reliably the same double as
+ * `20.1` -- these numbers land in `ModelDefs` and are compared as JSON, so they
+ * are written out exactly.
+ */
+const CommonLayerBanks = [
+    { Bank: 'Cuff',         Color: InheritColor.Cuff,         Fore: true,  ForePri: 20.1, Pri: 120.1 },
+    { Bank: 'Display',      Color: InheritColor.Display,      Fore: true,  ForePri: 20.2, Pri: 120.2 },
+    { Bank: 'Lock',         Color: InheritColor.Lock,         Fore: true,  ForePri: 20.3, Pri: 120.3 },
+    { Bank: 'Glow',         Color: InheritColor.Glow,         Fore: true,  ForePri: 20.4, Pri: 120.4 },
+    { Bank: 'Straps',       Color: InheritColor.Straps,       Fore: true,  ForePri: 20.1, Pri: 120.1 },
+    { Bank: 'UpperCuff',    Color: InheritColor.UpperCuff,    Fore: false, ForePri: 0,    Pri: 120.1 },
+    { Bank: 'UpperDisplay', Color: InheritColor.UpperDisplay, Fore: false, ForePri: 0,    Pri: 120.2 },
+    { Bank: 'UpperLock',    Color: InheritColor.UpperLock,    Fore: false, ForePri: 0,    Pri: 120.3 },
+    { Bank: 'UpperGlow',    Color: InheritColor.UpperGlow,    Fore: false, ForePri: 0,    Pri: 120.4 },
+] as const
+
+type CommonLayerBank = (typeof CommonLayerBanks)[number]
+
+const MakeCommonLayer = (args: {
+    suffix: string,
+    bank: CommonLayerBank,
+    fore: boolean,
+    sleevesLayerName: string,
+    foreSleevesLayerName: string,
+}): ModelLayer => {
+    const { suffix, bank, fore, sleevesLayerName, foreSleevesLayerName } = args
+    const side = fore ? 'Fore' : ''
+    return {
+        Name: `${bank.Bank}${side}LongMitten${suffix}`,
+        Layer: `${side}Mitten${suffix}`,
+        // A `Fore` band always declares `ForePri`.
+        Pri: fore ? bank.ForePri! : bank.Pri,
+        Poses: fore ? ForeArmPoseMap : ArmPoseMap,
+        GlobalDefaultOverride: FrontCrossLayerMap,
+        // The literals this replaces passed `Crossed` for forearm layers and
+        // `Crossed | Crossed` for mitten layers. Both are numerically 1, so both
+        // produced the same map -- the bitwise-OR defect pinned by
+        // `test/mitten-layers.test.ts` and tracked in #49.
+        SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed, suffix),
+        TieToLayer: fore ? foreSleevesLayerName : sleevesLayerName,
+        NoOverride: true,
+        InheritColor: bank.Color,
+    }
+}
+
 export const GetLongMittenCommonLayers =
     suffix => {
-        const sleeveLayerName = GetSleevesLayerName(suffix)
-        const foreSleeveLayerName = GetForeSleevesLayerName(suffix)
-        return [
-            {
-                Name: `CuffForeLongMitten${suffix}`,
-                Layer: `ForeMitten${suffix}`,
-                Pri: 20.1,
-                Poses: ForeArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed, suffix),
-                TieToLayer: foreSleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.Cuff,
-            },
-            {
-                Name: `CuffLongMitten${suffix}`,
-                Layer: `Mitten${suffix}`,
-                Pri: 120.1,
-                Poses: ArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed | LayersToSwap.Crossed, suffix),
-                TieToLayer: sleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.Cuff,
-            },
-            {
-                Name: `DisplayForeLongMitten${suffix}`,
-                Layer: `ForeMitten${suffix}`,
-                Pri: 20.2,
-                Poses: ForeArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed, suffix),
-                TieToLayer: foreSleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.Display,
-            },
-            {
-                Name: `DisplayLongMitten${suffix}`,
-                Layer: `Mitten${suffix}`,
-                Pri: 120.2,
-                Poses: ArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed | LayersToSwap.Crossed, suffix),
-                TieToLayer: sleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.Display,
-            },
-            {
-                Name: `LockForeLongMitten${suffix}`,
-                Layer: `ForeMitten${suffix}`,
-                Pri: 20.3,
-                Poses: ForeArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed, suffix),
-                TieToLayer: foreSleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.Lock,
-            },
-            {
-                Name: `LockLongMitten${suffix}`,
-                Layer: `Mitten${suffix}`,
-                Pri: 120.3,
-                Poses: ArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed | LayersToSwap.Crossed, suffix),
-                TieToLayer: sleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.Lock,
-            },
-            {
-                Name: `GlowForeLongMitten${suffix}`,
-                Layer: `ForeMitten${suffix}`,
-                Pri: 20.4,
-                Poses: ForeArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed, suffix),
-                TieToLayer: foreSleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.Glow,
-            },
-            {
-                Name: `GlowLongMitten${suffix}`,
-                Layer: `Mitten${suffix}`,
-                Pri: 120.4,
-                Poses: ArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed | LayersToSwap.Crossed, suffix),
-                TieToLayer: sleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.Glow,
-            },
-            {
-                Name: `StrapsForeLongMitten${suffix}`,
-                Layer: `ForeMitten${suffix}`,
-                Pri: 20.1,
-                Poses: ForeArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed, suffix),
-                TieToLayer: foreSleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.Straps,
-            },
-            {
-                Name: `StrapsLongMitten${suffix}`,
-                Layer: `Mitten${suffix}`,
-                Pri: 120.1,
-                Poses: ArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed | LayersToSwap.Crossed, suffix),
-                TieToLayer: sleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.Straps,
-            },
-            {
-                Name: `UpperCuffLongMitten${suffix}`,
-                Layer: `Mitten${suffix}`,
-                Pri: 120.1,
-                Poses: ArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed | LayersToSwap.Crossed, suffix),
-                TieToLayer: sleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.UpperCuff,
-            },
-            {
-                Name: `UpperDisplayLongMitten${suffix}`,
-                Layer: `Mitten${suffix}`,
-                Pri: 120.2,
-                Poses: ArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed | LayersToSwap.Crossed, suffix),
-                TieToLayer: sleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.UpperDisplay,
-            },
-            {
-                Name: `UpperLockLongMitten${suffix}`,
-                Layer: `Mitten${suffix}`,
-                Pri: 120.3,
-                Poses: ArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed | LayersToSwap.Crossed, suffix),
-                TieToLayer: sleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.UpperLock,
-            },
-            {
-                Name: `UpperGlowLongMitten${suffix}`,
-                Layer: `Mitten${suffix}`,
-                Pri: 120.4,
-                Poses: ArmPoseMap,
-                GlobalDefaultOverride: FrontCrossLayerMap,
-                SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed | LayersToSwap.Crossed, suffix),
-                TieToLayer: sleeveLayerName,
-                NoOverride: true,
-                InheritColor: InheritColor.UpperGlow,
-            },
-        ] satisfies ModelLayer[]
+        const sleevesLayerName = GetSleevesLayerName(suffix)
+        const foreSleevesLayerName = GetForeSleevesLayerName(suffix)
+        return CommonLayerBanks.flatMap(bank =>
+            (bank.Fore ? [true, false] : [false]).map(fore =>
+                MakeCommonLayer({ suffix, bank, fore, sleevesLayerName, foreSleevesLayerName })
+            )
+        )
     }
 
 export const GetSleevesBodyLayers =
