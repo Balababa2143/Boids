@@ -1,3 +1,16 @@
+/**
+ * The hard-light HUD visor model set: 32 models, one per combination of
+ * `UseFactionColor` x `OpaqueLevel` x `Dimmed` x sprite layer.
+ *
+ * @todo
+ *  These models are registered at import time but nothing consumes
+ *  `ValidModelVariantMap` yet. The module that was going to build restraints from
+ *  them (`MachinePrime/Item/HUD/Restraint.ts`) never got past a commented-out
+ *  draft, and its `RestraintTemplate` was removed as dead code. Picking the right
+ *  model for a given visor is #40; the physical visor and mask items are #3.
+ *  Until then this is deliberate weight in `ModelDefs`, not an oversight.
+ */
+
 import { Record, RecordOf} from "immutable";
 import { BlindfoldLayer, GlassLayerTemplate, GogglesLayer, ModelTemplate, SpriteBaseName, InheritColor, VisorSpriteLayer } from "../Common";
 import { AddModelWithTextThenGetName, ModelVariantMapBuilder } from "../../../../KDExtension";

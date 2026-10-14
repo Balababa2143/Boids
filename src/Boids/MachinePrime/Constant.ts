@@ -19,6 +19,13 @@ export const enum ItemArchetype {
      * @description
      *  Until the game splits head items,
      *  this shares slots with visors
+     * @todo
+     *  Nothing registers as a Deafener yet. The coordinator's schema, the sensory
+     *  controller guard in `SensoryControl` and the state round-trip all handle it,
+     *  but no item emits the archetype tag, so `ActivePC.Items[Deafener]` stays at
+     *  its defaults. Wiring it up belongs with #19 / #33 -- the `Headphone`
+     *  restraint is the obvious candidate, but currently sets a static `deaf` value
+     *  instead of routing through the coordinator.
      */
     Deafener = '31E7AC3B-6FF2-4F1F-A52F-ECE6101AC70C',
 
