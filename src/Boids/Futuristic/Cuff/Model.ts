@@ -43,7 +43,7 @@ export const WristCuff =
     AddModelWithTextThenGetName(
         MakeModel({
             model: ModelDefs['CyberCuffsWrists'],
-            newName: 'Elbow'
+            newName: '28BB62F0-AFD5-493F-9473-90CCEDB3610B'
         })
     )
 

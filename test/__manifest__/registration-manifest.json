@@ -416,8 +416,8 @@
         }
       }
     },
-    "Elbow": {
-      "Name": "Elbow",
+    "28BB62F0-AFD5-493F-9473-90CCEDB3610B": {
+      "Name": "28BB62F0-AFD5-493F-9473-90CCEDB3610B",
       "Folder": "Base/CyberCuffsWrists",
       "Categories": [
         "Restraints"
@@ -8016,7 +8016,7 @@
       ],
       "sfx": "Mechlock",
       "sfxRemove": "MechUnlock",
-      "Model": "Elbow",
+      "Model": "28BB62F0-AFD5-493F-9473-90CCEDB3610B",
       "factionFilters": {
         "BaseMetal": {
           "color": "DarkNeutral",
