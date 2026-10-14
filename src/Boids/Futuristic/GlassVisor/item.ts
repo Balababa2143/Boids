@@ -153,7 +153,7 @@ const {
             LinkableBy: link,
             shrine
         })
-        variantMapBuilder.AddText(variant, GetDebugText(variant))
+        variantMapBuilder.AddText(immutableVariantKey, GetDebugText(variant))
     }
 
     AddValidVariants(AddVariant)

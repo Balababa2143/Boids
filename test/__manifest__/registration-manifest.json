@@ -13563,6 +13563,646 @@
       "<text:RestraintControlHarnessDesc2>"
     ],
     [
+      "Restraintc11d5cf7-ae18-5007-b098-67f45e54bb9b",
+      "Drone Visor"
+    ],
+    [
+      "Restraintc11d5cf7-ae18-5007-b098-67f45e54bb9bDesc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 3"
+    ],
+    [
+      "Restraintd7dd2a08-4a4c-5347-8d1c-f3ff29aa601c",
+      "Drone Mask"
+    ],
+    [
+      "Restraintd7dd2a08-4a4c-5347-8d1c-f3ff29aa601cDesc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 2"
+    ],
+    [
+      "Restraint9688a048-8881-5d79-9c62-3a433624a8e2",
+      "Drone Mask"
+    ],
+    [
+      "Restraint9688a048-8881-5d79-9c62-3a433624a8e2Desc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 3"
+    ],
+    [
+      "Restraint7fcb73d6-f1d0-59f6-9e67-7ebad5ffbd94",
+      "Drone Visor"
+    ],
+    [
+      "Restraint7fcb73d6-f1d0-59f6-9e67-7ebad5ffbd94Desc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 3"
+    ],
+    [
+      "Restraint25f5663d-a431-5bd0-bc2a-b0c8b9265b0a",
+      "Drone Visor"
+    ],
+    [
+      "Restraint25f5663d-a431-5bd0-bc2a-b0c8b9265b0aDesc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 2"
+    ],
+    [
+      "Restraint9afe5727-c87e-546d-ad2a-05b9cca31c5f",
+      "Drone Mask"
+    ],
+    [
+      "Restraint9afe5727-c87e-546d-ad2a-05b9cca31c5fDesc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 2"
+    ],
+    [
+      "Restraintc9988157-f094-5979-91d8-4f64fea8d58a",
+      "Drone Mask"
+    ],
+    [
+      "Restraintc9988157-f094-5979-91d8-4f64fea8d58aDesc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 3"
+    ],
+    [
+      "Restraint02feed1b-fd62-5b77-b55d-7819bcb0c916",
+      "Drone Mask"
+    ],
+    [
+      "Restraint02feed1b-fd62-5b77-b55d-7819bcb0c916Desc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 4"
+    ],
+    [
+      "Restraintcf2c6561-793f-51e6-84ee-6eaaf848cfef",
+      "Drone Visor"
+    ],
+    [
+      "Restraintcf2c6561-793f-51e6-84ee-6eaaf848cfefDesc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 4"
+    ],
+    [
+      "Restraint4dc5029f-be40-5e48-89d8-82b4351e794c",
+      "Drone Visor"
+    ],
+    [
+      "Restraint4dc5029f-be40-5e48-89d8-82b4351e794cDesc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 1"
+    ],
+    [
+      "Restraint888b2642-13b8-505e-b20b-6ca269d080e6",
+      "Drone Mask"
+    ],
+    [
+      "Restraint888b2642-13b8-505e-b20b-6ca269d080e6Desc",
+      "Visor Type: Mask\nVersion: Mask"
+    ],
+    [
+      "Restrainte93dd1b9-5428-5c2e-9d5b-170361dd480f",
+      "Drone Visor"
+    ],
+    [
+      "Restrainte93dd1b9-5428-5c2e-9d5b-170361dd480fDesc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 2"
+    ],
+    [
+      "Restraint0f3a5d9d-7eb7-57f2-a07b-6388f2d2ce28",
+      "Drone Mask"
+    ],
+    [
+      "Restraint0f3a5d9d-7eb7-57f2-a07b-6388f2d2ce28Desc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 1"
+    ],
+    [
+      "Restraint08c9b625-2351-56e4-a46f-5b2d5d69cf39",
+      "Drone Visor"
+    ],
+    [
+      "Restraint08c9b625-2351-56e4-a46f-5b2d5d69cf39Desc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 3"
+    ],
+    [
+      "Restraint824bcb91-82ae-5d04-b934-bca1c3eed427",
+      "Drone Mask"
+    ],
+    [
+      "Restraint824bcb91-82ae-5d04-b934-bca1c3eed427Desc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 2"
+    ],
+    [
+      "Restraint6bbb6ef5-afd7-51de-89f7-2748e5fa6458",
+      "Drone Mask"
+    ],
+    [
+      "Restraint6bbb6ef5-afd7-51de-89f7-2748e5fa6458Desc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 3"
+    ],
+    [
+      "Restraintb2c18ec3-7361-5eb7-9fc4-a1861f7b7a7d",
+      "Drone Mask"
+    ],
+    [
+      "Restraintb2c18ec3-7361-5eb7-9fc4-a1861f7b7a7dDesc",
+      "Visor Type: Mask\nVersion: Over Mask"
+    ],
+    [
+      "Restraint19ca58a5-d4db-5973-b7d9-d4bd6a5a6cf1",
+      "Drone Mask"
+    ],
+    [
+      "Restraint19ca58a5-d4db-5973-b7d9-d4bd6a5a6cf1Desc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 3"
+    ],
+    [
+      "Restraint1edd8e94-35e5-52ab-8627-95fd106974e5",
+      "Drone Mask"
+    ],
+    [
+      "Restraint1edd8e94-35e5-52ab-8627-95fd106974e5Desc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 4"
+    ],
+    [
+      "Restraintce749c5e-9820-59fb-91cd-aa27dff38aba",
+      "Drone Mask"
+    ],
+    [
+      "Restraintce749c5e-9820-59fb-91cd-aa27dff38abaDesc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 1"
+    ],
+    [
+      "Restraintb05adbce-1537-5f24-8c6f-5af182bc6f8f",
+      "Drone Visor"
+    ],
+    [
+      "Restraintb05adbce-1537-5f24-8c6f-5af182bc6f8fDesc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 2"
+    ],
+    [
+      "Restraintbf581f04-30b2-567c-869f-2a70e0313a20",
+      "Drone Visor"
+    ],
+    [
+      "Restraintbf581f04-30b2-567c-869f-2a70e0313a20Desc",
+      "Visor Type: Goggle\nVersion: Blindfold"
+    ],
+    [
+      "Restrainta33c86f6-b8f7-5898-899a-6bf5f3983779",
+      "Drone Visor"
+    ],
+    [
+      "Restrainta33c86f6-b8f7-5898-899a-6bf5f3983779Desc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 4"
+    ],
+    [
+      "Restraintc9f93548-bfc0-567e-80e9-c8130e604538",
+      "Drone Visor"
+    ],
+    [
+      "Restraintc9f93548-bfc0-567e-80e9-c8130e604538Desc",
+      "Visor Type: Goggle\nVersion: Blindfold"
+    ],
+    [
+      "Restraint87ff6c34-9dc2-51ce-b80d-67ed22c8fe5b",
+      "Drone Mask"
+    ],
+    [
+      "Restraint87ff6c34-9dc2-51ce-b80d-67ed22c8fe5bDesc",
+      "Visor Type: Mask\nVersion: Mask"
+    ],
+    [
+      "Restraint148802f5-a2ba-554a-9b17-e567b4b8b00d",
+      "Drone Visor"
+    ],
+    [
+      "Restraint148802f5-a2ba-554a-9b17-e567b4b8b00dDesc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 2"
+    ],
+    [
+      "Restraintbf850c88-8435-536a-90b2-d79bcb0724f9",
+      "Drone Visor"
+    ],
+    [
+      "Restraintbf850c88-8435-536a-90b2-d79bcb0724f9Desc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 3"
+    ],
+    [
+      "Restraint4fee0caa-bedd-5f6f-997e-d11804ee1a1b",
+      "Drone Mask"
+    ],
+    [
+      "Restraint4fee0caa-bedd-5f6f-997e-d11804ee1a1bDesc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 2"
+    ],
+    [
+      "Restraint7422984c-4810-582a-bb30-69e5575c032b",
+      "Drone Mask"
+    ],
+    [
+      "Restraint7422984c-4810-582a-bb30-69e5575c032bDesc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 1"
+    ],
+    [
+      "Restraint5b843e93-97b5-527c-882e-bd6a67cc62a6",
+      "Drone Mask"
+    ],
+    [
+      "Restraint5b843e93-97b5-527c-882e-bd6a67cc62a6Desc",
+      "Visor Type: Mask\nVersion: Over Mask"
+    ],
+    [
+      "Restraint7d7dce9e-05e1-50e8-91e0-208aaca6e654",
+      "Drone Mask"
+    ],
+    [
+      "Restraint7d7dce9e-05e1-50e8-91e0-208aaca6e654Desc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 4"
+    ],
+    [
+      "Restraint4bbe6d4d-b2f0-59bc-b71d-98e0f4afd833",
+      "Drone Visor"
+    ],
+    [
+      "Restraint4bbe6d4d-b2f0-59bc-b71d-98e0f4afd833Desc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 4"
+    ],
+    [
+      "Restraint30df9f0b-3cf9-5709-a922-c9b2223d83e9",
+      "Drone Mask"
+    ],
+    [
+      "Restraint30df9f0b-3cf9-5709-a922-c9b2223d83e9Desc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 4"
+    ],
+    [
+      "Restrainte8038c23-21b0-5dc5-85eb-075075f86623",
+      "Drone Mask"
+    ],
+    [
+      "Restrainte8038c23-21b0-5dc5-85eb-075075f86623Desc",
+      "Visor Type: Mask\nVersion: Over Mask"
+    ],
+    [
+      "Restraint9deea359-4183-53d1-8b6b-39744153cdd6",
+      "Drone Mask"
+    ],
+    [
+      "Restraint9deea359-4183-53d1-8b6b-39744153cdd6Desc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 3"
+    ],
+    [
+      "Restraintdbcdf674-bcf0-5d4f-acd5-1975934189e7",
+      "Drone Visor"
+    ],
+    [
+      "Restraintdbcdf674-bcf0-5d4f-acd5-1975934189e7Desc",
+      "Visor Type: Goggle\nVersion: Goggle"
+    ],
+    [
+      "Restraint9e4d8510-4527-5d21-9b83-1699293f1c0a",
+      "Drone Mask"
+    ],
+    [
+      "Restraint9e4d8510-4527-5d21-9b83-1699293f1c0aDesc",
+      "Visor Type: Mask\nVersion: Mask"
+    ],
+    [
+      "Restrainta19cf644-8914-5bf6-96fc-cc6fb712141c",
+      "Drone Visor"
+    ],
+    [
+      "Restrainta19cf644-8914-5bf6-96fc-cc6fb712141cDesc",
+      "Visor Type: Goggle\nVersion: Blindfold"
+    ],
+    [
+      "Restraint7069483c-c176-54b4-b3aa-112ade0f4900",
+      "Drone Mask"
+    ],
+    [
+      "Restraint7069483c-c176-54b4-b3aa-112ade0f4900Desc",
+      "Visor Type: Mask\nVersion: Over Mask"
+    ],
+    [
+      "Restraint44b2bbbe-ae33-5ce4-a8c2-fbdceaf6cf0b",
+      "Drone Visor"
+    ],
+    [
+      "Restraint44b2bbbe-ae33-5ce4-a8c2-fbdceaf6cf0bDesc",
+      "Visor Type: Goggle\nVersion: Blindfold"
+    ],
+    [
+      "Restraint732af275-e475-542e-a19a-c0e9d103393c",
+      "Drone Visor"
+    ],
+    [
+      "Restraint732af275-e475-542e-a19a-c0e9d103393cDesc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 1"
+    ],
+    [
+      "Restraintfb2d16a2-1789-5834-b046-1b011d8dd4d7",
+      "Drone Mask"
+    ],
+    [
+      "Restraintfb2d16a2-1789-5834-b046-1b011d8dd4d7Desc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 1"
+    ],
+    [
+      "Restraint7799b07e-fd8e-57ca-b981-f5c2264d7338",
+      "Drone Visor"
+    ],
+    [
+      "Restraint7799b07e-fd8e-57ca-b981-f5c2264d7338Desc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 4"
+    ],
+    [
+      "Restraint4f4400f8-55c0-5b48-8c26-1a452a379209",
+      "Drone Mask"
+    ],
+    [
+      "Restraint4f4400f8-55c0-5b48-8c26-1a452a379209Desc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 3"
+    ],
+    [
+      "Restraint977d42e0-5273-5ae3-b189-82f1bf5db5e3",
+      "Drone Visor"
+    ],
+    [
+      "Restraint977d42e0-5273-5ae3-b189-82f1bf5db5e3Desc",
+      "Visor Type: Goggle\nVersion: Goggle"
+    ],
+    [
+      "Restraintb976a593-c530-59d2-8207-e406e2857bc9",
+      "Drone Mask"
+    ],
+    [
+      "Restraintb976a593-c530-59d2-8207-e406e2857bc9Desc",
+      "Visor Type: Mask\nVersion: Mask"
+    ],
+    [
+      "Restraint89d6b891-8006-53f1-aed1-64c9788d673f",
+      "Drone Visor"
+    ],
+    [
+      "Restraint89d6b891-8006-53f1-aed1-64c9788d673fDesc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 1"
+    ],
+    [
+      "Restraint4fe76b2e-60ef-536f-ab2e-041c801ae164",
+      "Drone Visor"
+    ],
+    [
+      "Restraint4fe76b2e-60ef-536f-ab2e-041c801ae164Desc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 4"
+    ],
+    [
+      "Restraint4dd602d9-aeff-56f2-8431-f1e5e0811666",
+      "Drone Mask"
+    ],
+    [
+      "Restraint4dd602d9-aeff-56f2-8431-f1e5e0811666Desc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 4"
+    ],
+    [
+      "Restraintd5e02e2a-4a8a-529f-9626-b66eab39a08b",
+      "Drone Mask"
+    ],
+    [
+      "Restraintd5e02e2a-4a8a-529f-9626-b66eab39a08bDesc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 4"
+    ],
+    [
+      "Restraintc40094e4-1ccf-5c9f-b7bf-58f7e7e8695a",
+      "Drone Visor"
+    ],
+    [
+      "Restraintc40094e4-1ccf-5c9f-b7bf-58f7e7e8695aDesc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 4"
+    ],
+    [
+      "Restraint72ff3224-edf2-50b9-a296-a439e0f67e5b",
+      "Drone Mask"
+    ],
+    [
+      "Restraint72ff3224-edf2-50b9-a296-a439e0f67e5bDesc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 4"
+    ],
+    [
+      "Restraint226dccb9-aa44-51d3-8049-998758e066cc",
+      "Drone Visor"
+    ],
+    [
+      "Restraint226dccb9-aa44-51d3-8049-998758e066ccDesc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 4"
+    ],
+    [
+      "Restraintbd0427d5-66e2-5e01-bb24-51b12f5462f5",
+      "Drone Visor"
+    ],
+    [
+      "Restraintbd0427d5-66e2-5e01-bb24-51b12f5462f5Desc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 1"
+    ],
+    [
+      "Restraint13847f0b-cc52-54ee-ba3f-53adbd0ebe17",
+      "Drone Visor"
+    ],
+    [
+      "Restraint13847f0b-cc52-54ee-ba3f-53adbd0ebe17Desc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 1"
+    ],
+    [
+      "Restraintaf46d1c5-3aac-54cc-8d71-571ea8290eaf",
+      "Drone Mask"
+    ],
+    [
+      "Restraintaf46d1c5-3aac-54cc-8d71-571ea8290eafDesc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 1"
+    ],
+    [
+      "Restraintef1709f5-d15f-5904-b03d-cd6120164085",
+      "Drone Visor"
+    ],
+    [
+      "Restraintef1709f5-d15f-5904-b03d-cd6120164085Desc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 3"
+    ],
+    [
+      "Restraintddd8b5ad-4a9b-51a6-afe9-78bd226458a8",
+      "Drone Mask"
+    ],
+    [
+      "Restraintddd8b5ad-4a9b-51a6-afe9-78bd226458a8Desc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 2"
+    ],
+    [
+      "Restraintff5314f7-27d7-5f6a-9924-3aaeae6f9055",
+      "Drone Mask"
+    ],
+    [
+      "Restraintff5314f7-27d7-5f6a-9924-3aaeae6f9055Desc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 3"
+    ],
+    [
+      "Restrainte0f8f68c-6d2f-5ee4-9d85-7829e9195d19",
+      "Drone Visor"
+    ],
+    [
+      "Restrainte0f8f68c-6d2f-5ee4-9d85-7829e9195d19Desc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 2"
+    ],
+    [
+      "Restraint2a634701-ad04-51f8-a93e-05c08888176d",
+      "Drone Mask"
+    ],
+    [
+      "Restraint2a634701-ad04-51f8-a93e-05c08888176dDesc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 1"
+    ],
+    [
+      "Restraint1edbe44a-1555-5c68-a2fa-2ddc94056fa0",
+      "Drone Visor"
+    ],
+    [
+      "Restraint1edbe44a-1555-5c68-a2fa-2ddc94056fa0Desc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 2"
+    ],
+    [
+      "Restraintf3b60fa7-5a45-5716-b9c5-0c2227ab3db0",
+      "Drone Visor"
+    ],
+    [
+      "Restraintf3b60fa7-5a45-5716-b9c5-0c2227ab3db0Desc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 3"
+    ],
+    [
+      "Restraint0614658d-e550-5bc7-93c1-bafdaa5b78dc",
+      "Drone Mask"
+    ],
+    [
+      "Restraint0614658d-e550-5bc7-93c1-bafdaa5b78dcDesc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 2"
+    ],
+    [
+      "Restraint87c35e2a-7b61-5d24-be61-a4bc47289601",
+      "Drone Visor"
+    ],
+    [
+      "Restraint87c35e2a-7b61-5d24-be61-a4bc47289601Desc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 4"
+    ],
+    [
+      "Restraintbf3c8fb1-7887-5de0-882f-2d3781346b7e",
+      "Drone Visor"
+    ],
+    [
+      "Restraintbf3c8fb1-7887-5de0-882f-2d3781346b7eDesc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 1"
+    ],
+    [
+      "Restraint54d56026-8b38-5d1f-94d3-7c74b2cc91b9",
+      "Drone Visor"
+    ],
+    [
+      "Restraint54d56026-8b38-5d1f-94d3-7c74b2cc91b9Desc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 2"
+    ],
+    [
+      "Restraintc17bb5f1-527e-5818-bc18-d851d4aa2f9b",
+      "Drone Visor"
+    ],
+    [
+      "Restraintc17bb5f1-527e-5818-bc18-d851d4aa2f9bDesc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 1"
+    ],
+    [
+      "Restraintacad8107-46ac-53fa-8ac9-029316c48643",
+      "Drone Mask"
+    ],
+    [
+      "Restraintacad8107-46ac-53fa-8ac9-029316c48643Desc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 3"
+    ],
+    [
+      "Restraintbbcd17e0-2677-501e-b93e-e76fbe05925f",
+      "Drone Visor"
+    ],
+    [
+      "Restraintbbcd17e0-2677-501e-b93e-e76fbe05925fDesc",
+      "Visor Type: Goggle\nVersion: Goggle"
+    ],
+    [
+      "Restraint58f7fba5-54fd-58c5-a694-2a3ce9433f3f",
+      "Drone Visor"
+    ],
+    [
+      "Restraint58f7fba5-54fd-58c5-a694-2a3ce9433f3fDesc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 3"
+    ],
+    [
+      "Restraint01907125-e9f9-5459-9075-8daff88a8c5f",
+      "Drone Mask"
+    ],
+    [
+      "Restraint01907125-e9f9-5459-9075-8daff88a8c5fDesc",
+      "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 2"
+    ],
+    [
+      "Restraintbd8053b8-8ee5-54d6-ae63-98937b99672f",
+      "Drone Visor"
+    ],
+    [
+      "Restraintbd8053b8-8ee5-54d6-ae63-98937b99672fDesc",
+      "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 2"
+    ],
+    [
+      "Restraintc1505bdf-86ea-5d49-8477-9e2373789fea",
+      "Drone Visor"
+    ],
+    [
+      "Restraintc1505bdf-86ea-5d49-8477-9e2373789feaDesc",
+      "Visor Type: Goggle\nVersion: Goggle"
+    ],
+    [
+      "Restraint43174758-cb2b-5b6a-83a0-d3a350a42c9b",
+      "Drone Visor"
+    ],
+    [
+      "Restraint43174758-cb2b-5b6a-83a0-d3a350a42c9bDesc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 3"
+    ],
+    [
+      "Restraint0863f093-0cdc-5248-b6ce-f643d6764530",
+      "Drone Mask"
+    ],
+    [
+      "Restraint0863f093-0cdc-5248-b6ce-f643d6764530Desc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 2"
+    ],
+    [
+      "Restrainte3bca86e-44dc-5bd6-99e5-e5eb60990fe4",
+      "Drone Visor"
+    ],
+    [
+      "Restrainte3bca86e-44dc-5bd6-99e5-e5eb60990fe4Desc",
+      "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 1"
+    ],
+    [
+      "Restraintb422fbf1-5ea0-561c-adce-551c0009a30a",
+      "Drone Mask"
+    ],
+    [
+      "Restraintb422fbf1-5ea0-561c-adce-551c0009a30aDesc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 1"
+    ],
+    [
+      "Restraintd6702d6c-e575-5afd-8363-5878f9e8f321",
+      "Drone Mask"
+    ],
+    [
+      "Restraintd6702d6c-e575-5afd-8363-5878f9e8f321Desc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 1"
+    ],
+    [
+      "Restraint56a71da5-046c-525f-bb08-eff5071c1d1c",
+      "Drone Mask"
+    ],
+    [
+      "Restraint56a71da5-046c-525f-bb08-eff5071c1d1cDesc",
+      "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 4"
+    ],
+    [
       "RestraintB599D065-0BEA-4CA7-8E17-7F4BE959A0A8",
       "Mask Mount"
     ],
