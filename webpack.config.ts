@@ -3,7 +3,7 @@ import * as path from 'path'
 import { ZipArchive, Archiver } from 'archiver'
 import webpack from 'webpack'
 
-const EntryFile = 'src/Boids/index.ts'
+const EntryFile = 'src/mod.ts'
 const LoaderFile = 'src/kd-structured-loader.ts'
 const BundleDir = 'Bundle'
 const DeployDir = 'Deploy'
@@ -148,6 +148,8 @@ function PostBuild(): webpack.WebpackPluginInstance {
 function Configurate(env: Record<string, unknown>, argv: Record<string, string>): webpack.Configuration {
 
     return {
+        // Order matters: the loader installs `globalThis.__loadKDStructured`, which
+        // is the expression the `kd-structured` external evaluates.
         entry: [
             path.resolve(LoaderFile),
             path.resolve(EntryFile)
@@ -156,10 +158,9 @@ function Configurate(env: Record<string, unknown>, argv: Record<string, string>)
             path: path.resolve(BundleDir),
             filename: '[name].bundle.js',
             clean: true,
-            library: {
-                name: 'Boids',
-                type: 'umd'
-            }
+            // No `library` on purpose. It used to publish `root["Boids"] = <promise>`
+            // because this entry is an async module; the entry assigns the namespace
+            // itself (src/mod.ts), so a promise never reaches that global.
         },
         externalsType: 'promise',
         externals: {

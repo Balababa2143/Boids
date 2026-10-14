@@ -68,9 +68,10 @@ const WriteManifest = async (filePath: string, value: RegistrationManifest): Pro
     await writeFile(filePath, CanonicalJson(value) + '\n', 'utf8')
 }
 
-// Load the whole mod against freshly installed stubs, exactly once.
+// Load the whole mod against freshly installed stubs, exactly once, through the
+// same entry the bundle ships.
 InstallKDGlobals()
-await import('../src/Boids/index')
+await import('../src/mod')
 
 const manifest = BuildManifest()
 const baseline = await ReadBaseline()
