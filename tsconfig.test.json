@@ -5,6 +5,7 @@
         "declarationDir": "./.fake/@type-test",
         "declarationMap": false,
         "rootDir": ".",
+        "allowImportingTsExtensions": true,
         "types": [
             "node"
         ],
@@ -16,7 +17,9 @@
     "include": [
         "src/**/*.ts",
         "test/**/*.ts",
+        "webpack.config.ts",
         "webpack.test.config.ts",
+        "webpack/**/*.ts",
         "kd-structured/KinkyDungeon/out/main.d.ts"
     ]
 }

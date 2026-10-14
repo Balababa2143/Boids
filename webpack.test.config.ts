@@ -1,5 +1,8 @@
-import * as path from 'path'
-import webpack from 'webpack'
+import * as path from 'node:path'
+import type webpack from 'webpack'
+
+import { testDir, testEntry, testOutputDir, testTsConfig } from './webpack/paths.ts'
+import { resolveExtensions, typescriptRule } from './webpack/typescript.ts'
 
 /**
  * Bundles the test suite for Node.
@@ -12,21 +15,17 @@ import webpack from 'webpack'
  * exactly the same toolchain as the mod itself, and the only added dependency is
  * `fast-check`.
  *
- * `kd-structured` is a runtime import-map module in production (webpack
- * `externals` on the main build); here it is aliased to the test stub.
+ * `kd-structured` is a runtime import-map module in production (a webpack
+ * external in the main build); here it is aliased to the test stub.
  */
 
-const TestEntry = 'test/run-all.ts'
-const TestOutputDir = '.fake/test'
-const TestTsConfig = 'tsconfig.webpack-test.json'
-
-function Configurate(): webpack.Configuration {
+function Configurate(_env: Record<string, unknown>, argv: Record<string, unknown>): webpack.Configuration {
     return {
-        mode: 'development',
+        mode: argv['mode'] === 'production' ? 'production' : 'development',
         target: 'node',
-        entry: path.resolve(TestEntry),
+        entry: testEntry,
         output: {
-            path: path.resolve(TestOutputDir),
+            path: testOutputDir,
             filename: 'run.mjs',
             module: true,
             chunkFormat: 'module',
@@ -41,22 +40,13 @@ function Configurate(): webpack.Configuration {
         },
         module: {
             rules: [
-                {
-                    test: /\.ts?$/,
-                    use: {
-                        loader: 'ts-loader',
-                        options: {
-                            configFile: TestTsConfig,
-                        },
-                    },
-                    exclude: /node_modules/,
-                },
+                typescriptRule(testTsConfig),
             ],
         },
         resolve: {
-            extensions: ['.tsx', '.ts', '.js'],
+            extensions: resolveExtensions,
             alias: {
-                'kd-structured': path.resolve('test/stubs/kd-structured.ts'),
+                'kd-structured': path.join(testDir, 'stubs', 'kd-structured.ts'),
             },
         },
         devtool: false,
