@@ -318,14 +318,28 @@ describe('ModelVariantMapBuilder finalisation', () => {
         assert.ok(isKeyed(Convert(ModelReceiver, 'SomeMap', Map({ a: 1 }))))
     })
 
-    it('pins the current display-name behaviour: baseName is ignored and the id is used', () => {
-        // KNOWN DEFECT. `NamedVariantMapBuilder._GetVariantName` returns the id function,
-        // so a supplied `baseName` never reaches `DisplayName`. Pinning it here means the
-        // fix shows up as a deliberate change to this test rather than a silent drift.
+    it('derives DisplayName from baseName when one is supplied', () => {
+        const BaseName = 'Test | Base Name'
         fc.assert(
             fc.property(fc.string({ minLength: 1 }), LayerArbitrary, (key, layers) => {
-                const variant = Build(key, layers, 'Test | Base Name').get(key)
-                assert.equal(variant?.TextInfo.DisplayName, GetVariantIdFromBase(BaseId)(key))
+                const variant = Build(key, layers, BaseName).get(key)
+                assert.equal(variant?.TextInfo.DisplayName, GetVariantNameFromBase(BaseName)(key))
+            })
+        )
+    })
+
+    it('lets explicit AddText text take precedence over baseName', () => {
+        // `_GetTextInfo` spreads the baseName-derived text first and the explicit text
+        // second, so an `AddText` entry replaces it wholesale rather than merging.
+        const BaseName = 'Test | Base Name'
+        fc.assert(
+            fc.property(fc.string({ minLength: 1 }), LayerArbitrary, fc.string({ minLength: 1 }), (key, layers, displayName) => {
+                const builder = new ModelVariantMapBuilder<string>({ baseId: BaseId, baseName: BaseName })
+                builder.AddVariantParts(key, [{ Layers: layers }])
+                builder.AddText(key, { DisplayName: displayName })
+
+                const variant = builder.BuildVariantMap(Template).get(key)
+                assert.equal(variant?.TextInfo.DisplayName, displayName)
             })
         )
     })

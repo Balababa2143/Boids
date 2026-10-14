@@ -13,7 +13,6 @@ export class NamedVariantMapBuilder<VariantKey, TextInfo extends ITextInfoBase, 
     protected get _GetVariantId() { return this.#GetVariantId }
 
     #GetVariantName: ((variantKey: VariantKey) => string) | null
-    protected get _GetVariantName() { return this.#GetVariantId }
 
     #textInfoMap: IMMap<VariantKey, TextInfo>
     protected get _TextInfoMap() { return this.#textInfoMap }
@@ -39,10 +38,11 @@ export class NamedVariantMapBuilder<VariantKey, TextInfo extends ITextInfoBase, 
     }
 
     protected _GetTextInfo(variantKey: VariantKey) {
+        const getVariantName = this.#GetVariantName
         return {
-            ... this.#GetVariantName && {
+            ... getVariantName && {
                 TextInfo: {
-                    DisplayName: this._GetVariantName(variantKey),
+                    DisplayName: getVariantName(variantKey),
                 }
             },
             ... this._TextInfoMap.has(variantKey) && {
