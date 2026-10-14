@@ -39,7 +39,7 @@ export const RegisterItemOnApply = KDEx.MakeEventBuilder<EventWithItemArchetype>
 export const UnRegisterItemOnRemoval = KDEx.MakeEventBuilder<EventWithItemArchetype>()({
     eventTemplate: KDEx.AddEventHandler({
         eventMap: KDEventMapInventory,
-        trigger: 'postApply',
+        trigger: 'postRemoval',
         type: '5588B613-0A09-4383-983F-21FF7036755C',
         handler: (e, item, _data: KinkyDungeonEventPostRemovalData) => {
             const event = e as EventWithItemArchetype
