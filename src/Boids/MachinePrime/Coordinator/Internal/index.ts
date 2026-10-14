@@ -11,5 +11,5 @@ export * as State from './State'
  * @module Boids/MachinePrime/Coordinator/StateStorage
  * @see module:Boids/MachinePrime/Coordinator/StateStorage
  */
-export type StateStorage = typeof import('./State')
-export * as StateStorage from './State'
+export type StateStorage = typeof import('./StateStorage')
+export * as StateStorage from './StateStorage'
