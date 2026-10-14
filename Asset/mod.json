@@ -1,33 +1,33 @@
 {
     "modname": "Boids",
     "moddesc": "A Dronification Theme Mod",
-	"author": "Balababa2143@gmail.com",
-	"modbuild": "0.4.0",
-	"gamemajor": 5,
-	"gameminor": 5,
-	"gamepatch_min": 0,
-	"gamepatch_max": 3,
-	"priority": 10,
-	"dependencies": {
-		"kd-structured": 5
-	},
-	"optional": {
+    "author": "Balababa2143@gmail.com",
+    "modbuild": "0.4.0",
+    "gamemajor": 5,
+    "gameminor": 5,
+    "gamepatch_min": 0,
+    "gamepatch_max": 3,
+    "priority": 10,
+    "dependencies": {
+        "kd-structured": 5
+    },
+    "optional": {
 
     },
-	"incompatibilities":{
+    "incompatibilities":{
 
     },
-	"loadbefore": [
+    "loadbefore": [
 
     ],
-	"loadafter": [
+    "loadafter": [
 
     ],
-	"fileorder": [
-		"TextureAtlas/BoidsAsset0.webp",
-		"TextureAtlas/BoidsAsset0.json",
-		"TextureAtlas/BoidsAsset1.webp",
-		"TextureAtlas/BoidsAsset1.json",
+    "fileorder": [
+        "TextureAtlas/BoidsAsset0.webp",
+        "TextureAtlas/BoidsAsset0.json",
+        "TextureAtlas/BoidsAsset1.webp",
+        "TextureAtlas/BoidsAsset1.json",
         "main.bundle.js"
     ]
 }
