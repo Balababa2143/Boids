@@ -1,10 +1,10 @@
 /**
  * Test stand-in for the `kd-structured` mod's import-map module.
  *
- * In production webpack treats `kd-structured` as a promise external
+ * In production `kd-structured` is a webpack promise external
  * (`globalThis.__loadKDStructured()`), and the real implementation lives in a
- * separate mod. Under vitest that external does not exist, so
- * `vitest.config.ts` aliases the specifier here.
+ * separate mod that publishes an import map for it. Neither exists outside the
+ * game, so `webpack.test.config.ts` aliases the specifier here.
  *
  * As with `test/fixtures/base-game.ts`, this mocks the game's *interface*: the
  * goal is a deterministic, injective function of the arguments so that any
