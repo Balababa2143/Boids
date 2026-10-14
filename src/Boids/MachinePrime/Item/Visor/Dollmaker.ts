@@ -1,25 +1,18 @@
-import * as KDS from 'kd-structured'
 import * as KDEx from '../../../../KDExtension'
+import { Scale } from '../../../../Utilities'
 import * as Futuristic from '../../../Futuristic'
-import * as Coordinator from '../../Coordinator'
-import { ItemArchetype } from '../../Constant'
-import { Function, Scale, ThrowIfNull } from '../../../../Utilities'
-import { MakeMachinePrimeVariant } from '../Common'
+import { DollmakerGoggle, DollmakerMask } from '../../../Futuristic/GlassVisor'
 import { GlassLayerName } from '../../../Futuristic/GlassVisor/Layer'
-import {
-    DefaultShowEffectsOnItemMorph,
-    HandleBlindLimiterStrengthUpdate,
-    MorphableVisorCommonEvents,
-    ShouldHideBrows,
-} from './Common'
-import { HardLightVisor, VariantInfo } from './Constant'
-import { DollmakerGoggle, DollmakerMask, Variant as ModelVariant } from '../../../Futuristic/GlassVisor'
-import { Layering } from '../../../Futuristic/GlassVisor/Constant'
+import { ItemArchetype } from '../../Constant'
+import * as Coordinator from '../../Coordinator'
+import { MakeMorphableVisor, ShouldHideBrows, VisorVariantSet } from './Common'
+import { HardLightVisor } from './Constant'
 
-export type VariantOf<T extends ModelVariant> = Omit<T, 'Socketed' | 'Layering' | 'HideBrows'>
-export type Goggle = VariantOf<DollmakerGoggle> & { Layering: Layering.Goggle | Layering.Blindfold }
-export type Mask = VariantOf<DollmakerMask> & { Layering: Layering.Mask }
-export type OverMask = VariantOf<DollmakerMask> & { Layering: Layering.Hood }
+type Variants = VisorVariantSet<DollmakerGoggle, DollmakerMask>
+
+export type Goggle = Variants['Goggle']
+export type Mask = Variants['Mask']
+export type OverMask = Variants['OverMask']
 export type Variant =
     Goggle |
     Mask |
@@ -52,59 +45,19 @@ export const CalcVisorFilter = KDEx.AddEventHandler({
     ),
 })
 
-export const MorphOnBlindLimiterStrengthUpdate =
-    KDEx.AddEventHandler({
-        eventMap: KDEventMapInventory,
-        trigger: Coordinator.SensoryControl.EventKeys.SensoryLimiterStrengthUpdate,
-        type: '11D8DFAE-F831-4D7C-BB21-8987B8234A63',
-        handler: HandleBlindLimiterStrengthUpdate({
-            DoMorph: (_e, item, data) => {
-                const partialVariant = ThrowIfNull<Variant>(item.data?.[VariantInfo])
-                const template = GetTemplateForHardLightVariant({ partialVariant, strength: data.NewStrength })
-                KDS.KDMorphToInventoryVariant({
-                    item,
-                    variant: {
-                        ...item,
-                        template,
-                        events: item.events ?? []
-                    },
-                    forceMorph: true
-                })
-            },
-            ShowEffect: DefaultShowEffectsOnItemMorph
-        })
-    })
-
-const GetTemplateForHardLightVariant =
-    (args: {
-        partialVariant: Variant,
-        strength: number
-    }) => {
-        const {
-            partialVariant,
-            strength
-        } = args
-        return Futuristic.GlassVisor.GetVariant({
+const GetTemplateForVariant =
+    (partialVariant: Variant, strength: number) =>
+        Futuristic.GlassVisor.GetVariant({
             ...partialVariant,
             Socketed: true,
             HideBrows: ShouldHideBrows(strength)
         })
-    }
 
-export const Variant = Function.Cached(
-    (partialVariant: Variant) => {
-        const template = Futuristic.GlassVisor.GetVariant({
-            ...partialVariant,
-            Socketed: true,
-            HideBrows: ShouldHideBrows(Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Blinder))
-        })
-        return MakeMachinePrimeVariant({
-            template,
-            events: [
-                ...MorphableVisorCommonEvents(partialVariant),
-                CalcVisorFilter,
-                MorphOnBlindLimiterStrengthUpdate,
-            ]
-        })
-    }
-)
+export const {
+    MorphOnBlindLimiterStrengthUpdate,
+    Variant,
+} = MakeMorphableVisor({
+    Type: '11D8DFAE-F831-4D7C-BB21-8987B8234A63',
+    GetTemplateForStrength: GetTemplateForVariant,
+    Events: [CalcVisorFilter],
+})

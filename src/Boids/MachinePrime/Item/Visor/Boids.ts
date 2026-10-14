@@ -1,24 +1,16 @@
-import * as KDS from 'kd-structured'
-import * as KDEx from '../../../../KDExtension'
 import * as Futuristic from '../../../Futuristic'
-import * as Coordinator from '../../Coordinator'
-import { Function, ThrowIfNull } from '../../../../Utilities'
-import { MakeMachinePrimeVariant } from '../Common'
 import {
-    DefaultShowEffectsOnItemMorph,
-    HandleBlindLimiterStrengthUpdate,
-    MorphableVisorCommonEvents
-} from './Common'
-import { VariantInfo } from './Constant'
-import { BoidsGoggle, BoidsMask, Variant as ModelVariant } from '../../../Futuristic/GlassVisor'
-import { ItemArchetype } from '../../Constant'
-import { Layering } from '../../../Futuristic/GlassVisor/Constant'
+    BoidsGoggle,
+    BoidsMask,
+    Variant as ModelVariant,
+} from '../../../Futuristic/GlassVisor'
+import { MakeMorphableVisor, VisorVariantSet } from './Common'
 
-export type VariantOf<T extends ModelVariant> = Omit<T, 'Socketed' | 'Layering' | 'HideBrows' | 'Level'>
+type Variants = VisorVariantSet<BoidsGoggle, BoidsMask, 'Level'>
 
-export type Goggle = VariantOf<BoidsGoggle> & { Layering: Layering.Goggle | Layering.Blindfold }
-export type Mask = VariantOf<BoidsMask> & { Layering: Layering.Mask }
-export type OverMask = VariantOf<BoidsMask> & { Layering: Layering.Hood }
+export type Goggle = Variants['Goggle']
+export type Mask = Variants['Mask']
+export type OverMask = Variants['OverMask']
 export type Variant =
     Goggle |
     Mask |
@@ -27,68 +19,27 @@ export type Variant =
 const MorphLevelThreshold = [0, 0.25, 0.5, 0.75] as const
 
 const GetTemplateForVariant =
-    (args: {
-        partialVariant: Variant,
-        strength: number
-    }) => {
-        const {
-            partialVariant,
-            strength
-        } = args
+    (partialVariant: Variant, strength: number) => {
         const idx = MorphLevelThreshold.findLastIndex(threshold => strength >= threshold)
-        if(idx < 0) {
+        if (idx < 0) {
             throw new Error('Invalid blind level')
         }
+        // `Level` and `HideBrows` are correlated in the model variant types, which
+        // a computed level cannot express; the original cast is kept as found.
         const Level = idx + 1 as any
-        const HideBrows = Level > ModelVariant.BoidsHideBrowsThreshold
         return Futuristic.GlassVisor.GetVariant({
             ...partialVariant,
             Socketed: true,
             Level,
-            HideBrows
+            HideBrows: Level > ModelVariant.BoidsHideBrowsThreshold
         })
     }
 
-export const MorphOnBlindLimiterStrengthUpdate =
-    KDEx.AddEventHandler({
-        eventMap: KDEventMapInventory,
-        trigger: Coordinator.SensoryControl.EventKeys.SensoryLimiterStrengthUpdate,
-        type: '33790C6F-4629-4387-896E-A999E6641B40',
-        eventData: {
-            inheritLinked: true,
-        },
-        handler: HandleBlindLimiterStrengthUpdate({
-            DoMorph: (_e, item, data) => {
-                const partialVariant = ThrowIfNull<Variant>(item.data?.[VariantInfo])
-                const template = GetTemplateForVariant({ partialVariant, strength: data.NewStrength })
-                KDS.KDMorphToInventoryVariant({
-                    item,
-                    variant: {
-                        ...item,
-                        template,
-                        events: item.events ?? []
-                    },
-                    forceMorph: true
-                })
-            },
-            ShowEffect: DefaultShowEffectsOnItemMorph
-        })
-    })
-
-
-
-export const Variant = Function.Cached(
-    (partialVariant: Variant) => {
-        const template = GetTemplateForVariant({
-            partialVariant,
-            strength: Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Blinder)
-        })
-        return MakeMachinePrimeVariant({
-            template,
-            events: [
-                ...MorphableVisorCommonEvents(partialVariant),
-                MorphOnBlindLimiterStrengthUpdate,
-            ]
-        })
-    }
-)
+export const {
+    MorphOnBlindLimiterStrengthUpdate,
+    Variant,
+} = MakeMorphableVisor({
+    Type: '33790C6F-4629-4387-896E-A999E6641B40',
+    GetTemplateForStrength: GetTemplateForVariant,
+    InheritLinked: true,
+})
