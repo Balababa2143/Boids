@@ -5,6 +5,8 @@
         "strictBindCallApply": true,
         "noImplicitAny": false,
         "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
         "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "bundler",
