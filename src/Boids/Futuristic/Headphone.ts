@@ -1,7 +1,6 @@
 import { AddModelWithText, AddRestraintWithTextThenGetName } from '../../KDExtension'
 import { FactionFilter } from '../../KDInterface/TextKey'
-import { SFX, Constant } from './Common'
-import { CommonItemAvailability } from './Common/RestraintPart'
+import { SFX, Constant, CommonItemAvailability } from './Common'
 import { ItemTags, Layering } from './GlassVisor/Constant';
 
 enum PatchedElfEar {

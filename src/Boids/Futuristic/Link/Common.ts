@@ -1,8 +1,8 @@
 import { RestraintText, ModelText } from '../../../KDExtension'
-import { AddModelVariantMapToGame, AddRestraintVariantMapToGame, ModelVariantMapBuilder, ModelWithLayerSet, RestraintVariantMapBuilder, VariantPart } from '../../../KDExtension/Variant'
+import { AddModelVariantMapToGame, AddRestraintVariantMapToGame, ModelVariantMapBuilder, ModelWithLayerSet, RestraintVariantMapBuilder, VariantPart } from '../../../KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { ModelSetRootDir } from '../Common/Constant'
-import { RequireLockedEvent, CommonItemAvailability } from '../Common/RestraintPart'
+import { RequireLockedEvent, CommonItemAvailability } from '../Common'
 import { ThrowIfNull } from '../../../Utilities'
 
 /* Layer Sprite Naming:

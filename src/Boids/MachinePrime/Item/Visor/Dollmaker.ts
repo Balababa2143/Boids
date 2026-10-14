@@ -1,8 +1,7 @@
 import * as KDEx from '../../../../KDExtension'
 import { Scale } from '../../../../Utilities'
 import * as Futuristic from '../../../Futuristic'
-import { DollmakerGoggle, DollmakerMask } from '../../../Futuristic/GlassVisor'
-import { GlassLayerName } from '../../../Futuristic/GlassVisor/Layer'
+import { DollmakerGoggle, DollmakerMask, Layer } from '../../../Futuristic/GlassVisor'
 import { ItemArchetype } from '../../Constant'
 import * as Coordinator from '../../Coordinator'
 import { MakeMorphableVisor, ShouldHideBrows, VisorVariantSet } from './Common'
@@ -35,11 +34,11 @@ export const CalcVisorFilter = KDEx.AddEventHandler({
                 const targetBlindLevel = Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Blinder)
                 const opaqueFactor = Math.log(targetBlindLevel + LN_SHIFT) - LN_CORRECTION
                 const dimFactor = Scale(0, 0.8, opaqueFactor)
-                const filter: LayerFilter = data['Filters'][GlassLayerName] ?? {}
+                const filter: LayerFilter = data['Filters'][Layer.GlassLayerName] ?? {}
                 filter.saturation = 1
                 filter.alpha = Scale(1, 3.4, opaqueFactor)
                 filter.brightness = Scale(1, 0.2, dimFactor)
-                data['Filters'][GlassLayerName] = filter
+                data['Filters'][Layer.GlassLayerName] = filter
             }
         }
     ),

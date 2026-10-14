@@ -1,4 +1,4 @@
-import { AddVariantPrefix } from '../../KDExtension/Text'
+import { AddVariantPrefix } from '../../KDExtension'
 
 export const MachinePrimeItemPrefix = '8D4A3F0D-1270-46B3-A1E3-CD6A056AF7BB'
 

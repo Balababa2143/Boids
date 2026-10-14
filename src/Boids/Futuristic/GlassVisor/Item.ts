@@ -6,7 +6,7 @@ import { AddRestraintWithTextThenGetName, AddRestraintVariantMapToGame, Restrain
 import { ThrowIfNull } from '../../../Utilities'
 import { FromJS } from 'immutable'
 import { RequireSocket } from '../Common/VariantPart'
-import { RequireLockedEvent, CommonItemAvailability } from '../Common/RestraintPart'
+import { RequireLockedEvent, CommonItemAvailability } from '../Common'
 
 
 const ItemTemplate = {

@@ -1,2 +1,2 @@
 export * as Boot from './Boot'
-export * as Mitten from './Mitten/Item'
+export * as Mitten from './Mitten'

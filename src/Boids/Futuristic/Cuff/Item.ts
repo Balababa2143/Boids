@@ -1,10 +1,9 @@
 import { AddRestraintWithTextThenGetName } from '../../../KDExtension'
-import { RequireLockedEvent, CommonItemAvailability } from '../Common/RestraintPart'
+import { RequireLockedEvent, CommonItemAvailability, SFX } from '../Common'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { InheritColor } from './Model'
 import * as Model from './Model'
 import { Socket } from '../Link'
-import { SFX } from '../Common'
 
 const ItemBase = {
     special: true,

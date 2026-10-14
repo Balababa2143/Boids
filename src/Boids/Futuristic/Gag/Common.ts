@@ -1,7 +1,7 @@
-import * as Enum from '../../../Utilities/Enum'
+import { Enum } from '../../../Utilities'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { Category, GetGagMetal, InheritColor } from './GagMetal'
-import { GagEscapeChance, CommonItemAvailability } from '../Common/RestraintPart'
+import { GagEscapeChance, CommonItemAvailability } from '../Common'
 
 //#region Variants
 

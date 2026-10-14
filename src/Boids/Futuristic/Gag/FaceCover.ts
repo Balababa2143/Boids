@@ -1,9 +1,8 @@
 import * as KDEx from '../../../KDExtension'
-import * as Enum from '../../../Utilities/Enum'
-import { SFX} from '../Common'
+import { Enum } from '../../../Utilities'
+import { SFX, GagEscapeChance } from '../Common'
 import { Constant as GVisorConst } from '../GlassVisor'
 import { BallKind, Component, MakeItem, MuzzleKind, StrapDetail, StrapKindTags, Variant } from './Common'
-import { GagEscapeChance } from '../Common/RestraintPart'
 import { Category, } from './GagMetal'
 import { BallSocket, PlugSocket } from './Muffler'
 

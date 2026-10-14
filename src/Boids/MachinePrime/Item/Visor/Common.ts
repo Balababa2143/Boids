@@ -3,8 +3,7 @@ import * as KDEx from '../../../../KDExtension'
 import { KinkyDungeonInventoryEventHandler } from '../../../../KDInterface/Event'
 import { Function, ThrowIfNull } from '../../../../Utilities'
 import { Inventory as EventCommInv } from '../../../CommonEvent'
-import { Variant as ModelVariant } from '../../../Futuristic/GlassVisor'
-import { Layering } from '../../../Futuristic/GlassVisor/Constant'
+import { Constant, Variant as ModelVariant } from '../../../Futuristic/GlassVisor'
 import { ItemArchetype } from '../../Constant'
 import * as Coordinator from '../../Coordinator'
 import { MakeMachinePrimeVariant } from '../Common'
@@ -28,9 +27,9 @@ export type VisorVariantSet<
     MaskModel extends ModelVariant,
     Omitted extends PropertyKey = never,
 > = {
-    Goggle: VisorVariantOf<GoggleModel, Omitted> & { Layering: Layering.Goggle | Layering.Blindfold }
-    Mask: VisorVariantOf<MaskModel, Omitted> & { Layering: Layering.Mask }
-    OverMask: VisorVariantOf<MaskModel, Omitted> & { Layering: Layering.Hood }
+    Goggle: VisorVariantOf<GoggleModel, Omitted> & { Layering: Constant.Layering.Goggle | Constant.Layering.Blindfold }
+    Mask: VisorVariantOf<MaskModel, Omitted> & { Layering: Constant.Layering.Mask }
+    OverMask: VisorVariantOf<MaskModel, Omitted> & { Layering: Constant.Layering.Hood }
 }
 
 export const CalcBlind = KDEx.AddEventHandler({

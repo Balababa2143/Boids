@@ -1,5 +1,5 @@
 import * as KDEx from '../../../KDExtension'
-import * as Enum from '../../../Utilities/Enum'
+import { Enum } from '../../../Utilities'
 import { Variant } from './Common'
 import { BallKind, StrapKindTags, StrapDetail, MuzzleKind, Component } from './Common'
 

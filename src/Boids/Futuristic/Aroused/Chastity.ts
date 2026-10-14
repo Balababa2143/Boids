@@ -1,6 +1,6 @@
 import { AddRestraintWithTextThenGetName } from '../../../KDExtension';
 import { SFX } from '../Common';
-import { RequireLockedEvent } from '../Common/RestraintPart';
+import { RequireLockedEvent } from '../Common';
 
 const BeltBase = {
     inventory: true,
