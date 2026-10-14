@@ -14,7 +14,7 @@
     "Webpack Watch: Debug": "webpack --config webpack.config.ts --watch --mode development",
     "Webpack Bundle: Production": "webpack --config webpack.config.ts --mode production",
     "typecheck": "tsc -p tsconfig.test.json --noEmit",
-    "test": "webpack --config webpack.test.config.ts --mode development && node --test .fake/test/run.mjs",
+    "test": "webpack --config webpack.test.config.ts --mode development && node .fake/test/run.mjs",
     "test:build": "webpack --config webpack.test.config.ts --mode development",
     "test:watch": "webpack --config webpack.test.config.ts --watch --mode development",
     "verify": "npm run typecheck && npm run test",
