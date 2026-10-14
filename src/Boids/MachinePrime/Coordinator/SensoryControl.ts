@@ -1,7 +1,6 @@
 import * as KDS from 'kd-structured'
 import { ItemArchetype } from '../Constant'
 import { GetState, SetStateIn } from './Internal/StateStorage'
-import { AddEventHandler } from '../../../KDExtension'
 
 type SensoryController = ItemArchetype.Deafener | ItemArchetype.Blinder | ItemArchetype.Gag
 
@@ -78,19 +77,3 @@ export const ShowEffectsOnItemMorph = (args:{
         }
     }
 }
-
-//TODO: Test event, remove later
-AddEventHandler({
-    eventMap: KDEventMapGeneric,
-    trigger: 'tick',
-    type: '90F84036-7836-473E-BE57-14009ABE6158',
-    handler(e, data) {
-        // console.info('Boids: tick')
-        if(Math.random() < 0.25){
-            SetLimiterStrength(ItemArchetype.Gag, Math.random())
-        }
-        else if(Math.random() < 0.2){
-            SetLimiterStrength(ItemArchetype.Blinder, Math.random())
-        }
-    },
-})

@@ -155,7 +155,9 @@ export const MakeGagVariantWithBallSocket = (template: string) =>
         }
     )
 
-export const SetGagStrength = (value?: number) =>
-    Coordinator
-        .SensoryControl
-        .SetLimiterStrength(ItemArchetype.Gag, value ?? Math.random())
+/**
+ * Kept at this path because it is a console entry point
+ * (`MachinePrime.Item.Gag.SetGagStrength`); the implementation now lives with the
+ * rest of the development scaffolding.
+ */
+export { SetGagStrength } from '../Debug'

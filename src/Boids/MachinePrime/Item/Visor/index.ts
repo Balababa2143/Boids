@@ -1,13 +1,9 @@
 export * as Dollmaker from './Dollmaker'
-// export { HardLightVariant, GetHardLightVariant } from './Dollmaker'
-
 export * as Boids from './Boids'
-// export { HardLightVariant, GetHardLightVariant } from './Boids'
 
-// # Debug
-import * as Coordinater from '../../Coordinator'
-import { ItemArchetype } from '../../Constant'
-export const SetBlindStrength = (value?: number) =>
-    Coordinater
-        .SensoryControl
-        .SetLimiterStrength(ItemArchetype.Blinder, value ?? Math.random())
+/**
+ * Kept at this path because it is a console entry point
+ * (`MachinePrime.Item.Visor.SetBlindStrength`); the implementation now lives with
+ * the rest of the development scaffolding.
+ */
+export { SetBlindStrength } from '../../Debug'
