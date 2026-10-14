@@ -29,11 +29,11 @@ const enum LayersToSwap {
 type SwapLayerPose = Required<ModelLayer>['SwapLayerPose']
 
 const MakeSwapLayerPose = (layerToSwap: LayersToSwap, suffix) => ({
-    ... (layerToSwap | LayersToSwap.Crossed) && {
+    ... (layerToSwap & LayersToSwap.Crossed) && {
         Crossed: `CrossMitten${suffix}`
     },
-    ... (layerToSwap | LayersToSwap.Front) && {
-        Front: `FrontMitten${suffix}`
+    ... (layerToSwap & LayersToSwap.Front) && {
+        Front: `ForeMitten${suffix}`
     }
 } satisfies SwapLayerPose)
 
@@ -83,11 +83,15 @@ const MakeCommonLayer = (args: {
         Pri: fore ? bank.ForePri! : bank.Pri,
         Poses: fore ? ForeArmPoseMap : ArmPoseMap,
         GlobalDefaultOverride: FrontCrossLayerMap,
-        // The literals this replaces passed `Crossed` for forearm layers and
-        // `Crossed | Crossed` for mitten layers. Both are numerically 1, so both
-        // produced the same map -- the bitwise-OR defect pinned by
-        // `test/mitten-layers.test.ts` and tracked in #49.
-        SwapLayerPose: MakeSwapLayerPose(LayersToSwap.Crossed, suffix),
+        // A forearm band already sorts in `ForeMitten<suffix>`, so only the
+        // crossed pose needs a swap; the sleeve bands move there in the front
+        // pose. This mirrors the base game's cyber mitten model list.
+        SwapLayerPose: MakeSwapLayerPose(
+            fore
+                ? LayersToSwap.Crossed
+                : LayersToSwap.Crossed | LayersToSwap.Front,
+            suffix
+        ),
         TieToLayer: fore ? foreSleevesLayerName : sleevesLayerName,
         NoOverride: true,
         InheritColor: bank.Color,

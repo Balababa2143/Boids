@@ -4739,8 +4739,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           }
         },
         "CuffForeLongMittenLeft": {
@@ -4756,8 +4755,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -4777,7 +4775,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -4796,8 +4794,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -4817,7 +4814,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -4836,8 +4833,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -4857,7 +4853,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -4876,8 +4872,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -4897,7 +4892,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -4916,8 +4911,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -4937,7 +4931,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -4957,7 +4951,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -4977,7 +4971,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -4997,7 +4991,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -5017,7 +5011,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -5053,8 +5047,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           }
         },
         "CuffForeLongMittenRight": {
@@ -5070,8 +5063,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -5091,7 +5083,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5110,8 +5102,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -5131,7 +5122,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5150,8 +5141,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -5171,7 +5161,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5190,8 +5180,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -5211,7 +5200,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5230,8 +5219,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -5251,7 +5239,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5271,7 +5259,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5291,7 +5279,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5311,7 +5299,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5331,7 +5319,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5378,8 +5366,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           }
         },
         "CuffForeLongMittenLeft": {
@@ -5395,8 +5382,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -5416,7 +5402,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -5435,8 +5421,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -5456,7 +5441,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -5475,8 +5460,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -5496,7 +5480,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -5515,8 +5499,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -5536,7 +5519,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -5555,8 +5538,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -5576,7 +5558,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -5596,7 +5578,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -5616,7 +5598,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -5636,7 +5618,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -5656,7 +5638,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -5692,8 +5674,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           }
         },
         "CuffForeLongMittenRight": {
@@ -5709,8 +5690,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -5730,7 +5710,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5749,8 +5729,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -5770,7 +5749,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5789,8 +5768,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -5810,7 +5788,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5829,8 +5807,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -5850,7 +5827,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5869,8 +5846,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -5890,7 +5866,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5910,7 +5886,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5930,7 +5906,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5950,7 +5926,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -5970,7 +5946,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -6022,8 +5998,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "NoOverride": true,
           "EraseSprite": "Mitts",
@@ -6063,8 +6038,7 @@
           },
           "HideWhenOverridden": true,
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           }
         },
         "CuffForeLongMittenLeft": {
@@ -6080,8 +6054,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -6101,7 +6074,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -6120,8 +6093,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -6141,7 +6113,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -6160,8 +6132,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -6181,7 +6152,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -6200,8 +6171,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -6221,7 +6191,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -6240,8 +6210,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Crossed": "CrossMittenLeft"
           },
           "TieToLayer": "ForeLongMittenLeft",
           "NoOverride": true,
@@ -6261,7 +6230,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -6281,7 +6250,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -6301,7 +6270,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -6321,7 +6290,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -6341,7 +6310,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenLeft",
-            "Front": "FrontMittenLeft"
+            "Front": "ForeMittenLeft"
           },
           "TieToLayer": "LongMittenLeft",
           "NoOverride": true,
@@ -6381,8 +6350,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "NoOverride": true,
           "EraseSprite": "Mitts",
@@ -6422,8 +6390,7 @@
           },
           "HideWhenOverridden": true,
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           }
         },
         "CuffForeLongMittenRight": {
@@ -6439,8 +6406,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -6460,7 +6426,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -6479,8 +6445,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -6500,7 +6465,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -6519,8 +6484,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -6540,7 +6504,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -6559,8 +6523,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -6580,7 +6543,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -6599,8 +6562,7 @@
             "Crossed": true
           },
           "SwapLayerPose": {
-            "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Crossed": "CrossMittenRight"
           },
           "TieToLayer": "ForeLongMittenRight",
           "NoOverride": true,
@@ -6620,7 +6582,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -6640,7 +6602,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -6660,7 +6622,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -6680,7 +6642,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,
@@ -6700,7 +6662,7 @@
           },
           "SwapLayerPose": {
             "Crossed": "CrossMittenRight",
-            "Front": "FrontMittenRight"
+            "Front": "ForeMittenRight"
           },
           "TieToLayer": "LongMittenRight",
           "NoOverride": true,

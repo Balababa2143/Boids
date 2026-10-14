@@ -2,19 +2,17 @@
  * Characterization tests for the mitten layer factories.
  *
  * `Limb/Mitten/Layer.ts` contains fourteen near-identical layer literals, which
- * the refactor collapses into a data-driven factory. Two things must survive
- * that collapse, and neither is obvious from reading the code:
+ * the refactor collapses into a data-driven factory. Three things must survive
+ * that collapse, and none is obvious from reading the code:
  *
- *  1. `MakeSwapLayerPose` uses a bitwise OR in a truthiness position, so *both*
- *     the `Crossed` and the `Front` swap entries are emitted for every caller,
- *     regardless of the `LayersToSwap` value passed. Every call site passes
- *     `Crossed` (or the redundant `Crossed | Crossed`), so the `Front` entry is
- *     spurious — but it is the behaviour the game currently gets.
- *  2. Each factory derives every layer name from its suffix.
- *
- * The swap-map behaviour is pinned deliberately: it is a latent defect whose
- * intended shape is unclear, so changing it must be a separate, explicit decision
- * rather than a side effect of tidying the literals up.
+ *  1. `MakeSwapLayerPose` takes a bitmask of the poses a layer swaps in. A
+ *     forearm band already sorts in `ForeMitten<suffix>`, so it only swaps in
+ *     the `Crossed` pose; a sleeve band sits in `Mitten<suffix>` and swaps in
+ *     both `Crossed` and `Front`, moving into `ForeMitten<suffix>` for the
+ *     latter. This mirrors the base game's cyber mitten model list.
+ *  2. Every swap target has to be a layer group the game knows, which is why
+ *     the set of targets is asserted wholesale rather than entry by entry.
+ *  3. Each factory derives every layer name from its suffix.
  */
 
 import fc from 'fast-check'
@@ -50,9 +48,16 @@ const Factories: Record<string, (suffix: string) => ModelLayer[]> = {
     GetLongMittenCaplayers,
 }
 
-const ExpectedSwapLayerPose = (suffix: string) => ({
+const AllLayers = (suffix: string) =>
+    Object.values(Factories).flatMap(factory => factory(suffix))
+
+const IsForearmBand = (layer: ModelLayer) => layer.Layer.startsWith('ForeMitten')
+
+const ExpectedSwapLayerPose = (layer: ModelLayer, suffix: string) => ({
     Crossed: `CrossMitten${suffix}`,
-    Front: `FrontMitten${suffix}`,
+    ... !IsForearmBand(layer) && {
+        Front: `ForeMitten${suffix}`,
+    }
 })
 
 describe('mitten layer factories', () => {
@@ -63,7 +68,7 @@ describe('mitten layer factories', () => {
         }
     })
 
-    it('pins the current SwapLayerPose behaviour: Crossed and Front are always both set', () => {
+    it('swaps forearm bands in Crossed and sleeve bands in Crossed and Front', () => {
         fc.assert(
             fc.property(fc.string({ minLength: 1, maxLength: 12 }), suffix => {
                 for (const [name, factory] of Object.entries(Factories)) {
@@ -73,11 +78,29 @@ describe('mitten layer factories', () => {
                         }
                         assert.deepEqual(
                             layer.SwapLayerPose,
-                            ExpectedSwapLayerPose(suffix),
+                            ExpectedSwapLayerPose(layer, suffix),
                             `${name} / ${layer.Name} changed its SwapLayerPose`
                         )
                     }
                 }
+            })
+        )
+    })
+
+    it('only ever swaps into the crossed and forearm layer groups', () => {
+        // A typo in a swap target is invisible at runtime unless the game
+        // complains, so the whole target set is pinned. `FrontMitten*` used to
+        // appear here and is not a member of `LAYERS_BASE`.
+        fc.assert(
+            fc.property(fc.string({ minLength: 1, maxLength: 12 }), suffix => {
+                const targets = new Set(
+                    AllLayers(suffix).flatMap(layer => Object.values(layer.SwapLayerPose ?? {}))
+                )
+                assert.deepEqual(
+                    [...targets].sort(),
+                    [`CrossMitten${suffix}`, `ForeMitten${suffix}`].sort(),
+                    'a SwapLayerPose target left the crossed/forearm layer groups'
+                )
             })
         )
     })
