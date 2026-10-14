@@ -14,5 +14,6 @@ src/KDReference
 build
 bundle
 deploy
+generated
 artworkOutput
 .fake

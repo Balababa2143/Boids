@@ -1,0 +1,20 @@
+{
+    "name": "boids",
+    "version": "0.3.0",
+    "description": "Type declarations for the Boids Kinky Dungeon mod",
+    "type": "module",
+    "author": "balababa2143@gmail.com",
+    "license": "MIT",
+    "types": "@type/boids/Boids/index.d.ts",
+    "files": [
+        "@type/",
+        "tsconfig.json"
+    ],
+    "sideEffects": [
+
+    ],
+    "dependencies": {
+        "immutable": "^5.1.9",
+        "kd-structured": "5.4.78"
+    }
+}
