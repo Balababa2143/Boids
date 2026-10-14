@@ -12,12 +12,19 @@
   "scripts": {
     "Webpack Bundle: Debug": "webpack --config webpack.config.ts --mode development",
     "Webpack Watch: Debug": "webpack --config webpack.config.ts --watch --mode development",
-    "Webpack Bundle: Production": "webpack --config webpack.config.ts --mode production"
+    "Webpack Bundle: Production": "webpack --config webpack.config.ts --mode production",
+    "typecheck": "tsc -p tsconfig.test.json --noEmit",
+    "test": "webpack --config webpack.test.config.ts --mode development && node --test .fake/test/run.mjs",
+    "test:build": "webpack --config webpack.test.config.ts --mode development",
+    "test:watch": "webpack --config webpack.test.config.ts --watch --mode development",
+    "verify": "npm run typecheck && npm run test",
+    "verify:full": "npm run verify && npm run \"Webpack Bundle: Debug\""
   },
   "devDependencies": {
     "@types/archiver": "^8.0.0",
     "@types/node": "^26.6.5",
     "archiver": "^8.0.0",
+    "fast-check": "^4.10.2",
     "pixi-filters": "^5.2.0",
     "pixi.js": "^7.4.3",
     "pixi.js-legacy": "^7.2.1",

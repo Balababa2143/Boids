@@ -9,6 +9,10 @@ package-lock.json
 # Source Reference
 src/KDReference
 
+# test diagnostics
+# Written on manifest mismatch for review; the test failure itself is the signal.
+test/__manifest__/*.next.json
+
 # output
 */fable_modules
 build

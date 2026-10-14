@@ -1,0 +1,22 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "rootDir": ".",
+        "declaration": false,
+        "declarationDir": null,
+        "declarationMap": false,
+        "inlineSourceMap": false,
+        "types": [
+            "node"
+        ],
+        "typeRoots": [
+            "./node_modules/@types",
+            "./kd-structured/Generated/@type"
+        ]
+    },
+    "include": [
+        "src/**/*.ts",
+        "test/**/*.ts",
+        "kd-structured/KinkyDungeon/out/main.d.ts"
+    ]
+}
