@@ -1,5 +1,6 @@
 import { AddRestraintWithTextThenGetName } from '../../../KDExtension';
 import { SFX } from '../Common';
+import { RequireLockedEvent } from '../Common/RestraintPart';
 
 const BeltBase = {
     inventory: true,
@@ -43,7 +44,7 @@ const BeltBase = {
     minLevel: 7,
     allFloors: true,
     events: [
-        { trigger: 'postUnlock', type: 'RequireLocked', inheritLinked: true },
+        RequireLockedEvent,
     ],
 }
 
@@ -83,7 +84,7 @@ const BraBase = {
     allFloors: true,
 
     events: [
-        { trigger: 'postUnlock', type: 'RequireLocked', inheritLinked: true },
+        RequireLockedEvent,
     ],
 }
 

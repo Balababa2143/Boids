@@ -2,6 +2,7 @@ import { RestraintText, ModelText } from '../../../KDExtension'
 import { AddModelVariantMapToGame, AddRestraintVariantMapToGame, ModelVariantMapBuilder, ModelWithLayerSet, RestraintVariantMapBuilder, VariantPart } from '../../../KDExtension/Variant'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { ModelSetRootDir } from '../Common/Constant'
+import { RequireLockedEvent, CommonItemAvailability } from '../Common/RestraintPart'
 import { ThrowIfNull } from '../../../Utilities'
 
 /* Layer Sprite Naming:
@@ -72,19 +73,13 @@ export const RestraintTemplate = {
 
     unlimited: true,
     power: 15,
-    weight: 0,
-    minLevel: 0,
-    allFloors: true,
+    ...CommonItemAvailability,
 
     playerTags: {},
     enemyTags: {},
 
     events: [
-        {
-            trigger: 'postUnlock',
-            type: 'RequireLocked',
-            inheritLinked: true
-        }
+        RequireLockedEvent
     ]
 } satisfies Partial<restraint>
 //#endregion

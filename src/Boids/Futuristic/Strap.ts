@@ -1,5 +1,6 @@
 import { AddRestraintWithTextThenGetName } from '../../KDExtension';
 import { SFX } from './Common';
+import { RequireLockedEvent } from './Common/RestraintPart';
 
 export const ControlHarness =
     AddRestraintWithTextThenGetName(
@@ -48,7 +49,7 @@ export const ControlHarness =
             allFloors: true,
 
             events: [
-                { trigger: 'postUnlock', type: 'RequireLocked', inheritLinked: true },
+                RequireLockedEvent,
                 // {trigger: 'postApply', type: 'ControlHarness', power: 1, inheritLinked: true},
                 // {trigger: 'remotePunish', type: 'RemoteControlHarness', kind: 'RemoteLink', noLeash: false, enemyDialogue: 'KDDialogueRemoteLinkTether', msg: 'KDMsgRemoteLinkCHTether'},
             ]

@@ -1,6 +1,7 @@
 import { AddRestraintWithTextThenGetName } from '../../../../KDExtension'
 import { FactionFilter } from '../../../../KDInterface/TextKey'
 import { SFX } from '../../Common'
+import { CommonItemAvailability } from '../../Common/RestraintPart'
 import { Socket } from '../../Link'
 import { InheritColor } from './Layer'
 import * as Model from './Model'
@@ -90,9 +91,7 @@ const ItemBase = {
     },
 
     power: 0,
-    weight: 0,
-    minLevel: 0,
-    allFloors: true,
+    ...CommonItemAvailability,
 
     playerTags: {},
     enemyTags: {},

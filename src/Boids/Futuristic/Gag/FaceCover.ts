@@ -3,6 +3,7 @@ import * as Enum from '../../../Utilities/Enum'
 import { SFX} from '../Common'
 import { Constant as GVisorConst } from '../GlassVisor'
 import { BallKind, Component, MakeItem, MuzzleKind, StrapDetail, StrapKindTags, Variant } from './Common'
+import { GagEscapeChance } from '../Common/RestraintPart'
 import { Category, } from './GagMetal'
 import { BallSocket, PlugSocket } from './Muffler'
 
@@ -31,13 +32,7 @@ const MakeStrap = (args: { name: string, variant: Variant }) => {
                     []
             ),
         ],
-        escapeChance: {
-            Remove: 0.7,
-            Struggle: 0.05,
-            Unlock: 0.44,
-            Pick: 0.27,
-            Cut: 0.16
-        },
+        escapeChance: GagEscapeChance,
     }
 }
 
@@ -157,13 +152,7 @@ const MakeMuzzle = (args: { name: string, variant: Variant }) => {
                     []
             )
         ],
-        escapeChance: {
-            Remove: 0.7,
-            Struggle: 0.05,
-            Unlock: 0.44,
-            Pick: 0.27,
-            Cut: 0.16
-        },
+        escapeChance: GagEscapeChance,
     }
 }
 

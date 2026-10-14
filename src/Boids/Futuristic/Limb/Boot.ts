@@ -1,6 +1,7 @@
 import { AddRestraintWithTextThenGetName } from '../../../KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { SFX } from '../Common'
+import { CommonItemAvailability } from '../Common/RestraintPart'
 import { Socket } from '../Link'
 
 export const Heel = AddRestraintWithTextThenGetName(
@@ -42,9 +43,7 @@ export const Heel = AddRestraintWithTextThenGetName(
         },
 
         power: 0,
-        weight: 0,
-        minLevel: 0,
-        allFloors: true,
+        ...CommonItemAvailability,
         heelpower: 2,
 
         playerTags: {},

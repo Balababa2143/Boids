@@ -6,6 +6,7 @@ import { AddRestraintWithTextThenGetName, RestraintText, RestraintVariant, Varia
 import { ThrowIfNull } from '../../../Utilities'
 import { FromJS } from 'immutable'
 import { RequireSocket } from '../Common/VariantPart'
+import { RequireLockedEvent, CommonItemAvailability } from '../Common/RestraintPart'
 
 
 const ItemTemplate = {
@@ -33,19 +34,13 @@ const ItemTemplate = {
         Cut: -0.8
     },
     power: 0,
-    weight: 0,
-    minLevel: 0,
-    allFloors: true,
+    ...CommonItemAvailability,
 
     playerTags: {},
     enemyTags: {},
 
     events: [
-        {
-            trigger: 'postUnlock',
-            type: 'RequireLocked',
-            inheritLinked: true
-        }
+        RequireLockedEvent
     ]
 } satisfies Partial<restraint>
 

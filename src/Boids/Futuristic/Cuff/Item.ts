@@ -1,4 +1,5 @@
 import { AddRestraintWithTextThenGetName } from '../../../KDExtension'
+import { RequireLockedEvent, CommonItemAvailability } from '../Common/RestraintPart'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { InheritColor } from './Model'
 import * as Model from './Model'
@@ -57,20 +58,14 @@ const ItemBase = {
     noDupe: true,
     unlimited: true,
     power: 15,
-    weight: 0,
-    minLevel: 0,
-    allFloors: true,
+    ...CommonItemAvailability,
     nonbinding: true,
 
     playerTags: {},
     enemyTags: {},
 
     events: [
-        {
-            trigger: 'postUnlock',
-            type: 'RequireLocked',
-            inheritLinked: true
-        }
+        RequireLockedEvent
     ]
 } satisfies Partial<restraint>
 

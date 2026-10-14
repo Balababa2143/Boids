@@ -1,6 +1,7 @@
 import * as Enum from '../../../Utilities/Enum'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { Category, GetGagMetal, InheritColor } from './GagMetal'
+import { GagEscapeChance, CommonItemAvailability } from '../Common/RestraintPart'
 
 //#region Variants
 
@@ -227,18 +228,10 @@ export const MakeItem = (args: { name: string, category: Category, variant: Vari
             },
         },
 
-        escapeChance: {
-            Remove: 0.7,
-            Struggle: 0.05,
-            Unlock: 0.44,
-            Pick: 0.27,
-            Cut: 0.16
-        },
+        escapeChance: GagEscapeChance,
 
         power: 0,
-        weight: 0,
-        minLevel: 0,
-        allFloors: true,
+        ...CommonItemAvailability,
 
         playerTags: {},
         enemyTags: {}

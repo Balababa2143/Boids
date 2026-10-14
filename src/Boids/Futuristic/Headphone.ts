@@ -1,6 +1,7 @@
 import { AddModelWithText, AddRestraintWithTextThenGetName } from '../../KDExtension'
 import { FactionFilter } from '../../KDInterface/TextKey'
 import { SFX, Constant } from './Common'
+import { CommonItemAvailability } from './Common/RestraintPart'
 import { ItemTags, Layering } from './GlassVisor/Constant';
 
 enum PatchedElfEar {
@@ -120,9 +121,7 @@ export const Earphone = AddRestraintWithTextThenGetName({
     },
 
     power: 0,
-    weight: 0,
-    minLevel: 0,
-    allFloors: true,
+    ...CommonItemAvailability,
 
     playerTags: {},
     enemyTags: {}
