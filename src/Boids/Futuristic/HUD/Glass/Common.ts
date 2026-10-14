@@ -7,7 +7,7 @@ export interface IGlassModelVariantBase extends IModelVariantBase {
     Dimmed: Boolean
 }
 
-export function* ValidGlassModelVaraints() : Iterable<IGlassModelVariantBase> {
+export function* ValidGlassModelVariants() : Iterable<IGlassModelVariantBase> {
     for(const UseFactionColor of [false, true]){
         for(const OpaqueLevel of <OpaqueLevel[]>[1, 2, 3, 4]){
             for(const Dimmed of [true, false]){

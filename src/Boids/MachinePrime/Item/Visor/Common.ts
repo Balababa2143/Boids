@@ -6,7 +6,7 @@ import { Inventory as EventCommInv } from '../../../CommonEvent'
 import { Variant as ModelVariant } from '../../../Futuristic/GlassVisor'
 import { Layering } from '../../../Futuristic/GlassVisor/Constant'
 import { ItemArchetype } from '../../Constant'
-import * as Coordinater from '../../Coordinator'
+import * as Coordinator from '../../Coordinator'
 import { MakeMachinePrimeVariant } from '../Common'
 import { HardLightVisor as MorphableVisor, VariantInfo } from './Constant'
 
@@ -39,7 +39,7 @@ export const CalcBlind = KDEx.AddEventHandler({
     type: '7BCC6086-764D-42A6-B92C-93E230E7086F',
     handler: (_e, item, data) => {
         if (item.data?.[MorphableVisor]) {
-            data['blindness'] = Math.max(data['blindness'], Coordinater.SensoryControl.GetLimiterStrength(ItemArchetype.Blinder) * 6)
+            data['blindness'] = Math.max(data['blindness'], Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Blinder) * 6)
         }
     },
     eventData: {
@@ -50,8 +50,8 @@ export const CalcBlind = KDEx.AddEventHandler({
 export const MorphableVisorCommonEvents = (visorVariant: Partial<ModelVariant>) => [
     CalcBlind,
     EventCommInv.AddTags([ItemArchetype.Blinder]),
-    Coordinater.RegisterItemOnApply(ItemArchetype.Blinder),
-    Coordinater.UnRegisterItemOnRemoval(ItemArchetype.Blinder),
+    Coordinator.RegisterItemOnApply(ItemArchetype.Blinder),
+    Coordinator.UnRegisterItemOnRemoval(ItemArchetype.Blinder),
     EventCommInv.SetItemDataOnApply({
         [MorphableVisor]: 1,
         [VariantInfo]: visorVariant
@@ -64,7 +64,7 @@ export const ShouldHideBrows = (strength: number) =>
     HideBrowsThreshold < strength
 
 export const DefaultShowEffectsOnItemMorph = (delta: number) =>
-    Coordinater.SensoryControl.ShowEffectsOnItemMorph({
+    Coordinator.SensoryControl.ShowEffectsOnItemMorph({
         delta,
         sfxIncrease: 'BeepEngage',
         sfxDecrease: 'BeepEngage',
@@ -86,17 +86,17 @@ export const DefaultShowEffectsOnItemMorph = (delta: number) =>
 
 export const HandleBlindLimiterStrengthUpdate =
     (args: {
-        DoMorph: KinkyDungeonInventoryEventHandler<Coordinater.SensoryControl.LimiterStrengthUpdateEventArgs>,
+        DoMorph: KinkyDungeonInventoryEventHandler<Coordinator.SensoryControl.LimiterStrengthUpdateEventArgs>,
         ShowEffect: typeof DefaultShowEffectsOnItemMorph
     }) =>
-        ((e, item, data: Coordinater.SensoryControl.LimiterStrengthUpdateEventArgs) => {
+        ((e, item, data: Coordinator.SensoryControl.LimiterStrengthUpdateEventArgs) => {
             if (data.Type === ItemArchetype.Blinder) {
                 if (ShouldHideBrows(data.OldStrength) !== ShouldHideBrows(data.NewStrength)) { // XOR
                     args.DoMorph(e, item, data)
                 }
                 args.ShowEffect(data.NewStrength - data.OldStrength)
             }
-        }) satisfies KinkyDungeonInventoryEventHandler<Coordinater.SensoryControl.LimiterStrengthUpdateEventArgs>
+        }) satisfies KinkyDungeonInventoryEventHandler<Coordinator.SensoryControl.LimiterStrengthUpdateEventArgs>
 
 /**
  * The two hard light visors differ only in their glass, in how they turn a
@@ -124,7 +124,7 @@ export const MakeMorphableVisor =
         const MorphOnBlindLimiterStrengthUpdate =
             KDEx.AddEventHandler({
                 eventMap: KDEventMapInventory,
-                trigger: Coordinater.SensoryControl.EventKeys.SensoryLimiterStrengthUpdate,
+                trigger: Coordinator.SensoryControl.EventKeys.SensoryLimiterStrengthUpdate,
                 type: args.Type,
                 ... args.InheritLinked && {
                     eventData: {
@@ -154,7 +154,7 @@ export const MakeMorphableVisor =
                 MakeMachinePrimeVariant({
                     template: args.GetTemplateForStrength(
                         partialVariant,
-                        Coordinater.SensoryControl.GetLimiterStrength(ItemArchetype.Blinder)
+                        Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Blinder)
                     ),
                     events: [
                         ...MorphableVisorCommonEvents(partialVariant),

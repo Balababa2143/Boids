@@ -10,14 +10,14 @@ declare global {
     }
 }
 
-let CoordinaterState: State = State()
+let CoordinatorState: State = State()
 
-export const GetState = () => CoordinaterState
+export const GetState = () => CoordinatorState
 
 export const SetState = (newState: State) => {
     // TODO: Handle synchronization across save, etc
-    if(!newState.equals(CoordinaterState)){
-        CoordinaterState = newState
+    if(!newState.equals(CoordinatorState)){
+        CoordinatorState = newState
     }
     return newState
 }
@@ -50,6 +50,6 @@ AddEventHandler({
 const _KinkyDungeonGenerateSaveData = globalThis.KinkyDungeonGenerateSaveData
 
 globalThis.KinkyDungeonGenerateSaveData = function() {
-    KDGameDataBase[GameDataStateKey] = CoordinaterState.toJS()
+    KDGameDataBase[GameDataStateKey] = CoordinatorState.toJS()
     return _KinkyDungeonGenerateSaveData()
 }

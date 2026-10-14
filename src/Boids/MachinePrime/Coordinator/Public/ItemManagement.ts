@@ -1,5 +1,5 @@
 /**
- * Registar for drone equipments
+ * Registers for drone equipments
  * @module Boids/MachinePrime/Coordinator/ItemManagement
  * @see module:Boids/MachinePrime/Coordinator/ItemManagement
  */

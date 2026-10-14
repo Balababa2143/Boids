@@ -67,21 +67,21 @@ interface _Gag extends _SensoryLimiter {
 
 }
 
-const _GagDefeult = _SensoryLimiterDefault
+const _GagDefault = _SensoryLimiterDefault
 
 export type Gag = RecordOf<_Gag>
 
-export const Gag = DefineStateRecord<_Gag>(_GagDefeult, SensoryLimiterFields)
+export const Gag = DefineStateRecord<_Gag>(_GagDefault, SensoryLimiterFields)
 
 interface _Visor extends _SensoryLimiter {
 
 }
 
-const _VisorDefsult = _SensoryLimiterDefault
+const _VisorDefault = _SensoryLimiterDefault
 
 export type Visor = RecordOf<_Visor>
 
-export const Visor = DefineStateRecord<_Visor>(_VisorDefsult, SensoryLimiterFields)
+export const Visor = DefineStateRecord<_Visor>(_VisorDefault, SensoryLimiterFields)
 
 interface _ItemRegistry {
     readonly [ItemArchetype.Blinder]: _Visor

@@ -16,7 +16,7 @@ import { GlassLayerTemplate, ModelTemplate } from "../Common";
 import { GlassLayerFragments, GlassSpriteName, InheritColor, Layering } from "../../GlassVisor/Constant";
 import { AddModelVariantMapToGame, ModelVariantMapBuilder } from "../../../../KDExtension";
 import { Constant } from "../../Common";
-import { IGlassModelVariantBase, ValidGlassModelVaraints } from "./Common";
+import { IGlassModelVariantBase, ValidGlassModelVariants } from "./Common";
 
 interface IModelVariant extends IGlassModelVariantBase {
     Layer: Layering
@@ -70,7 +70,7 @@ export const ValidModelVariantMap = (() => {
         })
     }
 
-    for(const v of ValidGlassModelVaraints()){
+    for(const v of ValidGlassModelVariants()){
         for(const layer of [Layering.Goggle, Layering.Blindfold]){
             AddVariant(ModelVariant({
                 ...v,
