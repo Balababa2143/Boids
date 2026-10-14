@@ -1,6 +1,6 @@
 import * as KDEx from '../../../../KDExtension'
 import { KinkyDungeonInventoryEventHandler } from '../../../../KDInterface/Event'
-import { Invnetory as EventCommInv } from '../../../CommonEvent'
+import { Inventory as EventCommInv } from '../../../CommonEvent'
 import { Variant } from '../../../Futuristic/GlassVisor'
 import { ItemArchetype } from '../../Constant'
 import * as Coordinater from '../../Coordinator'

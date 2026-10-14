@@ -1,1 +1,1 @@
-export * as Invnetory from './Inventory'
+export * as Inventory from './Inventory'
