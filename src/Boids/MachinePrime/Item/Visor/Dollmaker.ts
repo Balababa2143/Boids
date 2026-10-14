@@ -3,7 +3,7 @@ import * as KDEx from '../../../../KDExtension'
 import * as Futuristic from '../../../Futuristic'
 import * as Coordinator from '../../Coordinator'
 import { ItemArchetype } from '../../Constant'
-import { Function, Logistic, Scale, ThrowIfNull } from '../../../../Utilities'
+import { Function, Scale, ThrowIfNull } from '../../../../Utilities'
 import { MakeMachinePrimeVariant } from '../Common'
 import { GlassLayerName } from '../../../Futuristic/GlassVisor/Layer'
 import {

@@ -1,11 +1,10 @@
-import { v5 as uuidv5 } from 'uuid'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 import { GlassType, InheritColor, ItemTags, Layering } from './Constant'
 import Variant, { AddValidVariants } from './Variant'
 import { GetGlassModelVariant, MaskMountModel } from './Model'
 import { AddRestraintWithTextThenGetName, RestraintText, RestraintVariant, VariantKeyOrImmutable, VariantPart, RestraintVariantMapBuilder, VariantKeyToImmutable } from '../../../KDExtension'
 import { ThrowIfNull } from '../../../Utilities'
-import { FromJS, Map } from 'immutable'
+import { FromJS } from 'immutable'
 import { RequireSocket } from '../Common/VariantPart'
 
 
@@ -63,9 +62,6 @@ const CalcBlind = (variant: Variant) => {
 
 const BaseName = '776675EB-33EC-485B-B204-D743B43727CC'
 
-const GetRestraintVariantName = (variant: Variant) =>
-    uuidv5(Variant.ToString(variant), BaseName)
-
 const GetDebugText = (variant: Variant) => ({
     DisplayName: variant.GlassType == GlassType.BoidsGoggle || variant.GlassType == GlassType.DollmakerGoggle ? 'Drone Visor' : 'Drone Mask',
     FunctionText: [
@@ -97,10 +93,7 @@ class VisorVariantMapBuilder extends RestraintVariantMapBuilder<FromJS<Variant>>
     }
 }
 
-const {
-    variantToNameMap:ValidVariantNameMap,
-    variantMap: ValidVariantRestraintMap
-} = (() => {
+const ValidVariantNameMap = (() => {
     const variantMapBuilder = new VisorVariantMapBuilder({
         baseId: BaseName
     })
@@ -158,21 +151,14 @@ const {
 
     AddValidVariants(AddVariant)
 
-    const variantMap = variantMapBuilder.BuildVariantMap(ItemTemplate)
-    const variantToNameMap: Map<FromJS<Variant>, string> =
-        variantMap.map(({Restraint, TextInfo}) => 
-            AddRestraintWithTextThenGetName(
-                Restraint,
-                TextInfo
-            )
+    // Registering the restraints is the point of this call; the resulting lookup
+    // table is only used to map variants back to the registered names.
+    return variantMapBuilder
+        .BuildVariantMap(ItemTemplate)
+        .map(({ Restraint, TextInfo }) =>
+            AddRestraintWithTextThenGetName(Restraint, TextInfo)
         )
-    return {
-        variantMap,
-        variantToNameMap
-    }
 })()
-
-export { ValidVariantNameMap, ValidVariantRestraintMap }
 
 export const GetVariant =
     (variant: VariantKeyOrImmutable<Variant>) => ThrowIfNull(ValidVariantNameMap.get(VariantKeyToImmutable<Variant>(variant)))

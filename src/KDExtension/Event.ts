@@ -1,5 +1,5 @@
 import { KDEventMap } from '../KDInterface/Event'
-import { Function, ThrowIfNull, WithDefault } from '../Utilities'
+import { ThrowIfNull, WithDefault } from '../Utilities'
 
 export interface IAddEventHandlerParameterPack<EventMap extends KDEventMap, Trigger extends (string & keyof EventMap)> {
     eventMap: EventMap,

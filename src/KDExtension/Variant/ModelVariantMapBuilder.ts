@@ -1,8 +1,7 @@
 import { FromJS, fromJS, isKeyed, Map, Set } from 'immutable'
 import { AddModelWithTextThenGetName, ModelText } from '../Model'
-import { JSReceiver, VariantKeyOrImmutable, IsComplete, GetVariantIdFromBase, VariantPart, VariantKeyToImmutable, IMVariantPart, GetVariantNameFromBase } from './Common'
+import { JSReceiver, IMVariantPart } from './Common'
 import { VariantMap, VariantMapBuilder } from './VariantMapBuilder'
-import { ThrowIfNull } from '../../Utilities'
 import { NamedVariantMapBuilder } from './NamedVariantMapBuilder'
 
 /**

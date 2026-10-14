@@ -66,8 +66,6 @@ type Variant =
     BoidsVariant
 
 namespace Variant {
-    export const ToString = <BaseName extends string>(variant: Variant) =>
-        JSON.stringify(variant)
 
     export const GlassTypes = [
         GlassType.DollmakerGoggle,

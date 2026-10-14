@@ -1,16 +1,10 @@
-import { DeepFreezeInplace, DeepFreezeClone } from '../Utilities'
+import { DeepFreezeClone } from '../Utilities'
 
 export interface ModelText {
     DisplayName: string,
     AdditionalTextKey?: Record<string, string>
 }
 
-export namespace ModelText {
-    export const Default: ModelText = DeepFreezeInplace({
-        DisplayName: '[Model Name Missing]',
-        AdditionalTextKey: {}
-    })
-}
 export const AddModelWithText = (model: Model, text?: ModelText) => {
     if (ModelDefs[model.Name] != null) {
         throw new Error('Adding duplicated model.')

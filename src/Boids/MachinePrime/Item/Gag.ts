@@ -30,7 +30,7 @@ export const MorphOnTargetedGagStrengthUpdate = {
         eventMap: KDEventMapInventory,
         trigger: Coordinator.SensoryControl.EventKeys.SensoryLimiterStrengthUpdate,
         type: '2C8CA1C4-48E1-4E38-9019-15715FB80692',
-        handler: (e, item, data: Coordinator.SensoryControl.LimiterStrengthUpdateEventArgs) => {
+        handler: (_e, item, data: Coordinator.SensoryControl.LimiterStrengthUpdateEventArgs) => {
             if (data.Type === ItemArchetype.Gag) {
                 SetGagModelByStrength(item, data.NewStrength)
                 Coordinator.SensoryControl.ShowEffectsOnItemMorph({

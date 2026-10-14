@@ -1,9 +1,8 @@
-import { FromJS, Record, RecordOf} from "immutable";
+import { Record, RecordOf} from "immutable";
 import { BlindfoldLayer, GlassLayerTemplate, GogglesLayer, ModelTemplate, SpriteBaseName, InheritColor, VisorSpriteLayer } from "../Common";
-import { AddModelWithTextThenGetName, ModelVariantMapBuilder, VariantKeyToImmutable } from "../../../../KDExtension";
+import { AddModelWithTextThenGetName, ModelVariantMapBuilder } from "../../../../KDExtension";
 import { Constant } from "../../Common";
 import { IGlassModelVariantBase, ValidGlassModelVaraints } from "./Common";
-import { FactionFilter } from "../../../../KDInterface/TextKey";
 
 interface IModelVariant extends IGlassModelVariantBase {
     Layer: VisorSpriteLayer
@@ -77,42 +76,3 @@ export const ValidModelVariantMap = (() => {
         )
     return variantToNameMap
 })()
-
-export const RestraintTemplate = {
-
-    special: true,
-    inventory: false,
-    accessible: true,
-
-    Group: 'ItemHead',
-
-    Model: '',
-    factionFilters: {
-        [<InheritColor>'Glass']: {
-            color: FactionFilter.Highlight,
-            override: false
-        }
-    },
-
-    noDupe: true,
-    escapeChance: {
-        Struggle: 0.26,
-        Pick: -1,
-        Cut: 0.33
-    },
-    power: 0,
-    weight: 0,
-    minLevel: 0,
-    allFloors: true,
-
-    playerTags: {},
-    enemyTags: {},
-
-    events: [
-        {
-            trigger: 'postUnlock',
-            type: 'RequireLocked',
-            inheritLinked: true
-        }
-    ]
-} satisfies Partial<restraint>

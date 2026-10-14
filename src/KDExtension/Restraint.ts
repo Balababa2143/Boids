@@ -65,29 +65,3 @@ export const AddRestraintWithText = (restraint: restraint, restraintText: Restra
  */
 export const AddRestraintWithTextThenGetName = (restraint: restraint, restraintText?: RestraintText) =>
     AddRestraintWithText(restraint, restraintText).name
-
-/**
- * Merges multiple list of `KinkyDungeonEvent` objects into a single generator function,
- * ensuring that for each unique combination of `trigger` and `type`, only the last encountered event is kept.
- *
- * @param eventLists - An iterable of iterables, where each inner iterable contains `KinkyDungeonEvent` objects.
- * @returns A generator function that yields the merged `KinkyDungeonEvent` objects, one for each unique `trigger` and `type` combination.
- */
-export const MergeEvents = (eventLists: Iterable<Iterable<KinkyDungeonEvent>>) => {
-    const ret: Record<string, Record<string, KinkyDungeonEvent>> = {}
-    for (const eventList of eventLists) {
-        for (const event of eventList) {
-            const triggerList = ret[event.trigger] ?? {}
-            triggerList[event.type] = event
-            ret[event.trigger] = triggerList
-        }
-    }
-    return (function* () {
-        for (const trigger in ret) {
-            const triggerList = ret[trigger]
-            for (const type in triggerList) {
-                yield triggerList[type]
-            }
-        }
-    })()
-}

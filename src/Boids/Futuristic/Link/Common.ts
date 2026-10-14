@@ -1,4 +1,3 @@
-import { FromJS } from 'immutable'
 import { RestraintText, ModelText } from '../../../KDExtension'
 import { AddModelVariantMapToGame, AddRestraintVariantMapToGame, ModelVariantMapBuilder, ModelWithLayerSet, RestraintVariantMapBuilder, VariantPart } from '../../../KDExtension/Variant'
 import { FactionFilter } from '../../../KDInterface/TextKey'

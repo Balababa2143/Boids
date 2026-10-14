@@ -1,6 +1,6 @@
-import { GetVariantIdFromBase, GetVariantNameFromBase, IMVariantPart, JSReceiver } from "./Common"
+import { GetVariantIdFromBase, GetVariantNameFromBase, JSReceiver } from "./Common"
 import { VariantMapBuilder } from "./VariantMapBuilder"
-import { fromJS, FromJS, Map as IMMap, Set as IMSet } from 'immutable'
+import { Map as IMMap } from 'immutable'
 
 export interface ITextInfoBase {
     DisplayName?: string

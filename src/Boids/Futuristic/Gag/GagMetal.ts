@@ -492,39 +492,4 @@ export const GetGagMetal = (args: { category: Category, variant: Variant }) => {
     return name
 }
 
-const InjectAllModels = () =>
-    Enum.GetStringValues(Category)
-        .forEach(category => {
-            Enum.GetNumericValues(BallKind)
-                .forEach(ballKind => {
-                    Enum.GetNumericValues(StrapKindTags)
-                        .forEach(strapTag => {
-                            const callBack = (strapDetail?: StrapDetail) => {
-                                Enum.GetNumericValues(MuzzleKind)
-                                    .forEach(muzzleKind => {
-                                        Enum.GetAllFlagsCombination(Component)
-                                            .forEach(component => {
-                                                const variant: Variant = {
-                                                    Ball: ballKind as number,
-                                                    Strap: {
-                                                        __Type: strapTag,
-                                                        Detail: strapDetail!
-                                                    },
-                                                    Muzzle: muzzleKind,
-                                                    Component: component
-                                                }
-                                                GetGagMetal({ category, variant })
-                                            })
-                                    })
-                            }
-                            if (strapTag !== StrapKindTags.None) {
-                                Enum.GetAllFlagsCombination(StrapDetail)
-                                    .forEach(callBack)
-                            }
-                            else {
-                                callBack()
-                            }
-                        })
-                })
-        })
 //#endregion

@@ -58,7 +58,7 @@ const GetGlassLayerSpritename =
         }
     }
 
-export const ValidVariantMap = (() => {
+const ValidVariantMap = (() => {
     const builder = new VariantMapBuilder<FromJS<Variant>, ModelLayer>()
 
     const AddVariant = (variant) => {

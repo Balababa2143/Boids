@@ -1,5 +1,3 @@
-import { VariantKeyOrImmutable, VariantKeyToImmutable } from '../../../KDExtension'
-import { ThrowIfNull } from '../../../Utilities'
 import { RequireSocket } from '../Common/VariantPart'
 import { BuildLinkSet, ModelRestraintBundledVariantDesc } from './Common'
 import * as Layer from './Layer'

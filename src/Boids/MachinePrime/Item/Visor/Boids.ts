@@ -7,11 +7,10 @@ import { MakeMachinePrimeVariant } from '../Common'
 import {
     DefaultShowEffectsOnItemMorph,
     HandleBlindLimiterStrengthUpdate,
-    MorphableVisorCommonEvents,
-    ShouldHideBrows
+    MorphableVisorCommonEvents
 } from './Common'
 import { VariantInfo } from './Constant'
-import { BoidsGoggle, BoidsMask, Level, Variant as ModelVariant } from '../../../Futuristic/GlassVisor'
+import { BoidsGoggle, BoidsMask, Variant as ModelVariant } from '../../../Futuristic/GlassVisor'
 import { ItemArchetype } from '../../Constant'
 import { Layering } from '../../../Futuristic/GlassVisor/Constant'
 

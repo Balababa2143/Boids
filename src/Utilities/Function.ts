@@ -1,20 +1,13 @@
 import { fromJS, FromJS, Map } from 'immutable'
 
-export const CacheSymbol = Symbol('CacheSymbol')
+/**
+ * Marks a function produced by {@link Cached}. Module-private: nothing consumes
+ * them, they only exist so that {@link Cached} can smuggle a cache and a key
+ * normaliser onto the returned function.
+ */
+const CacheSymbol = Symbol('CacheSymbol')
 
-export const CacheKeyFuncSymbol = Symbol('CacheKeyFunc')
-
-type Func<T, R> = (_: T) => R
-
-export interface CachedFunc<T, R> extends Func<T, R> {
-    [CacheKeyFuncSymbol]: Func<T, string>
-    [CacheSymbol]: Record<string, R>
-}
-
-export const IsCachedFunc =
-    <T, R>
-        (f: Func<T, R>): f is CachedFunc<T, R> =>
-        CacheSymbol in f && CacheKeyFuncSymbol in f
+const CacheKeyFuncSymbol = Symbol('CacheKeyFunc')
 
 export const Cached =
     <Key, Value>

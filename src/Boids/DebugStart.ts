@@ -1,7 +1,6 @@
-import { ThrowIfNull } from '../Utilities'
 import * as Futuristic from './Futuristic'
 import * as MachinePrime from './MachinePrime'
-import { IKDEquipInventoryVariantParameters, KDEquipInventoryVariant, KDMorphToInventoryVariant, KinkyDungeonRemoveRestraintSpecific } from 'kd-structured'
+import { IKDEquipInventoryVariantParameters, KDEquipInventoryVariant } from 'kd-structured'
 
 const AddWeakerParams: Partial<IKDEquipInventoryVariantParameters> = {
     Tightness: 10,
@@ -48,42 +47,6 @@ const AddStart = (args: StartPerkInfo) => {
         }
     }
 }
-const PerkBase: KDPerk = {
-    startPriority: 1100,
-    category: 'Boss',
-    id: 0,
-    cost: 0,
-    tags: ['start']
-}
-const AddDroneMod1Left = (args: StartPerkInfo) =>
-    AddStart({
-        ...args,
-        perk: {
-            ...args.perk,
-            category: 'Drone Sensory Set1',
-            buff: true
-        }
-    })
-const AddDroneMod1Right = (args: StartPerkInfo) =>
-    AddStart({
-        ...args,
-        perk: {
-            ...args.perk,
-            category: 'Drone Sensory Set1',
-            debuff: true
-        }
-    })
-
-const AddDroneMod2Left = (args: StartPerkInfo) =>
-    AddStart({
-        ...args,
-        perk: {
-            ...args.perk,
-            category: 'Drone Sensory Set2',
-            buff: true
-        }
-    })
-
 
 export const AddDroneSet = () => {
     const lockBackup = AddWeakerParams.Lock
