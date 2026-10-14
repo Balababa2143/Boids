@@ -78,3 +78,37 @@ export const ItemTags = Object.defineProperties(
         },
     }
 ) as ItemTags
+
+/**
+ * The game layer each layering draws into, with its priority offset.
+ *
+ * Keyed by `Layering`, so iteration follows the bottom-to-top order. Shared by
+ * every glass model set: the visor models and the HUD models must stack against
+ * each other consistently or the hood/over-mask ordering breaks.
+ */
+export const GlassLayerFragments = {
+    [Layering.Goggle]: { Layer: 'Goggles', Pri: 14 },
+    [Layering.Mask]: { Layer: 'Mask', Pri: -10 },
+    [Layering.Blindfold]: { Layer: 'Blindfold', Pri: 14 },
+    [Layering.Hood]: { Layer: 'Hood', Pri: -10 },
+} as const satisfies Record<Layering, { Layer: string, Pri: number }>
+
+/**
+ * The sprite-name stems the glass layer set owns. `Layer.ts` maps each
+ * `GlassType` onto one of these.
+ */
+export type GlassSpriteName = 'Dollmaker' | 'DollmakerFull' | 'Goggles' | 'Mask'
+
+/**
+ * Shared shape of a glass layer definition.
+ *
+ * The `Name` is the layer's identity, so each model set supplies its own: the
+ * visor models and the HUD models are distinct layers that happen to share this
+ * shape.
+ */
+export const MakeGlassLayerTemplate = (Name: string) =>
+    ({
+        Name,
+        Invariant: true,
+        HideWhenOverridden: false,
+    }) as const satisfies Partial<ModelLayer>

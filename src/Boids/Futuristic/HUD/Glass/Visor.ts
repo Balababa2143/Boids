@@ -12,13 +12,14 @@
  */
 
 import { Record, RecordOf} from "immutable";
-import { BlindfoldLayer, GlassLayerTemplate, GogglesLayer, ModelTemplate, SpriteBaseName, InheritColor, VisorSpriteLayer } from "../Common";
+import { GlassLayerTemplate, ModelTemplate } from "../Common";
+import { GlassLayerFragments, GlassSpriteName, InheritColor, Layering } from "../../GlassVisor/Constant";
 import { AddModelWithTextThenGetName, ModelVariantMapBuilder } from "../../../../KDExtension";
 import { Constant } from "../../Common";
 import { IGlassModelVariantBase, ValidGlassModelVaraints } from "./Common";
 
 interface IModelVariant extends IGlassModelVariantBase {
-    Layer: VisorSpriteLayer
+    Layer: Layering
 }
 
 const ModelBaseName = '019f8a25-2f30-7ce3-9217-ef3ea41c8a5d'
@@ -28,7 +29,7 @@ export type ModelVariant = RecordOf<IModelVariant>
 
 export const ModelVariant = Record(<IModelVariant>{
     UseFactionColor: false,
-    Layer: VisorSpriteLayer.Goggle,
+    Layer: Layering.Goggle,
     OpaqueLevel: 1,
     Dimmed: false
 })
@@ -40,13 +41,13 @@ export const ValidModelVariantMap = (() => {
     })
 
     const AddVariant = (variant: ModelVariant) => {
-        const sptriteBaseName: SpriteBaseName = 'Goggles' as const
+        const spriteBaseName: GlassSpriteName = 'Goggles' as const
         const glassLayer: ModelLayer = {
             ...GlassLayerTemplate,
-            Sprite: `${sptriteBaseName}${variant.Dimmed ? 'Dark' : 'Light'}${variant.OpaqueLevel}`,
-            ... (variant.Layer === VisorSpriteLayer.Blindfold ? BlindfoldLayer : GogglesLayer),
+            Sprite: `${spriteBaseName}${variant.Dimmed ? 'Dark' : 'Light'}${variant.OpaqueLevel}`,
+            ...GlassLayerFragments[variant.Layer],
             ...variant.UseFactionColor && {
-                InheritColor: <InheritColor>'Glass'
+                InheritColor: InheritColor.Glass
             }
         }
 
@@ -70,7 +71,7 @@ export const ValidModelVariantMap = (() => {
     }
 
     for(const v of ValidGlassModelVaraints()){
-        for(const layer of [VisorSpriteLayer.Goggle, VisorSpriteLayer.Blindfold]){
+        for(const layer of [Layering.Goggle, Layering.Blindfold]){
             AddVariant(ModelVariant({
                 ...v,
                 Layer: layer

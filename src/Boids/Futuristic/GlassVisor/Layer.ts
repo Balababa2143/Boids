@@ -1,50 +1,25 @@
 
 import { AddValidVariants, default as Variant} from './Variant'
-import { GlassType, InheritColor, Layering } from './Constant'
+import { GlassLayerFragments, GlassSpriteName, GlassType, InheritColor, MakeGlassLayerTemplate } from './Constant'
 import { VariantMapBuilder, VariantKeyOrImmutable, VariantPart, VariantKeyToImmutable } from '../../../KDExtension'
 import { ThrowIfNull } from '../../../Utilities'
 import { FromJS } from 'immutable'
 
 export const GlassLayerName = '0307649C-E62D-4AAF-BFFF-BF5F87EE2106' as const
 
-const GlassLayerTemplate = {
-    Name: GlassLayerName,
-    Invariant: true,
-    HideWhenOverridden: false
-} as const satisfies Partial<ModelLayer>
+const GlassLayerTemplate = MakeGlassLayerTemplate(GlassLayerName)
 
 
 const GlassLayerPartColorization: VariantPart<ModelLayer> = {
     InheritColor: InheritColor.Glass,
 }
 
-
-
-const GlassLayerPartLayering = {
-    [Layering.Goggle]: {
-        Layer: 'Goggles',
-        Pri: 14
-    },
-    [Layering.Mask]: {
-        Layer: 'Mask',
-        Pri: -10
-    },
-    [Layering.Blindfold]: {
-        Layer: 'Blindfold',
-        Pri: 14
-    },
-    [Layering.Hood]: {
-        Layer: 'Hood',
-        Pri: -10
-    },
-} as const satisfies Record<string, VariantPart<ModelLayer>>
-
 const GlassSpriteBaseName = {
     [GlassType.DollmakerGoggle]: 'Dollmaker',
     [GlassType.DollmakerMask]: 'DollmakerFull',
     [GlassType.BoidsGoggle]: 'Goggles',
     [GlassType.BoidsMask]: 'Mask',
-} as const
+} as const satisfies Record<GlassType, GlassSpriteName>
 
 const GetGlassLayerSpritename =
     (variant: Variant) => {
@@ -64,7 +39,7 @@ const ValidVariantMap = (() => {
     const AddVariant = (variant) => {
         const variantKey = VariantKeyToImmutable(variant)
         builder.AddVariantParts(variantKey, [
-            GlassLayerPartLayering[variant.Layering],
+            GlassLayerFragments[variant.Layering],
             {
                 Sprite: GetGlassLayerSpritename(variant)
             }
