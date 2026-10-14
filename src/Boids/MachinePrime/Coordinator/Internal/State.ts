@@ -2,34 +2,43 @@ import { DeepCopy, Record, RecordOf, Set, Map } from 'immutable'
 import { v7 as NewUUID } from 'uuid'
 import { ItemArchetype } from '../../Constant'
 
+/**
+ * Creates an Immutable Record type together with a `fromJS` that rebuilds it from
+ * `toJS()` output.
+ *
+ * The `fromJS` half matters more than it looks. It has to construct from *plain*
+ * field values: Immutable v5 Records expose their fields as prototype accessors,
+ * so spreading one yields `{ _values: [...] }` and every spread field silently
+ * falls back to its default. That is why the readers below return plain objects
+ * rather than records.
+ */
+const DefineStateRecord =
+    <Fields extends object>(
+        defaults: Fields,
+        readFields: (js: DeepCopy<Fields>) => Partial<Fields>,
+    ) => {
+        const record = Record<Fields>(defaults)
+        return Object.assign(record, {
+            fromJS: (js: DeepCopy<Fields>) => record(readFields(js)),
+        })
+    }
+
 interface _ItemStateBase {
     readonly RegisteredItems: Set<string>
 }
 
 export type ItemStateBase = RecordOf<_ItemStateBase>
 
-/**
- * Extracts an item state's field values as a plain object.
- *
- * `fromJS` has to produce plain values instead of spreading an existing Record:
- * Immutable v5 Records expose their fields as prototype accessors, so
- * `{ ...record }` yields `{ _values: [...] }`. Every spread field then silently
- * falls back to its default rather than being carried over.
- */
-const ItemStateBaseFields = (js: DeepCopy<_ItemStateBase>) => ({
-    RegisteredItems: Set(js.RegisteredItems as Iterable<string>),
-})
-
 const _ItemBaseDefault = {
     RegisteredItems: Set()
 } satisfies _ItemStateBase
 
-export const ItemStateBase = Object.assign(
-    Record<_ItemStateBase>(_ItemBaseDefault),
-    {
-        fromJS: (js: DeepCopy<_ItemStateBase>) => ItemStateBase(ItemStateBaseFields(js))
-    }
-)
+/** Plain field values for an item state, so they can be handed to a record constructor. */
+const ItemStateBaseFields = (js: DeepCopy<_ItemStateBase>) => ({
+    RegisteredItems: Set(js.RegisteredItems as Iterable<string>),
+})
+
+export const ItemStateBase = DefineStateRecord<_ItemStateBase>(_ItemBaseDefault, ItemStateBaseFields)
 
 interface _SensoryLimiter extends _ItemStateBase {
     /**
@@ -52,12 +61,7 @@ const SensoryLimiterFields = (js: DeepCopy<_SensoryLimiter>) => ({
     TargetStrength: js.TargetStrength,
 })
 
-export const SensoryLimiter = Object.assign(
-    Record<_SensoryLimiter>(_SensoryLimiterDefault),
-    {
-        fromJS: (js: DeepCopy<_SensoryLimiter>) => SensoryLimiter(SensoryLimiterFields(js))
-    }
-)
+export const SensoryLimiter = DefineStateRecord<_SensoryLimiter>(_SensoryLimiterDefault, SensoryLimiterFields)
 
 interface _Gag extends _SensoryLimiter {
 
@@ -67,12 +71,7 @@ const _GagDefeult = _SensoryLimiterDefault
 
 export type Gag = RecordOf<_Gag>
 
-export const Gag = Object.assign(
-    Record<_Gag>(_GagDefeult),
-    {
-        fromJS: (js: DeepCopy<_Gag>) => Gag(SensoryLimiterFields(js))
-    }
-)
+export const Gag = DefineStateRecord<_Gag>(_GagDefeult, SensoryLimiterFields)
 
 interface _Visor extends _SensoryLimiter {
 
@@ -82,12 +81,7 @@ const _VisorDefsult = _SensoryLimiterDefault
 
 export type Visor = RecordOf<_Visor>
 
-export const Visor = Object.assign(
-    Record<_Visor>(_VisorDefsult),
-    {
-        fromJS: (js: DeepCopy<_Visor>) => Visor(SensoryLimiterFields(js))
-    }
-)
+export const Visor = DefineStateRecord<_Visor>(_VisorDefsult, SensoryLimiterFields)
 
 interface _ItemRegistry {
     readonly [ItemArchetype.Blinder]: _Visor
@@ -97,20 +91,17 @@ interface _ItemRegistry {
 
 export type ItemRegistry = RecordOf<_ItemRegistry>
 
-export const ItemRegistry = Object.assign(
-    Record<_ItemRegistry>({
+export const ItemRegistry = DefineStateRecord<_ItemRegistry>(
+    {
         [ItemArchetype.Blinder]: Visor(),
         [ItemArchetype.Deafener]: SensoryLimiter(),
         [ItemArchetype.Gag]: Gag(),
+    },
+    js => ({
+        [ItemArchetype.Blinder]: Visor.fromJS(js[ItemArchetype.Blinder] as any),
+        [ItemArchetype.Deafener]: SensoryLimiter.fromJS(js[ItemArchetype.Deafener] as any),
+        [ItemArchetype.Gag]: Gag.fromJS(js[ItemArchetype.Gag] as any),
     }),
-    {
-        fromJS: (js: DeepCopy<_ItemRegistry>) =>
-            ItemRegistry({
-                [ItemArchetype.Blinder]: Visor.fromJS(js[ItemArchetype.Blinder] as any),
-                [ItemArchetype.Deafener]: SensoryLimiter.fromJS(js[ItemArchetype.Deafener] as any),
-                [ItemArchetype.Gag]: Gag.fromJS(js[ItemArchetype.Gag] as any),
-            })
-    }
 )
 
 interface _Entry {
@@ -121,12 +112,11 @@ interface _Entry {
 /**
  * A new entry gets a fresh id.
  *
- * `ID` has to be a plain enumerable value: Immutable's `Record(defaultValues)`
- * derives the record's key list from the enumerable own properties of
- * `defaultValues`, so installing it with a non-enumerable getter -- as this used
- * to -- left `ID` out of the schema entirely. It was then absent from `toJS()`,
- * silently ignored by the constructor, and impossible for `Entry.fromJS` to
- * restore.
+ * `ID` has to be a plain enumerable value: `Record(defaultValues)` derives the
+ * record's key list from the enumerable own properties of `defaultValues`, so
+ * installing it with a non-enumerable getter -- as this used to -- left `ID` out
+ * of the schema entirely. It was then absent from `toJS()`, silently ignored by
+ * the constructor, and impossible for `Entry.fromJS` to restore.
  */
 const EntryDefault: _Entry = {
     ID: NewUUID(),
@@ -135,15 +125,12 @@ const EntryDefault: _Entry = {
 
 export type Entry = RecordOf<_Entry>
 
-export const Entry = Object.assign(
-    Record<_Entry>(EntryDefault),
-    {
-        fromJS: (js: DeepCopy<_Entry>) =>
-            Entry({
-                ID: js.ID,
-                Items: ItemRegistry.fromJS(js.Items as any)
-            })
-    }
+export const Entry = DefineStateRecord<_Entry>(
+    EntryDefault,
+    js => ({
+        ID: js.ID,
+        Items: ItemRegistry.fromJS(js.Items as any),
+    }),
 )
 
 interface _State {
@@ -153,17 +140,13 @@ interface _State {
 
 export type State = RecordOf<_State>
 
-export const State = Object.assign(
-    Record<_State>({
-        ActivePC: Entry(),
-        ActiveNPC: Map()
-    }),
+export const State = DefineStateRecord<_State>(
     {
-        fromJS: (js: DeepCopy<_State>) =>
-            State({
-                ActivePC: Entry.fromJS(js.ActivePC as any),
-                ActiveNPC: 
-                    Map<string, _Entry>(js.ActiveNPC as any).map(Entry.fromJS)
-            })
-    }
+        ActivePC: Entry(),
+        ActiveNPC: Map(),
+    },
+    js => ({
+        ActivePC: Entry.fromJS(js.ActivePC as any),
+        ActiveNPC: Map<string, _Entry>(js.ActiveNPC as any).map(Entry.fromJS),
+    }),
 )
