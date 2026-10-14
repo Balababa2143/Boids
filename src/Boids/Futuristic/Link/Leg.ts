@@ -109,20 +109,8 @@ export type Variant = keyof typeof DescriptorMap
 const RestraintBaseName = '88DCCED2-2EF9-496E-8B6E-BFFC7912E1DE'
 const ModelBaseName = 'D1A1512A-F95F-4E87-9E34-0AF0B180549C'
 
-const {
-    ValidModelVariantMap,
-    GetModelVariant,
-    ValidRestraintVariantMap,
-    GetRestraintVariant
-} = BuildLinkSet({
+export const { GetRestraintVariant } = BuildLinkSet({
     DescriptorMap,
     ModelBaseName,
     RestraintBaseName
 })
-
-export {
-    ValidModelVariantMap,
-    GetModelVariant,
-    ValidRestraintVariantMap,
-    GetRestraintVariant
-}

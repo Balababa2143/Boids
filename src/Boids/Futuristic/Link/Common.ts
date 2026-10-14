@@ -121,7 +121,6 @@ export const BuildLinkSet =
             }
         }
         const ValidModelVariantMap = AddModelVariantMapToGame(modelVariantMapBuilder.BuildVariantMap(ModelTemplate))
-        const GetModelVariant = (variant: keyof DescriptorMap) => ThrowIfNull(ValidModelVariantMap.get(variant))
 
         for (const variantKey in DescriptorMap) {
             restraintVariantMapBuilder.AddVariantParts(variantKey, DescriptorMap[variantKey].Restraint.Parts)
@@ -136,10 +135,11 @@ export const BuildLinkSet =
 
         const ValidRestraintVariantMap = AddRestraintVariantMapToGame(restraintVariantMapBuilder.BuildVariantMap(RestraintTemplate))
         const GetRestraintVariant = (variant: keyof DescriptorMap) => ThrowIfNull(ValidRestraintVariantMap.get(variant), 'Invalid variant')
+        // Registering the sets is this function's job; only the restraint lookup
+        // is returned, because it is the only part callers have ever used. The
+        // model and restraint maps stay reachable through `ModelDefs` and
+        // `KinkyDungeonRestraintsCache`, which is where the game reads them.
         return {
-            ValidModelVariantMap,
-            GetModelVariant,
-            ValidRestraintVariantMap,
             GetRestraintVariant
         }
     }
