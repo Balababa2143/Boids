@@ -21,6 +21,20 @@ content already exists in the game.
 | `kd-structured/` | Submodule (`KDInterface`). Owns the generated KD typings and drops `kd-structured.zip`, a separate mod this one loads through an import map. |
 | `Bundle/`, `Deploy/`, `Declaration/`, `Generated/` | Build output. All gitignored. |
 
+### Barrels
+
+A folder that other folders import from has an `index.ts`, and it re-exports every
+module in that folder: flat (`export * from './X'`) when the module is the folder's
+public surface, as a namespace (`export * as X from './X'`) when the module name
+carries meaning at the call site. Code outside a folder imports its barrel; code
+inside it imports its siblings.
+
+A module missing from its barrel is a bug in the barrel, not a licence for a deep
+import, because a deep import is the one spelling a reader cannot predict. The
+single deliberate exception is spelled out where it happens: the glass visor
+barrel exports `Variant` by name rather than as a namespace, because consumers use
+it as a type as well as a value.
+
 ## Building
 
 ```sh
@@ -85,8 +99,10 @@ UPDATE_REGISTRATION_MANIFEST=1 npm test
 `VariantMapBuilder` deep-merge contract (template preservation, last-writer-wins,
 `Set` union versus `List` concatenation), variant-key identity including its
 field-order sensitivity, receiver semantics, the coordinator's `toJS`/`fromJS`
-round-trip, and the mitten layer factories. Known defects are pinned to their
-current behaviour so that fixing them is a visible edit to a test.
+round-trip, and the mitten layer factories. Where current behaviour is deliberate
+but surprising, a property pins it, so changing it is a visible edit to a test
+rather than a side effect of tidying up. If a test's expectation looks wrong,
+that is the comment to read.
 
 A new `*.test.ts` must also be added to `test/run-all.ts`; `self-check.test.ts`
 fails if it is not, so a suite cannot be silently skipped.
@@ -118,6 +134,19 @@ order are different variants.
 This is pinned by a property test rather than left as folklore. If a variant
 literal has to change, that is a save-migration decision, not a cleanup.
 
+### A `SwapLayerPose` target has to be a layer group the game knows
+
+`SwapLayerPose` swaps a layer's *sorting group* per pose, not its sprite: in the
+crossed pose a mitten band sorts with `CrossMitten<suffix>`, in the front pose with
+`ForeMitten<suffix>`, and every one of those names has to be a member of
+`LAYERS_BASE`. The game's own `KDCheckForMissingModelLayers` reports the ones that
+are not — and a group that is not in the table renders in an undefined order rather
+than failing, which is why the mitten factories assert the whole set of targets
+rather than one entry at a time.
+
+The mask is a bitmask of the poses a layer swaps in, tested with `&`. An unset bit
+means the layer keeps the group it declares.
+
 ### The entry module's body runs after everything it imports
 
 `src/Boids/index.ts` swaps two entries of `LAYERS_BASE` and rebuilds `ModelLayers`
@@ -147,6 +176,10 @@ Tracked as issues rather than fixed here:
   `(await Boids)`.
 * **#48** — the coordinator writes its save data to `KDGameDataBase` and reads it
   back from `KDGameData`; whether those alias at runtime is unverified.
-* **#49** — `MakeSwapLayerPose` uses a bitwise OR in a truthiness position, so all
-  18 mitten layers end up with both swap entries. Pinned by a test; changing it
-  renders differently.
+
+**#49** was a third and is closed: `MakeSwapLayerPose` tested its pose mask with
+`|`, which is true for every mask, so every mitten band emitted both swap entries
+whatever it passed — and the front-pose target was `FrontMitten<suffix>`, a group
+that is in no layer table. The mask is a bit test again, the front-pose target is
+`ForeMitten<suffix>` as the base game's own mitten models have it, and the mitten
+factories assert both.
