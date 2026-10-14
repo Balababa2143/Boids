@@ -14,7 +14,7 @@
 import { Record, RecordOf} from "immutable";
 import { GlassLayerTemplate, ModelTemplate } from "../Common";
 import { GlassLayerFragments, GlassSpriteName, InheritColor, Layering } from "../../GlassVisor/Constant";
-import { AddModelWithTextThenGetName, ModelVariantMapBuilder } from "../../../../KDExtension";
+import { AddModelVariantMapToGame, ModelVariantMapBuilder } from "../../../../KDExtension";
 import { Constant } from "../../Common";
 import { IGlassModelVariantBase, ValidGlassModelVaraints } from "./Common";
 
@@ -83,10 +83,5 @@ export const ValidModelVariantMap = (() => {
         Folder: ModelFolder
     })
 
-
-    const variantToNameMap =
-        variantMap.map((modelVariant) =>
-            AddModelWithTextThenGetName(modelVariant.Model, modelVariant.TextInfo)
-        )
-    return variantToNameMap
+    return AddModelVariantMapToGame(variantMap)
 })()

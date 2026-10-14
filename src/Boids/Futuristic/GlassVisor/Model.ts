@@ -3,8 +3,8 @@ import Variant, { AddValidVariants } from './Variant'
 import { GetVariant as GetLayerVariant } from './Layer'
 import { ThrowIfNull } from '../../../Utilities'
 import { InheritColor, Layering } from './Constant'
-import { AddModelWithTextThenGetName, VariantKeyOrImmutable, ModelVariantMapBuilder, VariantKeyToImmutable } from '../../../KDExtension'
-import { FromJS, Map } from 'immutable'
+import { AddModelVariantMapToGame, AddModelWithTextThenGetName, VariantKeyOrImmutable, ModelVariantMapBuilder, VariantKeyToImmutable } from '../../../KDExtension'
+import { FromJS } from 'immutable'
 
 const ModelTemplate = {
     Categories: ['Accessories', 'Face'],
@@ -49,14 +49,7 @@ const ValidVariantMap = (() => {
 
     AddValidVariants(AddVariant)
 
-    const variantMap = builder.BuildVariantMap(ModelTemplate)
-
-
-    const variantToNameMap: Map<FromJS<Variant>, string> =
-        variantMap.map((modelVariant) =>
-            AddModelWithTextThenGetName(modelVariant.Model, modelVariant.TextInfo)
-        )
-    return variantToNameMap
+    return AddModelVariantMapToGame(builder.BuildVariantMap(ModelTemplate))
 })()
 
 export const GetGlassModelVariant =

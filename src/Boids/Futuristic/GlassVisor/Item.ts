@@ -2,7 +2,7 @@ import { FactionFilter } from '../../../KDInterface/TextKey'
 import { GlassType, InheritColor, ItemTags, Layering } from './Constant'
 import Variant, { AddValidVariants } from './Variant'
 import { GetGlassModelVariant, MaskMountModel } from './Model'
-import { AddRestraintWithTextThenGetName, RestraintText, RestraintVariant, VariantKeyOrImmutable, VariantPart, RestraintVariantMapBuilder, VariantKeyToImmutable } from '../../../KDExtension'
+import { AddRestraintWithTextThenGetName, AddRestraintVariantMapToGame, RestraintText, RestraintVariant, VariantKeyOrImmutable, VariantPart, RestraintVariantMapBuilder, VariantKeyToImmutable } from '../../../KDExtension'
 import { ThrowIfNull } from '../../../Utilities'
 import { FromJS } from 'immutable'
 import { RequireSocket } from '../Common/VariantPart'
@@ -148,11 +148,7 @@ const ValidVariantNameMap = (() => {
 
     // Registering the restraints is the point of this call; the resulting lookup
     // table is only used to map variants back to the registered names.
-    return variantMapBuilder
-        .BuildVariantMap(ItemTemplate)
-        .map(({ Restraint, TextInfo }) =>
-            AddRestraintWithTextThenGetName(Restraint, TextInfo)
-        )
+    return AddRestraintVariantMapToGame(variantMapBuilder.BuildVariantMap(ItemTemplate))
 })()
 
 export const GetVariant =
