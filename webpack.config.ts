@@ -7,18 +7,18 @@ const EntryFile = 'src/Boids/index.ts'
 const LoaderFile = 'src/kd-structured-loader.ts'
 const BundleDir = 'Bundle'
 const DeployDir = 'Deploy'
+const DeclarationDir = 'Declaration'
 const ArchiveFile = 'Deploy/Boids.zip'
 /** Declarations emitted by ts-loader through tsconfig.json (declarationDir). */
 const TypeFolder = 'Generated/@type'
 /** npm shaped types package, staged outside the mod archive. */
 const TypeBundleDir = 'Deploy/types'
-const TypeArchiveFile = 'Deploy/Boids-types.zip'
+const TypeArchiveFile = path.join(DeclarationDir, 'Boids-types.zip')
 /** package.json / tsconfig.json published alongside the declarations. */
 const PackageAssetFolder = 'PackageAsset'
 /** Artifacts published by the kd-structured submodule, staged here for release. */
 const InterfaceArchives = [
     'kd-structured/Deploy/kd-structured.zip',
-    'kd-structured/Deploy/kd-structured-types.zip',
 ]
 const AssetFolders = [
     'Asset',
@@ -110,8 +110,9 @@ function PreBuild(): webpack.WebpackPluginInstance {
             compiler.hooks.beforeCompile.tapPromise('DoneArchiveBuilding', async (_) => {
                 const archiveDir = path.dirname(path.resolve(ArchiveFile))
                 if (!fs.existsSync(archiveDir)) {
-                    await fs.promises.mkdir(archiveDir)
+                    await fs.promises.mkdir(archiveDir, {recursive: true})
                 }
+                await fs.promises.mkdir(DeclarationDir, { recursive: true })
                 const stalePaths = [
                     ArchiveFile,
                     TypeArchiveFile,
