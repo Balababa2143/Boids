@@ -48,90 +48,58 @@ const MakeState = (id: string, strength: number, names: readonly string[]) =>
 
 const SensoryTypes = [ItemArchetype.Blinder, ItemArchetype.Deafener, ItemArchetype.Gag]
 
-/** Everything the coordinator persists, written out the way `StateStorage` does. */
-const SampleFromJSInput = { TargetStrength: 0.5, RegisteredItems: ['a'] }
-
 describe('coordinator state records', () => {
-    it('pins the current Entry schema: ID is not a record key at all', () => {
-        // KNOWN DEFECT (A). `State.ts` installs the `ID` default with
-        //
-        //     Object.defineProperty(EntryDefault, 'ID', { get: () => NewUUID() })
-        //
-        // and `Object.defineProperty` defaults to `enumerable: false`. Immutable's
-        // `Record(defaultValues)` derives its key list from the *enumerable* own
-        // properties of the defaults object, so `ID` never becomes part of the schema:
-        // it is absent from `toJS()`, cannot be set through the constructor, and
-        // `Entry.fromJS`'s `ID: js.ID` is therefore a no-op. The "fresh uuid per entry"
-        // intent does not work either, because the getter only exists on the raw
-        // defaults object.
-        const entry = Entry({ ID: 'explicit-id', Items: ItemRegistry() } as never)
+    it('round-trips arbitrary states through toJS/fromJS', () => {
+        fc.assert(
+            fc.property(
+                fc.string({ minLength: 1 }),
+                StrengthArbitrary,
+                fc.array(fc.string({ minLength: 1, maxLength: 8 }), { maxLength: 3 }),
+                (id, strength, names) => {
+                    const state = MakeState(id, strength, names)
+                    const restored = State.fromJS(state.toJS())
 
-        assert.deepEqual(Object.keys(entry.toJS()), ['Items'])
-        assert.equal((entry as unknown as { get(key: string): unknown }).get('ID'), undefined)
-        assert.ok(!('ID' in Entry().toJS()))
+                    assert.ok(
+                        restored.equals(state),
+                        `round-trip changed the state for id=${id} strength=${strength} names=${names.length}`
+                    )
+                }
+            )
+        )
     })
 
-    it('pins the current fromJS field loss per archetype', () => {
-        // KNOWN DEFECT (B). `SensoryLimiter.fromJS`, `Gag.fromJS` and `Visor.fromJS`
-        // spread an Immutable Record into a plain object literal:
-        //
-        //     SensoryLimiter({ ...ItemStateBase.fromJS(js), TargetStrength: js.TargetStrength })
-        //     Gag({ ...SensoryLimiter.fromJS(js) })
-        //
-        // Immutable v5 Records expose their fields as prototype accessors, so
-        // `{ ...record }` yields `{ _values: [...] }` rather than the fields. Every
-        // spread field silently falls back to its default. Only `SensoryLimiter`'s
-        // `TargetStrength` survives, because it is assigned explicitly after the spread.
-        assert.deepEqual(SensoryLimiter.fromJS(SampleFromJSInput as never).toJS(), {
-            RegisteredItems: [],
-            TargetStrength: 0.5,
-        })
-        assert.deepEqual(Gag.fromJS(SampleFromJSInput as never).toJS(), {
-            RegisteredItems: [],
-            TargetStrength: 0,
-        })
-        assert.deepEqual(Visor.fromJS(SampleFromJSInput as never).toJS(), {
-            RegisteredItems: [],
-            TargetStrength: 0,
-        })
+    it('keeps ID as a record key', () => {
+        // Regression guard: `ID` used to be installed with a non-enumerable getter, and
+        // `Record(defaultValues)` only picks up enumerable own properties -- so it was
+        // missing from the schema entirely and could not survive a save/load.
+        fc.assert(
+            fc.property(fc.string({ minLength: 1 }), id => {
+                const entry = Entry({ ID: id, Items: ItemRegistry() })
+                assert.equal(entry.ID, id)
+                assert.equal(entry.toJS().ID, id)
+                assert.equal(Entry.fromJS(entry.toJS()).ID, id)
+            })
+        )
     })
 
-    it('pins the current round-trip: only the deafener strength survives', () => {
-        // The combined effect of defects (A) and (B). Of everything the coordinator
-        // persists, exactly one field makes it back across a save/load — the deafener's
-        // `TargetStrength`, because `SensoryLimiter.fromJS` assigns it explicitly after
-        // the lossy spread. The blinder and gag strengths fall back to zero and every
-        // `RegisteredItems` set is forgotten.
+    it('keeps every archetype strength and registration set', () => {
         fc.assert(
             fc.property(
                 fc.string({ minLength: 1 }),
                 StrengthArbitrary,
                 fc.array(fc.string({ minLength: 1, maxLength: 8 }), { minLength: 1, maxLength: 3 }),
                 (id, strength, names) => {
-                    const state = MakeState(id, strength, names)
+                    const restored = State.fromJS(MakeState(id, strength, names).toJS())
 
-                    // The state really did carry values before the round-trip.
+                    assert.equal(restored.ActivePC.ID, id)
                     for (const type of SensoryTypes) {
-                        assert.equal(state.ActivePC.Items[type].TargetStrength, strength)
+                        assert.equal(restored.ActivePC.Items[type].TargetStrength, strength, `${type} strength`)
                         assert.deepEqual(
-                            [...state.ActivePC.Items[type].RegisteredItems].sort(),
-                            [...new Set(names)].sort()
+                            [...restored.ActivePC.Items[type].RegisteredItems].sort(),
+                            [...new Set(names)].sort(),
+                            `${type} registrations`
                         )
                     }
-
-                    const expected = State({
-                        ActivePC: Entry({
-                            Items: ItemRegistry({
-                                [ItemArchetype.Deafener]: SensoryLimiter({ TargetStrength: strength }),
-                            }),
-                        }),
-                        ActiveNPC: IMMap(),
-                    })
-
-                    assert.ok(
-                        State.fromJS(state.toJS()).equals(expected),
-                        `expected only the deafener strength to survive for id=${id} strength=${strength}`
-                    )
                 }
             )
         )

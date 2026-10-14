@@ -8,6 +8,18 @@ interface _ItemStateBase {
 
 export type ItemStateBase = RecordOf<_ItemStateBase>
 
+/**
+ * Extracts an item state's field values as a plain object.
+ *
+ * `fromJS` has to produce plain values instead of spreading an existing Record:
+ * Immutable v5 Records expose their fields as prototype accessors, so
+ * `{ ...record }` yields `{ _values: [...] }`. Every spread field then silently
+ * falls back to its default rather than being carried over.
+ */
+const ItemStateBaseFields = (js: DeepCopy<_ItemStateBase>) => ({
+    RegisteredItems: Set(js.RegisteredItems as Iterable<string>),
+})
+
 const _ItemBaseDefault = {
     RegisteredItems: Set()
 } satisfies _ItemStateBase
@@ -15,10 +27,7 @@ const _ItemBaseDefault = {
 export const ItemStateBase = Object.assign(
     Record<_ItemStateBase>(_ItemBaseDefault),
     {
-        fromJS: (js: DeepCopy<_ItemStateBase>) =>
-            ItemStateBase({
-                RegisteredItems: Set(js.RegisteredItems as Iterable<string>)
-            })
+        fromJS: (js: DeepCopy<_ItemStateBase>) => ItemStateBase(ItemStateBaseFields(js))
     }
 )
 
@@ -37,14 +46,16 @@ const _SensoryLimiterDefault = {
 
 export type SensoryLimiter = RecordOf<_SensoryLimiter>
 
+/** Field values common to every sensory limiter. */
+const SensoryLimiterFields = (js: DeepCopy<_SensoryLimiter>) => ({
+    ...ItemStateBaseFields(js),
+    TargetStrength: js.TargetStrength,
+})
+
 export const SensoryLimiter = Object.assign(
     Record<_SensoryLimiter>(_SensoryLimiterDefault),
     {
-        fromJS: (js: DeepCopy<_SensoryLimiter>) =>
-            SensoryLimiter({
-                ...ItemStateBase.fromJS(js),
-                TargetStrength: js.TargetStrength
-            })
+        fromJS: (js: DeepCopy<_SensoryLimiter>) => SensoryLimiter(SensoryLimiterFields(js))
     }
 )
 
@@ -59,10 +70,7 @@ export type Gag = RecordOf<_Gag>
 export const Gag = Object.assign(
     Record<_Gag>(_GagDefeult),
     {
-        fromJS: (js: DeepCopy<_Gag>) =>
-            Gag({
-                ...SensoryLimiter.fromJS(js)
-            })
+        fromJS: (js: DeepCopy<_Gag>) => Gag(SensoryLimiterFields(js))
     }
 )
 
@@ -77,10 +85,7 @@ export type Visor = RecordOf<_Visor>
 export const Visor = Object.assign(
     Record<_Visor>(_VisorDefsult),
     {
-        fromJS: (js: DeepCopy<_Visor>) =>
-            Visor({
-                ...SensoryLimiter.fromJS(js)
-            })
+        fromJS: (js: DeepCopy<_Visor>) => Visor(SensoryLimiterFields(js))
     }
 )
 
@@ -113,22 +118,25 @@ interface _Entry {
     readonly Items: _ItemRegistry
 }
 
-const EntryDefault = {
-    Items: ItemRegistry()
-} as unknown as _Entry
-
-Object.defineProperty(
-    EntryDefault,
-    'ID',
-    {
-        get: () => NewUUID()
-    }
-)
+/**
+ * A new entry gets a fresh id.
+ *
+ * `ID` has to be a plain enumerable value: Immutable's `Record(defaultValues)`
+ * derives the record's key list from the enumerable own properties of
+ * `defaultValues`, so installing it with a non-enumerable getter -- as this used
+ * to -- left `ID` out of the schema entirely. It was then absent from `toJS()`,
+ * silently ignored by the constructor, and impossible for `Entry.fromJS` to
+ * restore.
+ */
+const EntryDefault: _Entry = {
+    ID: NewUUID(),
+    Items: ItemRegistry(),
+}
 
 export type Entry = RecordOf<_Entry>
 
 export const Entry = Object.assign(
-    Record(EntryDefault),
+    Record<_Entry>(EntryDefault),
     {
         fromJS: (js: DeepCopy<_Entry>) =>
             Entry({
