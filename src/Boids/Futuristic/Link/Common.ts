@@ -14,12 +14,10 @@ import { ThrowIfNull } from '../../../Utilities'
 export const LinkFolder = `${ModelSetRootDir}/Link`
 
 //#region Model
-export namespace InheritColor {
-    export const Tether = '17954016-CB1A-4C61-A312-A1675EE128CB'
-    export const Glow = 'E15BC39C-544C-49B2-9969-AF5E4E19B14C'
-}
-
-export type InheritColor = Record<string, string>
+export const InheritColor = {
+    Tether: '17954016-CB1A-4C61-A312-A1675EE128CB',
+    Glow: 'E15BC39C-544C-49B2-9969-AF5E4E19B14C',
+} as const
 
 export const ModelTemplate = {
     TopLevel: true,

@@ -8,7 +8,7 @@ export const InheritColor = {
     DecorationMetal: 'DecorationMetal',
     Ball: 'Ball',
     Light: 'Light',
-}
+} as const
 
 //#region Layers
 

@@ -1,10 +1,10 @@
 /**
  * Text keys for coloring components by faction.
  */
-export const enum InheritColor {
-    Glass = 'Glass',
-    BaseMetal = 'BaseMetal'
-}
+export const InheritColor = {
+    Glass: 'Glass',
+    BaseMetal: 'BaseMetal'
+} as const
 
 export const enum GlassType {
     DollmakerGoggle,

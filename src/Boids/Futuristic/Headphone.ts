@@ -27,12 +27,12 @@ enum PatchedElfEar {
     PushAddPose(ModelDefs['ElfEarsFloppy'], [PatchedElfEar.Any, PatchedElfEar.Floppy])
 })();
 
-export enum InheritColor {
-    Glass = 'Glass',
-    BaseMetal = 'BaseMetal',
-    Screen = 'Screen',
-    Strap = 'Strap',
-}
+export const InheritColor = {
+    Glass: 'Glass',
+    BaseMetal: 'BaseMetal',
+    Screen: 'Screen',
+    Strap: 'Strap',
+} as const
 
 const model: Model = AddModelWithText({
     Name: 'A9A9B0AE-BF70-4125-B89C-60984246DEBF',

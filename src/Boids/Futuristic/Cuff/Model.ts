@@ -1,13 +1,11 @@
 import { AddModelWithTextThenGetName } from '../../../KDExtension'
 
-export namespace InheritColor {
-    export const BaseMetal = 'BaseMetal'
-    export const Display = 'Display'
-    export const Screen = 'Screen'
-    export const Lock = 'Lock'
-}
-
-export type InheritColor = Record<string, string>
+export const InheritColor = {
+    BaseMetal: 'BaseMetal',
+    Display: 'Display',
+    Screen: 'Screen',
+    Lock: 'Lock',
+} as const
 
 const MakeModel = (args: { model: Model, newName: string }) => {
     const { model, newName } = args
