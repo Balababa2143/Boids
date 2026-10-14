@@ -5,7 +5,13 @@
     "type": "module",
     "author": "balababa2143@gmail.com",
     "license": "MIT",
-    "types": "@type/boids/Boids/index.d.ts",
+    "types": "@type/boids/Api.d.ts",
+    "exports": {
+        ".": {
+            "types": "./@type/boids/Api.d.ts"
+        },
+        "./package.json": "./package.json"
+    },
     "files": [
         "@type/",
         "tsconfig.json"

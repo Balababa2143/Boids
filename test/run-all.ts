@@ -14,6 +14,7 @@ import './setup/install'
 
 import './self-check.test'
 import './registration-manifest.test'
+import './public-api.test'
 import './variant-map.property.test'
 import './coordinator-state.property.test'
 import './mitten-layers.test'

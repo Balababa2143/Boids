@@ -1,0 +1,65 @@
+/**
+ * Pins the published surface.
+ *
+ * `src/Api.ts` is what the bundle assigns to the `Boids` global and what the
+ * published types package exposes; `PackageAsset/package.json` maps its `exports`
+ * entry at that same file, so the runtime and the typings cannot describe
+ * different things. Everything outside `src/Boids/` — the variant infrastructure,
+ * the utilities, the mod's own manifest — is internal on purpose, so a change to
+ * this list has to be a deliberate edit rather than a side effect of moving a
+ * re-export around.
+ *
+ * Regenerate with `UPDATE_PUBLIC_API=1 npm test`.
+ */
+
+import assert from 'node:assert/strict'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { dirname, join } from 'node:path'
+import { describe, it } from 'node:test'
+
+import * as Api from '../src/Api'
+// Side-effect import: this is the bundle entry, and importing it is what
+// publishes the global the second test below reads.
+import '../src/mod'
+
+const BaselinePath = join('test', '__manifest__', 'public-api.json')
+
+const ShouldUpdate = process.env.UPDATE_PUBLIC_API === '1'
+
+/** Names the mod publishes, independent of how `Api` reaches them. */
+const PublishedNames = () => Object.keys(Api).sort()
+
+/** Names that used to be exported and are deliberately not any more. */
+const InternalNames = ['KDExtension', 'Immutable', 'ModJson', 'Utilities', 'KDInterface']
+
+describe('published surface', () => {
+    it('matches the committed baseline', async () => {
+        const names = PublishedNames()
+
+        if (ShouldUpdate) {
+            await mkdir(dirname(BaselinePath), { recursive: true })
+            await writeFile(BaselinePath, JSON.stringify(names, null, 2) + '\n', 'utf8')
+            return
+        }
+
+        const baseline = JSON.parse(await readFile(BaselinePath, 'utf8')) as string[]
+        assert.deepEqual(
+            names,
+            baseline,
+            'the published surface changed; see src/Api.ts and re-run with UPDATE_PUBLIC_API=1'
+        )
+    })
+
+    it('is what the bundle entry publishes as the global', () => {
+        const published = globalThis.Boids
+        assert.notEqual(typeof published, 'undefined', 'src/mod.ts did not publish the global')
+        assert.deepEqual(Object.keys(published).sort(), PublishedNames())
+    })
+
+    it('reaches nothing from outside src/Boids', () => {
+        const names = PublishedNames()
+        for (const internal of InternalNames) {
+            assert.ok(!names.includes(internal), `${internal} is not part of the published surface`)
+        }
+    })
+})

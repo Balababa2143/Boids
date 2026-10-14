@@ -14,13 +14,10 @@ PIXI.Assets.load({
     loadParser: 'modAtlasLoader'
 })
 
+// The mod's own three namespaces, and nothing else: `src/Api.ts` re-exports this
+// file wholesale, so anything listed here is part of the published surface. The
+// variant infrastructure (`src/KDExtension`), the utilities and the mod manifest
+// stay internal for now.
 export * as Futuristic from './Futuristic'
 export * as MachinePrime from './MachinePrime'
-export * as KDExtension from '../KDExtension'
 export * as DebugStart from './DebugStart'
-import ModJson from '../../Asset/mod.json'
-export {ModJson}
-
-import * as Immutable from 'immutable'
-
-export { Immutable }
