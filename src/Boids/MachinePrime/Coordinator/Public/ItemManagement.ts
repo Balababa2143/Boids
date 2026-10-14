@@ -5,29 +5,16 @@
  */
 
 import { ItemArchetype } from '../../Constant'
-import { GetState, SetStateIn } from '../Internal/StateStorage'
+import { UpdateStateIn } from '../Internal/StateStorage'
 
-
-export const Register = (args: { restraint: Named, type: ItemArchetype }) => {
-    const {
-        restraint,
-        type
-    } = args
-
-    SetStateIn(
-        ['ActivePC', 'Items', type, 'RegisteredItems'],
-        GetState().ActivePC.Items[type].RegisteredItems.add(restraint.name)
+export const Register = (args: { restraint: Named, type: ItemArchetype }) =>
+    UpdateStateIn(
+        ['ActivePC', 'Items', args.type, 'RegisteredItems'],
+        registeredItems => registeredItems.add(args.restraint.name)
     )
-}
 
-export const UnRegister = (args: { restraint: Named, type: ItemArchetype }) => {
-    const {
-        restraint,
-        type
-    } = args
-
-    SetStateIn(
-        ['ActivePC', 'Items', type, 'RegisteredItems'],
-        GetState().ActivePC.Items[type].RegisteredItems.remove(restraint.name)
+export const UnRegister = (args: { restraint: Named, type: ItemArchetype }) =>
+    UpdateStateIn(
+        ['ActivePC', 'Items', args.type, 'RegisteredItems'],
+        registeredItems => registeredItems.remove(args.restraint.name)
     )
-}

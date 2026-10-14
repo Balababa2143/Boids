@@ -7,7 +7,8 @@
  * must preserve:
  *
  *   - `fromJS(toJS(x))` is `is()`-equal to `x` for arbitrary valid states, and
- *   - the state accessors round-trip values and report their side effects.
+ *   - the state accessors round-trip values and report their side effects,
+ *     including the ones derived from the stored value via `UpdateStateIn`.
  *
  * Nothing registered at load time is touched here, so the registration manifest
  * is unaffected by these tests.
@@ -26,7 +27,8 @@ import {
     State,
     Visor,
 } from '../src/Boids/MachinePrime/Coordinator/Internal/State'
-import { GetState, SetState, SetStateIn } from '../src/Boids/MachinePrime/Coordinator/Internal/StateStorage'
+import { GetState, SetState, SetStateIn, UpdateStateIn } from '../src/Boids/MachinePrime/Coordinator/Internal/StateStorage'
+import { Register, UnRegister } from '../src/Boids/MachinePrime/Coordinator/Public/ItemManagement'
 import { GetLimiterStrength, SetLimiterStrength } from '../src/Boids/MachinePrime/Coordinator/SensoryControl'
 import { ItemArchetype } from '../src/Boids/MachinePrime/Constant'
 import { GetRecorder } from './harness/recorder'
@@ -127,6 +129,52 @@ describe('state accessors', () => {
         const before = GetState()
         assert.ok(SetState(before).equals(before))
         assert.ok(GetState().equals(before))
+    })
+
+    it('derives an UpdateStateIn write from the stored value, not from a default', () => {
+        fc.assert(
+            fc.property(
+                fc.constantFrom(...SensoryTypes),
+                StrengthArbitrary,
+                fc.array(StrengthArbitrary, { minLength: 1, maxLength: 4 }),
+                (type, initial, steps) => {
+                    SetState(State())
+                    SetStateIn(['ActivePC', 'Items', type, 'TargetStrength'], initial)
+
+                    let expected = initial
+                    for (const step of steps) {
+                        UpdateStateIn(['ActivePC', 'Items', type, 'TargetStrength'], current => current + step)
+                        expected = expected + step
+                    }
+
+                    assert.equal(GetLimiterStrength(type), expected)
+                }
+            )
+        )
+    })
+
+    it('registers and unregisters restraint names as a set', () => {
+        fc.assert(
+            fc.property(
+                fc.constantFrom(...SensoryTypes),
+                fc.array(fc.string({ minLength: 1, maxLength: 8 }), { maxLength: 5 }),
+                (type, names) => {
+                    SetState(State())
+                    for (const name of names) {
+                        Register({ restraint: { name } as Named, type })
+                    }
+                    assert.deepEqual(
+                        [...GetState().ActivePC.Items[type].RegisteredItems].sort(),
+                        [...new Set(names)].sort()
+                    )
+
+                    for (const name of names) {
+                        UnRegister({ restraint: { name } as Named, type })
+                    }
+                    assert.equal(GetState().ActivePC.Items[type].RegisteredItems.size, 0)
+                }
+            )
+        )
     })
 })
 

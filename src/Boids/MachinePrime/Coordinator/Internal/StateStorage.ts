@@ -25,6 +25,17 @@ export const SetState = (newState: State) => {
 export const SetStateIn = <Path extends KeyPath<State>>(path: Path, newProp: PropAtPath<State, Path>) =>
     SetState(GetState().setIn(path, newProp))
 
+/**
+ * A write whose value is derived from what is already stored. The path is spelled
+ * once, so the read and the write cannot drift apart.
+ *
+ * The cast is Immutable's: `getIn` is typed as returning `unknown` however the
+ * path is typed, while `setIn` keeps the path's type. Writing a value the caller
+ * computed stays checked by `SetStateIn`.
+ */
+export const UpdateStateIn = <Path extends KeyPath<State>>(path: Path, update: (current: PropAtPath<State, Path>) => PropAtPath<State, Path>) =>
+    SetStateIn(path, update(GetState().getIn(path) as PropAtPath<State, Path>))
+
 AddEventHandler({
     eventMap: KDEventMapGeneric,
     trigger: 'afterLoadGame',

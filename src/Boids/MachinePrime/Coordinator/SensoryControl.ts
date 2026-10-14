@@ -32,7 +32,7 @@ export const GetLimiterStrength = (type: ItemArchetype) =>
 
 export const SetLimiterStrength = (type: ItemArchetype, newStrength: number) => {
     const controllerType = ThrowIfNotIsSensoryController(type)
-    const oldStrength = GetState().ActivePC.Items[controllerType].TargetStrength
+    const oldStrength = GetLimiterStrength(controllerType)
     if (oldStrength !== newStrength) {
         SetStateIn(['ActivePC', 'Items', controllerType, 'TargetStrength'], newStrength)
         KDS.KinkyDungeonSendEvent({
