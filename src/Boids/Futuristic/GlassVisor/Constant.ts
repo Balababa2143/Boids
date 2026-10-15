@@ -1,11 +1,39 @@
 /**
+ * The vocabulary the glass visor set is built from: which glass types exist, the
+ * four layerings a visor can be worn in, the socket and shrine tags that join a
+ * visor to its mount, and the layer, sprite and colour names the models share.
+ *
+ * `GlassType` and `Layering` are also the values a variant key is built from, so
+ * their members and their order are part of the save format rather than private
+ * naming: reordering either changes every restraint and model name derived from a
+ * key. The HUD set reads this module and nothing else from the visor family.
+ * @module Boids/Futuristic/GlassVisor/Constant
+ */
+
+/**
  * Text keys for coloring components by faction.
+ *
+ * `Glass` colours the glass itself and is the key the mod's own faction filter in
+ * `Item.ts` is registered under; `BaseMetal` colours a metal part, and the mask
+ * mount's rim in `Model.ts` uses it.
  */
 export const InheritColor = {
     Glass: 'Glass',
     BaseMetal: 'BaseMetal'
 } as const
 
+/**
+ * Which glass a visor is made of: the two Dollmaker glasses and the two Boids
+ * ones, a goggle and a mask each.
+ *
+ * The members are serialised into the variant key as their numeric values, so the
+ * order below is load-bearing: moving a member changes every name derived from a
+ * key of that glass.
+ *
+ * A `const enum`, so TypeScript inlines the member values at every use site and there
+ * is no `GlassType` object at runtime: a plain-JavaScript consumer reading it off the
+ * global finds `undefined`.
+ */
 export const enum GlassType {
     DollmakerGoggle,
     DollmakerMask,
@@ -13,7 +41,15 @@ export const enum GlassType {
     BoidsMask,
 }
 
-// Ordered from bottom to top
+/**
+ * The four ways a visor can be worn, ordered from bottom to top: `Goggle` over
+ * the eyes, `Mask` across the face, `Blindfold` in the goggle slot, and `Hood`
+ * worn over a mask, which `Item.ts` labels "Over Mask".
+ *
+ * `ItemTags` and `GlassLayerFragments` are keyed by it and iterate in this order,
+ * and the same save-format caveat as `GlassType` applies to the member values — as
+ * does its absence at runtime, this being a `const enum` too.
+ */
 export const enum Layering {
     Goggle,
     Mask,
@@ -52,6 +88,19 @@ interface ItemTags extends _ItemTags {
     NonSocketedItems: Iterable<_ItemTags[Layering]['NonSocketedItem']>
 }
 
+/**
+ * The socket and shrine tags this family's restraints are joined by, one triple
+ * per layering.
+ *
+ * Within a triple, `Socket` is the attachment point: a socketed visor demands it
+ * on whatever it is worn under, and every mount that offers one lists it in its
+ * `shrine`. `SocketedItem` and `NonSocketedItem` are the shrine categories the
+ * socketed and the free-standing variant are registered under, which is what other
+ * items name in `LinkableBy` and `renderWhenLinked` to react to a visor.
+ *
+ * `Sockets`, `SocketedItems` and `NonSocketedItems` are getters over the same
+ * object; each yields one tag per layering, in `Layering` order.
+ */
 export const ItemTags = Object.defineProperties(
     _ItemTags,
     {
@@ -100,11 +149,18 @@ export const GlassLayerFragments = {
 export type GlassSpriteName = 'Dollmaker' | 'DollmakerFull' | 'Goggles' | 'Mask'
 
 /**
- * Shared shape of a glass layer definition.
+ * Shared shape of a glass layer definition: the fields every glass layer has in
+ * common, so a model set only has to supply the sprite and the game layer.
  *
  * The `Name` is the layer's identity, so each model set supplies its own: the
  * visor models and the HUD models are distinct layers that happen to share this
  * shape.
+ *
+ * @param Name - The layer's name. The game identifies a layer by it, and a
+ * `LayerFilter` is looked up under the same string.
+ * @returns A new partial `ModelLayer` that is invariant, so the game uses the
+ * layer's name exactly as given, and that is not hidden when a higher-priority
+ * layer overrides it.
  */
 export const MakeGlassLayerTemplate = (Name: string) =>
     ({

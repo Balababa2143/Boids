@@ -1,6 +1,7 @@
 /**
  * The hard-light HUD visor model set: 32 models, one per combination of
- * `UseFactionColor` x `OpaqueLevel` x `Dimmed` x sprite layer.
+ * `UseFactionColor` x `OpaqueLevel` x `Dimmed` x layering.
+ * @module Boids/Futuristic/HUD/Glass/Visor
  *
  * @todo
  *  These models are registered at import time but nothing consumes
@@ -25,8 +26,25 @@ interface IModelVariant extends IGlassModelVariantBase {
 const ModelBaseName = '019f8a25-2f30-7ce3-9217-ef3ea41c8a5d'
 const ModelFolder = `${Constant.ModelSetRootDir}/Visor` as const
 
+/**
+ * A HUD visor variant key as an Immutable `Record`: the three HUD choices plus
+ * the layer the model is drawn on.
+ *
+ * A `Record` rather than a literal is what fixes the field order the generated
+ * model names are hashed from, so the key order of this type and of the
+ * `ModelVariant` default below is part of the save format.
+ */
 export type ModelVariant = RecordOf<IModelVariant>
 
+/**
+ * The `Record` class the keys above are instances of, and the default key: called
+ * with no arguments it is faction colour off, opaque level 1, not dimmed, on the
+ * goggle layer.
+ *
+ * `ValidModelVariantMap` is built by calling it with explicit values, never with
+ * this default, so the defaults only matter as the definition of the key's shape
+ * and field order.
+ */
 export const ModelVariant = Record(<IModelVariant>{
     UseFactionColor: false,
     Layer: Layering.Goggle,
@@ -34,6 +52,14 @@ export const ModelVariant = Record(<IModelVariant>{
     Dimmed: false
 })
 
+/**
+ * The registered model names, keyed by variant key.
+ *
+ * The map is built and the 32 models are registered into `ModelDefs` as a side
+ * effect of this module being imported, which is currently the only thing that
+ * happens to them; see the module header for what is still missing before
+ * something can read the map.
+ */
 export const ValidModelVariantMap = (() => {
     const builder = new ModelVariantMapBuilder<ModelVariant>({
         baseId: ModelBaseName,
