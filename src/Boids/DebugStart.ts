@@ -1,3 +1,14 @@
+/**
+ * A demo driver rather than a library: importing it registers the `Drone Toys` start
+ * perk and two empty start categories, and taking that perk equips the whole drone set.
+ *
+ * The perk's callback is `AddDroneSet`, which is also exported for the console. The
+ * registration is a one-shot side effect at module evaluation — a second `Drone Toys`
+ * perk, whether from another copy of this module or from another mod, throws instead of
+ * merging.
+ * @module Boids/DebugStart
+ */
+
 import * as Futuristic from './Futuristic'
 import * as MachinePrime from './MachinePrime'
 import { IKDEquipInventoryVariantParameters, KDEquipInventoryVariant } from 'kd-structured'
@@ -48,6 +59,21 @@ const AddStart = (args: StartPerkInfo) => {
     }
 }
 
+/**
+ * Equips the drone set on the player and puts them into the game's `DollSuit` outfit.
+ *
+ * Every piece goes on through `KDEquipInventoryVariant` with a soft fit
+ * (`Tightness: 10`, `Bypass`, `Deep`) and the Dollmaker faction, in three passes that
+ * differ only in the lock they use: `Cyber3`, then `Cyber2`, then the plain `Cyber` for
+ * the links. The visors and gags are variants built by `MachinePrime.Item` rather than
+ * plain restraints, so the set arrives already able to morph with the sensory limiters.
+ * The `Lock` field the passes share is restored before the outfit work, and the outfit
+ * is added to the inventory only if it is not already there, before being set as the
+ * current dress.
+ *
+ * This is what the `Drone Toys` perk calls, so it takes no arguments; it is exported
+ * for the console as well.
+ */
 export const AddDroneSet = () => {
     const lockBackup = AddWeakerParams.Lock
 
