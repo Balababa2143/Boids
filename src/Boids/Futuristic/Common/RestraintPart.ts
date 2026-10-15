@@ -9,6 +9,7 @@
  * Values are deliberately *not* shared where sibling items differ: escape
  * chances, power, level requirements and faction filters vary per family, and
  * collapsing those would change item behaviour.
+ * @module Boids/Futuristic/Common/RestraintPart
  */
 
 /**

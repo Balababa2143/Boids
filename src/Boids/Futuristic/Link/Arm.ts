@@ -1,3 +1,14 @@
+/**
+ * The arm links: a chain between the two wrist cuffs or the two elbow cuffs, a
+ * chain from each wrist cuff to the collar, and the two ties that bind the arms
+ * without drawing anything.
+ *
+ * Importing this module registers the whole family with the game, which is the
+ * only way its items come to exist; what it exports is the lookup for the
+ * restraint of a variant.
+ * @module Boids/Futuristic/Link/Arm
+ */
+
 import { RequireSocket } from '../Common/VariantPart'
 import { BuildLinkSet, ModelRestraintBundledVariantDesc } from './Common'
 import * as Layer from './Layer'
@@ -116,12 +127,27 @@ const DescriptorMap = {
     },
 } satisfies Record<string, ModelRestraintBundledVariantDesc>
 
+/**
+ * The arm link variants: `BetweenWristCuff` and `BetweenElbowCuff` run a chain
+ * between the two cuffs of a joint, `WristToCollar` runs one from each wrist to
+ * the collar, and `BoxTie` and `ElbowTie` bind the arms without a chain at all.
+ *
+ * A key is both the lookup argument for {@link GetRestraintVariant} and the seed
+ * of the name every registered variant gets, so renaming one renames saved items.
+ */
 export type Variant = keyof typeof DescriptorMap
 
 
 const RestraintBaseName = '8716C924-78B7-4F73-9DF9-AF9CB9F6C713'
 const ModelBaseName = 'A2FF1EAF-DF9A-4A34-8C07-0F5A42397D80'
 
+/**
+ * The restraint the game registered for an arm link variant.
+ *
+ * @param variant - Which arm link to look up.
+ * @returns The name of the registered restraint, ready to be handed back to the
+ *   game.
+ */
 export const { GetRestraintVariant } = BuildLinkSet({
     DescriptorMap,
     ModelBaseName,

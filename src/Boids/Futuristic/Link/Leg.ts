@@ -1,3 +1,13 @@
+/**
+ * The leg links: a chain between the two ankle cuffs or the two thigh cuffs, and
+ * the two ties that bind the legs together and block the feet.
+ *
+ * Importing this module registers the whole family with the game, which is the
+ * only way its items come to exist; what it exports is the lookup for the
+ * restraint of a variant.
+ * @module Boids/Futuristic/Link/Leg
+ */
+
 import { RequireSocket } from '../Common/VariantPart'
 import { BuildLinkSet, ModelRestraintBundledVariantDesc } from './Common'
 import * as Layer from './Layer'
@@ -103,12 +113,27 @@ const DescriptorMap = {
     },
 } satisfies Record<string, ModelRestraintBundledVariantDesc>
 
+/**
+ * The leg link variants: `BetweenAnkleCuff` and `BetweenThighCuff` run a chain
+ * between the two cuffs of a joint, while `TiedAnkle` and `TiedThigh` bind the
+ * legs together instead, blocking the feet and hobbling the wearer further.
+ *
+ * A key is both the lookup argument for {@link GetRestraintVariant} and the seed
+ * of the name every registered variant gets, so renaming one renames saved items.
+ */
 export type Variant = keyof typeof DescriptorMap
 
 
 const RestraintBaseName = '88DCCED2-2EF9-496E-8B6E-BFFC7912E1DE'
 const ModelBaseName = 'D1A1512A-F95F-4E87-9E34-0AF0B180549C'
 
+/**
+ * The restraint the game registered for a leg link variant.
+ *
+ * @param variant - Which leg link to look up.
+ * @returns The name of the registered restraint, ready to be handed back to the
+ *   game.
+ */
 export const { GetRestraintVariant } = BuildLinkSet({
     DescriptorMap,
     ModelBaseName,
