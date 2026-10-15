@@ -1,3 +1,14 @@
+/**
+ * The drone toys: a lockable version of the game's prototype egg, and a front and
+ * a rear denial plug. The two base-game restraints the items are derived from are
+ * looked up by name from `KinkyDungeonRestraints` at load, before this module's own
+ * registrations are appended to that list.
+ *
+ * Each export is the registered restraint's name, a generated GUID, and each item
+ * gets its display text as a side effect of the initialiser.
+ * @module Boids/Futuristic/Aroused/Toys
+ */
+
 import * as KDEx from '../../../KDExtension'
 import { SFX } from '../Common'
 
@@ -6,6 +17,12 @@ const NippleClamps = <restraint>KinkyDungeonRestraints.find(r => r.name === 'Nip
 const TrapVibe = <restraint>KinkyDungeonRestraints.find(r => r.name === 'TrapVibeProto')
 
 
+/**
+ * A lockable egg, shown as "Lockable Vibe" in `ItemVulvaPiercings`, the slot of the
+ * base game restraint it is derived from. It adopts the nipple clamps' escape
+ * chances but keeps the derived restraint's own struggle chance, which is lower, so
+ * struggle is the approach it resists hardest.
+ */
 export const LockVibe =
     KDEx.AddRestraintWithTextThenGetName(
         {
@@ -23,6 +40,13 @@ export const LockVibe =
         }
     )
 
+/**
+ * The front denial plug, shown as "Drone Plug" in `ItemVulva`. It is a limited item,
+ * so an enemy needs it in stock or the unlimited tag to apply it, and its player tag
+ * keeps it out of vibe slots. Its `tick` handlers give it several denial rolls of
+ * differing power and a short cooldown between vibrations, and it accepts remote
+ * activation.
+ */
 export const DenialPlugF =
     KDEx.AddRestraintWithTextThenGetName(
         {
@@ -63,6 +87,12 @@ export const DenialPlugF =
         }
     )
 
+/**
+ * The rear denial plug, shown as "Drone Plug" in `ItemButt`. Also limited and
+ * remotely activatable, but its two `tick` handlers roll less often, at lower power
+ * and with a far longer cooldown between vibrations than the front plug's, so it is
+ * the milder of the two.
+ */
 export const DenialPlugR =
     KDEx.AddRestraintWithTextThenGetName(
         {

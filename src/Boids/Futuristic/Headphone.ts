@@ -1,3 +1,11 @@
+/**
+ * The drone earphone: an ear-plug restraint that deafens and doubles as a socket
+ * the visor links attach to. Importing this module also patches the base game's
+ * three elf-ear models so the earphone's ear pieces can hide behind them, which is
+ * a side effect the item cannot be used without.
+ * @module Boids/Futuristic/Headphone
+ */
+
 import { AddModelWithText, AddRestraintWithTextThenGetName } from '../../KDExtension'
 import { FactionFilter } from '../../KDInterface/TextKey'
 import { SFX, Constant, CommonItemAvailability } from './Common'
@@ -26,6 +34,11 @@ enum PatchedElfEar {
     PushAddPose(ModelDefs['ElfEarsFloppy'], [PatchedElfEar.Any, PatchedElfEar.Floppy])
 })();
 
+/**
+ * The colour banks the earphone's layers and faction filters are keyed by, named
+ * once so the literals below do not have to repeat them. `BaseMetal` is the only one
+ * the registered item actually filters.
+ */
 export const InheritColor = {
     Glass: 'Glass',
     BaseMetal: 'BaseMetal',
@@ -73,6 +86,13 @@ const model: Model = AddModelWithText({
     ])
 })
 
+/**
+ * The earphone item, shown in game as "Drone Earphone" and worn in `ItemEars`. It
+ * is a special, unique item available from level 0 on every floor, deafening at
+ * strength 2, and it comes off with mechanical lock sounds. Visor links and the
+ * game's socketed accessories attach to it, and its escape chances make a struggle
+ * or a cut the wrong approaches and removal or unlock the right ones.
+ */
 export const Earphone = AddRestraintWithTextThenGetName({
     name: '373643CB-501A-435E-9EDC-0C7F733D3507',
     Group: 'ItemEars',

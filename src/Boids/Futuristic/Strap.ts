@@ -1,7 +1,21 @@
+/**
+ * The torso strap of the drone set: one harness. A harness has its own rules for
+ * how the wearer renders and how enemies grab and slow them, which is why this is a
+ * restraint of its own rather than part of the suit.
+ * @module Boids/Futuristic/Strap
+ */
+
 import { AddRestraintWithTextThenGetName } from '../../KDExtension';
 import { SFX } from './Common';
 import { RequireLockedEvent } from './Common';
 
+/**
+ * The torso harness, shown in game as "Drone Harness" in `ItemTorso`, from level 7
+ * and on every floor. It is a harness of moderate strength that always renders,
+ * resists cutting, and drops chain debris when it breaks. Its only event is the
+ * lock requirement, so unlike the base game harness it carries no remote punishment
+ * handler.
+ */
 export const ControlHarness =
     AddRestraintWithTextThenGetName(
         {

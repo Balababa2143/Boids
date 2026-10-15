@@ -1,7 +1,20 @@
+/**
+ * The heavy latex catsuit: one model and the restraint that wears it. The model
+ * stacks the base game's catsuit layers over the cyber link collar's, with the
+ * collar's layers pushed down in priority, hidden while overridden and marked as the
+ * lock layers, so the suit shows a lock the way the rest of the set does.
+ * @module Boids/Futuristic/Suit/LatexSuit
+ */
+
 import { GetModelLayers } from 'kd-structured'
 import { AddModelWithTextThenGetName, AddRestraintWithTextThenGetName } from '../../../KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
 
+/**
+ * The catsuit model, a top-level model in the `Catsuit` folder and group. Its name
+ * is a generated GUID rather than a readable name, and it is the model
+ * {@link HeavyLockableSuit} renders with.
+ */
 export const LockableSuitModel =
     AddModelWithTextThenGetName(
         {
@@ -25,6 +38,13 @@ export const LockableSuitModel =
         }
     )
 
+/**
+ * The catsuit item, in `ItemTorso` from level 7 and on every floor. It cannot be
+ * duplicated, always renders, draws its linked corsets, harnesses, ropes and other
+ * bindings over itself while hiding any other catsuit, and is inaccessible once
+ * worn. Its one event debuffs the escape calculation as latex does, and it carries
+ * no lock requirement.
+ */
 export const HeavyLockableSuit =
     AddRestraintWithTextThenGetName(
         {

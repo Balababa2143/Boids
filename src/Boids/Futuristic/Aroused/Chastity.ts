@@ -1,3 +1,14 @@
+/**
+ * The drone chastity set: a belt for `ItemPelvis` and a bra for `ItemBreast`, each
+ * in a slim and a bulky model variant. The two variants of a garment share
+ * everything except the model and the flavour word, so they are built from two
+ * private templates rather than from a variant map.
+ *
+ * Every export is the registered restraint's name, a generated GUID; the reader-
+ * facing name comes from the text key `AddRestraintWithTextThenGetName` writes.
+ * @module Boids/Futuristic/Aroused/Chastity
+ */
+
 import { AddRestraintWithTextThenGetName } from '../../../KDExtension';
 import { SFX } from '../Common';
 import { RequireLockedEvent } from '../Common';
@@ -88,6 +99,12 @@ const BraBase = {
     ],
 }
 
+/**
+ * The slim pelvis belt, shown in game as "Drone Belt" with the flavour word
+ * "Slim". A chastity belt in `ItemPelvis` from level 7, it needs no arousal mode,
+ * stays on until unlocked, and resists struggle and cutting while being easier to
+ * remove outright than the average restraint.
+ */
 export const SlimBelt =
     AddRestraintWithTextThenGetName(
         {
@@ -111,6 +128,12 @@ export const SlimBelt =
         }
     )
 
+/**
+ * The slim chest bra, shown in game as "Drone Bra" with the flavour word "Slim".
+ * A chastity bra in `ItemBreast` from level 4; like the belt it is wearable outside
+ * arousal mode and requires a lock to come off, and it can be trapped, which fires
+ * when the wearer struggles out.
+ */
 export const SlimBra =
     AddRestraintWithTextThenGetName(
         {
@@ -132,6 +155,11 @@ export const SlimBra =
         }
     )
 
+/**
+ * The bulky pelvis belt: "Drone Belt", flavour word "Bulky". Same rules as
+ * {@link SlimBelt} — `ItemPelvis`, level 7, lock-on-until-unlocked — with the
+ * thicker `ProtoBelt` model instead of `CyberBelt`.
+ */
 export const BulkyBelt =
     AddRestraintWithTextThenGetName(
         {
@@ -155,6 +183,11 @@ export const BulkyBelt =
         }
     )
 
+/**
+ * The bulky chest bra: "Drone Bra", flavour word "Bulky". Same rules as
+ * {@link SlimBra} — `ItemBreast`, level 4, lock-on-until-unlocked — with the
+ * `BraProto` model instead of `BraCyber`.
+ */
 export const BulkyBra =
     AddRestraintWithTextThenGetName(
         {

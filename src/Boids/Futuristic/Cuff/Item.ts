@@ -1,3 +1,15 @@
+/**
+ * The drone collar and cuff restraint family: the two collars, and the cuffs for
+ * arm, elbow, wrist, waist, thigh and ankle. All eight are built on one shared base
+ * that marks them non-binding, unlimited and lock-required, and each is then given
+ * its own model, body-slot group and link category. The tethers that attach to
+ * these cuffs live in `Futuristic/Link`.
+ *
+ * Every export is the registered restraint's name, a generated GUID, and the
+ * display text the item shows is written as a side effect of registering it.
+ * @module Boids/Futuristic/Cuff/Item
+ */
+
 import { AddRestraintWithTextThenGetName } from '../../../KDExtension'
 import { RequireLockedEvent, CommonItemAvailability, SFX } from '../Common'
 import { FactionFilter } from '../../../KDInterface/TextKey'
@@ -68,6 +80,11 @@ const ItemBase = {
     ]
 } satisfies Partial<restraint>
 
+/**
+ * The slim neck collar, shown as "Drone Collar" with "Light" as its flavour word.
+ * Worn in `ItemNeck` and linkable by the game's collar links, so tethers attach to
+ * it directly.
+ */
 export const LightCollar =
     AddRestraintWithTextThenGetName(
         {
@@ -99,6 +116,11 @@ export const LightCollar =
         }
     )
 
+/**
+ * The thick neck collar: "Drone Collar", flavour word "Heavy". Same `ItemNeck`
+ * placement and collar links as {@link LightCollar}, over the heavier
+ * `FutureCollar` model.
+ */
 export const HeavyCollar =
     AddRestraintWithTextThenGetName(
         {
@@ -129,6 +151,11 @@ export const HeavyCollar =
         }
     )
 
+/**
+ * The upper-arm cuff, "Drone Arm Cuff", in `ItemArms`. It sets `bindarms: false`
+ * and is non-binding, so what it is for is to be something a link or a tether
+ * attaches to; it offers both the wrist and the elbow socket for that.
+ */
 export const ArmCuff =
     AddRestraintWithTextThenGetName(
         {
@@ -152,6 +179,10 @@ export const ArmCuff =
         }
     )
 
+/**
+ * The elbow cuff, "Drone Elbow Cuff", in `ItemArms`, offering only the elbow
+ * socket. Like the other cuffs it does not bind the arms.
+ */
 export const ElbowCuff =
     AddRestraintWithTextThenGetName(
         {
@@ -173,6 +204,10 @@ export const ElbowCuff =
         }
     )
 
+/**
+ * The wrist cuff, "Drone Wrist Cuff", in `ItemArms`, offering only the wrist
+ * socket. Like the other cuffs it does not bind the arms.
+ */
 export const WristCuff =
     AddRestraintWithTextThenGetName(
         {
@@ -194,6 +229,11 @@ export const WristCuff =
         }
     )
 
+/**
+ * The waist cuff, "Drone Waist Cuff", in `ItemTorso`. Unlike its siblings it is
+ * linkable over anything below it and can itself be linked by anything on top, so a
+ * link need not match its category to be anchored here.
+ */
 export const WaistCuff =
     AddRestraintWithTextThenGetName(
         {
@@ -215,6 +255,10 @@ export const WaistCuff =
         }
     )
 
+/**
+ * The thigh cuff, "Drone Thigh Cuff", in `ItemLegs`, linkable at the thigh socket.
+ * It does not block or hobble the legs; a link is what would do that.
+ */
 export const ThighCuff =
     AddRestraintWithTextThenGetName(
         {
@@ -235,6 +279,10 @@ export const ThighCuff =
         }
     )
 
+/**
+ * The ankle cuff, "Drone Ankle Cuff", in `ItemFeet`, linkable at the ankle socket.
+ * It does not block or hobble the feet; a link is what would do that.
+ */
 export const AnkleCuff =
     AddRestraintWithTextThenGetName(
         {
