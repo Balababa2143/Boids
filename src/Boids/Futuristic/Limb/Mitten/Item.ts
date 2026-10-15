@@ -1,3 +1,17 @@
+/**
+ * The three arm restraints that wear the long mitten models: a sleeve, a bare wire
+ * cuff, and the long mitten itself.
+ *
+ * All three share one base literal -- the `ItemArms` group, the device and bindable
+ * link sets, the mechanical lock sound, and escape chances with a strongly negative
+ * struggle value, so struggling is a poor route out -- and they differ in their model,
+ * their shrine tags and how much they bind the hands.
+ *
+ * They are shrine-proof, weightless at level 0 on every floor, unduplicable, and always
+ * allowed to be applied.
+ * @module Boids/Futuristic/Limb/Mitten/Item
+ */
+
 import { AddRestraintWithTextThenGetName } from '../../../../KDExtension'
 import { FactionFilter } from '../../../../KDInterface/TextKey'
 import { SFX, CommonItemAvailability } from '../../Common'
@@ -96,6 +110,10 @@ const ItemBase = {
     enemyTags: {},
 } satisfies Partial<restraint>
 
+/**
+ * The `Drone Sleeve`: the arm item that draws the sleeve art, tagged `Gloves` and
+ * anchored on `Link.Socket.Wrist`.
+ */
 export const Sleeve = AddRestraintWithTextThenGetName(
     {
         ...ItemBase,
@@ -113,6 +131,10 @@ export const Sleeve = AddRestraintWithTextThenGetName(
     }
 )
 
+/**
+ * The `Drone Wire Cuff`: tagged `Cuffs` and anchored on `Link.Socket.Wrist`, drawing
+ * the mitten bands without the sleeve.
+ */
 export const WireCuff = AddRestraintWithTextThenGetName(
     {
         ...ItemBase,
@@ -130,6 +152,11 @@ export const WireCuff = AddRestraintWithTextThenGetName(
     }
 )
 
+/**
+ * The `Drone Long Mitten`: tagged `LongMittens` and `Mittens`, and the only one of the
+ * three that binds the hands (`bindhands: 1.4`), so the wearer loses the use of weapons
+ * and picks.
+ */
 export const LongMitten = AddRestraintWithTextThenGetName(
     {
         ...ItemBase,

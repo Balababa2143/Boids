@@ -1,3 +1,29 @@
+/**
+ * The layer bands the long mitten models are assembled from, declared as data and
+ * expanded by five factories that take a left or right suffix.
+ *
+ * The bands are near-identical literals that differ in a bank name, a colour key and
+ * one priority, so they are written once as `CommonLayerBanks` and expanded here;
+ * every name and every `SwapLayerPose` target is derived from the suffix, which is what
+ * keeps the two halves of a model from colliding when they are keyed into the same
+ * layer map.
+ *
+ * The swap targets matter as much as the layers do: a `SwapLayerPose` target has to be
+ * a group in the game's layer table, and the two used here -- `CrossMitten<suffix>` for
+ * the crossed pose and `ForeMitten<suffix>` for the front pose -- are the ones the base
+ * game's own mitten models use.
+ * @module Boids/Futuristic/Limb/Mitten/Layer
+ */
+
+/**
+ * The colour keys the mitten layers inherit, one per band: the mitten material, its
+ * straps, and the lock, cuff, display, glow and cap plates, with an `Upper*` key for
+ * each band that exists only on the mitten itself.
+ *
+ * The values are GUIDs, and they are the same keys `Item.ts` lists in its
+ * `factionFilters`, so a faction colouring one of them repaints every band that
+ * inherits it.
+ */
 export const InheritColor = {
     Mitten: '6C1C38FE-D89C-43E5-8DBB-8A67CE48B17D',
     Straps: '4CB992E7-88CF-469F-8A41-0152BDA9C896',
@@ -95,6 +121,19 @@ const MakeCommonLayer = (args: {
     }
 }
 
+/**
+ * Builds the fourteen bands every long mitten model shares: each of the nine
+ * `CommonLayerBanks` crossed with the side it belongs to, so the five banks that also
+ * exist on a forearm are emitted twice and the four `Upper*` banks once.
+ *
+ * Each band claims the model's layer group, ties to the body band of the same side
+ * (`TieToLayer`) and takes over the `Front` and `Crossed` poses as their global
+ * default.
+ *
+ * @param suffix - Appended to every layer name and swap target; the models pass `Left`
+ *   and `Right`.
+ * @returns The fourteen layer definitions, in bank order.
+ */
 export const GetLongMittenCommonLayers =
     suffix => {
         const sleevesLayerName = GetSleevesLayerName(suffix)
@@ -106,6 +145,14 @@ export const GetLongMittenCommonLayers =
         )
     }
 
+/**
+ * Builds the two sleeve bands that carry the sleeve art, named `LongMitten<suffix>` and
+ * `ForeLongMitten<suffix>` and drawn from the base game's `CyberArms` folder. The
+ * sleeve model is these two plus the common bands; the wire cuff is their empty twin.
+ *
+ * @param suffix - Appended to both names and to the forearm band's swap target.
+ * @returns The sleeve band and its forearm counterpart.
+ */
 export const GetSleevesBodyLayers =
     suffix => {
         const sleevesLayerName = GetSleevesLayerName(suffix)
@@ -133,6 +180,14 @@ export const GetSleevesBodyLayers =
             },
         ]
     }
+/**
+ * Builds the same two band names as `GetSleevesBodyLayers` with an empty sprite and no
+ * folder, so a model can claim the long mitten's layer groups and layering without
+ * drawing a sleeve. The wire cuff model is built on this.
+ *
+ * @param suffix - Appended to both names and to the forearm band's swap target.
+ * @returns The two band definitions, with nothing to draw.
+ */
 export const GetEmptyBodyLayers =
     suffix => {
         const sleevesLayerName = GetSleevesLayerName(suffix)
@@ -159,6 +214,14 @@ export const GetEmptyBodyLayers =
             },
         ]
     }
+/**
+ * Builds the two bands that draw the mitten itself, and erase the base game's `Mitts`
+ * sprite and layer while they are worn (`EraseSprite` / `EraseLayers`), so the bare
+ * hand does not show through them.
+ *
+ * @param suffix - Appended to both names and to the forearm band's swap target.
+ * @returns The mitten band and its forearm counterpart.
+ */
 export const GetLongMittenBodyLayers =
     suffix => {
         const sleevesLayerName = GetSleevesLayerName(suffix)
@@ -191,6 +254,14 @@ export const GetLongMittenBodyLayers =
             },
         ]
     }
+/**
+ * Builds the two cap bands, drawn over the body bands they tie to and hidden as soon
+ * as a higher layer overrides them (`HideWhenOverridden`). Only the long mitten model
+ * wears them.
+ *
+ * @param suffix - Appended to both names and to the forearm band's swap target.
+ * @returns The cap band and its forearm counterpart.
+ */
 export const GetLongMittenCaplayers =
     suffix => {
         const sleevesLayerName = GetSleevesLayerName(suffix)

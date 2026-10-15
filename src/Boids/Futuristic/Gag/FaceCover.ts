@@ -1,3 +1,20 @@
+/**
+ * The Drone face covers: four flat harnesses that hold the mouth shut and six muzzles
+ * that cover it, registered under the display names "Drone Harness" and "Drone Muzzle".
+ *
+ * Each is one `Common.Variant` handed to `Common.MakeItem` with this family's sockets,
+ * sound and escape chances, and the model comes from `GagMetal`.
+ *
+ * A harness carries `Muffler.BallSocket` -- and `Muffler.PlugSocket` when its variant
+ * has a port -- and keeps drawing under a linked flat, muzzle or stuffing gag, while a
+ * muzzle also carries the glass-mask socket so a Drone Mask can be linked over it.
+ *
+ * The items are shrine-proof and weightless from level 0 on every floor, and their
+ * `FunctionText` is what distinguishes them in the inventory, since each family shares
+ * one display name.
+ * @module Boids/Futuristic/Gag/FaceCover
+ */
+
 import * as KDEx from '../../../KDExtension'
 import { Enum } from '../../../Utilities'
 import { SFX, GagEscapeChance } from '../Common'
@@ -40,6 +57,10 @@ const defaultHarnessText = {
     DisplayName: 'Drone Harness'
 }
 
+/**
+ * The barest harness: a `Drone Harness` with one side strap and the perioral clip, and
+ * no ball, muzzle, panel or display band. Its `FunctionText` is "Simple Harness".
+ */
 export const SimpleHarness =
     KDEx.AddRestraintWithTextThenGetName(
         MakeStrap({
@@ -60,6 +81,11 @@ export const SimpleHarness =
         }
     )
 
+/**
+ * A `Drone Harness` with a segmented harness and the glabella display and perioral
+ * clip, so it covers more of the face than `SimpleHarness` without adding a panel. Its
+ * `FunctionText` is "Advance Harness".
+ */
 export const AdvanceHarness =
     KDEx.AddRestraintWithTextThenGetName(
         MakeStrap({
@@ -82,6 +108,10 @@ export const AdvanceHarness =
         }
     )
 
+/**
+ * A segmented `Drone Harness` with all three display bands and the flat panel -- the
+ * fullest harness short of the socketed one. Its `FunctionText` is "Panel Harness".
+ */
 export const PanelHarness =
     KDEx.AddRestraintWithTextThenGetName(
         MakeStrap({
@@ -106,6 +136,11 @@ export const PanelHarness =
         }
     )
 
+/**
+ * `PanelHarness` plus the plug port, which puts a port sprite on the model and
+ * `Muffler.PlugSocket` in the harness's shrine, so `Muffler.Plug` can be worn on it.
+ * Its `FunctionText` is "Panel Harness With Port".
+ */
 export const PanelHarnessWithPort =
     KDEx.AddRestraintWithTextThenGetName(
         MakeStrap({
@@ -160,6 +195,10 @@ const defaultMuzzleText = {
     DisplayName: 'Drone Muzzle'
 }
 
+/**
+ * A `Drone Muzzle` over the opaque metal plate with a cheek display and the OTN rivet
+ * set. Its `FunctionText` is "Metal Muzzle 1".
+ */
 export const MetalMuzzle1 =
     KDEx.AddRestraintWithTextThenGetName(
         MakeMuzzle({
@@ -179,6 +218,10 @@ export const MetalMuzzle1 =
         }
     )
 
+/**
+ * A `Drone Muzzle` over the opaque metal plate with the perioral clip and a cheek
+ * display, and neither rivets nor a strap. Its `FunctionText` is "Metal Muzzle 2".
+ */
 export const MetalMuzzle2 =
     KDEx.AddRestraintWithTextThenGetName(
         MakeMuzzle({
@@ -198,6 +241,10 @@ export const MetalMuzzle2 =
         }
     )
 
+/**
+ * A `Drone Muzzle` over the OTN plate, with that plate's strap and rivets and a plug
+ * port, so a plug can mount on the muzzle itself. Its `FunctionText` is "OTN Muzzle 1".
+ */
 export const OTN1 =
     KDEx.AddRestraintWithTextThenGetName(
         MakeMuzzle({
@@ -218,6 +265,10 @@ export const OTN1 =
         }
     )
 
+/**
+ * A `Drone Muzzle` over the OTN plate with the perioral clip and a cheek display, and a
+ * plug port, in place of that plate's strap. Its `FunctionText` is "OTN Muzzle 2".
+ */
 export const OTN2 =
     KDEx.AddRestraintWithTextThenGetName(
         MakeMuzzle({
@@ -238,6 +289,10 @@ export const OTN2 =
         }
     )
 
+/**
+ * A `Drone Muzzle` over the transparent plate with the OTN strap and rivets, and no
+ * strap of its own. Its `FunctionText` is "Transparent Muzzle 1".
+ */
 export const Transparent1 =
     KDEx.AddRestraintWithTextThenGetName(
         MakeMuzzle({
@@ -257,6 +312,10 @@ export const Transparent1 =
         }
     )
 
+/**
+ * A `Drone Muzzle` over the transparent plate with a cheek and glabella display and one
+ * plain strap. Its `FunctionText` is "Transparent Muzzle 2".
+ */
 export const Transparent2 =
     KDEx.AddRestraintWithTextThenGetName(
         MakeMuzzle({

@@ -1,8 +1,29 @@
+/**
+ * The metal gag models: one layer definition per piece of hardware, the colour keys
+ * the game's faction filters are keyed by, and the factory that assembles a
+ * `Common.Variant` into a registered model name.
+ *
+ * Layers are declared once here and selected per variant, so a new face cover normally
+ * costs no new art code: it picks a `Category`, sets flags on a variant, and this
+ * module composes the layers and registers the model the first time an item asks for
+ * it.
+ * @module Boids/Futuristic/Gag/GagMetal
+ */
+
 import * as KDEx from '../../../KDExtension'
 import { Enum } from '../../../Utilities'
 import { Variant } from './Common'
 import { BallKind, StrapKindTags, StrapDetail, MuzzleKind, Component } from './Common'
 
+/**
+ * The colour keys the metal gag layers inherit, and the keys `Common.MakeItem` lists
+ * in its `factionFilters` with the colour a faction should repaint them to:
+ * `BaseMetal` for the structural plates, `DecorationMetal` for the trim, `Ball` for
+ * the ball and its teeth, and `Light` for the emissive display bands.
+ *
+ * Each layer below names one of these, so recolouring a key repaints every layer
+ * using it.
+ */
 export const InheritColor = {
     BaseMetal: 'BaseMetal',
     DecorationMetal: 'DecorationMetal',
@@ -42,11 +63,32 @@ enum RelativeLayer {
     Strap = 'Straps',
 }
 
+/**
+ * The five gag families. The member is a single knob that decides three things: the
+ * layer base the model draws into (`Gag`, `GagFlat` or `GagMuzzle`, with a `Straps`
+ * suffix for the strap layers), the game link set `Common.MakeItem` lets the item be
+ * linked by, and the middle field of the generated model name.
+ *
+ * `FlatGags` differs in behaviour as well as in sprite: every layer of a flat gag also
+ * swaps into the `MaskOver` group for the `XrayFace` pose, so a flat gag keeps drawing
+ * over a mask when the face is laid open.
+ */
 export enum Category {
+    /** Plug gags; drawn in `Gag`, linked by `KDPlugGagLink`. */
     PlugGags = 'PlugGags',
+    /**
+     * Mouth-filling items -- the mufflers, balls and plug; drawn in `Gag`, linked by
+     * `KDStuffingLink`.
+     */
     Stuffing = 'Stuffing',
+    /** Ball gags; drawn in `Gag`, linked by `KDBallGagLink`. */
     BallGags = 'BallGags',
+    /**
+     * Flat harness gags; drawn in `GagFlat`, linked by `KDFlatGagLink`, and the one
+     * family whose layers swap into `MaskOver` for the x-ray face pose.
+     */
     FlatGags = 'FlatGags',
+    /** Muzzles; drawn in `GagMuzzle`, linked by `KDMuzzleGagLink`. */
     MuzzleGags = 'MuzzleGags',
 }
 
@@ -473,11 +515,20 @@ const create = (args: {
 }
 
 /**
- * Get model text key based on given parameters
- * @param args
- * @description
- *  Lazily inject model into ModelDefs
- *  to prevent cluttering.
+ * Returns the model name for a category and variant, creating and registering the
+ * model the first time that combination is asked for. Deferring registration keeps a
+ * variant nothing wears from costing anything, and the name is derived from the
+ * category plus `Variant.ToStringKey`, so it is readable rather than a GUID:
+ * `Boids.Asset.Gag.GagMetal_FlatGags_None_Strap-SideStrap_None_PerioralClip`.
+ *
+ * The model is registered without model text, so it carries no display name of its own
+ * and the restraint wearing it supplies one.
+ *
+ * @param args.category - The gag family, which sets the layer base and, for
+ *   `FlatGags`, the `MaskOver` swap.
+ * @param args.variant - The hardware to draw; see `Common.Variant`.
+ * @returns The model name, which is also the key it is registered under in `ModelDefs`.
+ * @throws If the variant is not a legal combination, via `Variant.Verify`.
  */
 export const GetGagMetal = (args: { category: Category, variant: Variant }) => {
     const { category, variant } = args
