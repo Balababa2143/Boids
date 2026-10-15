@@ -142,15 +142,15 @@ export const AddDroneSet = () => {
 
     AddWeakerParams.Lock = 'Cyber2'
     AddWeaker(Futuristic.Cuff.LightCollar)
-    AddWeaker(Futuristic.Cuff.ElbowCuff)
-    AddWeaker(Futuristic.Cuff.WristCuff)
+    // AddWeaker(Futuristic.Cuff.ElbowCuff)
+    // AddWeaker(Futuristic.Cuff.WristCuff)
     // AddWeaker(Futuristic.Cuff.ArmCuff)
     AddWeaker(Futuristic.Cuff.WaistCuff)
     // AddWeaker(Futuristic.Strap.ControlHarness)
     AddWeaker(Futuristic.Cuff.ThighCuff)
     AddWeaker(Futuristic.Cuff.AnkleCuff)
-    // AddWeaker(Futuristic.Limb.Boot.Heel)
-    // AddWeaker(Futuristic.Limb.Mitten.WireCuff)
+    AddWeaker(Futuristic.Limb.Boot.Heel)
+    AddWeaker(Futuristic.Limb.Mitten.WireCuff)
 
     AddWeakerParams.Lock = 'Cyber'
     AddWeaker(Futuristic.Link.Arm.GetRestraintVariant('BetweenWristCuff'))
