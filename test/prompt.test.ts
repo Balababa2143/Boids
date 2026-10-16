@@ -15,7 +15,7 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 
-import { IsPromptShowing, ShowPrompt, type PromptSpec } from '../src/Boids/CommonUI/Prompt'
+import { IsPromptShowing, ShowPrompt, type PromptSpec } from '../src/Common/CommonUI/Prompt'
 import { PromptButtons, PromptText, WithoutDocument, WithFakeDocument } from './harness/fake-dom'
 
 const PromptId = 'test-prompt'

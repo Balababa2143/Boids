@@ -7,9 +7,9 @@
  * rest of the mod derives values from. It has no imports, so it cannot take part in
  * a cycle no matter who needs it.
  *
- * Reachable as `Boids.Futuristic` and `Boids.MachinePrime` are *not*: it is not
- * re-exported from `src/Boids/index.ts`, because the root UUID and the release
- * table are the mod's own business rather than a surface for other mods
+ * Reachable as `Boids.FactionMachine.Futuristic` and `Boids.FactionMachine.MachinePrime`
+ * are *not*: it is not re-exported from `src/Api.ts`, because the root UUID and the
+ * release table are the mod's own business rather than a surface for other mods
  * (`README.md`, `test/public-api.test.ts`).
  *
  * ## The construction
@@ -182,6 +182,15 @@ export const GetReleaseIndexOf = (root: unknown): number | undefined => {
  * **A name here is a persisted-format decision, exactly as a variant-key field is.**
  * Renaming one mints a different identifier, so it is a save migration rather than a
  * cleanup, and the same discipline applies.
+ *
+ * **The `Boids.` prefix on each name is frozen, and it is not the published namespace.**
+ * It is the *name* half of the construction, chosen while the factions lived under
+ * `src/Boids/`, so it now reads as stale beside the tree — `Boids.Futuristic.Link.Arm`
+ * lives at `src/FactionMachine/Futuristic/Link/Arm`. Nothing may correct the spelling by
+ * hand: renaming one remints its identifier, which renames every generated model and
+ * restraint and breaks every existing save. A future save-breaking release may rename
+ * them to `FactionMachine.*`, and that release needs a new root in {@link ReleaseTable}
+ * and a slot in {@link MigrationChain} — which is what those two exist for.
  */
 export const VariantBaseNames = {
     /** The arm links' restraints and models. */

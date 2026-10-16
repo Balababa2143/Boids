@@ -65,6 +65,9 @@ const GuidPattern = /\b[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3
  * `KDExtension/Release.ts`. The seven hand-written variant bases it replaced are
  * gone — they are now *derived* from the root, so they are no longer literals and
  * deliberately do not appear here.
+ *
+ * Phase 0.5 added `ae5e02cb-…`: the `afterLoadMods` handler that fills a text slot from the
+ * engine's own text once the engine has loaded it (`KDExtension/Text/Sink.ts`).
  */
 const ExpectedGuids: readonly string[] = [
     '019f89e6-0e42-7f7d-b5e0-606dc1c0bd58',
@@ -149,6 +152,7 @@ const ExpectedGuids: readonly string[] = [
     'a76d546d-d8d9-40ad-86a7-c7c69b396dd4',
     'a8e9a555-1442-4297-b747-7de609d8b9ed',
     'a9a9b0ae-bf70-4125-b89c-60984246debf',
+    'ae5e02cb-268d-448a-956c-ee7a5442330f',
     'b4a7bcf3-da11-4ec5-907f-d1e02c4a2203',
     'b599d065-0bea-4ca7-8e17-7f4be959a0a8',
     'b63736c6-b5e9-49cd-a320-add991dace31',

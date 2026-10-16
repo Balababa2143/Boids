@@ -545,6 +545,26 @@ numbers tax.**
 
 ---
 
+### 5.5 Where a new line goes
+
+**[⇢] A string is data, and its home says who reads it.** If the engine resolves the key — an item
+name, a tooltip line, a perk's name — it is composed from an identity the mod already holds and
+registered beside the thing it describes. If the mod resolves it, it is addressed by a dotted path
+and lives in the `Data/` folder at the **closest common root of the entities that use it**: a line
+one module renders stays in that module, and a line a family's variants share is authored once, in
+that family's tree.
+
+That distinction is also the translation unit. Anything with a path can be overridden without
+touching code; anything without one is a line a translator cannot reach yet, and
+`docs/localization/text-reference.md` lists which is which.
+
+**[⇢] Keep a line whole.** A text entry is one line, and a paragraph in a dialog is a separate entry
+rather than a break inside one, because a browser collapses a break where the engine's own tooltip
+does not. Where a line is shared and only a word differs, put the shared sentence at the general
+path and the difference in the variant, rather than writing the sentence out twice.
+
+---
+
 ## 6. Terminology — the in-fiction glossary
 
 **Canonical spelling and usage.** `spec`'s glossary defines these *mechanically*; this says

@@ -121,6 +121,70 @@ second refusal shape once the chain existed to carry it:
 
 ---
 
+## Phase 0.5 — Layout and the text surface
+
+**Status: delivered 2026-10-17.** `npm run verify:full` is green; the deviations from the steps as
+written are recorded at the end of this phase.
+
+**Goal:** make the tree say what each folder is, and give every string the mod can put in front of a
+player one declared home, one key rule, and one place it is written.
+
+**Exit condition:** `src/Boids/` no longer exists and the arrow
+`Utilities < KDInterface < KDExtension < Common < FactionMachine` is gated; every registered key is
+either composed by the engine or a dotted path; the engine's group and the mod's own are separated,
+with the engine half pinned against the engine's by-source translation map; a string a family shares
+is authored once; the data lives in trees at their closest common root; and the registration
+manifest is **byte-identical** across the reorganization while `public-api.json` moves by exactly
+the demotion.
+
+**Met.** The neutrality claim is proved rather than asserted: the manifest's blob is unchanged
+across 0.5.1 and again across each step that only moved text between layers (0.5.5, 0.5.6, 0.5.7),
+and the surface diff is the demotion and nothing else. The two steps that were *meant* to change the
+manifest — the slot correction and the registrations that had no key at all — are reviewed diffs of
+exactly those sections.
+
+| # | Step | Issue |
+| --- | --- | --- |
+| 0.5.1 | **Reorganize, and demote the surface.** `src/Boids/{Futuristic,MachinePrime,DebugStart}` → `src/FactionMachine/`; `src/Boids/{CommonUI,CommonEvent}` → `src/Common/`; the mod's barrel retired into `src/Api.ts` and `src/mod.ts`; the layer-table block moved into the entry's body; the published surface demoted to `Boids.FactionMachine.*` beside `Boids.CommonUI`. `webpack/verify.ts` now requires the *namespace* export, so a build that flattened the surface fails rather than handing consumers a different `Boids`. New `test/layering.test.ts`. | new |
+| 0.5.2 | **The text adapter.** `src/KDExtension/Text/`: `Tree` (the merge and the specific-to-general walk), `Data` (the scopes, the ranks, the language), `Sink` (both groups, the registry, the pin, the deferred engine pass), `Slot` (every key the engine composes), `Spec` (the authoring shape and the precedence list). | new |
+| 0.5.3 | **The slot correction.** `FlavorText` stopped going to a `Flavor` suffix nothing in the engine reads, and `FunctionText` stopped going to `Desc`, the line the engine draws as flavour — so no item had a function line at all. Every slot is now registered, blank where nothing supplies it. | new |
+| 0.5.4 | **Register what was only displayed**: the start perk's name and description, the two start category labels, and the four morph messages the visor and gag handlers send. | new |
+| 0.5.5 | **A family authors its text once**, and a variant declares only what differs. | new |
+| 0.5.6 | **Declare the four engine sources** the derived items used to read at module evaluation, which raced the engine's own text load. | new |
+| 0.5.7 | **The first text trees**, at their closest common root, and the ordering rule they corrected. | new |
+| 0.5.8 | **Gates**: `test/text-registry.test.ts` (the shape of the whole surface) and `test/text-tree.test.ts` (a shipped path resolves), plus the base-game text the harness needed to exercise a declared source at all. | new |
+| 0.5.9 | **Docs**: `spec` §4.6, this phase, the brief's record, and the README's Text section. | new |
+
+**Deviations from the steps as written, recorded:**
+
+- **The newline ban was dropped.** The step that introduced it justified it by the flat `key,value`
+  translation format, and the design replaced that format with bundled JSON trees — where a break is
+  representable — while the visor family's four-line function block *relies* on the engine splitting
+  on `\n` (`KinkyDungeonInventory.ts:1297-1302`). The convention survives where it was ever load
+  bearing: a dialog's paragraphs are separate entries in `PromptSpec.Body`, because a browser
+  collapses a break and the engine does not.
+- **The quote-bracketing check was dropped** with the CSV reader whose behaviour justified it.
+- **A tree is imported by the module that reads it**, not by the entry. The first attempt gathered
+  the data at `src/mod.ts` ahead of the surface and **failed**: the suite reaches `src/Api` through
+  one test file statically while the entry loads dynamically through another, the static path wins,
+  and every registration resolved with no trees at all — item names came out empty and nothing threw.
+- **No `Data/` folder exists for the wider scopes yet.** By the placement rule a scope's folder
+  appears when it has text to share, and the faction-wide and common scopes hold prose that Phase 6
+  authors. Creating them empty now would be a directory that says nothing.
+- **Addressability is partial, and the reference says so.** A string is overridable by a translator
+  once it has a path. The link and visor families have one, as does every string on the mod's own
+  side; the hand-written item families do not, so their lines are listed in the generated reference
+  as not yet addressable. Giving each family its paths is an authoring task, and it is the first
+  thing Phase 6 should do.
+
+**Ordering constraint:**
+
+- **Phase 1 waits for this phase.** Every later phase adds text, and a step that adds a string
+  before the surface exists is a string that has to be found and moved afterwards — which is the
+  cost this phase exists to avoid.
+
+---
+
 ## Phase 1 — The control model
 
 **Goal:** replace the three-slot limiter prototype with the general control model, and give

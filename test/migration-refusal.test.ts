@@ -28,9 +28,9 @@ import assert from 'node:assert/strict'
 import { Map as IMMap, Set as IMSet } from 'immutable'
 import { describe, it } from 'node:test'
 
-import { Entry, Gag, ItemRegistry, SensoryLimiter, State as StateRecord, Visor } from '../src/Boids/MachinePrime/Coordinator/Internal/State'
-import { SetState } from '../src/Boids/MachinePrime/Coordinator/Internal/StateStorage'
-import { ItemArchetype } from '../src/Boids/MachinePrime/Constant'
+import { Entry, Gag, ItemRegistry, SensoryLimiter, State as StateRecord, Visor } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/State'
+import { SetState } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/StateStorage'
+import { ItemArchetype } from '../src/FactionMachine/MachinePrime/Constant'
 import {
     GetCurrentReleaseIndex,
     MigrationOutcome,

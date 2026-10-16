@@ -51,8 +51,19 @@ export interface KDRecorder {
     /** The stub globals themselves, so the manifest can read registration results. */
     globals: KDGlobals
 
-    /** Every `addTextKey(key, text)` call, in call order. */
+    /** Every `addTextKey(key, text)` call, in call order: the engine half of the text surface. */
     textKeys: [string, string][]
+
+    /** Every mod-group `appendText(key, value)` call, in call order: the mod half. */
+    modTextKeys: [string, string][]
+
+    /**
+     * Every translation pin the sink writes: the language, and the tag it pinned there.
+     *
+     * A pin exists so the engine's by-source translation map cannot rewrite a string the mod
+     * already translated, so these are asserted rather than merely recorded.
+     */
+    translationPins: { Language: string, Tag: string, Value: string }[]
 
     /** Every `InitLayers(layers)` argument, in call order. */
     initLayersArgs: string[][]
@@ -96,6 +107,8 @@ const EmptyGlobals = (): KDGlobals =>
 export const CreateRecorder = (): KDRecorder => ({
     globals: EmptyGlobals(),
     textKeys: [],
+    modTextKeys: [],
+    translationPins: [],
     initLayersArgs: [],
     getModelLayersCalls: [],
     sentEvents: [],
@@ -132,6 +145,8 @@ export const SetRecorder = (recorder: KDRecorder): void => {
 export const ResetRecorderLogs = (): void => {
     const recorder = GetRecorder()
     recorder.textKeys.length = 0
+    recorder.modTextKeys.length = 0
+    recorder.translationPins.length = 0
     recorder.initLayersArgs.length = 0
     recorder.getModelLayersCalls.length = 0
     recorder.sentEvents.length = 0

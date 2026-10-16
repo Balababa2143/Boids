@@ -6,24 +6,22 @@
  * the labels, the two answers, and the fact that every string is registered rather than
  * falling through to its own key.
  *
- * The last of those is the one worth guarding. The game's text lookup returns the key when a
- * key was never registered, so a missing `addTextKey` does not throw — it puts an identifier
- * like `BoidsMigrationRefusedBody` in front of a player, inside a dialog whose whole job is
- * to explain something.
+ * The last of those is the one worth guarding. A text path that was never registered reads
+ * back as the engine's own `[NotFound]` marker, so a missing registration does not throw — it
+ * puts a path in front of a player, inside a dialog whose whole job is to explain something.
  */
 
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 
-import { ShowPrompt } from '../src/Boids/CommonUI/Prompt'
-import { MigrationRefusedPrompt, QuietRefusal, UnversionedSavePrompt } from '../src/Boids/MachinePrime/Coordinator/Internal/SavePrompts'
+import { ShowPrompt } from '../src/Common/CommonUI/Prompt'
+import { MigrationRefusedPrompt, QuietRefusal, TextPaths, UnversionedSavePrompt } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/SavePrompts'
+import { GetModText } from '../src/KDExtension'
 import { PromptButtons, PromptText, WithFakeDocument } from './harness/fake-dom'
 
 /** The ids the save prompts render under; copies, so renaming one fails loudly here. */
 const UnversionedId = 'unversioned-save'
 const RefusedId = 'migration-refused'
-
-const TextGet = (key: string) => (globalThis as unknown as { TextGet: (_: string) => string }).TextGet(key)
 
 describe('the unversioned save prompt', () => {
     it('offers exactly two answers, and names them', () => {
@@ -109,21 +107,12 @@ describe('the refused migration prompt', () => {
     })
 
     it('registers every string it renders', () => {
-        // A key the mod never registered renders as the key itself, so this is the difference
-        // between a warning and a paragraph of identifiers.
-        for (const key of [
-            'BoidsLegacySaveTitle',
-            'BoidsLegacySaveBody',
-            'BoidsLegacySaveConsequence',
-            'BoidsLegacySaveLoadAnyway',
-            'BoidsLegacySaveCancel',
-            'BoidsMigrationRefusedTitle',
-            'BoidsMigrationRefusedBody',
-            'BoidsMigrationRefusedConsequence',
-            'BoidsMigrationRefusedReturnToMenu',
-            'BoidsMigrationRefusedStay',
-        ]) {
-            assert.notEqual(TextGet(key), key, `${key} is not registered, so a player would see the key`)
+        // A path the mod never registered reads back as the engine's `[NotFound]` marker, so
+        // this is the difference between a warning and a paragraph of identifiers.
+        for (const path of Object.values(TextPaths)) {
+            const text = GetModText(path)
+            assert.ok(!text.startsWith('[NotFound]'), `${path.join('.')} is not registered`)
+            assert.notEqual(text, '', `${path.join('.')} is registered blank`)
         }
     })
 })

@@ -191,8 +191,14 @@ export const VerifyTypes = async () => {
     if (!/declare global[\s\S]*var Boids\s*:/.test(api)) {
         Fail('Api.d.ts dropped its global declaration, so consumers lose the Boids global')
     }
-    if (!api.includes("'./Boids'")) {
-        Fail('Api.d.ts no longer re-exports ./Boids')
+    if (!/export\s*\*\s*as\s+FactionMachine\s+from\s*['"]\.\/FactionMachine['"]/.test(api)) {
+        Fail(
+            'Api.d.ts no longer declares the FactionMachine namespace, so the published surface ' +
+            'would have been flattened: consumers would read a different Boids'
+        )
+    }
+    if (!api.includes("'./Common/CommonUI'")) {
+        Fail('Api.d.ts no longer republishes CommonUI')
     }
 }
 

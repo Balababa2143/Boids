@@ -34,6 +34,7 @@ export class RestraintVariantMapBuilder<VariantKey>
     constructor(args: {
         baseId: string,
         baseName?: string,
+        baseText?: Partial<RestraintText>,
         receiver?: JSReceiver,
     }) {
         args.receiver = args.receiver ?? RestraintReceiver

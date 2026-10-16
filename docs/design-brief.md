@@ -2686,7 +2686,7 @@ toys**.
 
 | Date | Issue | What changed | Landed in |
 | --- | --- | --- | --- |
-| *—* | *—* | *the design was frozen; no changes recorded yet* | *—* |
+| 2026-10-17 | *—* (designer's instruction, in session) | **The layout, and the text surface.** `src/Boids/` was the machine faction's root rather than the mod's, so the tree is now `src/FactionMachine/` beside `src/Common/`, with the dependency arrow `Utilities < KDInterface < KDExtension < Common < FactionMachine` gated by a test; the published surface is demoted to `Boids.FactionMachine.*` beside `Boids.CommonUI`, so a second faction is a sibling rather than a fourth top-level name. Text became one adapter in `src/KDExtension/Text/`: the engine's group for what the engine resolves and the mod's own group for what the mod resolves, composed keys beside dotted paths, a JSON tree cascade with a local layer and a declared engine source beneath it, per-family text authored once with variants overriding what differs, and the `Desc`/`Desc2` slot correction that gave every item a function line. | `spec` §4.6; `dev-plan` Phase 0.5; `README.md` |
 
 **How to add a row:** open or cite the issue, then append one line. If the change is
 **breaking for saves**, it also needs a slot in the spec's version table and a step in the

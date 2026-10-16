@@ -67,6 +67,7 @@ export class ModelVariantMapBuilder<VariantKey>
     constructor(args: {
         baseId: string,
         baseName?: string,
+        baseText?: Partial<ModelText>,
         receiver?: JSReceiver
     }) {
         args.receiver = args.receiver ?? ModelReceiver

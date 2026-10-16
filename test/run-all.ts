@@ -9,17 +9,21 @@
  * Every `test/**\/*.test.ts` file must be listed here; `self-check.test.ts`
  * enforces that so a new suite cannot be silently skipped.
  *
- * `guid-uniqueness.test.ts` reads `src/**` from disk rather than importing it, so
- * its placement here carries no ordering meaning; it is listed with the other
- * source-level gates.
+ * `guid-uniqueness.test.ts` and `layering.test.ts` read `src/**` from disk rather than
+ * importing it, so their placement here carries no ordering meaning; they are listed
+ * with the other source-level gates.
  */
 
 import './setup/install'
 
 import './self-check.test'
 import './guid-uniqueness.test'
+import './layering.test'
 import './release.test'
 import './registration-manifest.test'
+import './text-registry.test'
+import './text-tree.test'
+import './text-reference.test'
 import './public-api.test'
 import './variant-map.property.test'
 import './coordinator-state.property.test'

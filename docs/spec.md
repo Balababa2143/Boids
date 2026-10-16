@@ -320,6 +320,64 @@ writing the migration.
 `src/`, all distinct. That is maintained by discipline rather than by a check — **[决定]
 so uniqueness is enforced by a test over every GUID literal under `src/`.**
 
+### 4.6 The text surface
+
+**[既有] The engine resolves text by looking a key up in one flat map, in one group.** `TextGet`,
+`hasText` and `addTextKey` are hard-wired to the group the engine calls `default`
+(`Scripts/Text.ts:439,449,678`), and no engine code reads any other group — so a mod that registers
+its text elsewhere makes it invisible to the engine, item names and both tooltip lines included
+(`KinkyDungeonInventory.ts:1297-1302`).
+
+**[决定] The boundary rule.** If the **engine** resolves the key, the key is composed by the engine
+from an identity this mod already holds, and it is registered in the group the engine reads. If the
+**mod** resolves the key, it is addressed by a path and registered in the mod's own group. A string
+the engine merely *displays* from a value the mod resolved belongs to the mod's group: the engine
+is handed a resolved value and never looks a key up, which is the whole of the dialog and
+status-line wording.
+
+| Kind | Group | Keys | Read by |
+| --- | --- | --- | --- |
+| **composed** | the engine's | `Restraint<n>`, `<n>Desc`, `<n>Desc2`; `m_<model>`, `m_<model>_l_<layer>`, `c_<category>`; `KDVarPref<p>`, `KDVarSuff<s>`; `KinkyDungeonStat<id>`, `KinkyDungeonStatDesc<id>`; `KDCategory<name>` | the engine, by composition |
+| **path** | the mod's | the dotted path itself, e.g. `Common.Session.Refused.Body` | the mod, through its own read helper |
+
+**[决定] The slots are named by their suffixes, and the mapping is the engine's, not a reader's.**
+`Desc` is the *flavour* line and `Desc2` the *function* line (`base/KDModUtils.ts:487-493`). So
+writing function text to `Desc` puts it where the engine draws flavour, and writing flavour to a
+`Flavor` suffix puts it nowhere: **a key the engine does not read may not be registered at all.**
+
+**[决定] Every slot is registered, including the ones nothing supplies.** An absent slot is written
+as the empty string. A key that was never registered makes the engine draw the key itself, so the
+absence of text is expressed as text.
+
+**[决定] Text resolves through a precedence list, first hit per slot winning:**
+
+1. the active language's merged tree — the fullest path first, then each shorter prefix;
+2. the English merged tree, the same walk;
+3. the value the registration declares (the local layer);
+4. the engine's own text for a declared source item, read when it is available and deferred when
+   it is not;
+5. the empty string.
+
+**[决定] Layers 1 and 2 are one cascade across two trees, not two cascades.** A translator's
+general value may therefore override a more specific English one, which is the power they are being
+given; the generated reference lists every path so it stays legible.
+
+**[决定] Trees merge widest-first, leaf by leaf, last writer winning.** A scope declares its rank
+against one shared scale — common, faction, sub-faction, family — so a narrower scope's leaf wins
+at the same path without any scope having to know another exists.
+
+**[决定] Text data lives in a JSON tree at the closest common root of the entities that use the
+string, and the module that reads a tree imports it.** The second half is not stylistic: gathering
+the data at the entry holds only while nothing else reaches the content tree first, and a bundler
+may reach it by another path.
+
+**[决定] No key is written by hand.** A composed key comes from the single builder for its shape; a
+mod key is a path. A test over the whole surface asserts that, together with the three slots being
+present and no registered value being a placeholder.
+
+**[决定] Text is not a persisted format.** Nothing in this section is in a save, so a text key may
+be renamed freely, and it is deliberately absent from §4.5's table.
+
 ## 5. The control model, in one picture
 
 **[决定]** The Coordinator is the mechanism layer (§2). It records what the **Host** (§9)
@@ -866,7 +924,7 @@ tag the game already set to be *withdrawn*, which is a different and less certai
 **[决定] A restraint participates in the control model by meeting five clauses.** They are
 stated as one contract because a piece that meets four of them fails in ways that look like
 unrelated bugs. **[既有] Part of the contract is already implemented** in
-`src/Boids/MachinePrime/Coordinator/`; each clause names its status.
+`src/FactionMachine/MachinePrime/Coordinator/`; each clause names its status.
 
 **1. Membership — the `shrine` tag is the marker.**
 **[既有]** A controlled item is one whose restraint template carries a defined Boids tag in
@@ -1240,6 +1298,12 @@ maintained by review.
 | 14 | **A kind-2 commit is one atomic replacement.** No reachable state leaves some worn items sealed and others unsealed. | review |
 | 15 | **The dossier is cleared before the exit teleport** on route 1, so no save is taken mid-transition. | review |
 | 16 | **Lifting a kind-1 curse leaves the equipment worn.** The curse clears and nothing is removed, so the removal is left to the struggle (invariant 13 guarantees it stays possible). | review of the curse's `remove` hook, plus a test that the post-lift item is still in the worn set |
+| 17 | **A composed text key is generated, never written by hand.** Every key the engine resolves comes from the single builder for its shape. | `test/text-registry.test.ts`, over the whole registered surface |
+| 18 | **Only slots the engine reads are registered, and every one of them is.** `Desc` is the flavour line and `Desc2` the function line; a `Flavor` suffix is read by nothing, and a slot nothing supplies is registered blank rather than skipped. | `test/text-registry.test.ts`: every restraint the mod names has all three lines |
+| 19 | **No registered value is a placeholder** — not its own key, not the engine's `[NotFound]` marker, and not an unfilled `${…}`. | the sink at registration, and the same assertion over the surface |
+| 20 | **A key never crosses the boundary rule** (§4.6): what the engine resolves is on the engine's side, what the mod resolves is on the mod's, and a string the engine merely displays is on the mod's. | `test/text-registry.test.ts`: the key's shape and its slot must agree |
+| 21 | **A text tree is imported by the module that reads it**, never gathered at the entry, because a bundler may reach the content tree by another path first. | `test/text-tree.test.ts`: a shipped path resolves |
+| 22 | **The text surface is reproducible**: the tree merge is a deterministic function of its inputs, key order included, so the generated reference can be compared byte for byte. | `test/text-reference.test.ts` |
 
 ## 12. What this spec does not decide
 

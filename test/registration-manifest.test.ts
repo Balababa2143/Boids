@@ -73,6 +73,19 @@ const WriteManifest = async (filePath: string, value: RegistrationManifest): Pro
 InstallKDGlobals()
 await import('../src/mod')
 
+/**
+ * Settle the deferred engine pass before the surface is recorded.
+ *
+ * A text slot whose only source is the engine's own text is normally read while the mod loads,
+ * because the engine fetches its text long before any mod runs; the flush exists for the case
+ * where that has not happened yet. Sending it here makes the recorded surface the settled one
+ * either way, so what this file pins does not depend on whether the engine's text happened to
+ * be available — and with the harness's base-game fixture it is, which makes this a no-op today
+ * and a guard tomorrow.
+ */
+;(globalThis as unknown as { KinkyDungeonSendEvent: (_: { Event: string, data: unknown }) => void })
+    .KinkyDungeonSendEvent({ Event: 'afterLoadMods', data: {} })
+
 const manifest = BuildManifest()
 const baseline = await ReadBaseline()
 
@@ -83,6 +96,7 @@ describe('registration manifest', () => {
         assert.ok(Object.keys(manifest.models).length > 100, `models: ${Object.keys(manifest.models).length}`)
         assert.ok(Object.keys(manifest.restraints).length > 100, `restraints: ${Object.keys(manifest.restraints).length}`)
         assert.ok(manifest.textKeys.length > 50, `textKeys: ${manifest.textKeys.length}`)
+        assert.ok(manifest.modTextKeys.length > 10, `modTextKeys: ${manifest.modTextKeys.length}`)
         assert.ok(manifest.layersBase.length > 220, `layersBase: ${manifest.layersBase.length}`)
     })
 

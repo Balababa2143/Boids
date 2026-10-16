@@ -1,36 +1,67 @@
 import { DeepFreezeClone } from '../Utilities'
+import { RegisterEngineSlot, ResolveText, RestraintKeys, SlotNames } from './Text'
+import type { TextParams } from './Text'
 
 /**
- * Represents the text information associated with a restraint, including display name, flavor text, and function text.
+ * The text one restraint declares: the three lines the engine reads, where the ones it does
+ * not set may be inherited from, and the path the trees may override it at.
+ *
+ * The field names are the engine's own words for the same three things, because a call site
+ * is choosing among the engine's slots rather than inventing a vocabulary: the engine's
+ * writer is `KinkyDungeonAddRestraintText(name, displayName, flavorText, functionText)`
+ * (`base/KDModUtils.ts:487-493`).
  */
 export interface RestraintText {
+    /** The name a player reads, registered as `Restraint<name>`. */
     DisplayName?: string
+    /** The engine's `flavorText`, registered as `Restraint<name>Desc`. */
     FlavorText?: string
+    /** The engine's `functionText`, registered as `Restraint<name>Desc2`. */
     FunctionText?: string
+    /**
+     * The item whose **composed** text fills the slots this one does not set, by name — the
+     * restraint a derived item is built on.
+     */
+    Source?: string
+    /** This item's path in the text trees; absent means the trees cannot serve it. */
+    Path?: readonly string[]
+    /** Values for a tree entry's `${Param}` placeholders. */
+    Params?: TextParams
 }
 
 /**
- * Adds localized text entries for a restraint using the provided name and restraint text object.
+ * Adds localised text entries for a restraint using the provided name and restraint text object.
+ *
+ * **Every slot is registered, including the ones nothing supplies.** An absent slot is
+ * written as an empty string rather than skipped, because a key that was never registered
+ * makes the engine draw the key itself — and the engine reads three suffixes here, not two:
+ *
+ * - `Restraint<name>` — the display name, from `DisplayName`.
+ * - `Restraint<name>Desc` — the engine's *flavor* line, from `FlavorText`.
+ * - `Restraint<name>Desc2` — the engine's *function* line, from `FunctionText`
+ *   (`KinkyDungeonInventory.ts:1297-1302`).
+ *
+ * The suffixes are not symmetric with this interface's names, and that is the trap this
+ * mapping exists to close: the previous one wrote `FlavorText` to a `Flavor` suffix nothing
+ * in the engine reads, and `FunctionText` to `Desc`, which the engine draws as the flavor
+ * line — so no item registered a function line at all and every flavor line was invisible.
  *
  * @param name - The unique identifier for the restraint, used as a key prefix.
- * @param restraintText - An object containing the display name, flavor text, and function description for the restraint.
- *
- * The function will add the following text keys if present in `restraintText`:
- * - `Restraint{name}`: The display name.
- * - `Restraint{name}Flavor`: The flavor text.
- * - `Restraint{name}Desc`: The function description.
+ * @param restraintText - What the item's three lines say, and where they may come from.
  */
 export function AddRestraintText(name: string, restraintText: RestraintText): void {
-    const baseKey = `Restraint${name}`;
+    const keys = RestraintKeys(name)
+    const resolved = ResolveText({
+        Path: restraintText.Path,
+        Name: restraintText.DisplayName,
+        Flavor: restraintText.FlavorText,
+        Function: restraintText.FunctionText,
+        Source: restraintText.Source,
+        Params: restraintText.Params,
+    })
 
-    if (restraintText.DisplayName) {
-        addTextKey(baseKey, restraintText.DisplayName)
-    }
-    if (restraintText.FlavorText) {
-        addTextKey(`${baseKey}Flavor`, restraintText.FlavorText)
-    }
-    if (restraintText.FunctionText) {
-        addTextKey(`${baseKey}Desc`, restraintText.FunctionText)
+    for (const slot of SlotNames) {
+        RegisterEngineSlot({ Key: keys[slot], Slot: slot, Resolution: resolved[slot] })
     }
 }
 

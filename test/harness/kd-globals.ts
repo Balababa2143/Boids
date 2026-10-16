@@ -19,6 +19,7 @@ import {
     BuildBaseModels,
     BuildBaseRestraints,
     BuildBaseTagCollections,
+    BuildBaseText,
 } from '../fixtures/base-game'
 import { CreateRecorder, GetRecorder, SetRecorder, type KDGlobals, type KDRecorder } from './recorder'
 
@@ -276,9 +277,62 @@ export const InstallKDGlobals = (): InstalledKD => {
     g.KinkyDungeonGetRestraintByName = (name: string) =>
         recorder.globals.KinkyDungeonRestraints.find(r => r.name === name)
 
+    /**
+     * The engine's text provider, as the mod sees it.
+     *
+     * Faithful for the three things the mod uses: `getGroupManager().appendText` is how a
+     * mod-half key is written, `getTextFromGroup` is how one is read, and
+     * `getTranslationService` is what the pin writes into.
+     *
+     * **The stores are per group, as the engine's are** (`Scripts/Text.ts:164-218`): a key
+     * written to the mod's group is not readable from the engine's. That separation is the
+     * property the boundary rule rests on, so one shared map would hide a violation of it
+     * rather than catch one.
+     */
+    const TextGroups = new Map<string, Map<string, string>>()
+    const TextGroup = (groupId: string) => {
+        let group = TextGroups.get(groupId)
+        if (group == null) {
+            group = new Map<string, string>()
+            TextGroups.set(groupId, group)
+        }
+        return group
+    }
+
+    /**
+     * The engine's own text, as its CSV would provide it.
+     *
+     * Kept **separate** from the mod's registrations, so a base-game entry can never be mistaken
+     * for something the mod registered — which is what the registration manifest pins.
+     */
+    const BaseGameText = BuildBaseText()
+
+    /** The engine's own value, set from the player's locale before any mod runs. */
+    g.TranslationLanguage = 'EN'
+
     g.TextProvider = {
         instance: {
+            defaultGroupId: 'default',
             getText: (tag: string) => `<text:${tag}>`,
+            getGroupManager: () => ({
+                appendText: (groupId: string, key: string, value: string) => {
+                    recorder.modTextKeys.push([key, value])
+                    TextGroup(groupId).set(key, value)
+                },
+            }),
+            getTextFromGroup: (groupId: string, tag: string) =>
+                TextGroup(groupId).get(tag) ?? `[NotFound] ${tag}`,
+            getTextFromGroupStrict: (groupId: string, tag: string) => TextGroup(groupId).get(tag),
+            getTranslationService: (_groupId: string) => ({
+                appendTranslation: (
+                    language: string,
+                    resources: { tagTranslationMap: Map<string, string> },
+                ) => {
+                    for (const [tag, value] of resources.tagTranslationMap) {
+                        recorder.translationPins.push({ Language: language, Tag: tag, Value: value })
+                    }
+                },
+            }),
         },
     }
 
@@ -294,9 +348,23 @@ export const InstallKDGlobals = (): InstalledKD => {
      * marker for "the mod asked the text provider for a key", and the existing tests rely on
      * that marker rather than on the text.
      */
-    const TextFor = (tag: string) => recorder.textKeys.find(([key]) => key === tag)?.[1] ?? tag
+    const TextFor = (tag: string) =>
+        recorder.textKeys.find(([key]) => key === tag)?.[1] ?? BaseGameText[tag] ?? tag
 
     g.TextGet = (tag: string) => TextFor(tag)
+
+    /**
+     * Whether the engine holds a text entry for a tag.
+     *
+     * The engine answers this from its **source** map, which holds its own text file plus every
+     * `addTextKey` a mod made (`Scripts/Text.ts:515-535`), so the harness answers from the same
+     * two places: {@link BaseGameText} and the mod's own registrations. Keeping them apart is
+     * what lets the suite exercise the deferred engine pass — a slot the mod fills from a
+     * base-game item once the engine's text has loaded — rather than only its "the engine has no
+     * such text" branch.
+     */
+    g.HasText = (tag: string) =>
+        BaseGameText[tag] != null || recorder.textKeys.some(([key]) => key === tag)
 
     // --- Game effects the mod invokes -------------------------------------------
 

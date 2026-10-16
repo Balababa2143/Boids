@@ -21,7 +21,10 @@ import { GetRecorder, type KDRecorder } from './recorder'
 export interface RegistrationManifest {
     models: Record<string, unknown>
     restraints: Record<string, unknown>
+    /** The engine half: keys the engine looks up for itself, registered in `default`. */
     textKeys: [string, string][]
+    /** The mod half: keys the mod resolves and the engine only displays. */
+    modTextKeys: [string, string][]
     eventHandlers: Record<string, Record<string, string[]>>
     restraintsCacheKeys: string[]
     categoriesStart: unknown[]
@@ -80,6 +83,7 @@ export const BuildManifest = (recorder: KDRecorder = GetRecorder()): Registratio
         models: { ...globals.ModelDefs },
         restraints: IndexByName(globals.KinkyDungeonRestraints),
         textKeys: recorder.textKeys.map(([key, text]) => [key, text] as [string, string]),
+        modTextKeys: recorder.modTextKeys.map(([key, text]) => [key, text] as [string, string]),
         eventHandlers: ReadEventHandlers(),
         restraintsCacheKeys: [...globals.KinkyDungeonRestraintsCache.keys()],
         categoriesStart: [...globals.KDCategoriesStart],
@@ -95,8 +99,15 @@ export const BuildManifest = (recorder: KDRecorder = GetRecorder()): Registratio
 
 export const CanonicalJson = (value: unknown): string => JSON.stringify(value, null, 2)
 
+/**
+ * A stable digest of anything the manifest can hold.
+ *
+ * The `?? 'undefined'` is for the first run after a section is *added*: the committed baseline
+ * has no such key, and a crash while describing the difference would hide the difference. A
+ * missing section then reads as a changed digest, which is what a reviewer needs to see.
+ */
 const Sha256 = (value: unknown): string =>
-    createHash('sha256').update(CanonicalJson(value)).digest('hex')
+    createHash('sha256').update(CanonicalJson(value) ?? 'undefined').digest('hex')
 
 /** Per-section, per-entry digests: compact, and precise about what changed. */
 export const DigestManifest = (manifest: RegistrationManifest): Record<string, unknown> => {
@@ -107,6 +118,7 @@ export const DigestManifest = (manifest: RegistrationManifest): Record<string, u
         models: digestRecord(manifest.models),
         restraints: digestRecord(manifest.restraints),
         textKeys: Sha256(manifest.textKeys),
+        modTextKeys: Sha256(manifest.modTextKeys),
         eventHandlers: digestRecord(manifest.eventHandlers as unknown as Record<string, unknown>),
         restraintsCacheKeys: Sha256(manifest.restraintsCacheKeys),
         categoriesStart: Sha256(manifest.categoriesStart),

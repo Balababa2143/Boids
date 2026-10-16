@@ -4,10 +4,11 @@
  * `src/Api.ts` is what the bundle assigns to the `Boids` global and what the
  * published types package exposes; `PackageAsset/package.json` maps its `exports`
  * entry at that same file, so the runtime and the typings cannot describe
- * different things. Everything outside `src/Boids/` — the variant infrastructure,
- * the utilities, the mod's own manifest — is internal on purpose, so a change to
- * this list has to be a deliberate edit rather than a side effect of moving a
- * re-export around.
+ * different things. The surface is **two** namespaces: `FactionMachine`, one level
+ * per major faction so that a second faction is a sibling rather than a fourth
+ * name, and `CommonUI`, which is shared UI rather than content. Everything else is
+ * internal on purpose, so a change to this list has to be a deliberate edit rather
+ * than a side effect of moving a re-export around.
  *
  * Regenerate with `UPDATE_PUBLIC_API=1 npm test`.
  */
@@ -29,8 +30,29 @@ const ShouldUpdate = process.env.UPDATE_PUBLIC_API === '1'
 /** Names the mod publishes, independent of how `Api` reaches them. */
 const PublishedNames = () => Object.keys(Api).sort()
 
-/** Names that used to be exported and are deliberately not any more. */
-const InternalNames = ['KDExtension', 'Immutable', 'ModJson', 'Utilities', 'KDInterface']
+/**
+ * Names that must never reach the top level.
+ *
+ * The three the `FactionMachine` namespace demoted sit beside the infrastructure on
+ * purpose: flattening the surface is the change this file exists to refuse. A
+ * consumer written against `Boids.Futuristic` would otherwise keep working by
+ * accident, and the surface would quietly stop enumerating factions.
+ */
+const InternalNames = [
+    'Common',
+    'CommonEvent',
+    'DebugStart',
+    'Futuristic',
+    'Immutable',
+    'KDExtension',
+    'KDInterface',
+    'MachinePrime',
+    'ModJson',
+    'Utilities',
+]
+
+/** The one faction the mod ships, and everything published under it. */
+const FactionMachineNames = ['DebugStart', 'Futuristic', 'MachinePrime']
 
 describe('published surface', () => {
     it('matches the committed baseline', async () => {
@@ -56,10 +78,19 @@ describe('published surface', () => {
         assert.deepEqual(Object.keys(published).sort(), PublishedNames())
     })
 
-    it('reaches nothing from outside src/Boids', () => {
+    it('publishes the machine faction one level down, and nothing else under it', () => {
+        const published = globalThis.Boids
+        assert.deepEqual(
+            Object.keys(published.FactionMachine).sort(),
+            FactionMachineNames,
+            'the faction namespace no longer holds exactly its own namespaces'
+        )
+    })
+
+    it('re-exposes no internals, and does not flatten the faction namespace', () => {
         const names = PublishedNames()
         for (const internal of InternalNames) {
-            assert.ok(!names.includes(internal), `${internal} is not part of the published surface`)
+            assert.ok(!names.includes(internal), `${internal} must not be published at the top level`)
         }
     })
 })

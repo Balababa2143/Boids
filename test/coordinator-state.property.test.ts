@@ -26,11 +26,11 @@ import {
     SensoryLimiter,
     State,
     Visor,
-} from '../src/Boids/MachinePrime/Coordinator/Internal/State'
-import { GetState, SetState, SetStateIn, UpdateStateIn } from '../src/Boids/MachinePrime/Coordinator/Internal/StateStorage'
-import { Register, UnRegister } from '../src/Boids/MachinePrime/Coordinator/Public/ItemManagement'
-import { GetLimiterStrength, SetLimiterStrength } from '../src/Boids/MachinePrime/Coordinator/SensoryControl'
-import { ItemArchetype } from '../src/Boids/MachinePrime/Constant'
+} from '../src/FactionMachine/MachinePrime/Coordinator/Internal/State'
+import { GetState, SetState, SetStateIn, UpdateStateIn } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/StateStorage'
+import { Register, UnRegister } from '../src/FactionMachine/MachinePrime/Coordinator/Public/ItemManagement'
+import { GetLimiterStrength, SetLimiterStrength } from '../src/FactionMachine/MachinePrime/Coordinator/SensoryControl'
+import { ItemArchetype } from '../src/FactionMachine/MachinePrime/Constant'
 import { GetRecorder } from './harness/recorder'
 
 const StrengthArbitrary = fc.float({ min: 0, max: 1, noNaN: true })

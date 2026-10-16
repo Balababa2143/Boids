@@ -13321,71 +13321,71 @@
       "Drone Belt"
     ],
     [
-      "RestraintBD8079B8-DCE0-48C4-AA6C-A520E5C00D21Flavor",
+      "RestraintBD8079B8-DCE0-48C4-AA6C-A520E5C00D21Desc",
       "Slim"
     ],
     [
-      "RestraintBD8079B8-DCE0-48C4-AA6C-A520E5C00D21Desc",
-      "<text:RestraintCyberBeltDesc2>"
+      "RestraintBD8079B8-DCE0-48C4-AA6C-A520E5C00D21Desc2",
+      "Base game: a cyber belt."
     ],
     [
       "RestraintE0261BA0-1396-491B-8901-2A649E01E499",
       "Drone Bra"
     ],
     [
-      "RestraintE0261BA0-1396-491B-8901-2A649E01E499Flavor",
+      "RestraintE0261BA0-1396-491B-8901-2A649E01E499Desc",
       "Slim"
     ],
     [
-      "RestraintE0261BA0-1396-491B-8901-2A649E01E499Desc",
-      "<text:RestraintCyberBraDesc2>"
+      "RestraintE0261BA0-1396-491B-8901-2A649E01E499Desc2",
+      "Base game: a cyber bra."
     ],
     [
       "Restraint6428F8EA-53AE-4F76-A117-5BB8480D0DC5",
       "Drone Belt"
     ],
     [
-      "Restraint6428F8EA-53AE-4F76-A117-5BB8480D0DC5Flavor",
+      "Restraint6428F8EA-53AE-4F76-A117-5BB8480D0DC5Desc",
       "Bulky"
     ],
     [
-      "Restraint6428F8EA-53AE-4F76-A117-5BB8480D0DC5Desc",
-      "<text:RestraintCyberBeltDesc2>"
+      "Restraint6428F8EA-53AE-4F76-A117-5BB8480D0DC5Desc2",
+      "Base game: a cyber belt."
     ],
     [
       "RestraintEB459BF1-317C-4613-84CC-7E8DEFB3A374",
       "Drone Bra"
     ],
     [
-      "RestraintEB459BF1-317C-4613-84CC-7E8DEFB3A374Flavor",
+      "RestraintEB459BF1-317C-4613-84CC-7E8DEFB3A374Desc",
       "Bulky"
     ],
     [
-      "RestraintEB459BF1-317C-4613-84CC-7E8DEFB3A374Desc",
-      "<text:RestraintCyberBraDesc2>"
+      "RestraintEB459BF1-317C-4613-84CC-7E8DEFB3A374Desc2",
+      "Base game: a cyber bra."
     ],
     [
       "Restraint1AB75038-8339-4124-AD71-5F88F2DF5BFF",
       "Lockable Vibe"
     ],
     [
-      "Restraint1AB75038-8339-4124-AD71-5F88F2DF5BFFFlavor",
-      "<text:RestraintTrapVibeProtoDesc>"
+      "Restraint1AB75038-8339-4124-AD71-5F88F2DF5BFFDesc",
+      "Base game: the prototype egg."
     ],
     [
-      "Restraint1AB75038-8339-4124-AD71-5F88F2DF5BFFDesc",
-      "<text:RestraintTrapVibeProtoDesc2>"
+      "Restraint1AB75038-8339-4124-AD71-5F88F2DF5BFFDesc2",
+      "Base game: lockable."
     ],
     [
       "Restraint9CEB10C8-EE87-4AD9-99E2-D7216FB4CF40",
       "Drone Plug"
     ],
     [
-      "Restraint9CEB10C8-EE87-4AD9-99E2-D7216FB4CF40Flavor",
-      "<text:RestraintTrapPlug3Desc>"
+      "Restraint9CEB10C8-EE87-4AD9-99E2-D7216FB4CF40Desc",
+      "Base game: a smooth plug."
     ],
     [
-      "Restraint9CEB10C8-EE87-4AD9-99E2-D7216FB4CF40Desc",
+      "Restraint9CEB10C8-EE87-4AD9-99E2-D7216FB4CF40Desc2",
       "Lockable, Front"
     ],
     [
@@ -13393,11 +13393,11 @@
       "Drone Plug"
     ],
     [
-      "Restraint9D1BF9D4-C99D-4BA8-A25B-2A89FF8C2B8DFlavor",
-      "<text:RestraintRearVibe1Desc>"
+      "Restraint9D1BF9D4-C99D-4BA8-A25B-2A89FF8C2B8DDesc",
+      "Base game: a rear plug."
     ],
     [
-      "Restraint9D1BF9D4-C99D-4BA8-A25B-2A89FF8C2B8DDesc",
+      "Restraint9D1BF9D4-C99D-4BA8-A25B-2A89FF8C2B8DDesc2",
       "Lockable, Back"
     ],
     [
@@ -13405,124 +13405,228 @@
       "Drone Arm Link"
     ],
     [
-      "Restraint629a4169-d0c9-5b4b-89db-df671211931eFlavor",
+      "Restraint629a4169-d0c9-5b4b-89db-df671211931eDesc",
       "Variant: BetweenWristCuff"
+    ],
+    [
+      "Restraint629a4169-d0c9-5b4b-89db-df671211931eDesc2",
+      ""
     ],
     [
       "Restraint42408587-cfd1-587a-a31f-cf4f4cef912f",
       "Drone Arm Link"
     ],
     [
-      "Restraint42408587-cfd1-587a-a31f-cf4f4cef912fFlavor",
+      "Restraint42408587-cfd1-587a-a31f-cf4f4cef912fDesc",
       "Variant: BetweenElbowCuff"
+    ],
+    [
+      "Restraint42408587-cfd1-587a-a31f-cf4f4cef912fDesc2",
+      ""
     ],
     [
       "Restraint74466ddd-7329-5e50-a574-648d118e4cdc",
       "Drone Arm Link"
     ],
     [
-      "Restraint74466ddd-7329-5e50-a574-648d118e4cdcFlavor",
+      "Restraint74466ddd-7329-5e50-a574-648d118e4cdcDesc",
       "Variant: WristToCollar"
+    ],
+    [
+      "Restraint74466ddd-7329-5e50-a574-648d118e4cdcDesc2",
+      ""
     ],
     [
       "Restraint1a8c6f51-2ae5-5795-be6f-374c9130e667",
       "Drone Arm Link"
     ],
     [
-      "Restraint1a8c6f51-2ae5-5795-be6f-374c9130e667Flavor",
+      "Restraint1a8c6f51-2ae5-5795-be6f-374c9130e667Desc",
       "Variant: BoxTie"
+    ],
+    [
+      "Restraint1a8c6f51-2ae5-5795-be6f-374c9130e667Desc2",
+      ""
     ],
     [
       "Restraint8e5ef0db-fb4d-549d-8917-c9ec4d1f71c9",
       "Drone Arm Link"
     ],
     [
-      "Restraint8e5ef0db-fb4d-549d-8917-c9ec4d1f71c9Flavor",
+      "Restraint8e5ef0db-fb4d-549d-8917-c9ec4d1f71c9Desc",
       "Variant: Elbow Tie"
+    ],
+    [
+      "Restraint8e5ef0db-fb4d-549d-8917-c9ec4d1f71c9Desc2",
+      ""
     ],
     [
       "Restraintfba487ef-c283-5224-8feb-23b23f4b2ef0",
       "Drone Leg Link"
     ],
     [
-      "Restraintfba487ef-c283-5224-8feb-23b23f4b2ef0Flavor",
+      "Restraintfba487ef-c283-5224-8feb-23b23f4b2ef0Desc",
       "Variant: BetweenAnkleCuff"
+    ],
+    [
+      "Restraintfba487ef-c283-5224-8feb-23b23f4b2ef0Desc2",
+      ""
     ],
     [
       "Restraint6e3233c0-17c1-5102-b543-3ddd902475e5",
       "Drone Leg Link"
     ],
     [
-      "Restraint6e3233c0-17c1-5102-b543-3ddd902475e5Flavor",
+      "Restraint6e3233c0-17c1-5102-b543-3ddd902475e5Desc",
       "Variant: Tied Ankle"
+    ],
+    [
+      "Restraint6e3233c0-17c1-5102-b543-3ddd902475e5Desc2",
+      ""
     ],
     [
       "Restraint7f92b38c-8ed5-57a6-8873-566192bb5e61",
       "Drone Leg Link"
     ],
     [
-      "Restraint7f92b38c-8ed5-57a6-8873-566192bb5e61Flavor",
+      "Restraint7f92b38c-8ed5-57a6-8873-566192bb5e61Desc",
       "Variant: BetweenThighCuff"
+    ],
+    [
+      "Restraint7f92b38c-8ed5-57a6-8873-566192bb5e61Desc2",
+      ""
     ],
     [
       "Restraint4cc81a1b-4693-51d9-9782-2287bfe47114",
       "Drone Leg Link"
     ],
     [
-      "Restraint4cc81a1b-4693-51d9-9782-2287bfe47114Flavor",
+      "Restraint4cc81a1b-4693-51d9-9782-2287bfe47114Desc",
       "Variant: TiedThigh"
+    ],
+    [
+      "Restraint4cc81a1b-4693-51d9-9782-2287bfe47114Desc2",
+      ""
     ],
     [
       "RestraintF918EAC6-DEE2-4E71-BA76-8BF84BDA173B",
       "Drone Collar"
     ],
     [
-      "RestraintF918EAC6-DEE2-4E71-BA76-8BF84BDA173BFlavor",
+      "RestraintF918EAC6-DEE2-4E71-BA76-8BF84BDA173BDesc",
       "Light"
+    ],
+    [
+      "RestraintF918EAC6-DEE2-4E71-BA76-8BF84BDA173BDesc2",
+      ""
     ],
     [
       "Restraint82B14B3F-01C2-4B39-BCD9-6AACEB8E8A95",
       "Drone Collar"
     ],
     [
-      "Restraint82B14B3F-01C2-4B39-BCD9-6AACEB8E8A95Flavor",
+      "Restraint82B14B3F-01C2-4B39-BCD9-6AACEB8E8A95Desc",
       "Heavy"
+    ],
+    [
+      "Restraint82B14B3F-01C2-4B39-BCD9-6AACEB8E8A95Desc2",
+      ""
     ],
     [
       "Restraint081DC364-EEA5-440D-B4BD-E956F72CD9E5",
       "Drone Arm Cuff"
     ],
     [
+      "Restraint081DC364-EEA5-440D-B4BD-E956F72CD9E5Desc",
+      ""
+    ],
+    [
+      "Restraint081DC364-EEA5-440D-B4BD-E956F72CD9E5Desc2",
+      ""
+    ],
+    [
       "Restraint6724991E-F8F0-41FC-9FCF-8941F63CD821",
       "Drone Elbow Cuff"
+    ],
+    [
+      "Restraint6724991E-F8F0-41FC-9FCF-8941F63CD821Desc",
+      ""
+    ],
+    [
+      "Restraint6724991E-F8F0-41FC-9FCF-8941F63CD821Desc2",
+      ""
     ],
     [
       "Restraint1E161AB5-4FDA-4AD4-9557-E8816F17A99A",
       "Drone Wrist Cuff"
     ],
     [
+      "Restraint1E161AB5-4FDA-4AD4-9557-E8816F17A99ADesc",
+      ""
+    ],
+    [
+      "Restraint1E161AB5-4FDA-4AD4-9557-E8816F17A99ADesc2",
+      ""
+    ],
+    [
       "RestraintD667E4A4-E531-4D2A-B069-6F5CFA7DA2C1",
       "Drone Waist Cuff"
+    ],
+    [
+      "RestraintD667E4A4-E531-4D2A-B069-6F5CFA7DA2C1Desc",
+      ""
+    ],
+    [
+      "RestraintD667E4A4-E531-4D2A-B069-6F5CFA7DA2C1Desc2",
+      ""
     ],
     [
       "RestraintA5EFD394-8E39-4701-BAD4-5B8623619628",
       "Drone Thigh Cuff"
     ],
     [
+      "RestraintA5EFD394-8E39-4701-BAD4-5B8623619628Desc",
+      ""
+    ],
+    [
+      "RestraintA5EFD394-8E39-4701-BAD4-5B8623619628Desc2",
+      ""
+    ],
+    [
       "RestraintEB56F491-EE14-4431-B641-C3C397292435",
       "Drone Ankle Cuff"
+    ],
+    [
+      "RestraintEB56F491-EE14-4431-B641-C3C397292435Desc",
+      ""
+    ],
+    [
+      "RestraintEB56F491-EE14-4431-B641-C3C397292435Desc2",
+      ""
     ],
     [
       "Restraint76C06708-B150-414C-B402-A57A1A78BC53",
       "Drone Harness"
     ],
     [
-      "Restraint76C06708-B150-414C-B402-A57A1A78BC53Flavor",
-      "<text:RestraintControlHarnessDesc>"
+      "Restraint76C06708-B150-414C-B402-A57A1A78BC53Desc",
+      "Base game: a control harness."
     ],
     [
-      "Restraint76C06708-B150-414C-B402-A57A1A78BC53Desc",
-      "<text:RestraintControlHarnessDesc2>"
+      "Restraint76C06708-B150-414C-B402-A57A1A78BC53Desc2",
+      "Base game: controlled."
+    ],
+    [
+      "RestraintF10BAD9F-53F1-439B-9A00-BA5DB504A646",
+      ""
+    ],
+    [
+      "RestraintF10BAD9F-53F1-439B-9A00-BA5DB504A646Desc",
+      ""
+    ],
+    [
+      "RestraintF10BAD9F-53F1-439B-9A00-BA5DB504A646Desc2",
+      ""
     ],
     [
       "Restraintc666b777-2c34-5dfd-ba74-8fa080d772d1",
@@ -13530,6 +13634,10 @@
     ],
     [
       "Restraintc666b777-2c34-5dfd-ba74-8fa080d772d1Desc",
+      ""
+    ],
+    [
+      "Restraintc666b777-2c34-5dfd-ba74-8fa080d772d1Desc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 3"
     ],
     [
@@ -13538,6 +13646,10 @@
     ],
     [
       "Restraintfb94e78c-7334-5514-a886-b449f7271abcDesc",
+      ""
+    ],
+    [
+      "Restraintfb94e78c-7334-5514-a886-b449f7271abcDesc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 2"
     ],
     [
@@ -13546,6 +13658,10 @@
     ],
     [
       "Restraintb280187a-f81d-5795-833a-5a19e18fb9f3Desc",
+      ""
+    ],
+    [
+      "Restraintb280187a-f81d-5795-833a-5a19e18fb9f3Desc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 3"
     ],
     [
@@ -13554,6 +13670,10 @@
     ],
     [
       "Restraintc7e037f7-96d5-5453-b2db-9464b569a998Desc",
+      ""
+    ],
+    [
+      "Restraintc7e037f7-96d5-5453-b2db-9464b569a998Desc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 3"
     ],
     [
@@ -13562,6 +13682,10 @@
     ],
     [
       "Restraint52ed7ded-18fc-528d-b75b-a37b3f62d352Desc",
+      ""
+    ],
+    [
+      "Restraint52ed7ded-18fc-528d-b75b-a37b3f62d352Desc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 2"
     ],
     [
@@ -13570,6 +13694,10 @@
     ],
     [
       "Restraintc973d0e0-0c2c-5448-a8fc-c438280c02a1Desc",
+      ""
+    ],
+    [
+      "Restraintc973d0e0-0c2c-5448-a8fc-c438280c02a1Desc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 2"
     ],
     [
@@ -13578,6 +13706,10 @@
     ],
     [
       "Restraintbd175829-8fad-5c18-8009-68c74733b30fDesc",
+      ""
+    ],
+    [
+      "Restraintbd175829-8fad-5c18-8009-68c74733b30fDesc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 3"
     ],
     [
@@ -13586,6 +13718,10 @@
     ],
     [
       "Restraint07162efa-1268-5b28-842e-c21c60e45748Desc",
+      ""
+    ],
+    [
+      "Restraint07162efa-1268-5b28-842e-c21c60e45748Desc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 4"
     ],
     [
@@ -13594,6 +13730,10 @@
     ],
     [
       "Restraint7236988b-5b57-5a04-ba47-eefcda14f7bdDesc",
+      ""
+    ],
+    [
+      "Restraint7236988b-5b57-5a04-ba47-eefcda14f7bdDesc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 4"
     ],
     [
@@ -13602,6 +13742,10 @@
     ],
     [
       "Restraint53ad57e8-92d1-5edb-a2fe-febeaf380193Desc",
+      ""
+    ],
+    [
+      "Restraint53ad57e8-92d1-5edb-a2fe-febeaf380193Desc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 1"
     ],
     [
@@ -13610,6 +13754,10 @@
     ],
     [
       "Restrainta89a6785-fd02-50ed-8cef-fdbb006df798Desc",
+      ""
+    ],
+    [
+      "Restrainta89a6785-fd02-50ed-8cef-fdbb006df798Desc2",
       "Visor Type: Mask\nVersion: Mask"
     ],
     [
@@ -13618,6 +13766,10 @@
     ],
     [
       "Restraint54a4b93b-407d-5d80-bfd2-7ab27795567eDesc",
+      ""
+    ],
+    [
+      "Restraint54a4b93b-407d-5d80-bfd2-7ab27795567eDesc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 2"
     ],
     [
@@ -13626,6 +13778,10 @@
     ],
     [
       "Restraint3609013f-202f-5516-a4eb-2b75a51e89b7Desc",
+      ""
+    ],
+    [
+      "Restraint3609013f-202f-5516-a4eb-2b75a51e89b7Desc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 1"
     ],
     [
@@ -13634,6 +13790,10 @@
     ],
     [
       "Restraint0d7b3bff-1907-5b7c-bb33-c7a10e412d88Desc",
+      ""
+    ],
+    [
+      "Restraint0d7b3bff-1907-5b7c-bb33-c7a10e412d88Desc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 3"
     ],
     [
@@ -13642,6 +13802,10 @@
     ],
     [
       "Restraint9bfe8f06-6886-5adc-bc63-3f885c0a43cbDesc",
+      ""
+    ],
+    [
+      "Restraint9bfe8f06-6886-5adc-bc63-3f885c0a43cbDesc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 2"
     ],
     [
@@ -13650,6 +13814,10 @@
     ],
     [
       "Restraint799851c5-7c72-55ef-b668-546fb49ffe6dDesc",
+      ""
+    ],
+    [
+      "Restraint799851c5-7c72-55ef-b668-546fb49ffe6dDesc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 3"
     ],
     [
@@ -13658,6 +13826,10 @@
     ],
     [
       "Restraintbd522393-0424-5c88-9a48-c942ef4155d2Desc",
+      ""
+    ],
+    [
+      "Restraintbd522393-0424-5c88-9a48-c942ef4155d2Desc2",
       "Visor Type: Mask\nVersion: Over Mask"
     ],
     [
@@ -13666,6 +13838,10 @@
     ],
     [
       "Restraint3f535b78-37e2-5d76-8d5c-12ea0b9a1af4Desc",
+      ""
+    ],
+    [
+      "Restraint3f535b78-37e2-5d76-8d5c-12ea0b9a1af4Desc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 3"
     ],
     [
@@ -13674,6 +13850,10 @@
     ],
     [
       "Restraint5b30477d-cff4-5e33-9689-5d678468c972Desc",
+      ""
+    ],
+    [
+      "Restraint5b30477d-cff4-5e33-9689-5d678468c972Desc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 4"
     ],
     [
@@ -13682,6 +13862,10 @@
     ],
     [
       "Restraint988ee5a3-33c5-5fde-bc16-05355357ba15Desc",
+      ""
+    ],
+    [
+      "Restraint988ee5a3-33c5-5fde-bc16-05355357ba15Desc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 1"
     ],
     [
@@ -13690,6 +13874,10 @@
     ],
     [
       "Restraint4519df24-fe8b-5561-b952-48f7e0b5ae05Desc",
+      ""
+    ],
+    [
+      "Restraint4519df24-fe8b-5561-b952-48f7e0b5ae05Desc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 2"
     ],
     [
@@ -13698,6 +13886,10 @@
     ],
     [
       "Restraint98615614-ce47-54ce-b1e9-e4e7b8c30bb5Desc",
+      ""
+    ],
+    [
+      "Restraint98615614-ce47-54ce-b1e9-e4e7b8c30bb5Desc2",
       "Visor Type: Goggle\nVersion: Blindfold"
     ],
     [
@@ -13706,6 +13898,10 @@
     ],
     [
       "Restraint09d2aae8-1b0e-5243-aaa0-94bef3119e60Desc",
+      ""
+    ],
+    [
+      "Restraint09d2aae8-1b0e-5243-aaa0-94bef3119e60Desc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 4"
     ],
     [
@@ -13714,6 +13910,10 @@
     ],
     [
       "Restraint86e98029-b600-5c32-b5c5-6c4dbb388074Desc",
+      ""
+    ],
+    [
+      "Restraint86e98029-b600-5c32-b5c5-6c4dbb388074Desc2",
       "Visor Type: Goggle\nVersion: Blindfold"
     ],
     [
@@ -13722,6 +13922,10 @@
     ],
     [
       "Restraintc4aff19b-2b51-56a6-9134-f3d8a6f21e96Desc",
+      ""
+    ],
+    [
+      "Restraintc4aff19b-2b51-56a6-9134-f3d8a6f21e96Desc2",
       "Visor Type: Mask\nVersion: Mask"
     ],
     [
@@ -13730,6 +13934,10 @@
     ],
     [
       "Restraint656736b8-1ebf-5218-8087-4f88ab9864a1Desc",
+      ""
+    ],
+    [
+      "Restraint656736b8-1ebf-5218-8087-4f88ab9864a1Desc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 2"
     ],
     [
@@ -13738,6 +13946,10 @@
     ],
     [
       "Restraint9c3b6735-8e61-5036-a902-95caee81d5acDesc",
+      ""
+    ],
+    [
+      "Restraint9c3b6735-8e61-5036-a902-95caee81d5acDesc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 3"
     ],
     [
@@ -13746,6 +13958,10 @@
     ],
     [
       "Restraintc99d1f89-04de-5299-ab6f-73e504c141f4Desc",
+      ""
+    ],
+    [
+      "Restraintc99d1f89-04de-5299-ab6f-73e504c141f4Desc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 2"
     ],
     [
@@ -13754,6 +13970,10 @@
     ],
     [
       "Restraint4512dda0-1365-5f52-9619-20e7b3361b5cDesc",
+      ""
+    ],
+    [
+      "Restraint4512dda0-1365-5f52-9619-20e7b3361b5cDesc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 1"
     ],
     [
@@ -13762,6 +13982,10 @@
     ],
     [
       "Restrainte230c055-9147-57b4-a430-7cef972b5339Desc",
+      ""
+    ],
+    [
+      "Restrainte230c055-9147-57b4-a430-7cef972b5339Desc2",
       "Visor Type: Mask\nVersion: Over Mask"
     ],
     [
@@ -13770,6 +13994,10 @@
     ],
     [
       "Restraint9cb48c55-d447-5626-8dd3-a3a88a8c829fDesc",
+      ""
+    ],
+    [
+      "Restraint9cb48c55-d447-5626-8dd3-a3a88a8c829fDesc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 4"
     ],
     [
@@ -13778,6 +14006,10 @@
     ],
     [
       "Restraint244d12cf-a4e2-5c13-b376-abef3ea1a1c8Desc",
+      ""
+    ],
+    [
+      "Restraint244d12cf-a4e2-5c13-b376-abef3ea1a1c8Desc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 4"
     ],
     [
@@ -13786,6 +14018,10 @@
     ],
     [
       "Restraint54b32ad7-af91-5cf3-a826-a305c4a57c0fDesc",
+      ""
+    ],
+    [
+      "Restraint54b32ad7-af91-5cf3-a826-a305c4a57c0fDesc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 4"
     ],
     [
@@ -13794,6 +14030,10 @@
     ],
     [
       "Restraint661520be-5506-5a91-b73a-683e4a6f4af0Desc",
+      ""
+    ],
+    [
+      "Restraint661520be-5506-5a91-b73a-683e4a6f4af0Desc2",
       "Visor Type: Mask\nVersion: Over Mask"
     ],
     [
@@ -13802,6 +14042,10 @@
     ],
     [
       "Restraint68987c0e-d18e-5b69-96c8-712df4653b87Desc",
+      ""
+    ],
+    [
+      "Restraint68987c0e-d18e-5b69-96c8-712df4653b87Desc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 3"
     ],
     [
@@ -13810,6 +14054,10 @@
     ],
     [
       "Restraint8dcd6701-7390-5852-bba9-66531581b498Desc",
+      ""
+    ],
+    [
+      "Restraint8dcd6701-7390-5852-bba9-66531581b498Desc2",
       "Visor Type: Goggle\nVersion: Goggle"
     ],
     [
@@ -13818,6 +14066,10 @@
     ],
     [
       "Restraintd1f13882-8996-596b-bfae-229d6e6d3347Desc",
+      ""
+    ],
+    [
+      "Restraintd1f13882-8996-596b-bfae-229d6e6d3347Desc2",
       "Visor Type: Mask\nVersion: Mask"
     ],
     [
@@ -13826,6 +14078,10 @@
     ],
     [
       "Restraint60db09c6-e59d-5254-8bb4-d73e2a8e2658Desc",
+      ""
+    ],
+    [
+      "Restraint60db09c6-e59d-5254-8bb4-d73e2a8e2658Desc2",
       "Visor Type: Goggle\nVersion: Blindfold"
     ],
     [
@@ -13834,6 +14090,10 @@
     ],
     [
       "Restraintb220e2f5-2b24-5cb2-9232-624d6cdf5a59Desc",
+      ""
+    ],
+    [
+      "Restraintb220e2f5-2b24-5cb2-9232-624d6cdf5a59Desc2",
       "Visor Type: Mask\nVersion: Over Mask"
     ],
     [
@@ -13842,6 +14102,10 @@
     ],
     [
       "Restraint9d1af538-0f0f-5a0a-b207-8b6a1fa2c56cDesc",
+      ""
+    ],
+    [
+      "Restraint9d1af538-0f0f-5a0a-b207-8b6a1fa2c56cDesc2",
       "Visor Type: Goggle\nVersion: Blindfold"
     ],
     [
@@ -13850,6 +14114,10 @@
     ],
     [
       "Restraint16a9023a-c3e6-5dcf-8570-ebc6cc3e94d2Desc",
+      ""
+    ],
+    [
+      "Restraint16a9023a-c3e6-5dcf-8570-ebc6cc3e94d2Desc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 1"
     ],
     [
@@ -13858,6 +14126,10 @@
     ],
     [
       "Restraint2e0ceba1-4e1b-5bb9-b4ea-2388a49cb261Desc",
+      ""
+    ],
+    [
+      "Restraint2e0ceba1-4e1b-5bb9-b4ea-2388a49cb261Desc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 1"
     ],
     [
@@ -13866,6 +14138,10 @@
     ],
     [
       "Restraintb410345a-1f70-58e6-b724-3bbab82b4e79Desc",
+      ""
+    ],
+    [
+      "Restraintb410345a-1f70-58e6-b724-3bbab82b4e79Desc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 4"
     ],
     [
@@ -13874,6 +14150,10 @@
     ],
     [
       "Restrainta41c5ad4-f5f1-58fc-86ad-28acf671276aDesc",
+      ""
+    ],
+    [
+      "Restrainta41c5ad4-f5f1-58fc-86ad-28acf671276aDesc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 3"
     ],
     [
@@ -13882,6 +14162,10 @@
     ],
     [
       "Restraintb6e6e6cc-806d-51aa-96e1-57662246bdbeDesc",
+      ""
+    ],
+    [
+      "Restraintb6e6e6cc-806d-51aa-96e1-57662246bdbeDesc2",
       "Visor Type: Goggle\nVersion: Goggle"
     ],
     [
@@ -13890,6 +14174,10 @@
     ],
     [
       "Restraintb8568c08-f37e-555f-a8f9-3d6750e4f5c1Desc",
+      ""
+    ],
+    [
+      "Restraintb8568c08-f37e-555f-a8f9-3d6750e4f5c1Desc2",
       "Visor Type: Mask\nVersion: Mask"
     ],
     [
@@ -13898,6 +14186,10 @@
     ],
     [
       "Restraintc71b0bba-aeae-5262-acce-735a5f25b53aDesc",
+      ""
+    ],
+    [
+      "Restraintc71b0bba-aeae-5262-acce-735a5f25b53aDesc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 1"
     ],
     [
@@ -13906,6 +14198,10 @@
     ],
     [
       "Restraint779e603f-55e2-55a5-8581-31895dcd6109Desc",
+      ""
+    ],
+    [
+      "Restraint779e603f-55e2-55a5-8581-31895dcd6109Desc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 4"
     ],
     [
@@ -13914,6 +14210,10 @@
     ],
     [
       "Restraint9a1a61c2-34c7-5968-9a77-6d9b7bc06776Desc",
+      ""
+    ],
+    [
+      "Restraint9a1a61c2-34c7-5968-9a77-6d9b7bc06776Desc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 4"
     ],
     [
@@ -13922,6 +14222,10 @@
     ],
     [
       "Restraintd45095a9-9410-5e27-965f-5de755b42d46Desc",
+      ""
+    ],
+    [
+      "Restraintd45095a9-9410-5e27-965f-5de755b42d46Desc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 4"
     ],
     [
@@ -13930,6 +14234,10 @@
     ],
     [
       "Restraintad7f0208-2005-5652-8074-5f9b60901d7aDesc",
+      ""
+    ],
+    [
+      "Restraintad7f0208-2005-5652-8074-5f9b60901d7aDesc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 4"
     ],
     [
@@ -13938,6 +14246,10 @@
     ],
     [
       "Restraint72daf873-408e-57e1-bf49-1bc64f4a3c76Desc",
+      ""
+    ],
+    [
+      "Restraint72daf873-408e-57e1-bf49-1bc64f4a3c76Desc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 4"
     ],
     [
@@ -13946,6 +14258,10 @@
     ],
     [
       "Restraintc48c6593-dc8c-5baf-9c97-6c69a1d70f3dDesc",
+      ""
+    ],
+    [
+      "Restraintc48c6593-dc8c-5baf-9c97-6c69a1d70f3dDesc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 4"
     ],
     [
@@ -13954,6 +14270,10 @@
     ],
     [
       "Restraint0777c082-5783-57d1-8778-92f816ea4541Desc",
+      ""
+    ],
+    [
+      "Restraint0777c082-5783-57d1-8778-92f816ea4541Desc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 1"
     ],
     [
@@ -13962,6 +14282,10 @@
     ],
     [
       "Restraint89a5a6ab-d425-565e-98ec-40d2b56b2d10Desc",
+      ""
+    ],
+    [
+      "Restraint89a5a6ab-d425-565e-98ec-40d2b56b2d10Desc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 1"
     ],
     [
@@ -13970,6 +14294,10 @@
     ],
     [
       "Restraint848ce900-542d-5543-b3e5-3283fdd1a921Desc",
+      ""
+    ],
+    [
+      "Restraint848ce900-542d-5543-b3e5-3283fdd1a921Desc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 1"
     ],
     [
@@ -13978,6 +14306,10 @@
     ],
     [
       "Restraint3cf32fd7-0a38-5d8c-8320-3db0ca80a561Desc",
+      ""
+    ],
+    [
+      "Restraint3cf32fd7-0a38-5d8c-8320-3db0ca80a561Desc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 3"
     ],
     [
@@ -13986,6 +14318,10 @@
     ],
     [
       "Restraint392f1028-f17b-5df3-84b4-eda366920147Desc",
+      ""
+    ],
+    [
+      "Restraint392f1028-f17b-5df3-84b4-eda366920147Desc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 2"
     ],
     [
@@ -13994,6 +14330,10 @@
     ],
     [
       "Restraint20c1391a-5dd0-539f-820f-1bff07d9d308Desc",
+      ""
+    ],
+    [
+      "Restraint20c1391a-5dd0-539f-820f-1bff07d9d308Desc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 3"
     ],
     [
@@ -14002,6 +14342,10 @@
     ],
     [
       "Restraint851aa660-0324-5882-a1e2-66253dd8d0fcDesc",
+      ""
+    ],
+    [
+      "Restraint851aa660-0324-5882-a1e2-66253dd8d0fcDesc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 2"
     ],
     [
@@ -14010,6 +14354,10 @@
     ],
     [
       "Restraint0c7ca1ec-b221-5512-8426-b53bc9ad22aeDesc",
+      ""
+    ],
+    [
+      "Restraint0c7ca1ec-b221-5512-8426-b53bc9ad22aeDesc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 1"
     ],
     [
@@ -14018,6 +14366,10 @@
     ],
     [
       "Restraintea902b96-978a-5e5c-b76f-a6f624dca898Desc",
+      ""
+    ],
+    [
+      "Restraintea902b96-978a-5e5c-b76f-a6f624dca898Desc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 2"
     ],
     [
@@ -14026,6 +14378,10 @@
     ],
     [
       "Restraint08f6c498-a31d-50fd-b3d3-e424481dbaccDesc",
+      ""
+    ],
+    [
+      "Restraint08f6c498-a31d-50fd-b3d3-e424481dbaccDesc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 3"
     ],
     [
@@ -14034,6 +14390,10 @@
     ],
     [
       "Restraintd3986013-c3ff-5944-bc1f-e8fe7ebd35d0Desc",
+      ""
+    ],
+    [
+      "Restraintd3986013-c3ff-5944-bc1f-e8fe7ebd35d0Desc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 2"
     ],
     [
@@ -14042,6 +14402,10 @@
     ],
     [
       "Restraintc4986f9d-96f6-5ad9-b57a-da2b8b843ffdDesc",
+      ""
+    ],
+    [
+      "Restraintc4986f9d-96f6-5ad9-b57a-da2b8b843ffdDesc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 4"
     ],
     [
@@ -14050,6 +14414,10 @@
     ],
     [
       "Restraint2417f6bb-6a93-5c98-946b-b6321220d4fdDesc",
+      ""
+    ],
+    [
+      "Restraint2417f6bb-6a93-5c98-946b-b6321220d4fdDesc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 1"
     ],
     [
@@ -14058,6 +14426,10 @@
     ],
     [
       "Restrainte41ae14e-6365-59a4-96b5-f49db56e20a7Desc",
+      ""
+    ],
+    [
+      "Restrainte41ae14e-6365-59a4-96b5-f49db56e20a7Desc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 2"
     ],
     [
@@ -14066,6 +14438,10 @@
     ],
     [
       "Restraint2a4b1e4f-2cd3-521f-88fa-528aa1452910Desc",
+      ""
+    ],
+    [
+      "Restraint2a4b1e4f-2cd3-521f-88fa-528aa1452910Desc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 1"
     ],
     [
@@ -14074,6 +14450,10 @@
     ],
     [
       "Restraint02fda503-3a1d-5a81-b5c5-1a28bbe07c08Desc",
+      ""
+    ],
+    [
+      "Restraint02fda503-3a1d-5a81-b5c5-1a28bbe07c08Desc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 3"
     ],
     [
@@ -14082,6 +14462,10 @@
     ],
     [
       "Restraintd72f9435-036a-524a-8ff3-1555a68f804bDesc",
+      ""
+    ],
+    [
+      "Restraintd72f9435-036a-524a-8ff3-1555a68f804bDesc2",
       "Visor Type: Goggle\nVersion: Goggle"
     ],
     [
@@ -14090,6 +14474,10 @@
     ],
     [
       "Restraint2f524397-a94b-5939-83e5-c16770f153b2Desc",
+      ""
+    ],
+    [
+      "Restraint2f524397-a94b-5939-83e5-c16770f153b2Desc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 3"
     ],
     [
@@ -14098,6 +14486,10 @@
     ],
     [
       "Restraint498015b5-6331-5002-b751-b8e9d83c7784Desc",
+      ""
+    ],
+    [
+      "Restraint498015b5-6331-5002-b751-b8e9d83c7784Desc2",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 2"
     ],
     [
@@ -14106,6 +14498,10 @@
     ],
     [
       "Restrainte82e3637-d8f5-5913-932f-1214bcb881e6Desc",
+      ""
+    ],
+    [
+      "Restrainte82e3637-d8f5-5913-932f-1214bcb881e6Desc2",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 2"
     ],
     [
@@ -14114,6 +14510,10 @@
     ],
     [
       "Restraint510aef8d-3b8c-542a-97a6-de35bfbe73e7Desc",
+      ""
+    ],
+    [
+      "Restraint510aef8d-3b8c-542a-97a6-de35bfbe73e7Desc2",
       "Visor Type: Goggle\nVersion: Goggle"
     ],
     [
@@ -14122,6 +14522,10 @@
     ],
     [
       "Restraintb32f9678-c330-5a4f-9faf-adf3b4e15c2dDesc",
+      ""
+    ],
+    [
+      "Restraintb32f9678-c330-5a4f-9faf-adf3b4e15c2dDesc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 3"
     ],
     [
@@ -14130,6 +14534,10 @@
     ],
     [
       "Restraintefaaad1b-5552-5b87-861b-1b9c9eacb455Desc",
+      ""
+    ],
+    [
+      "Restraintefaaad1b-5552-5b87-861b-1b9c9eacb455Desc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 2"
     ],
     [
@@ -14138,6 +14546,10 @@
     ],
     [
       "Restraint46030fb6-06ef-5059-894e-8484993bc50dDesc",
+      ""
+    ],
+    [
+      "Restraint46030fb6-06ef-5059-894e-8484993bc50dDesc2",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 1"
     ],
     [
@@ -14146,6 +14558,10 @@
     ],
     [
       "Restraint489e46e3-4acf-5246-9179-165b793e668aDesc",
+      ""
+    ],
+    [
+      "Restraint489e46e3-4acf-5246-9179-165b793e668aDesc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 1"
     ],
     [
@@ -14154,6 +14570,10 @@
     ],
     [
       "Restraint6b8006b6-89eb-53c6-bee0-b922a3d0525eDesc",
+      ""
+    ],
+    [
+      "Restraint6b8006b6-89eb-53c6-bee0-b922a3d0525eDesc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 1"
     ],
     [
@@ -14162,6 +14582,10 @@
     ],
     [
       "Restraint34193469-e4e8-5f17-ac01-2e8f52d2f5ecDesc",
+      ""
+    ],
+    [
+      "Restraint34193469-e4e8-5f17-ac01-2e8f52d2f5ecDesc2",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 4"
     ],
     [
@@ -14170,6 +14594,10 @@
     ],
     [
       "RestraintB599D065-0BEA-4CA7-8E17-7F4BE959A0A8Desc",
+      ""
+    ],
+    [
+      "RestraintB599D065-0BEA-4CA7-8E17-7F4BE959A0A8Desc2",
       "A mount for attaching visors and masks. Can be used as a base for more powerful variants."
     ],
     [
@@ -14177,28 +14605,48 @@
       "Drone Muffler"
     ],
     [
-      "Restraint0A5E497E-952F-44F8-905B-DC45C9A746EBFlavor",
+      "Restraint0A5E497E-952F-44F8-905B-DC45C9A746EBDesc",
       "NonMuffler"
+    ],
+    [
+      "Restraint0A5E497E-952F-44F8-905B-DC45C9A746EBDesc2",
+      ""
     ],
     [
       "Restraint654C7580-D30C-4C5E-B126-648FE6D2AF27",
       "Drone Muffler"
     ],
     [
-      "Restraint654C7580-D30C-4C5E-B126-648FE6D2AF27Flavor",
+      "Restraint654C7580-D30C-4C5E-B126-648FE6D2AF27Desc",
       "Ball"
+    ],
+    [
+      "Restraint654C7580-D30C-4C5E-B126-648FE6D2AF27Desc2",
+      ""
     ],
     [
       "RestraintBA7C3009-D024-4875-9BE9-6CD3610E8FAF",
       "Drone Muffler"
     ],
     [
-      "RestraintBA7C3009-D024-4875-9BE9-6CD3610E8FAFFlavor",
+      "RestraintBA7C3009-D024-4875-9BE9-6CD3610E8FAFDesc",
       "BigBall"
+    ],
+    [
+      "RestraintBA7C3009-D024-4875-9BE9-6CD3610E8FAFDesc2",
+      ""
     ],
     [
       "RestraintBD587E0A-854F-46FD-88A8-7EE100571E2F",
       "Drone Plug"
+    ],
+    [
+      "RestraintBD587E0A-854F-46FD-88A8-7EE100571E2FDesc",
+      ""
+    ],
+    [
+      "RestraintBD587E0A-854F-46FD-88A8-7EE100571E2FDesc2",
+      ""
     ],
     [
       "Restraint1234D2F9-22FB-4D47-974A-DA7FA5F284A4",
@@ -14206,6 +14654,10 @@
     ],
     [
       "Restraint1234D2F9-22FB-4D47-974A-DA7FA5F284A4Desc",
+      ""
+    ],
+    [
+      "Restraint1234D2F9-22FB-4D47-974A-DA7FA5F284A4Desc2",
       "Simple Harness"
     ],
     [
@@ -14214,6 +14666,10 @@
     ],
     [
       "RestraintC38F27C2-0DF8-425A-AA80-01DA5CBE6BC4Desc",
+      ""
+    ],
+    [
+      "RestraintC38F27C2-0DF8-425A-AA80-01DA5CBE6BC4Desc2",
       "Advance Harness"
     ],
     [
@@ -14222,6 +14678,10 @@
     ],
     [
       "Restraint3AD95579-5641-4CF0-A039-6C7A9C933579Desc",
+      ""
+    ],
+    [
+      "Restraint3AD95579-5641-4CF0-A039-6C7A9C933579Desc2",
       "Panel Harness"
     ],
     [
@@ -14230,6 +14690,10 @@
     ],
     [
       "RestraintBFD88931-19D2-4909-B88C-20E8D08EDFE4Desc",
+      ""
+    ],
+    [
+      "RestraintBFD88931-19D2-4909-B88C-20E8D08EDFE4Desc2",
       "Panel Harness With Port"
     ],
     [
@@ -14238,6 +14702,10 @@
     ],
     [
       "Restraint805F7C18-E33D-4596-9AD6-AFA1A0391A66Desc",
+      ""
+    ],
+    [
+      "Restraint805F7C18-E33D-4596-9AD6-AFA1A0391A66Desc2",
       "Metal Muzzle 1"
     ],
     [
@@ -14246,6 +14714,10 @@
     ],
     [
       "Restraint5AA74A4B-7F42-4B70-B68F-BA85631A9473Desc",
+      ""
+    ],
+    [
+      "Restraint5AA74A4B-7F42-4B70-B68F-BA85631A9473Desc2",
       "Metal Muzzle 2"
     ],
     [
@@ -14254,6 +14726,10 @@
     ],
     [
       "RestraintD61157B2-2A92-4E3F-AA64-0C0B0543CCB9Desc",
+      ""
+    ],
+    [
+      "RestraintD61157B2-2A92-4E3F-AA64-0C0B0543CCB9Desc2",
       "OTN Muzzle 1"
     ],
     [
@@ -14262,6 +14738,10 @@
     ],
     [
       "RestraintBD1559C9-773C-4BE4-9439-5140666771F3Desc",
+      ""
+    ],
+    [
+      "RestraintBD1559C9-773C-4BE4-9439-5140666771F3Desc2",
       "OTN Muzzle 2"
     ],
     [
@@ -14270,6 +14750,10 @@
     ],
     [
       "Restraint74668098-8709-4C77-82BE-5FE53D109D54Desc",
+      ""
+    ],
+    [
+      "Restraint74668098-8709-4C77-82BE-5FE53D109D54Desc2",
       "Transparent Muzzle 1"
     ],
     [
@@ -14278,6 +14762,10 @@
     ],
     [
       "Restraint0377EC29-363A-4280-9E4E-D01189A0B833Desc",
+      ""
+    ],
+    [
+      "Restraint0377EC29-363A-4280-9E4E-D01189A0B833Desc2",
       "Transparent Muzzle 2"
     ],
     [
@@ -14413,80 +14901,173 @@
       "Drone Earphone"
     ],
     [
+      "Restraint373643CB-501A-435E-9EDC-0C7F733D3507Desc",
+      ""
+    ],
+    [
+      "Restraint373643CB-501A-435E-9EDC-0C7F733D3507Desc2",
+      ""
+    ],
+    [
       "RestraintF913D9BF-E661-4F6E-88EA-E5F509A1A0E9",
       "Drone Heel"
+    ],
+    [
+      "RestraintF913D9BF-E661-4F6E-88EA-E5F509A1A0E9Desc",
+      ""
+    ],
+    [
+      "RestraintF913D9BF-E661-4F6E-88EA-E5F509A1A0E9Desc2",
+      ""
     ],
     [
       "RestraintFC75F4CB-A745-45D4-A7F4-FA9A786F70EC",
       "Drone Sleeve"
     ],
     [
+      "RestraintFC75F4CB-A745-45D4-A7F4-FA9A786F70ECDesc",
+      ""
+    ],
+    [
+      "RestraintFC75F4CB-A745-45D4-A7F4-FA9A786F70ECDesc2",
+      ""
+    ],
+    [
       "RestraintCEB2873B-E378-4C2B-A1ED-47618FD801DB",
       "Drone Wire Cuff"
+    ],
+    [
+      "RestraintCEB2873B-E378-4C2B-A1ED-47618FD801DBDesc",
+      ""
+    ],
+    [
+      "RestraintCEB2873B-E378-4C2B-A1ED-47618FD801DBDesc2",
+      ""
     ],
     [
       "RestraintD76F027D-E788-42C3-9B49-94B52F0F3C7F",
       "Drone Long Mitten"
     ],
     [
-      "BoidsLegacySaveTitle",
-      "Boids | Compatibility Warning"
+      "RestraintD76F027D-E788-42C3-9B49-94B52F0F3C7FDesc",
+      ""
     ],
     [
-      "BoidsLegacySaveBody",
-      "Boids cannot determine mod version in this save.\nThis save might have been created either without Boidsor with an old version of it."
-    ],
-    [
-      "BoidsLegacySaveConsequence",
-      "If you choose to load anyway, this mod would attempt initialization as if no version of it has been installed.\nLoading a save with incompatible mod version may break the game and permanently corrupt your save."
-    ],
-    [
-      "BoidsLegacySaveLoadAnyway",
-      "Load anyway"
-    ],
-    [
-      "BoidsLegacySaveCancel",
-      "Cancel"
-    ],
-    [
-      "BoidsMigrationRefusedTitle",
-      "Boids | Compatibility Warning"
-    ],
-    [
-      "BoidsMigrationRefusedBody",
-      "This save was written by a release of Boids that this build cannot carry forward.\nThe change it needs is a breaking one, so loading it would leave the game reading a shape it no longer understands."
-    ],
-    [
-      "BoidsMigrationRefusedConsequence",
-      "The save has not been loaded and has not been modified: nothing above this message has been written to it. Returning to the menu is the safe way out, and reinstalling the release that wrote the save is the way to continue it."
-    ],
-    [
-      "BoidsMigrationRefusedReturnToMenu",
-      "Return to main menu"
-    ],
-    [
-      "BoidsMigrationRefusedStay",
-      "Stay here"
-    ],
-    [
-      "BoidsLegacySaveDeclined",
-      "This save was written before the mod recorded which release made it. It has been left unloaded; confirm the warning to load it anyway."
-    ],
-    [
-      "BoidsLegacySaveAccepted",
-      "This save predates the mod's release record. It is being loaded as though it had never carried any of the mod's equipment or control state."
-    ],
-    [
-      "BoidsSaveRefusalReported",
-      "This save cannot be loaded by this release of the mod:"
+      "RestraintD76F027D-E788-42C3-9B49-94B52F0F3C7FDesc2",
+      ""
     ],
     [
       "KDVarPref8D4A3F0D-1270-46B3-A1E3-CD6A056AF7BB",
       "Machine Prime"
+    ],
+    [
+      "KDCategoryDrone Sensory Set1",
+      "Drone Sensory Set1"
+    ],
+    [
+      "KDCategoryDrone Sensory Set2",
+      "Drone Sensory Set2"
+    ],
+    [
+      "KinkyDungeonStatDrone Toys",
+      "Drone Toys"
+    ],
+    [
+      "KinkyDungeonStatDescDrone Toys",
+      ""
+    ]
+  ],
+  "modTextKeys": [
+    [
+      "Common.Session.Unversioned.Title",
+      "Boids | Compatibility Warning"
+    ],
+    [
+      "Common.Session.Unversioned.Body",
+      "Boids cannot determine mod version in this save."
+    ],
+    [
+      "Common.Session.Unversioned.Cause",
+      "This save might have been created either without Boidsor with an old version of it."
+    ],
+    [
+      "Common.Session.Unversioned.Consequence",
+      "If you choose to load anyway, this mod would attempt initialization as if no version of it has been installed."
+    ],
+    [
+      "Common.Session.Unversioned.Corruption",
+      "Loading a save with incompatible mod version may break the game and permanently corrupt your save."
+    ],
+    [
+      "Common.Session.Unversioned.LoadAnyway",
+      "Load anyway"
+    ],
+    [
+      "Common.Session.Unversioned.Cancel",
+      "Cancel"
+    ],
+    [
+      "Common.Session.Refused.Title",
+      "Boids | Compatibility Warning"
+    ],
+    [
+      "Common.Session.Refused.Body",
+      "This save was written by a release of Boids that this build cannot carry forward."
+    ],
+    [
+      "Common.Session.Refused.Change",
+      "The change it needs is a breaking one, so loading it would leave the game reading a shape it no longer understands."
+    ],
+    [
+      "Common.Session.Refused.Consequence",
+      "The save has not been loaded and has not been modified: nothing above this message has been written to it. Returning to the menu is the safe way out, and reinstalling the release that wrote the save is the way to continue it."
+    ],
+    [
+      "Common.Session.Refused.ReturnToMenu",
+      "Return to main menu"
+    ],
+    [
+      "Common.Session.Refused.Stay",
+      "Stay here"
+    ],
+    [
+      "Common.Session.Declined",
+      "This save was written before the mod recorded which release made it. It has been left unloaded; confirm the warning to load it anyway."
+    ],
+    [
+      "Common.Session.Accepted",
+      "This save predates the mod's release record. It is being loaded as though it had never carried any of the mod's equipment or control state."
+    ],
+    [
+      "Common.Session.RefusalReported",
+      "This save cannot be loaded by this release of the mod:"
+    ],
+    [
+      "Common.Session.UnknownRootReason",
+      "This save was written by a newer release than the one installed."
+    ],
+    [
+      "FactionMachine.MachinePrime.Gag.Inflates",
+      "The muffler in your mouth inflates."
+    ],
+    [
+      "FactionMachine.MachinePrime.Gag.Deflates",
+      "The muffler in your mouth deflates."
+    ],
+    [
+      "FactionMachine.MachinePrime.Visor.Dims",
+      "Your hard light visor dims, and your vision becomes more restricted."
+    ],
+    [
+      "FactionMachine.MachinePrime.Visor.Clears",
+      "Your hard light visor clears up, and your vision becomes less restricted."
     ]
   ],
   "eventHandlers": {
     "KDEventMapGeneric": {
+      "afterLoadMods": [
+        "AE5E02CB-268D-448A-956C-EE7A5442330F"
+      ],
       "afterLoadGame": [
         "B8D7875F-EDC2-41AA-B96B-3C91E905C761"
       ],

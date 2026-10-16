@@ -159,3 +159,26 @@ export const BuildBaseTagCollections = (): Record<string, string[]> => ({
     ARMPOSES: ['ArmPoseA', 'ArmPoseB'],
     FOREARMPOSES: ['ForeArmPoseA', 'ForeArmPoseB'],
 })
+
+/**
+ * The engine's own text, as its `Text_KinkyDungeon.csv` would provide it.
+ *
+ * Only the keys the mod **sources** — an item whose flavour or function line comes from the
+ * restraint it is derived from — are here, because that is the only way the mod reads the
+ * engine's text: `Restraint<name>Desc` and `Desc2`, resolved once the engine has loaded.
+ *
+ * These are **stand-ins, not the game's strings.** The harness's contract is that every stub is
+ * a deterministic and injective function of its inputs, so that a change in what the mod asks
+ * for shows up as a manifest diff; fidelity to the base game's prose is not part of it, and a
+ * test asserting on a specific sentence here would be asserting on this file.
+ */
+export const BuildBaseText = (): Record<string, string> => ({
+    RestraintTrapVibeProtoDesc: 'Base game: the prototype egg.',
+    RestraintTrapVibeProtoDesc2: 'Base game: lockable.',
+    RestraintTrapPlug3Desc: 'Base game: a smooth plug.',
+    RestraintRearVibe1Desc: 'Base game: a rear plug.',
+    RestraintCyberBeltDesc2: 'Base game: a cyber belt.',
+    RestraintCyberBraDesc2: 'Base game: a cyber bra.',
+    RestraintControlHarnessDesc: 'Base game: a control harness.',
+    RestraintControlHarnessDesc2: 'Base game: controlled.',
+})

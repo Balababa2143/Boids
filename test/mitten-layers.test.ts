@@ -25,7 +25,7 @@ import {
     GetLongMittenCaplayers,
     GetLongMittenCommonLayers,
     GetSleevesBodyLayers,
-} from '../src/Boids/Futuristic/Limb/Mitten/Layer'
+} from '../src/FactionMachine/Futuristic/Limb/Mitten/Layer'
 
 /**
  * Every layer literal that sets `SwapLayerPose`, per factory. The total is

@@ -15,9 +15,10 @@ namespace `src/Api.ts` exports. See [The bundle and its global](#the-bundle-and-
 
 | Path | What it is |
 | --- | --- |
-| `src/mod.ts` | The bundle entry: imports the surface, then publishes it as `globalThis.Boids`. |
-| `src/Api.ts` | The published surface — everything under `src/Boids/`, and nothing else. |
-| `src/Boids/` | The mod: `index.ts` is its barrel, and importing it runs the registration tree. |
+| `src/mod.ts` | The bundle entry: imports the surface, builds the layer table and requests the atlases, then publishes it as `globalThis.Boids`. |
+| `src/Api.ts` | The published surface — the faction namespace and `CommonUI`, and nothing else. |
+| `src/FactionMachine/` | The machine major faction: `Futuristic` (the outfit), `MachinePrime` (its first sub-faction) and `DebugStart`. |
+| `src/Common/` | What the mod shares across factions: the warning dialog and the item-event builders. |
 | `src/KDExtension/` | Registration helpers and the variant-map builders (the "new infrastructure"). |
 | `src/KDInterface/` | Types that describe the game's event map and text keys. |
 | `src/Utilities/` | Small generic helpers. |
@@ -36,10 +37,66 @@ carries meaning at the call site. Code outside a folder imports its barrel; code
 inside it imports its siblings.
 
 A module missing from its barrel is a bug in the barrel, not a licence for a deep
-import, because a deep import is the one spelling a reader cannot predict. The
-single deliberate exception is spelled out where it happens: the glass visor
-barrel exports `Variant` by name rather than as a namespace, because consumers use
-it as a type as well as a value.
+import, because a deep import is the one spelling a reader cannot predict. Two
+deliberate exceptions are spelled out where they happen: the glass visor barrel
+exports `Variant` by name rather than as a namespace, because consumers use it as a
+type as well as a value; and `src/Api.ts` reaches into `src/Common/CommonUI` rather
+than importing `src/Common`, because the published surface is a subset of that folder
+and the barrel would publish `CommonEvent` along with it.
+
+### Layering
+
+Dependencies point one way, and `test/layering.test.ts` fails if one points back:
+
+```
+Utilities  <  KDInterface  <  KDExtension  <  Common  <  FactionMachine
+```
+
+`Utilities` is generic helpers, `KDInterface` describes the game's own surface,
+`KDExtension` is the mod's infrastructure, `Common` is what the mod shares across
+factions, and `FactionMachine` is one faction's content. A file may import from its own
+layer or from a layer to its left; `src/Api.ts`, `src/mod.ts` and the promise loader sit
+above them all. A second faction is where this pays: it uses `Common` and `KDExtension`
+unchanged, and nothing below it has to learn its name.
+
+### Text
+
+Every string the mod shows is registered through one place, `src/KDExtension/Text/`, and the rule
+that decides where it lives is **who resolves the key**:
+
+- if the **engine** resolves it, the engine composes it from an identity the mod already holds —
+  `Restraint<name>` and its `Desc`/`Desc2` suffixes, `m_<model>`, `KDVarPref<p>`,
+  `KinkyDungeonStat<id>`, `KDCategory<name>` — and it is registered in the group the engine reads;
+- if the **mod** resolves it, it is addressed by a dotted path and registered in the mod's own
+  group. A string the engine merely *displays* from a value the mod has already resolved is on this
+  side too, which is all of the dialog and status-line wording.
+
+`Text/Slot.ts` holds every composed key shape, so no call site spells one, and
+`test/text-registry.test.ts` fails if a key matches neither kind, if a restraint the mod names is
+missing one of the three lines the engine draws, or if a registered value is a placeholder rather
+than text.
+
+**Where the English lives.** Text data sits in JSON trees at the closest common root of the entities
+that use it — `…/<Family>/Data/en.json` for a line a family's variants share, and a faction or
+common folder once something is shared more widely. Each slot resolves through a precedence list,
+first hit winning:
+
+1. the active language's merged tree, the fullest path first and then each shorter prefix;
+2. the English tree, the same walk;
+3. the value the registration declares;
+4. the engine's own text for a declared source item;
+5. blank.
+
+So a family authors a shared line **once** and each variant overrides only what differs, and a
+translator may override any path — including a shorter one, which then covers everything beneath it.
+A tree is imported by the module that **reads** it, never by the entry: a bundler may reach the
+content tree by more than one path, and the first attempt at this failed for exactly that reason.
+
+**Two limits, stated rather than discovered.** A string is translatable once it has a path, and the
+hand-written item families do not have one yet — `docs/localization/text-reference.md` marks them.
+And English on the mod's own side is still authored beside the code that renders it, because a
+string only one module uses belongs to that module; the wider `Data/` folders appear when there is
+prose for them to hold.
 
 ## The bundle and its global
 
@@ -51,9 +108,9 @@ namespace to `globalThis.Boids`.
 
 That assignment is the whole interface. The name is either absent — the load has
 not finished — or the namespace exported by `src/Api.ts`; it is never a promise, so
-`Boids.MachinePrime.Debug.SetBlindStrength(0.5)` works from the console as written,
-and `(await Boids).X` also works because awaiting a non-thenable returns it. A load
-that fails leaves no global at all rather than a rejected promise, and the loader
+`Boids.FactionMachine.MachinePrime.Debug.SetBlindStrength(0.5)` works from the console
+as written, and `(await Boids).X` also works because awaiting a non-thenable returns it.
+A load that fails leaves no global at all rather than a rejected promise, and the loader
 logs it.
 
 The two mods are ordered by `priority` (higher first) and the game awaits each file,
@@ -101,21 +158,31 @@ and needs none of the below. If you cannot arrange that, poll for it.
     const Boids = await waitFor('Boids', () => globalThis.Boids)
     if (!Boids) return
 
-    Boids.MachinePrime.Debug.SetBlindStrength(0.5)
+    Boids.FactionMachine.MachinePrime.Debug.SetBlindStrength(0.5)
 })().catch(error => console.error('my mod failed:', error))
 ```
 
-The surface is `Boids.Futuristic`, `Boids.MachinePrime`, `Boids.CommonUI` and
-`Boids.DebugStart`. Everything else — the variant infrastructure in `src/KDExtension`,
-the utilities, the mod's own manifest — is internal for now, and
-`test/public-api.test.ts` fails if that changes without the baseline being
-regenerated.
+The surface is two namespaces: `Boids.FactionMachine`, one level per major faction, and
+`Boids.CommonUI`. The faction holds `Boids.FactionMachine.Futuristic`,
+`Boids.FactionMachine.MachinePrime` and `Boids.FactionMachine.DebugStart`; a second
+faction is a sibling of `src/FactionMachine/` rather than a fourth name here. Everything
+else — the variant infrastructure in `src/KDExtension`, the utilities, the mod's own
+manifest — is internal for now, and `test/public-api.test.ts` fails if that changes
+without the baseline being regenerated.
 
 `CommonUI` is the one that exists for other mods rather than for content: a
 compatibility warning has the same problem Boids' own does, and
 `Boids.CommonUI.Prompt.ShowPrompt` is the dialog that solves it — a title, some
 paragraphs, and buttons whose actions the caller supplies. It carries **no text of
 its own**, so reusing it costs a caller nothing but the wording.
+
+> **Three spellings, one word.** `Boids` is the published global and `Boids.X` is a path
+> into it; `src/FactionMachine/` is a folder; and `Boids/` inside
+> `Futuristic/Common/Constant.ModelSetRootDir` is the **asset namespace** the packed
+> atlases name their frames by. None of the three is any other, and only the folder moved.
+> A fourth is the `Boids.` prefix on a variant base name in `src/KDExtension/Release.ts`,
+> which is **frozen save format** — read the note beside `VariantBaseNames` before
+> "correcting" any of them.
 
 ## Building
 
@@ -336,17 +403,19 @@ means the layer keeps the group it declares.
 
 ### The entry module's body runs after everything it imports
 
-`src/Boids/index.ts` rebuilds `ModelLayers` from `LAYERS_BASE` at the top of the
-file, but `export * as … from …` declarations are hoisted, so
-every dependency — that is, the entire registration tree — is evaluated *first*.
-The textual order is misleading, and moving that block into a separate imported
-module changes when `ModelLayers` is populated. Models are registered into
-`ModelDefs` before it runs, which works only because layer priorities are resolved
-by name at render time.
+`src/mod.ts` rebuilds `ModelLayers` from `LAYERS_BASE` in its body, after the import of
+`./Api`; but `export * as … from …` declarations are hoisted, so every dependency — that
+is, the entire registration tree — is evaluated *first*. The textual order is misleading,
+and moving that block into a separate imported module changes when `ModelLayers` is
+populated. Models are registered into `ModelDefs` before it runs, which works only because
+layer priorities are resolved by name at render time. (The block writes back exactly the
+priorities `InitLayers(LAYERS_BASE)` produced at boot, so it is a no-op today; removing it
+would empty the registration manifest's `initLayersArgs` and `modelLayers` sections, which
+is why it is still here.)
 
-`src/mod.ts` leans on the same rule twice: it imports `./Api` — which is what runs
-the registration tree — and assigns the global in its own body, so the namespace is
-complete by the time anything can read it.
+`src/mod.ts` leans on the same rule twice more: the import that runs the registration tree
+and the assignment of the global are both its own body, so the namespace is complete by the
+time anything can read it.
 
 ### Two game globals are wrapped at module evaluation, and order decides who is outermost
 
