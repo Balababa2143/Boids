@@ -56,6 +56,7 @@ written on demand by `npm run test:audit`; it is not tracked.
 | `PackageAsset/` | the staged types package's template |
 | `kd-structured/` | the submodule both the build and the typings depend on |
 | `design/` | the frozen design corpus — see [`design/README.md`](design/README.md) |
+| `design/report/` | **development reports** from earlier work, grouped by subject — `Notes on Base game/` holds the engine facts behind the corpus's citations, each with a site and a reproducer. **Not corpus**: nothing there decides anything, and where a report disagrees with `design/spec.md` the spec wins |
 | `docs/guide/` | the hand-written documentation |
 | `docs/api/` | **generated** — never edit by hand |
 | `Bundle/`, `Deploy/`, `Declaration/`, `Generated/`, `.fake/` | build output, all gitignored |
