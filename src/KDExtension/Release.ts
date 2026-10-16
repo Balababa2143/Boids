@@ -344,17 +344,8 @@ export interface MigrationSlot {
  * is now *leaving* — and every other slot is intentionally empty. The array's
  * length must equal {@link ReleaseTable}'s, and `test/release.test.ts` holds that,
  * because a missing slot would silently skip a version rather than fail.
- *
- * `0.4.0`'s slot accepts: an unversioned save never reaches the chain, so a
- * migration here would be dead code. It exists as the chain's fixed first index,
- * and its emptiness is the honest statement that nothing has been released with a
- * versioned shape yet.
  */
 export const MigrationChain: readonly MigrationSlot[] = [
-    {
-        Release: '0.4.0',
-        Migrate: () => ({ kind: 'accept' }),
-    },
     {
         Release: '0.5.0',
         Migrate: () => ({ kind: 'accept' }),
