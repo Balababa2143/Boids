@@ -124,7 +124,7 @@ export const ShowPrompt = (spec: PromptSpec): boolean => {
     // The prompt is DOM, and one caller is the game's own loader. In a host with no document
     // there is nothing to show and nowhere to ask, so the caller is told that rather than
     // left with a thrown error from a load path — a throw in `KinkyDungeonLoadGame` is
-    // exactly what `docs/spec.md` §4.4 forbids.
+    // exactly what `design/spec.md` §4.4 forbids.
     if (typeof document === 'undefined') {
         console.warn(
             `Boids: the "${spec.Id}" prompt could not be shown because there is no document, ` +

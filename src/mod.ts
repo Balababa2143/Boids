@@ -15,8 +15,9 @@ import * as Api from './Api'
  * `export * as … from …` declarations are hoisted and their targets evaluated first, so by
  * the time this body runs the whole registration tree exists: the models are in `ModelDefs`,
  * and the layer priorities they name are resolved by name at render time, which is what lets
- * every model have been registered before the table is built. The README's "entry module's
- * body runs after everything it imports" is the long form; read it before moving any of this.
+ * every model have been registered before the table is built. The "entry module's body runs
+ * after everything it imports" invariant in `AGENTS.md` is the long form; read it before
+ * moving any of this.
  *
  * The block **writes back the priorities `InitLayers(LAYERS_BASE)` already produced when the
  * game booted**, because the one edit it used to make — swapping `LAYERS_BASE[219]` with

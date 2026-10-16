@@ -1,5 +1,5 @@
 /**
- * Invariant 2 (`docs/spec.md` §4.5): a handler GUID is globally unique across the
+ * Invariant 2 (`design/spec.md` §4.5): a handler GUID is globally unique across the
  * game and every other mod.
  *
  * `AddEventHandler` throws on a duplicate *registration* at load time, which is too

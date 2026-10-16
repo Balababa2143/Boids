@@ -1,7 +1,7 @@
 /**
  * The reusable dialog's own contract.
  *
- * `docs/spec.md` §4.4 requires that a refusal "returns cleanly with a message" and never
+ * `design/spec.md` §4.4 requires that a refusal "returns cleanly with a message" and never
  * throws, and the load gate relies on the dialog to keep that promise: it is called from
  * inside `KinkyDungeonLoadGame`, where an exception lands in the game's own crash-report
  * path. So the two ways the dialog can fail — no document, and a prompt of this kind already

@@ -2,7 +2,7 @@
  * A migration slot that refuses: what the player is told, and what is left behind.
  *
  * The refusal path is the one place the mod knows for certain that a save cannot be read, and
- * `docs/spec.md` §4.4 puts two requirements on it — it must **report**, and it must not hang or
+ * `design/spec.md` §4.4 puts two requirements on it — it must **report**, and it must not hang or
  * crash. This suite adds the third that matters just as much: it must not **corrupt**.
  *
  * "Corrupt" has a precise meaning here and it is asserted rather than assumed. The gate decides

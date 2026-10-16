@@ -2,7 +2,7 @@
  * The integrity check the derivation scheme buys: a Boids item's generated name is
  * **recomputed at load and compared against the name the game has it under**.
  *
- * `docs/spec.md` §4.2 states the property this exists for: because the save stores the
+ * `design/spec.md` §4.2 states the property this exists for: because the save stores the
  * *path* and the id is *derived*, recomputation is a free integrity check, and a
  * mismatch means corruption or tampering. This module is the part of that which the
  * mod can actually do today, and it is deliberately narrow.

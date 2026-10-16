@@ -28,7 +28,7 @@ import { ModGroup, TextRegistry, type RegisteredText } from '../src/KDExtension'
 import { AuditSkipReason, UpdateText } from './harness/flags'
 import { ReadTextAsync } from './harness/text'
 
-const ReferencePath = join('docs', 'localization', 'text-reference.md')
+const ReferencePath = join('docs', 'api', 'text-reference.md')
 
 /**
  * The comparison is over **content**, and a checkout's line-ending policy is not content: this

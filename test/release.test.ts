@@ -1,5 +1,5 @@
 /**
- * The release record, and the guarantees `docs/spec.md` §4.1–4.3 place on it.
+ * The release record, and the guarantees `design/spec.md` §4.1–4.3 place on it.
  *
  * Two kinds of claim are checked here, and they are different in nature:
  *

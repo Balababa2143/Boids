@@ -10,7 +10,7 @@
  * Reachable as `Boids.FactionMachine.Futuristic` and `Boids.FactionMachine.MachinePrime`
  * are *not*: it is not re-exported from `src/Api.ts`, because the root UUID and the
  * release table are the mod's own business rather than a surface for other mods
- * (`README.md`, `test/public-api.test.ts`).
+ * (`AGENTS.md`, `test/public-api.test.ts`).
  *
  * ## The construction
  *
@@ -207,7 +207,7 @@ export const VariantBaseNames = {
 } as const satisfies Record<string, string>
 
 /**
- * The `DimensionId` namespace of the control model (`docs/spec.md` §4.1, §6.2).
+ * The `DimensionId` namespace of the control model (`design/spec.md` §4.1, §6.2).
  *
  * Empty in Phase 0 **on purpose**: the scheme is stood up before the first
  * identifier is minted, so Phase 1's dimensions derive from their first day rather
@@ -301,7 +301,7 @@ export interface RefusedOutcome {
  *
  * A refusal is a **returned value and never a throw**: the gate runs inside
  * `KinkyDungeonLoadGame`, and a throw from there walks into the game's own
- * crash-report path (`base/KinkyDungeonErrors.ts`), which `docs/spec.md` §4.4
+ * crash-report path (`base/KinkyDungeonErrors.ts`), which `design/spec.md` §4.4
  * forbids.
  *
  * `accept-and-apply` carries the work rather than mutating the parsed save string,

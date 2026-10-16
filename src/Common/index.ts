@@ -6,7 +6,7 @@
  * `src/Api.ts` republishes `CommonUI` on its own, and deliberately reaches into that folder
  * rather than importing this barrel, because the published surface is a *subset* of what this
  * folder holds — the barrel would publish `CommonEvent` along with it. That exception is
- * recorded where it happens (`src/Api.ts`) and in `README.md`.
+ * recorded where it happens (`src/Api.ts`) and in `AGENTS.md`.
  * @module Common
  */
 

@@ -14,6 +14,7 @@
     "Webpack Watch: Debug": "webpack --config webpack.config.ts --watch --mode development",
     "Webpack Bundle: Production": "webpack --config webpack.config.ts --mode production",
     "typecheck": "tsc -p tsconfig.test.json --noEmit",
+    "docs:api": "node Script/ApiDocs.ts",
     "test": "webpack --config webpack.test.config.ts --mode development && node .fake/test/run.mjs",
     "test:build": "webpack --config webpack.test.config.ts --mode development",
     "test:watch": "webpack --config webpack.test.config.ts --watch --mode development",
@@ -33,6 +34,8 @@
     "pixi.js": "^7.4.3",
     "pixi.js-legacy": "^7.2.1",
     "ts-loader": "^9.6.2",
+    "typedoc": "^0.28.20",
+    "typedoc-plugin-markdown": "^4.14.0",
     "typescript": "^6.0.3",
     "webpack": "^5.111.1",
     "webpack-cli": "^7.2.3"

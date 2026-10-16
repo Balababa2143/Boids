@@ -1,0 +1,20 @@
+{
+    "entryPoints": [
+        "src/Api.ts"
+    ],
+    "tsconfig": "tsconfig.json",
+    "out": "docs/api/typescript",
+    "plugin": [
+        "typedoc-plugin-markdown"
+    ],
+    "readme": "none",
+    "cleanOutputDir": true,
+    "excludeInternal": true,
+    "excludePrivate": true,
+    "githubPages": true,
+    "hidePageHeader": true,
+    "entryFileName": "index.md",
+    "validation": {
+        "notExported": false
+    }
+}

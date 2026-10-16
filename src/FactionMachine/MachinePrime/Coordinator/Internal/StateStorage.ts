@@ -403,7 +403,7 @@ const RefuseLoad = (outcome: RefusedOutcome, release: string): boolean => {
  * refused save cannot half-load a character.
  *
  * It throws nowhere. A throw from inside the game's loader walks into the game's own
- * crash-report path, which `docs/spec.md` §4.4 forbids, so a refusal is always a value.
+ * crash-report path, which `design/spec.md` §4.4 forbids, so a refusal is always a value.
  *
  * @param String - A save string to load, or empty for the local slot. Forwarded
  *   untouched to the original loader on every path that proceeds.

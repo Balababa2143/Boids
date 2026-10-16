@@ -81,8 +81,8 @@ export const GetLimiterStrength = (type: ItemArchetype) =>
  * {@link EventKeys.SensoryLimiterStrengthUpdate} on the game's event bus, which is
  * how the worn item learns it has to morph; a write of the value already stored does
  * neither. Game time advances by one on every call, changed or not — see the
- * README's "Time advances from inside the game's tick dispatch" for why that is
- * deliberate and what it costs.
+ * "Time advances from inside the game's tick dispatch" invariant in `AGENTS.md`
+ * for why that is deliberate and what it costs.
  *
  * @param type - The limiter to write: a `Blinder`, `Deafener` or `Gag`. Any other
  * archetype throws.
