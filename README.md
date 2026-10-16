@@ -105,10 +105,17 @@ and needs none of the below. If you cannot arrange that, poll for it.
 })().catch(error => console.error('my mod failed:', error))
 ```
 
-The surface is `Boids.Futuristic`, `Boids.MachinePrime` and `Boids.DebugStart`.
-Everything else — the variant infrastructure in `src/KDExtension`, the utilities,
-the mod's own manifest — is internal for now, and `test/public-api.test.ts` fails if
-that changes without the baseline being regenerated.
+The surface is `Boids.Futuristic`, `Boids.MachinePrime`, `Boids.CommonUI` and
+`Boids.DebugStart`. Everything else — the variant infrastructure in `src/KDExtension`,
+the utilities, the mod's own manifest — is internal for now, and
+`test/public-api.test.ts` fails if that changes without the baseline being
+regenerated.
+
+`CommonUI` is the one that exists for other mods rather than for content: a
+compatibility warning has the same problem Boids' own does, and
+`Boids.CommonUI.Prompt.ShowPrompt` is the dialog that solves it — a title, some
+paragraphs, and buttons whose actions the caller supplies. It carries **no text of
+its own**, so reusing it costs a caller nothing but the wording.
 
 ## Building
 
@@ -208,13 +215,78 @@ UPDATE_PUBLIC_API=1 npm test
 `VariantMapBuilder` deep-merge contract (template preservation, last-writer-wins,
 `Set` union versus `List` concatenation), variant-key identity including its
 field-order sensitivity, receiver semantics, the coordinator's `toJS`/`fromJS`
-round-trip, and the mitten layer factories. Where current behaviour is deliberate
+round-trip, the coordinator's **whole-round-trip through the game's save path**,
+and the mitten layer factories. Where current behaviour is deliberate
 but surprising, a property pins it, so changing it is a visible edit to a test
 rather than a side effect of tidying up. If a test's expectation looks wrong,
 that is the comment to read.
 
 A new `*.test.ts` must also be added to `test/run-all.ts`; `self-check.test.ts`
 fails if it is not, so a suite cannot be silently skipped.
+
+### Save version, and the migration chain
+
+Four small pieces, and they only make sense together:
+
+* **`src/KDExtension/Release.ts`** names the release (`Version`), holds the **mod
+  root UUID**, and is the one place an identifier is derived:
+  `uuidv5(name, Release.Root)`. The root's recipe is documented beside it, so the
+  literal can be recomputed rather than trusted. `webpack/verify.ts` and
+  `test/release.test.ts` both fail if `Release.Version` and `package.json`'s
+  `version` disagree.
+* **The save carries `KDGameData.BoidsRootUUID`**, stamped on every save by the
+  wrapper around `KinkyDungeonGenerateSaveData`. That single value is what
+  localises the release a save came from.
+* **The release table** maps each root the mod has ever minted to its release. A
+  release that does not intend to break saves **keeps its root** and adds no row.
+* **The migration chain** has one slot per release. An empty slot is normal; a
+  breaking release fills its slot with a refusal, which **returns cleanly with a
+  message** rather than throwing — a throw from inside `KinkyDungeonLoadGame` walks
+  into the game's own crash-report path.
+
+The load gate wraps `KinkyDungeonLoadGame`, which is the funnel every load goes
+through — the current slot, a pasted save code and a database row all arrive
+there — and it answers with the synchronous boolean both call sites expect:
+
+| The save | What happens |
+| --- | --- |
+| carries the current root | loads |
+| carries an older root the table knows | loads, then runs the slots after its release |
+| carries a root the table does not know | **refused** — a newer release's save, and the prompt says so |
+| carries **no root** | **refused once, with a warning prompt**; on *Load anyway* it loads and the coordinator starts from an empty dossier |
+
+A **migration slot can refuse a save**, and its refusal is a value rather than a
+throw. The slot decides two things beyond the wording: whether the player is offered
+the way back to the game's own main menu, and what reason is shown. Both answers
+leave the save on disk untouched, because the gate decides before the game has
+adopted anything — which is what makes refusing graceful rather than destructive.
+`ReturnToMenu` is for a refusal that trying again cannot fix; a slot that refuses one
+corrupt save among many leaves the player in the load menu to pick another.
+
+The last row is the deliberate one. A character written before versioning keeps
+the base game's character, map, inventory and training, and loses the **mod's**
+record of it — its equipment and control state — because that record cannot be
+read. The prompt says so before anything is loaded, and it never loads without an
+answer: the approval names the save it belongs to, so confirming one character
+cannot silently load another.
+
+The reset happens **after** the game adopts the save, not before, and that is not a
+detail: the save still carries whatever the old build wrote under the state key, so a
+reset performed in the gate would be read back over by the load handler an instant
+later. The gate therefore marks the load, and the handler resets.
+
+### The name registry, and why an id is derived rather than picked
+
+An identifier is `uuidv5(namespacedName, Release.Root)`. The **name is the value**
+and the **root is the namespace**, and the argument order is the trap: `uuid`'s
+signature is `v5(value, namespace)` and the namespace must parse as a UUID.
+Swapping the two throws.
+
+Because the name is the stable half, the name is what must never move — it is a
+persisted-format decision exactly as a variant-key field is, and renaming one
+mints a different identifier. `test/guid-uniqueness.test.ts` enumerates every GUID
+literal under `src/` and fails on a duplicate or an unexplained change, which is
+what keeps a "quick new id" from arriving unversioned.
 
 ## Invariants to respect
 
@@ -240,6 +312,12 @@ reordering a field in a variant literal changes every generated name, so existin
 saves stop resolving their items. Two keys with the same fields in a different
 order are different variants.
 
+The **`baseId`** half is derived from `Release.Root` rather than written by hand
+(`DerivedVariantBase`), which is what gives the name a version to be reasoned
+about. It also means a root bump renames every generated name — the reason the
+release table exists, and the reason a release that does not intend to break
+saves keeps its root.
+
 This is pinned by a property test rather than left as folklore. If a variant
 literal has to change, that is a save-migration decision, not a cleanup.
 
@@ -258,8 +336,8 @@ means the layer keeps the group it declares.
 
 ### The entry module's body runs after everything it imports
 
-`src/Boids/index.ts` swaps two entries of `LAYERS_BASE` and rebuilds `ModelLayers`
-at the top of the file, but `export * as … from …` declarations are hoisted, so
+`src/Boids/index.ts` rebuilds `ModelLayers` from `LAYERS_BASE` at the top of the
+file, but `export * as … from …` declarations are hoisted, so
 every dependency — that is, the entire registration tree — is evaluated *first*.
 The textual order is misleading, and moving that block into a separate imported
 module changes when `ModelLayers` is populated. Models are registered into
@@ -269,6 +347,20 @@ by name at render time.
 `src/mod.ts` leans on the same rule twice: it imports `./Api` — which is what runs
 the registration tree — and assigns the global in its own body, so the namespace is
 complete by the time anything can read it.
+
+### Two game globals are wrapped at module evaluation, and order decides who is outermost
+
+`StateStorage.ts` replaces both `KinkyDungeonGenerateSaveData` and
+`KinkyDungeonLoadGame`, capturing each original on the way. Because that happens
+when the module is evaluated, **a mod that patches either one later wraps around
+Boids rather than under it** — and the game declares no ordering contract for
+third-party patches, so that is a hazard to know about rather than one to rely on.
+
+Both wrappers are defensive on purpose. The save wrapper writes the release root and
+the coordinator state onto `KDGameData` and then calls through, so a later wrapper
+still sees a complete save. The load gate answers with the game's own synchronous
+boolean and **throws nowhere** — a refusal is a value and a message, never an
+exception, because an exception here lands in the game's crash-report path.
 
 ### Time advances from inside the game's tick dispatch
 
@@ -283,8 +375,17 @@ which is why it lives in an explicitly-named debug module instead of being delet
 
 Tracked as issues rather than fixed here:
 
-* **#48** — the coordinator writes its save data to `KDGameDataBase` and reads it
-  back from `KDGameData`; whether those alias at runtime is unverified.
+* **The link families derive their names with no persisted variant key**, so the
+  recomputation check in `Coordinator/Internal/Integrity.ts` can recompute only
+  the visor families — the ones that store `VariantInfo` on the item. Giving the
+  links the same record is a persisted-format change, and it belongs with the
+  variant work rather than beside it. Until then that is a gap in the check, not a
+  clean bill of health for the links.
+
+**#48** is **closed by Phase 0**: the write and the read now both name
+`KDGameData`, and `save-round-trip.property.test.ts` closes the loop through the
+game's own save path rather than in memory — because a round-trip that never
+leaves one object is exactly the bug #48 was.
 
 **#47** was the second and is closed: webpack's `library` option published the async
 entry's promise as the `Boids` global, so nothing could use it without `await`. The
@@ -297,3 +398,8 @@ whatever it passed — and the front-pose target was `FrontMitten<suffix>`, a gr
 that is in no layer table. The mask is a bit test again, the front-pose target is
 `ForeMitten<suffix>` as the base game's own mitten models have it, and the mitten
 factories assert both.
+
+Also part of Phase 0, and not an issue because it never had a mechanism behind it:
+the mod used to swap two entries of the game's own `LAYERS_BASE` at load. It was a
+personal preference with no functional contribution, so it is gone, and the layer
+table is now consumed exactly as the game ships it.

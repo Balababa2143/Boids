@@ -20,6 +20,7 @@ import {
 import {
     ReadRootVersion,
     VerifyArchiveInput,
+    VerifyReleaseVersion,
     VerifyStagedBundle,
     VerifyTypes,
 } from './verify.ts'
@@ -146,6 +147,10 @@ const Archive = async (
 export const PreBuild = (): webpack.WebpackPluginInstance => ({
     apply: (compiler) => {
         compiler.hooks.beforeCompile.tapPromise('BoidsPreBuild', async () => {
+            // Before anything is cleaned or compiled: a version mismatch means the
+            // artefact would be stamped with a release the mod does not believe it is.
+            await VerifyReleaseVersion()
+
             // All of it is build output. Clearing it is what keeps a previous
             // layout, a stale archive, or half-written declarations from shipping.
             await rm(bundleDir, { recursive: true, force: true })

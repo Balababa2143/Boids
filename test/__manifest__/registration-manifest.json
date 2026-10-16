@@ -620,7 +620,7 @@
         }
       }
     },
-    "86b36341-bb0a-5695-9eec-5d257298cfa4": {
+    "2ad11308-b382-5482-8c9f-857dd32f43eb": {
       "TopLevel": true,
       "Categories": [
         "Restraints",
@@ -720,9 +720,9 @@
           "Pri": -9.9
         }
       },
-      "Name": "86b36341-bb0a-5695-9eec-5d257298cfa4"
+      "Name": "2ad11308-b382-5482-8c9f-857dd32f43eb"
     },
-    "2e8fdff4-c0cd-594f-a2ff-d128b9fecaed": {
+    "2fe1a4cc-9140-5543-b688-e3c0bcd9fd1f": {
       "TopLevel": true,
       "Categories": [
         "Restraints",
@@ -756,9 +756,9 @@
           "Pri": -9.9
         }
       },
-      "Name": "2e8fdff4-c0cd-594f-a2ff-d128b9fecaed"
+      "Name": "2fe1a4cc-9140-5543-b688-e3c0bcd9fd1f"
     },
-    "293c374b-67ce-5208-be8b-437e180371ea": {
+    "854af472-49f9-52d0-a716-ce8195ce1a4a": {
       "TopLevel": true,
       "Categories": [
         "Restraints",
@@ -808,9 +808,9 @@
           "Pri": -9.9
         }
       },
-      "Name": "293c374b-67ce-5208-be8b-437e180371ea"
+      "Name": "854af472-49f9-52d0-a716-ce8195ce1a4a"
     },
-    "09caaed0-bb24-56bc-bebd-58a674d16bdb": {
+    "06aa78b1-d461-516c-a30c-ace3300620c2": {
       "TopLevel": true,
       "Categories": [
         "Restraints",
@@ -819,9 +819,9 @@
       ],
       "Folder": "Boids/Futuristic",
       "Layers": {},
-      "Name": "09caaed0-bb24-56bc-bebd-58a674d16bdb"
+      "Name": "06aa78b1-d461-516c-a30c-ace3300620c2"
     },
-    "8410d798-a4fd-54d0-9e6f-1ad106f04d65": {
+    "3c53a862-46a3-5300-8df7-8de47d8a1c47": {
       "TopLevel": true,
       "Categories": [
         "Restraints",
@@ -830,9 +830,9 @@
       ],
       "Folder": "Boids/Futuristic",
       "Layers": {},
-      "Name": "8410d798-a4fd-54d0-9e6f-1ad106f04d65"
+      "Name": "3c53a862-46a3-5300-8df7-8de47d8a1c47"
     },
-    "ea3e6297-38f1-5ea3-aadc-792c96e82d69": {
+    "e35ffb16-45d7-5cb9-a63f-0c7960ddb6e3": {
       "TopLevel": true,
       "Categories": [
         "Restraints",
@@ -862,9 +862,9 @@
           "Pri": -9.9
         }
       },
-      "Name": "ea3e6297-38f1-5ea3-aadc-792c96e82d69"
+      "Name": "e35ffb16-45d7-5cb9-a63f-0c7960ddb6e3"
     },
-    "15e223e7-1b51-5639-aaa6-5278ce51974f": {
+    "f6c3019f-9dd1-5aae-882e-9731d90c410a": {
       "TopLevel": true,
       "Categories": [
         "Restraints",
@@ -873,9 +873,9 @@
       ],
       "Folder": "Boids/Futuristic",
       "Layers": {},
-      "Name": "15e223e7-1b51-5639-aaa6-5278ce51974f"
+      "Name": "f6c3019f-9dd1-5aae-882e-9731d90c410a"
     },
-    "04962f36-9b15-5d2d-8789-ddf1fbb56385": {
+    "d488ff23-fec0-5a8a-ac19-d68fdb888373": {
       "TopLevel": true,
       "Categories": [
         "Restraints",
@@ -905,9 +905,9 @@
           "Pri": -9.9
         }
       },
-      "Name": "04962f36-9b15-5d2d-8789-ddf1fbb56385"
+      "Name": "d488ff23-fec0-5a8a-ac19-d68fdb888373"
     },
-    "766e7d23-72d9-553a-b59d-36fc7ac530bb": {
+    "d836e3a7-dc2d-5005-8ff9-c15be6dbe3d5": {
       "TopLevel": true,
       "Categories": [
         "Restraints",
@@ -916,7 +916,7 @@
       ],
       "Folder": "Boids/Futuristic",
       "Layers": {},
-      "Name": "766e7d23-72d9-553a-b59d-36fc7ac530bb"
+      "Name": "d836e3a7-dc2d-5005-8ff9-c15be6dbe3d5"
     },
     "0CA9A21B-5222-48B2-B5B5-2C8AAAA210B9": {
       "Name": "0CA9A21B-5222-48B2-B5B5-2C8AAAA210B9",
@@ -969,7 +969,7 @@
         }
       }
     },
-    "201f3533-fec4-53df-9768-3182f6982a5b": {
+    "48505c75-9c76-57c0-ac77-37cefdceb505": {
       "Categories": [
         "Accessories",
         "Face"
@@ -991,9 +991,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "201f3533-fec4-53df-9768-3182f6982a5b"
+      "Name": "48505c75-9c76-57c0-ac77-37cefdceb505"
     },
-    "0f91f20d-a92a-50f0-b7f9-1e407691a039": {
+    "aa5ed5c6-c05e-5712-a46b-f7244f3e5000": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1015,9 +1015,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "0f91f20d-a92a-50f0-b7f9-1e407691a039"
+      "Name": "aa5ed5c6-c05e-5712-a46b-f7244f3e5000"
     },
-    "8f939b8b-cbd4-5d86-8407-c424e3736acf": {
+    "02971757-c658-5926-8b00-9fbbd2404023": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1038,9 +1038,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "8f939b8b-cbd4-5d86-8407-c424e3736acf"
+      "Name": "02971757-c658-5926-8b00-9fbbd2404023"
     },
-    "0adc26b2-050d-57a8-af31-023ec3d644dc": {
+    "ec795f98-4449-57e2-a411-aa48079f25a4": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1061,9 +1061,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "0adc26b2-050d-57a8-af31-023ec3d644dc"
+      "Name": "ec795f98-4449-57e2-a411-aa48079f25a4"
     },
-    "51c58c11-d0ef-5f39-9ee8-720ea6a47a6f": {
+    "10a3f79b-bf93-5d44-893d-103e19831e70": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1082,9 +1082,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "51c58c11-d0ef-5f39-9ee8-720ea6a47a6f"
+      "Name": "10a3f79b-bf93-5d44-893d-103e19831e70"
     },
-    "04c48920-95ad-51c7-82a1-9718b80eb2f7": {
+    "9548ca00-ee0b-5f9b-9114-7ecc301636ad": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1102,9 +1102,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "04c48920-95ad-51c7-82a1-9718b80eb2f7"
+      "Name": "9548ca00-ee0b-5f9b-9114-7ecc301636ad"
     },
-    "cfaa0475-1e75-5410-bc6c-8c30d884a331": {
+    "88046131-9f7e-53e4-99eb-ef489591a20a": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1126,9 +1126,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "cfaa0475-1e75-5410-bc6c-8c30d884a331"
+      "Name": "88046131-9f7e-53e4-99eb-ef489591a20a"
     },
-    "00d887bf-7a15-52c9-b684-999b4523e0b7": {
+    "91eaf4a5-fc29-5777-a70a-941c04beba56": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1153,9 +1153,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "00d887bf-7a15-52c9-b684-999b4523e0b7"
+      "Name": "91eaf4a5-fc29-5777-a70a-941c04beba56"
     },
-    "cf7f8673-d2c1-5432-904e-990d87b665a6": {
+    "2c8c22a9-7606-55cf-b45b-b78359bc33d2": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1176,9 +1176,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "cf7f8673-d2c1-5432-904e-990d87b665a6"
+      "Name": "2c8c22a9-7606-55cf-b45b-b78359bc33d2"
     },
-    "cff6f669-e164-56cd-879c-dfebcb4a8814": {
+    "7848f7fe-3a31-5d37-aece-c73281e97717": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1196,9 +1196,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "cff6f669-e164-56cd-879c-dfebcb4a8814"
+      "Name": "7848f7fe-3a31-5d37-aece-c73281e97717"
     },
-    "a567f2fc-401a-5fdb-b1e5-b9a3c01a51f6": {
+    "52ffeebd-9a3f-51e2-9659-f828b33b903f": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1219,9 +1219,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "a567f2fc-401a-5fdb-b1e5-b9a3c01a51f6"
+      "Name": "52ffeebd-9a3f-51e2-9659-f828b33b903f"
     },
-    "8697f2e6-6699-5f5e-b1ed-647c9378ca59": {
+    "a15b7e52-b259-5cce-8d1c-600095ab2f17": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1239,9 +1239,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "8697f2e6-6699-5f5e-b1ed-647c9378ca59"
+      "Name": "a15b7e52-b259-5cce-8d1c-600095ab2f17"
     },
-    "e944878b-6968-5968-a658-ee1e7caafb61": {
+    "37bee9c4-1863-5ce4-9a5f-00bf4a202942": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1260,9 +1260,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "e944878b-6968-5968-a658-ee1e7caafb61"
+      "Name": "37bee9c4-1863-5ce4-9a5f-00bf4a202942"
     },
-    "bfe396d4-c96b-5665-91b8-da09ee6405b7": {
+    "68ba9f49-0afa-5636-918f-61fc1890b83d": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1284,9 +1284,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "bfe396d4-c96b-5665-91b8-da09ee6405b7"
+      "Name": "68ba9f49-0afa-5636-918f-61fc1890b83d"
     },
-    "6e0f37ab-5045-50c5-a0f6-552a05cd950b": {
+    "9152f585-9fd9-595b-be3d-8ba03251aa1d": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1305,9 +1305,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "6e0f37ab-5045-50c5-a0f6-552a05cd950b"
+      "Name": "9152f585-9fd9-595b-be3d-8ba03251aa1d"
     },
-    "7eb461b2-3fc9-5a99-a090-bbbd3101df32": {
+    "ab8348a1-510d-5131-be87-8e4b9d2d7831": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1328,9 +1328,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "7eb461b2-3fc9-5a99-a090-bbbd3101df32"
+      "Name": "ab8348a1-510d-5131-be87-8e4b9d2d7831"
     },
-    "b52b337e-3612-5e64-9a31-ac4c887c3f78": {
+    "8c6a5b50-0c29-5880-9295-afdb04787173": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1351,9 +1351,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "b52b337e-3612-5e64-9a31-ac4c887c3f78"
+      "Name": "8c6a5b50-0c29-5880-9295-afdb04787173"
     },
-    "1c9f9a8d-6d9a-5742-8e40-89c5d8b7e2fa": {
+    "ca30c0e6-65d7-5d80-929b-d7f4497c82e0": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1378,9 +1378,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "1c9f9a8d-6d9a-5742-8e40-89c5d8b7e2fa"
+      "Name": "ca30c0e6-65d7-5d80-929b-d7f4497c82e0"
     },
-    "d658aa31-f5b1-54d1-ac3c-31074cce98b1": {
+    "873895d0-f935-5f78-a207-b517e67ce271": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1405,9 +1405,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "d658aa31-f5b1-54d1-ac3c-31074cce98b1"
+      "Name": "873895d0-f935-5f78-a207-b517e67ce271"
     },
-    "8156535b-be7c-54c7-808e-3267dbcc43ac": {
+    "4441e2a6-30ad-5e0e-94bd-4be8c1304de7": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1429,9 +1429,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "8156535b-be7c-54c7-808e-3267dbcc43ac"
+      "Name": "4441e2a6-30ad-5e0e-94bd-4be8c1304de7"
     },
-    "fc54de4d-978c-5276-9e5c-6bfcb4beff1b": {
+    "87e9246e-9819-5b83-955c-99ef22b80893": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1449,9 +1449,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "fc54de4d-978c-5276-9e5c-6bfcb4beff1b"
+      "Name": "87e9246e-9819-5b83-955c-99ef22b80893"
     },
-    "222116a0-a404-57d3-8e87-cd7deca9e47b": {
+    "f892e767-5a3e-59b4-bd3e-6d63ec784ff9": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1469,9 +1469,9 @@
         }
       },
       "Folder": "Visors",
-      "Name": "222116a0-a404-57d3-8e87-cd7deca9e47b"
+      "Name": "f892e767-5a3e-59b4-bd3e-6d63ec784ff9"
     },
-    "8ee462dd-be36-5a10-9d2e-4911da0a33d9": {
+    "2d905b89-cb88-5c71-b6f4-da9f3f3e164a": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1492,9 +1492,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "8ee462dd-be36-5a10-9d2e-4911da0a33d9"
+      "Name": "2d905b89-cb88-5c71-b6f4-da9f3f3e164a"
     },
-    "a6392e59-a0a2-5696-952e-b0033781cc0c": {
+    "94d752c0-9a05-5fbd-a566-6c5eb2352d67": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1515,9 +1515,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "a6392e59-a0a2-5696-952e-b0033781cc0c"
+      "Name": "94d752c0-9a05-5fbd-a566-6c5eb2352d67"
     },
-    "57eb4552-72b9-5061-96fa-dfee58de8a35": {
+    "1a6635c0-dcfa-52d1-ba04-9f370430ba25": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1535,9 +1535,9 @@
         }
       },
       "Folder": "Visors",
-      "Name": "57eb4552-72b9-5061-96fa-dfee58de8a35"
+      "Name": "1a6635c0-dcfa-52d1-ba04-9f370430ba25"
     },
-    "8a1026ad-5acd-5818-9075-ffa7622fd95e": {
+    "477e7830-3e9b-55a8-8150-065e2747e79c": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1556,9 +1556,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "8a1026ad-5acd-5818-9075-ffa7622fd95e"
+      "Name": "477e7830-3e9b-55a8-8150-065e2747e79c"
     },
-    "e758dbe6-9487-539c-8208-df03023d538b": {
+    "5b2ac4d3-efa9-58b8-b80f-32b669c177cb": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1579,9 +1579,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "e758dbe6-9487-539c-8208-df03023d538b"
+      "Name": "5b2ac4d3-efa9-58b8-b80f-32b669c177cb"
     },
-    "4065a07c-7bf8-5552-8486-38135af49fee": {
+    "ff41ebf6-fca4-5631-9f6a-a51d83d7c267": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1602,9 +1602,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "4065a07c-7bf8-5552-8486-38135af49fee"
+      "Name": "ff41ebf6-fca4-5631-9f6a-a51d83d7c267"
     },
-    "5c9a5684-ef97-50a4-b1b2-2ac1a8a4f3dd": {
+    "c19639c0-242d-5148-9ed0-0c951a4e32d2": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1626,9 +1626,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "5c9a5684-ef97-50a4-b1b2-2ac1a8a4f3dd"
+      "Name": "c19639c0-242d-5148-9ed0-0c951a4e32d2"
     },
-    "facab414-8cf3-5e12-ab3d-0a48005135f6": {
+    "8f30bc4a-0e01-543a-84b9-18d277aa084c": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1652,9 +1652,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "facab414-8cf3-5e12-ab3d-0a48005135f6"
+      "Name": "8f30bc4a-0e01-543a-84b9-18d277aa084c"
     },
-    "8e57bf6f-38e1-5eef-b515-b69bcbfeec29": {
+    "9b14aca5-a7fb-57f8-9f20-995a939691d9": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1676,9 +1676,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "8e57bf6f-38e1-5eef-b515-b69bcbfeec29"
+      "Name": "9b14aca5-a7fb-57f8-9f20-995a939691d9"
     },
-    "426cbfe3-d54c-504b-a292-780843937806": {
+    "3d6fad3a-c1de-5d59-ba32-0b00c4f696d4": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1700,9 +1700,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "426cbfe3-d54c-504b-a292-780843937806"
+      "Name": "3d6fad3a-c1de-5d59-ba32-0b00c4f696d4"
     },
-    "4b1de67b-d541-54e4-83cd-104ea0743a7a": {
+    "2afacf4c-2a09-5a22-bae3-f23d06702ed2": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1726,9 +1726,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "4b1de67b-d541-54e4-83cd-104ea0743a7a"
+      "Name": "2afacf4c-2a09-5a22-bae3-f23d06702ed2"
     },
-    "01c796bf-9f10-5ead-8b5a-b36e62261cb6": {
+    "d896d238-0c32-5ea5-9c78-da01ee8b6595": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1752,9 +1752,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "01c796bf-9f10-5ead-8b5a-b36e62261cb6"
+      "Name": "d896d238-0c32-5ea5-9c78-da01ee8b6595"
     },
-    "c8dc2630-057d-553a-81a8-3b7af5a2ad4b": {
+    "340cd292-604a-5840-8092-f38b70ca2776": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1778,9 +1778,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "c8dc2630-057d-553a-81a8-3b7af5a2ad4b"
+      "Name": "340cd292-604a-5840-8092-f38b70ca2776"
     },
-    "831b6eae-f119-53a7-98b0-91cc4e01d3b1": {
+    "fb194d79-890a-5ae1-aa83-98ce813d4b2d": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1798,9 +1798,9 @@
         }
       },
       "Folder": "Visors",
-      "Name": "831b6eae-f119-53a7-98b0-91cc4e01d3b1"
+      "Name": "fb194d79-890a-5ae1-aa83-98ce813d4b2d"
     },
-    "090bab07-06e8-50fa-96a6-fa6f9523922e": {
+    "e1840ca9-7911-54fe-aca2-8098f3ccae55": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1821,9 +1821,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "090bab07-06e8-50fa-96a6-fa6f9523922e"
+      "Name": "e1840ca9-7911-54fe-aca2-8098f3ccae55"
     },
-    "0a898f97-d282-563b-8fc8-3fd2ab5a9d45": {
+    "2b61a55d-ec11-5049-abca-57b81c236f26": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1844,9 +1844,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "0a898f97-d282-563b-8fc8-3fd2ab5a9d45"
+      "Name": "2b61a55d-ec11-5049-abca-57b81c236f26"
     },
-    "0f932171-3da9-54f0-b3e5-3744309993d5": {
+    "addc0ea3-e49f-528a-95f3-6c55b000106d": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1867,9 +1867,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "0f932171-3da9-54f0-b3e5-3744309993d5"
+      "Name": "addc0ea3-e49f-528a-95f3-6c55b000106d"
     },
-    "8a7a6546-8d9f-5acf-b919-7b69cd9aab3c": {
+    "7dfd40f1-6c50-5a53-a5d8-6a5870403460": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1887,9 +1887,9 @@
         }
       },
       "Folder": "Visors",
-      "Name": "8a7a6546-8d9f-5acf-b919-7b69cd9aab3c"
+      "Name": "7dfd40f1-6c50-5a53-a5d8-6a5870403460"
     },
-    "e7583c2e-205a-52fe-b544-3cb895db6ce5": {
+    "992657cf-77df-5a3f-96c3-f8d1ec3b4608": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1908,9 +1908,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "e7583c2e-205a-52fe-b544-3cb895db6ce5"
+      "Name": "992657cf-77df-5a3f-96c3-f8d1ec3b4608"
     },
-    "fee639ce-6ccd-5e54-b25b-9f8a5ab5648b": {
+    "5379308a-a86d-5832-9cfb-f90697953deb": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1928,9 +1928,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "fee639ce-6ccd-5e54-b25b-9f8a5ab5648b"
+      "Name": "5379308a-a86d-5832-9cfb-f90697953deb"
     },
-    "3e7fb3dd-3ef8-5c56-9939-9ffbed4a95af": {
+    "8ce8d818-54a1-5154-bd82-103189df948f": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1951,9 +1951,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "3e7fb3dd-3ef8-5c56-9939-9ffbed4a95af"
+      "Name": "8ce8d818-54a1-5154-bd82-103189df948f"
     },
-    "677dceb0-e478-546d-9dc3-2833d4f0b94d": {
+    "f39d2b05-1f24-5932-9879-d3c9b83a714f": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1975,9 +1975,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "677dceb0-e478-546d-9dc3-2833d4f0b94d"
+      "Name": "f39d2b05-1f24-5932-9879-d3c9b83a714f"
     },
-    "21f50b34-9b19-50f8-b88f-fd0d6adb860e": {
+    "985426fa-892c-5a8b-a507-9964d71083fa": {
       "Categories": [
         "Accessories",
         "Face"
@@ -1998,9 +1998,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "21f50b34-9b19-50f8-b88f-fd0d6adb860e"
+      "Name": "985426fa-892c-5a8b-a507-9964d71083fa"
     },
-    "4c4cad45-6062-523e-a96e-e43429e466a2": {
+    "86b58764-b220-5e90-bf16-5109b1cd57cc": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2018,9 +2018,9 @@
         }
       },
       "Folder": "Visors",
-      "Name": "4c4cad45-6062-523e-a96e-e43429e466a2"
+      "Name": "86b58764-b220-5e90-bf16-5109b1cd57cc"
     },
-    "0fd8bb10-5ba5-5164-a482-fef0bf3aae4f": {
+    "d9953e0d-5fe7-50ff-a82e-2865c108ce48": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2038,9 +2038,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "0fd8bb10-5ba5-5164-a482-fef0bf3aae4f"
+      "Name": "d9953e0d-5fe7-50ff-a82e-2865c108ce48"
     },
-    "33a35c0d-49d5-5b68-b2c0-6942cb489041": {
+    "46fa7163-a33d-5c78-8d18-bec55c5d89f6": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2062,9 +2062,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "33a35c0d-49d5-5b68-b2c0-6942cb489041"
+      "Name": "46fa7163-a33d-5c78-8d18-bec55c5d89f6"
     },
-    "8afecfd8-e64e-55eb-b67a-16150e055df2": {
+    "9c44baea-c61f-55ac-8dfc-151e363d5f6b": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2085,9 +2085,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "8afecfd8-e64e-55eb-b67a-16150e055df2"
+      "Name": "9c44baea-c61f-55ac-8dfc-151e363d5f6b"
     },
-    "73baba5e-fd43-5ee3-9d81-1ff1f1aa33db": {
+    "a7a6640c-3a55-568e-af17-bf07b188ab60": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2109,9 +2109,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "73baba5e-fd43-5ee3-9d81-1ff1f1aa33db"
+      "Name": "a7a6640c-3a55-568e-af17-bf07b188ab60"
     },
-    "bda5f470-8267-5359-a0f5-cf9b1f402078": {
+    "e32208e0-31be-5ee2-8f19-9e33a123300d": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2133,9 +2133,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "bda5f470-8267-5359-a0f5-cf9b1f402078"
+      "Name": "e32208e0-31be-5ee2-8f19-9e33a123300d"
     },
-    "ce371921-afdd-511a-9d20-eaf595b0c5d7": {
+    "40e19d5c-381a-5265-993f-03efb6842aab": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2156,9 +2156,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "ce371921-afdd-511a-9d20-eaf595b0c5d7"
+      "Name": "40e19d5c-381a-5265-993f-03efb6842aab"
     },
-    "e11eec76-7679-5e83-b2fd-960f56167bdd": {
+    "391a1cdb-a358-5dba-8f5f-49b8e11f0bd2": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2179,9 +2179,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "e11eec76-7679-5e83-b2fd-960f56167bdd"
+      "Name": "391a1cdb-a358-5dba-8f5f-49b8e11f0bd2"
     },
-    "3b8a0a4b-4dcb-53d8-abc9-6815c4e08d89": {
+    "e2a632b9-fd3e-5b67-b34a-f037fb11c646": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2199,9 +2199,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "3b8a0a4b-4dcb-53d8-abc9-6815c4e08d89"
+      "Name": "e2a632b9-fd3e-5b67-b34a-f037fb11c646"
     },
-    "af76e863-6422-595a-95d7-5c647191ba09": {
+    "a2cf49e3-3269-50b0-a922-1b675b13043d": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2220,9 +2220,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "af76e863-6422-595a-95d7-5c647191ba09"
+      "Name": "a2cf49e3-3269-50b0-a922-1b675b13043d"
     },
-    "25deb1e3-8213-592f-bf78-7173f6efc2e1": {
+    "84b5ea7f-19cb-52d9-a8f3-210061e1448b": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2240,9 +2240,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "25deb1e3-8213-592f-bf78-7173f6efc2e1"
+      "Name": "84b5ea7f-19cb-52d9-a8f3-210061e1448b"
     },
-    "686c5b2c-73c4-5292-84aa-b5d384cc4f96": {
+    "a327d911-b1e8-54f5-b5f4-ba6bae3f6ebc": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2264,9 +2264,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "686c5b2c-73c4-5292-84aa-b5d384cc4f96"
+      "Name": "a327d911-b1e8-54f5-b5f4-ba6bae3f6ebc"
     },
-    "1494a9c3-8294-5d7f-b8fd-fc960e3e1dba": {
+    "5da54bf5-6ca4-55bc-aeab-dbf603dfe031": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2288,9 +2288,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "1494a9c3-8294-5d7f-b8fd-fc960e3e1dba"
+      "Name": "5da54bf5-6ca4-55bc-aeab-dbf603dfe031"
     },
-    "b5104500-a272-5210-a911-7c85e4f54bba": {
+    "f441d2a6-cd7c-5987-a623-4c4fc97160fe": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2314,9 +2314,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "b5104500-a272-5210-a911-7c85e4f54bba"
+      "Name": "f441d2a6-cd7c-5987-a623-4c4fc97160fe"
     },
-    "c0b2ebd0-3f2d-53b7-87ff-a83c0b14299e": {
+    "7a80e948-1adf-5eaf-b9b4-da1c602533fb": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2334,9 +2334,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "c0b2ebd0-3f2d-53b7-87ff-a83c0b14299e"
+      "Name": "7a80e948-1adf-5eaf-b9b4-da1c602533fb"
     },
-    "1cb2eb7c-7740-54b2-be01-b4da3e992700": {
+    "90663dda-ef2c-5665-a0b5-dcb4d5cce914": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2355,9 +2355,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "1cb2eb7c-7740-54b2-be01-b4da3e992700"
+      "Name": "90663dda-ef2c-5665-a0b5-dcb4d5cce914"
     },
-    "1ed26e4d-51de-54b1-bf8f-40d6edefb65d": {
+    "fc72a73e-84de-59d4-af2c-5205d50e1d57": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2376,9 +2376,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "1ed26e4d-51de-54b1-bf8f-40d6edefb65d"
+      "Name": "fc72a73e-84de-59d4-af2c-5205d50e1d57"
     },
-    "ba87b8aa-c47b-5e0b-bad8-a6a6b3aef963": {
+    "fab28a87-1905-5f7e-918f-3ca9349419fb": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2399,9 +2399,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "ba87b8aa-c47b-5e0b-bad8-a6a6b3aef963"
+      "Name": "fab28a87-1905-5f7e-918f-3ca9349419fb"
     },
-    "6b540b78-e8b5-5723-b660-1b99160a0167": {
+    "24771826-4a93-5c70-b1d1-21890c9ecd73": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2419,9 +2419,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "6b540b78-e8b5-5723-b660-1b99160a0167"
+      "Name": "24771826-4a93-5c70-b1d1-21890c9ecd73"
     },
-    "d7bbbc01-139e-5ec1-82b8-f99875a5046f": {
+    "7ce01040-31ba-58d8-ad2a-3d9f84cff825": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2443,9 +2443,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "d7bbbc01-139e-5ec1-82b8-f99875a5046f"
+      "Name": "7ce01040-31ba-58d8-ad2a-3d9f84cff825"
     },
-    "b2d451c0-9d4c-5a50-9638-4409bdf053db": {
+    "a89f0062-e18f-515c-8369-806a6101b5e0": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2464,9 +2464,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "b2d451c0-9d4c-5a50-9638-4409bdf053db"
+      "Name": "a89f0062-e18f-515c-8369-806a6101b5e0"
     },
-    "24c80b5f-4019-5e29-a4df-a09b5308d020": {
+    "6d66aab4-ed71-5eb2-9603-370dd768c1bc": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2484,9 +2484,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "24c80b5f-4019-5e29-a4df-a09b5308d020"
+      "Name": "6d66aab4-ed71-5eb2-9603-370dd768c1bc"
     },
-    "606232b0-cc54-5a78-8fb7-a332c481827f": {
+    "323fad9f-7995-5f50-b521-9c6323bc1e5f": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2504,9 +2504,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "606232b0-cc54-5a78-8fb7-a332c481827f"
+      "Name": "323fad9f-7995-5f50-b521-9c6323bc1e5f"
     },
-    "6cf00664-b2c4-58de-8fd2-c68db24b2810": {
+    "a7e066af-1b4d-5815-9769-0830a93d365c": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2531,9 +2531,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "6cf00664-b2c4-58de-8fd2-c68db24b2810"
+      "Name": "a7e066af-1b4d-5815-9769-0830a93d365c"
     },
-    "fa133934-e981-53e0-a661-be772e1da750": {
+    "78d95195-10ea-513d-9ff3-4b1698eff24c": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2554,9 +2554,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "fa133934-e981-53e0-a661-be772e1da750"
+      "Name": "78d95195-10ea-513d-9ff3-4b1698eff24c"
     },
-    "5d4b7adf-2814-5c7d-a45a-9d0cc1ed00d3": {
+    "fb7887eb-7b1c-5598-9a5c-d8c80d9e6df1": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2578,9 +2578,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "5d4b7adf-2814-5c7d-a45a-9d0cc1ed00d3"
+      "Name": "fb7887eb-7b1c-5598-9a5c-d8c80d9e6df1"
     },
-    "84b0de73-931a-5f6d-a9a9-1bf70f88fef9": {
+    "47285643-6fc0-548b-9668-1452b223487c": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2599,9 +2599,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "84b0de73-931a-5f6d-a9a9-1bf70f88fef9"
+      "Name": "47285643-6fc0-548b-9668-1452b223487c"
     },
-    "cb2abd0f-49b0-5820-aabd-4c8b990269d6": {
+    "1a98b562-cda4-5ed0-b9fc-c40530e3fb05": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2620,9 +2620,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "cb2abd0f-49b0-5820-aabd-4c8b990269d6"
+      "Name": "1a98b562-cda4-5ed0-b9fc-c40530e3fb05"
     },
-    "03d9d7a9-b932-595c-97fc-3b85b3fbc91f": {
+    "8b4b92c8-b136-5bdf-975d-2d9e4cf72fc5": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2640,9 +2640,9 @@
         }
       },
       "Folder": "Visors",
-      "Name": "03d9d7a9-b932-595c-97fc-3b85b3fbc91f"
+      "Name": "8b4b92c8-b136-5bdf-975d-2d9e4cf72fc5"
     },
-    "eece4c56-f167-5c85-afe7-2bf2432a9f25": {
+    "376af91c-83f0-533e-a873-877b12f6ec14": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2663,9 +2663,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "eece4c56-f167-5c85-afe7-2bf2432a9f25"
+      "Name": "376af91c-83f0-533e-a873-877b12f6ec14"
     },
-    "5e18642c-6528-5b38-bfd8-3894018244fe": {
+    "8b2193e4-c718-5e53-9ea4-48cbd3687688": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2686,9 +2686,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "5e18642c-6528-5b38-bfd8-3894018244fe"
+      "Name": "8b2193e4-c718-5e53-9ea4-48cbd3687688"
     },
-    "67eecd2f-2ada-5851-a7f5-fb667d5d5a94": {
+    "f4309ef4-3897-52af-bd75-ef874055cd3c": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2707,9 +2707,9 @@
         }
       },
       "Folder": "Boids/Futuristic/Visor",
-      "Name": "67eecd2f-2ada-5851-a7f5-fb667d5d5a94"
+      "Name": "f4309ef4-3897-52af-bd75-ef874055cd3c"
     },
-    "461f051f-9aa9-5ce8-af72-84b8cc8e4ab1": {
+    "02a86306-88fe-5d9a-b590-2d686ef01e64": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2730,9 +2730,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "461f051f-9aa9-5ce8-af72-84b8cc8e4ab1"
+      "Name": "02a86306-88fe-5d9a-b590-2d686ef01e64"
     },
-    "fdfff760-2b20-5c79-a9b5-2dc196435a5f": {
+    "2a434a26-355d-5ad5-a538-5b44766bf41b": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2753,9 +2753,9 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "fdfff760-2b20-5c79-a9b5-2dc196435a5f"
+      "Name": "2a434a26-355d-5ad5-a538-5b44766bf41b"
     },
-    "55f1532c-ca8c-54f2-aa45-3d2fc827c880": {
+    "a1e900af-f3aa-5fc8-9b03-94185ae3c0e3": {
       "Categories": [
         "Accessories",
         "Face"
@@ -2779,7 +2779,7 @@
       "AddPose": [
         "HoodMask"
       ],
-      "Name": "55f1532c-ca8c-54f2-aa45-3d2fc827c880"
+      "Name": "a1e900af-f3aa-5fc8-9b03-94185ae3c0e3"
     },
     "A76D546D-D8D9-40AD-86A7-C7C69B396DD4": {
       "Categories": [
@@ -3929,7 +3929,7 @@
         }
       }
     },
-    "a03a543a-3ccd-5042-965f-88e81866b636": {
+    "86ddb21f-212c-5d88-9578-a1fd33bad4c2": {
       "Categories": [
         "Accessories",
         "Face"
@@ -3947,9 +3947,9 @@
           "Pri": 14
         }
       },
-      "Name": "a03a543a-3ccd-5042-965f-88e81866b636"
+      "Name": "86ddb21f-212c-5d88-9578-a1fd33bad4c2"
     },
-    "b08d715c-479b-5dc0-9b97-60ab7f788270": {
+    "0dd597de-1053-5e60-b74e-076ba8b019c0": {
       "Categories": [
         "Accessories",
         "Face"
@@ -3971,9 +3971,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "b08d715c-479b-5dc0-9b97-60ab7f788270"
+      "Name": "0dd597de-1053-5e60-b74e-076ba8b019c0"
     },
-    "949bfd1a-29ba-5c18-9424-2e3d85f321ba": {
+    "7e524e39-ced7-50b7-a4bb-268897054ff0": {
       "Categories": [
         "Accessories",
         "Face"
@@ -3991,9 +3991,9 @@
           "Pri": 14
         }
       },
-      "Name": "949bfd1a-29ba-5c18-9424-2e3d85f321ba"
+      "Name": "7e524e39-ced7-50b7-a4bb-268897054ff0"
     },
-    "293c51a9-4781-5297-8170-85a322715fb7": {
+    "ee263405-b4be-5282-a02e-a265fd849048": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4012,9 +4012,9 @@
           "InheritColor": "Glass"
         }
       },
-      "Name": "293c51a9-4781-5297-8170-85a322715fb7"
+      "Name": "ee263405-b4be-5282-a02e-a265fd849048"
     },
-    "b10a7a1e-f6d2-5935-b2ad-258a2b0077ff": {
+    "5cca97b2-d142-5f00-8481-c751f1d78128": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4035,9 +4035,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "b10a7a1e-f6d2-5935-b2ad-258a2b0077ff"
+      "Name": "5cca97b2-d142-5f00-8481-c751f1d78128"
     },
-    "c7d673a6-0b34-5a0b-9135-e48fe2d4c0a2": {
+    "41167677-5545-51e6-8d12-5885b9cfa11a": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4059,9 +4059,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "c7d673a6-0b34-5a0b-9135-e48fe2d4c0a2"
+      "Name": "41167677-5545-51e6-8d12-5885b9cfa11a"
     },
-    "dc99fb23-9177-5ed6-9352-cd0218b87b1f": {
+    "effd85fe-ba35-5390-8b9d-c033d7a51fbf": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4082,9 +4082,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "dc99fb23-9177-5ed6-9352-cd0218b87b1f"
+      "Name": "effd85fe-ba35-5390-8b9d-c033d7a51fbf"
     },
-    "287a78fa-c1ed-597c-8b85-48235c20677f": {
+    "12ed0437-cf06-51f9-85f7-600d16efbd97": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4106,9 +4106,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "287a78fa-c1ed-597c-8b85-48235c20677f"
+      "Name": "12ed0437-cf06-51f9-85f7-600d16efbd97"
     },
-    "e823f027-7eb5-54ea-8713-fb98937eec3a": {
+    "1045e977-24fd-5f78-92ef-1e2307c171e8": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4126,9 +4126,9 @@
           "Pri": 14
         }
       },
-      "Name": "e823f027-7eb5-54ea-8713-fb98937eec3a"
+      "Name": "1045e977-24fd-5f78-92ef-1e2307c171e8"
     },
-    "107d15b1-8595-5ec8-ab51-714f5c1f3519": {
+    "3b4a43a3-06f9-51d5-abb8-cedf3c9bb07d": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4147,9 +4147,9 @@
           "InheritColor": "Glass"
         }
       },
-      "Name": "107d15b1-8595-5ec8-ab51-714f5c1f3519"
+      "Name": "3b4a43a3-06f9-51d5-abb8-cedf3c9bb07d"
     },
-    "d98e374d-d6a1-527f-9322-5284e2a9bc1a": {
+    "23abd325-1cdf-5df3-aa5c-6f3b4adec012": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4167,9 +4167,9 @@
           "Pri": 14
         }
       },
-      "Name": "d98e374d-d6a1-527f-9322-5284e2a9bc1a"
+      "Name": "23abd325-1cdf-5df3-aa5c-6f3b4adec012"
     },
-    "688824f5-a65c-5bda-86e1-1290639ff3d8": {
+    "a9713054-4ae4-56ae-8e1f-f53afa0e24a4": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4188,9 +4188,9 @@
           "InheritColor": "Glass"
         }
       },
-      "Name": "688824f5-a65c-5bda-86e1-1290639ff3d8"
+      "Name": "a9713054-4ae4-56ae-8e1f-f53afa0e24a4"
     },
-    "9ce36ec4-1733-55d9-8d4e-fa9e2a909b46": {
+    "f9d57847-b190-5c4f-859e-c9ed007ca7a8": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4208,9 +4208,9 @@
           "Pri": 14
         }
       },
-      "Name": "9ce36ec4-1733-55d9-8d4e-fa9e2a909b46"
+      "Name": "f9d57847-b190-5c4f-859e-c9ed007ca7a8"
     },
-    "a3253b29-9f32-5af7-97ad-9588069d6581": {
+    "811d6eb8-0709-5622-adc6-1e79d01fba53": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4229,9 +4229,9 @@
           "InheritColor": "Glass"
         }
       },
-      "Name": "a3253b29-9f32-5af7-97ad-9588069d6581"
+      "Name": "811d6eb8-0709-5622-adc6-1e79d01fba53"
     },
-    "1fd7457d-d09f-5b05-9f8d-561711048810": {
+    "4c366f43-af50-5bd5-b1f6-29bdb74a6106": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4252,9 +4252,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "1fd7457d-d09f-5b05-9f8d-561711048810"
+      "Name": "4c366f43-af50-5bd5-b1f6-29bdb74a6106"
     },
-    "31974326-04e5-5233-a358-cc42be74afc4": {
+    "daaf011c-2908-5f85-a21d-398d9cdfb38c": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4273,9 +4273,9 @@
           "InheritColor": "Glass"
         }
       },
-      "Name": "31974326-04e5-5233-a358-cc42be74afc4"
+      "Name": "daaf011c-2908-5f85-a21d-398d9cdfb38c"
     },
-    "df0c464a-dee4-5a28-963a-991e2f37dad4": {
+    "6b453d60-ac4e-5dbe-9bb6-303dc0540599": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4296,9 +4296,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "df0c464a-dee4-5a28-963a-991e2f37dad4"
+      "Name": "6b453d60-ac4e-5dbe-9bb6-303dc0540599"
     },
-    "dc2a3b5e-f122-5caf-85ad-fec9341f6390": {
+    "e0e0d9fe-dcf8-54eb-8c90-5d984f04625b": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4316,9 +4316,9 @@
           "Pri": 14
         }
       },
-      "Name": "dc2a3b5e-f122-5caf-85ad-fec9341f6390"
+      "Name": "e0e0d9fe-dcf8-54eb-8c90-5d984f04625b"
     },
-    "a3047279-e530-5fe6-9e2e-9836cf1d28fe": {
+    "4d3e2202-c5d9-5f97-bdb8-5cb048c293ab": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4340,9 +4340,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "a3047279-e530-5fe6-9e2e-9836cf1d28fe"
+      "Name": "4d3e2202-c5d9-5f97-bdb8-5cb048c293ab"
     },
-    "e1f1ec53-4139-53ed-af5d-17790ec444e6": {
+    "51773be3-8735-54b3-a4dc-7b267c1e7b0b": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4363,9 +4363,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "e1f1ec53-4139-53ed-af5d-17790ec444e6"
+      "Name": "51773be3-8735-54b3-a4dc-7b267c1e7b0b"
     },
-    "c90d3cc1-9f55-5d46-baa1-3bf48d97a2a9": {
+    "6db356bf-4bd8-5fe9-9f40-bb6a7339a919": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4387,9 +4387,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "c90d3cc1-9f55-5d46-baa1-3bf48d97a2a9"
+      "Name": "6db356bf-4bd8-5fe9-9f40-bb6a7339a919"
     },
-    "29ae05d2-8a65-564a-af90-edae9a4d0b1f": {
+    "5f98d48d-1605-5d4e-9832-999145b0d7ea": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4411,9 +4411,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "29ae05d2-8a65-564a-af90-edae9a4d0b1f"
+      "Name": "5f98d48d-1605-5d4e-9832-999145b0d7ea"
     },
-    "4e63a793-f70b-5f1c-b4a0-1e71a0ef6e70": {
+    "8368b62c-1b75-5313-a2ff-0a2f72d741ca": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4434,9 +4434,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "4e63a793-f70b-5f1c-b4a0-1e71a0ef6e70"
+      "Name": "8368b62c-1b75-5313-a2ff-0a2f72d741ca"
     },
-    "d1df1683-0e34-5968-a160-e05666822872": {
+    "903abffc-4a7e-5f64-a034-59b87a5a241e": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4458,9 +4458,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "d1df1683-0e34-5968-a160-e05666822872"
+      "Name": "903abffc-4a7e-5f64-a034-59b87a5a241e"
     },
-    "852b7e7b-6acf-58ab-a0c0-072641d9d154": {
+    "18af9f54-3024-5493-958d-e2ce6a953a1e": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4481,9 +4481,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "852b7e7b-6acf-58ab-a0c0-072641d9d154"
+      "Name": "18af9f54-3024-5493-958d-e2ce6a953a1e"
     },
-    "320749d8-6ff8-57d6-99ab-0d0a0d7cbd05": {
+    "dd60ea54-8104-52ca-9af7-e2bc204a8897": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4504,9 +4504,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "320749d8-6ff8-57d6-99ab-0d0a0d7cbd05"
+      "Name": "dd60ea54-8104-52ca-9af7-e2bc204a8897"
     },
-    "af6d8c1d-5bef-58c9-9dfe-c45e9ab52bd1": {
+    "b50fae17-79a2-551b-81dd-b88cc70fc91e": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4525,9 +4525,9 @@
           "InheritColor": "Glass"
         }
       },
-      "Name": "af6d8c1d-5bef-58c9-9dfe-c45e9ab52bd1"
+      "Name": "b50fae17-79a2-551b-81dd-b88cc70fc91e"
     },
-    "17277d1c-c741-58e4-8bf1-d5eb83416ab3": {
+    "266ff2f9-c38d-5dfa-aea6-1b5ad2e41123": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4549,9 +4549,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "17277d1c-c741-58e4-8bf1-d5eb83416ab3"
+      "Name": "266ff2f9-c38d-5dfa-aea6-1b5ad2e41123"
     },
-    "f7ddb82f-7b24-5863-b783-c94b79b34f0a": {
+    "f42ebc91-ccc3-5e6c-bc5f-efadc376abb0": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4572,9 +4572,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "f7ddb82f-7b24-5863-b783-c94b79b34f0a"
+      "Name": "f42ebc91-ccc3-5e6c-bc5f-efadc376abb0"
     },
-    "4b1dba97-a395-5a4d-bfee-6e2b90bd48d0": {
+    "2d16e957-2832-547b-afde-fdc19903106c": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4596,9 +4596,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "4b1dba97-a395-5a4d-bfee-6e2b90bd48d0"
+      "Name": "2d16e957-2832-547b-afde-fdc19903106c"
     },
-    "8011575d-9695-553a-a3b9-206875e214c0": {
+    "d7297e87-dd79-5c40-9017-f10c7bf56d2a": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4619,9 +4619,9 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "8011575d-9695-553a-a3b9-206875e214c0"
+      "Name": "d7297e87-dd79-5c40-9017-f10c7bf56d2a"
     },
-    "08996176-bcf4-5b13-9ce5-6b09baa6f490": {
+    "21e21b0e-aa30-5d41-91b6-e4aee478888e": {
       "Categories": [
         "Accessories",
         "Face"
@@ -4643,7 +4643,7 @@
       "HideLayers": [
         "Brows"
       ],
-      "Name": "08996176-bcf4-5b13-9ce5-6b09baa6f490"
+      "Name": "21e21b0e-aa30-5d41-91b6-e4aee478888e"
     },
     "A9A9B0AE-BF70-4125-B89C-60984246DEBF": {
       "Name": "A9A9B0AE-BF70-4125-B89C-60984246DEBF",
@@ -7149,7 +7149,7 @@
       "sfx": "MechPumpUp",
       "sfxRemove": "MechPumpRelease"
     },
-    "880578c0-735b-50f3-8086-2386bb7cc917": {
+    "629a4169-d0c9-5b4b-89db-df671211931e": {
       "requireAllTagsToEquip": [
         "6C035995-F25A-4275-82D5-9CC157093E3F"
       ],
@@ -7167,8 +7167,8 @@
       "allFloors": true,
       "preview": "CyberLink",
       "sfxRemove": "Crackling",
-      "Model": "86b36341-bb0a-5695-9eec-5d257298cfa4",
-      "name": "880578c0-735b-50f3-8086-2386bb7cc917",
+      "Model": "2ad11308-b382-5482-8c9f-857dd32f43eb",
+      "name": "629a4169-d0c9-5b4b-89db-df671211931e",
       "LinkableBy": [
         "KDBindableMinusCuffsA",
         "6C035995-F25A-4275-82D5-9CC157093E3F"
@@ -7205,7 +7205,7 @@
       },
       "Group": "ItemArms"
     },
-    "ab2cf7ec-e2fc-5437-9cfb-5d1924532057": {
+    "42408587-cfd1-587a-a31f-cf4f4cef912f": {
       "requireAllTagsToEquip": [
         "8B3D8FF7-D09E-4E56-B014-233A1BB54140"
       ],
@@ -7223,8 +7223,8 @@
       "allFloors": true,
       "preview": "CyberLink",
       "sfxRemove": "Crackling",
-      "Model": "2e8fdff4-c0cd-594f-a2ff-d128b9fecaed",
-      "name": "ab2cf7ec-e2fc-5437-9cfb-5d1924532057",
+      "Model": "2fe1a4cc-9140-5543-b688-e3c0bcd9fd1f",
+      "name": "42408587-cfd1-587a-a31f-cf4f4cef912f",
       "LinkableBy": [
         "KDBindableMinusCuffsA",
         "8B3D8FF7-D09E-4E56-B014-233A1BB54140"
@@ -7261,7 +7261,7 @@
       },
       "Group": "ItemArms"
     },
-    "cf3101f1-2919-56d5-bc08-9fe3cf6e4146": {
+    "74466ddd-7329-5e50-a574-648d118e4cdc": {
       "requireAllTagsToEquip": [
         "6C035995-F25A-4275-82D5-9CC157093E3F"
       ],
@@ -7280,8 +7280,8 @@
       "allFloors": true,
       "preview": "CyberLink",
       "sfxRemove": "Crackling",
-      "Model": "293c374b-67ce-5208-be8b-437e180371ea",
-      "name": "cf3101f1-2919-56d5-bc08-9fe3cf6e4146",
+      "Model": "854af472-49f9-52d0-a716-ce8195ce1a4a",
+      "name": "74466ddd-7329-5e50-a574-648d118e4cdc",
       "LinkableBy": [
         "KDBindableMinusCuffsA",
         "6C035995-F25A-4275-82D5-9CC157093E3F"
@@ -7319,7 +7319,7 @@
       },
       "Group": "ItemArms"
     },
-    "4fde6bd8-d128-50b2-912d-558edfeee00d": {
+    "1a8c6f51-2ae5-5795-be6f-374c9130e667": {
       "requireAllTagsToEquip": [
         "6C035995-F25A-4275-82D5-9CC157093E3F"
       ],
@@ -7337,8 +7337,8 @@
       "allFloors": true,
       "preview": "CyberLink",
       "sfxRemove": "Crackling",
-      "Model": "09caaed0-bb24-56bc-bebd-58a674d16bdb",
-      "name": "4fde6bd8-d128-50b2-912d-558edfeee00d",
+      "Model": "06aa78b1-d461-516c-a30c-ace3300620c2",
+      "name": "1a8c6f51-2ae5-5795-be6f-374c9130e667",
       "LinkableBy": [
         "KDBindableMinusCuffsA",
         "6C035995-F25A-4275-82D5-9CC157093E3F"
@@ -7376,7 +7376,7 @@
       },
       "Group": "ItemArms"
     },
-    "6512a38a-85d5-5ab5-a7c4-f5c4788892e4": {
+    "8e5ef0db-fb4d-549d-8917-c9ec4d1f71c9": {
       "requireAllTagsToEquip": [
         "8B3D8FF7-D09E-4E56-B014-233A1BB54140"
       ],
@@ -7394,8 +7394,8 @@
       "allFloors": true,
       "preview": "CyberLink",
       "sfxRemove": "Crackling",
-      "Model": "8410d798-a4fd-54d0-9e6f-1ad106f04d65",
-      "name": "6512a38a-85d5-5ab5-a7c4-f5c4788892e4",
+      "Model": "3c53a862-46a3-5300-8df7-8de47d8a1c47",
+      "name": "8e5ef0db-fb4d-549d-8917-c9ec4d1f71c9",
       "LinkableBy": [
         "KDBindableMinusCuffsA",
         "8B3D8FF7-D09E-4E56-B014-233A1BB54140"
@@ -7436,7 +7436,7 @@
       },
       "Group": "ItemArms"
     },
-    "f4d90f30-8acd-5e96-9c1b-c782b0a6ccc9": {
+    "fba487ef-c283-5224-8feb-23b23f4b2ef0": {
       "requireAllTagsToEquip": [
         "6972C883-57B8-4A0F-B965-F0A42654415B"
       ],
@@ -7456,8 +7456,8 @@
       "allFloors": true,
       "preview": "CyberLink",
       "sfxRemove": "Crackling",
-      "Model": "ea3e6297-38f1-5ea3-aadc-792c96e82d69",
-      "name": "f4d90f30-8acd-5e96-9c1b-c782b0a6ccc9",
+      "Model": "e35ffb16-45d7-5cb9-a63f-0c7960ddb6e3",
+      "name": "fba487ef-c283-5224-8feb-23b23f4b2ef0",
       "LinkableBy": [
         "KDBindableMinusCuffsA",
         "6972C883-57B8-4A0F-B965-F0A42654415B"
@@ -7494,7 +7494,7 @@
       },
       "Group": "ItemFeet"
     },
-    "e721919d-4969-59db-bce7-65fbd50dec67": {
+    "6e3233c0-17c1-5102-b543-3ddd902475e5": {
       "requireAllTagsToEquip": [
         "6972C883-57B8-4A0F-B965-F0A42654415B"
       ],
@@ -7514,8 +7514,8 @@
       "allFloors": true,
       "preview": "CyberLink",
       "sfxRemove": "Crackling",
-      "Model": "15e223e7-1b51-5639-aaa6-5278ce51974f",
-      "name": "e721919d-4969-59db-bce7-65fbd50dec67",
+      "Model": "f6c3019f-9dd1-5aae-882e-9731d90c410a",
+      "name": "6e3233c0-17c1-5102-b543-3ddd902475e5",
       "LinkableBy": [
         "KDBindableMinusCuffsA",
         "6972C883-57B8-4A0F-B965-F0A42654415B"
@@ -7556,7 +7556,7 @@
       },
       "Group": "ItemFeet"
     },
-    "c0c57947-c061-5b9e-9225-45a02a8d974a": {
+    "7f92b38c-8ed5-57a6-8873-566192bb5e61": {
       "requireAllTagsToEquip": [
         "74E4E3B1-436A-4BB8-B7A2-0448E260A23C"
       ],
@@ -7576,8 +7576,8 @@
       "allFloors": true,
       "preview": "CyberLink",
       "sfxRemove": "Crackling",
-      "Model": "04962f36-9b15-5d2d-8789-ddf1fbb56385",
-      "name": "c0c57947-c061-5b9e-9225-45a02a8d974a",
+      "Model": "d488ff23-fec0-5a8a-ac19-d68fdb888373",
+      "name": "7f92b38c-8ed5-57a6-8873-566192bb5e61",
       "LinkableBy": [
         "KDBindableMinusCuffsA",
         "74E4E3B1-436A-4BB8-B7A2-0448E260A23C"
@@ -7614,7 +7614,7 @@
       },
       "Group": "ItemLegs"
     },
-    "57cd7fbf-a953-50b2-bbbf-51dd3dab2662": {
+    "4cc81a1b-4693-51d9-9782-2287bfe47114": {
       "requireAllTagsToEquip": [
         "74E4E3B1-436A-4BB8-B7A2-0448E260A23C"
       ],
@@ -7634,8 +7634,8 @@
       "allFloors": true,
       "preview": "CyberLink",
       "sfxRemove": "Crackling",
-      "Model": "766e7d23-72d9-553a-b59d-36fc7ac530bb",
-      "name": "57cd7fbf-a953-50b2-bbbf-51dd3dab2662",
+      "Model": "d836e3a7-dc2d-5005-8ff9-c15be6dbe3d5",
+      "name": "4cc81a1b-4693-51d9-9782-2287bfe47114",
       "LinkableBy": [
         "KDBindableMinusCuffsA",
         "74E4E3B1-436A-4BB8-B7A2-0448E260A23C"
@@ -8380,7 +8380,7 @@
         }
       ]
     },
-    "c11d5cf7-ae18-5007-b098-67f45e54bb9b": {
+    "c666b777-2c34-5dfd-ba74-8fa080d772d1": {
       "enemyTags": {},
       "shrine": [
         "6798ED87-6698-481A-98D2-7BD037700DFC",
@@ -8390,8 +8390,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "201f3533-fec4-53df-9768-3182f6982a5b",
-      "name": "c11d5cf7-ae18-5007-b098-67f45e54bb9b",
+      "Model": "48505c75-9c76-57c0-ac77-37cefdceb505",
+      "name": "c666b777-2c34-5dfd-ba74-8fa080d772d1",
       "LinkableBy": [
         "KDBlindfoldLinkA"
       ],
@@ -8423,7 +8423,7 @@
       },
       "Group": "ItemHead"
     },
-    "d7dd2a08-4a4c-5347-8d1c-f3ff29aa601c": {
+    "fb94e78c-7334-5514-a886-b449f7271abc": {
       "enemyTags": {},
       "shrine": [
         "A4F264B6-5AD2-40BC-94D4-F928D8F23040",
@@ -8433,8 +8433,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "0f91f20d-a92a-50f0-b7f9-1e407691a039",
-      "name": "d7dd2a08-4a4c-5347-8d1c-f3ff29aa601c",
+      "Model": "aa5ed5c6-c05e-5712-a46b-f7244f3e5000",
+      "name": "fb94e78c-7334-5514-a886-b449f7271abc",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -8466,7 +8466,7 @@
       },
       "Group": "ItemHead"
     },
-    "9688a048-8881-5d79-9c62-3a433624a8e2": {
+    "b280187a-f81d-5795-833a-5a19e18fb9f3": {
       "requireAllTagsToEquip": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
@@ -8482,8 +8482,8 @@
       "renderWhenLinked": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
-      "Model": "8f939b8b-cbd4-5d86-8407-c424e3736acf",
-      "name": "9688a048-8881-5d79-9c62-3a433624a8e2",
+      "Model": "02971757-c658-5926-8b00-9fbbd2404023",
+      "name": "b280187a-f81d-5795-833a-5a19e18fb9f3",
       "LinkableBy": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590",
         "KDMaskLinkA"
@@ -8517,7 +8517,7 @@
       },
       "Group": "ItemHead"
     },
-    "7fcb73d6-f1d0-59f6-9e67-7ebad5ffbd94": {
+    "c7e037f7-96d5-5453-b2db-9464b569a998": {
       "requireAllTagsToEquip": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
@@ -8533,8 +8533,8 @@
       "renderWhenLinked": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
-      "Model": "0adc26b2-050d-57a8-af31-023ec3d644dc",
-      "name": "7fcb73d6-f1d0-59f6-9e67-7ebad5ffbd94",
+      "Model": "ec795f98-4449-57e2-a411-aa48079f25a4",
+      "name": "c7e037f7-96d5-5453-b2db-9464b569a998",
       "LinkableBy": [
         "884C4320-844D-4B26-A708-0BE135980B80",
         "KDVisorLinkA"
@@ -8568,7 +8568,7 @@
       },
       "Group": "ItemHead"
     },
-    "25f5663d-a431-5bd0-bc2a-b0c8b9265b0a": {
+    "52ed7ded-18fc-528d-b75b-a37b3f62d352": {
       "enemyTags": {},
       "shrine": [
         "6798ED87-6698-481A-98D2-7BD037700DFC",
@@ -8578,8 +8578,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "51c58c11-d0ef-5f39-9ee8-720ea6a47a6f",
-      "name": "25f5663d-a431-5bd0-bc2a-b0c8b9265b0a",
+      "Model": "10a3f79b-bf93-5d44-893d-103e19831e70",
+      "name": "52ed7ded-18fc-528d-b75b-a37b3f62d352",
       "LinkableBy": [
         "KDBlindfoldLinkA"
       ],
@@ -8611,7 +8611,7 @@
       },
       "Group": "ItemHead"
     },
-    "9afe5727-c87e-546d-ad2a-05b9cca31c5f": {
+    "c973d0e0-0c2c-5448-a8fc-c438280c02a1": {
       "requireAllTagsToEquip": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
@@ -8627,8 +8627,8 @@
       "renderWhenLinked": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
-      "Model": "04c48920-95ad-51c7-82a1-9718b80eb2f7",
-      "name": "9afe5727-c87e-546d-ad2a-05b9cca31c5f",
+      "Model": "9548ca00-ee0b-5f9b-9114-7ecc301636ad",
+      "name": "c973d0e0-0c2c-5448-a8fc-c438280c02a1",
       "LinkableBy": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590",
         "KDMaskLinkA"
@@ -8662,7 +8662,7 @@
       },
       "Group": "ItemHead"
     },
-    "c9988157-f094-5979-91d8-4f64fea8d58a": {
+    "bd175829-8fad-5c18-8009-68c74733b30f": {
       "requireAllTagsToEquip": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
@@ -8678,8 +8678,8 @@
       "renderWhenLinked": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
-      "Model": "cfaa0475-1e75-5410-bc6c-8c30d884a331",
-      "name": "c9988157-f094-5979-91d8-4f64fea8d58a",
+      "Model": "88046131-9f7e-53e4-99eb-ef489591a20a",
+      "name": "bd175829-8fad-5c18-8009-68c74733b30f",
       "LinkableBy": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590",
         "KDMaskLinkA"
@@ -8713,7 +8713,7 @@
       },
       "Group": "ItemHead"
     },
-    "02feed1b-fd62-5b77-b55d-7819bcb0c916": {
+    "07162efa-1268-5b28-842e-c21c60e45748": {
       "enemyTags": {},
       "shrine": [
         "A4F264B6-5AD2-40BC-94D4-F928D8F23040",
@@ -8723,8 +8723,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "00d887bf-7a15-52c9-b684-999b4523e0b7",
-      "name": "02feed1b-fd62-5b77-b55d-7819bcb0c916",
+      "Model": "91eaf4a5-fc29-5777-a70a-941c04beba56",
+      "name": "07162efa-1268-5b28-842e-c21c60e45748",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -8756,7 +8756,7 @@
       },
       "Group": "ItemHead"
     },
-    "cf2c6561-793f-51e6-84ee-6eaaf848cfef": {
+    "7236988b-5b57-5a04-ba47-eefcda14f7bd": {
       "enemyTags": {},
       "shrine": [
         "6798ED87-6698-481A-98D2-7BD037700DFC",
@@ -8766,8 +8766,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "cf7f8673-d2c1-5432-904e-990d87b665a6",
-      "name": "cf2c6561-793f-51e6-84ee-6eaaf848cfef",
+      "Model": "2c8c22a9-7606-55cf-b45b-b78359bc33d2",
+      "name": "7236988b-5b57-5a04-ba47-eefcda14f7bd",
       "LinkableBy": [
         "KDBlindfoldLinkA"
       ],
@@ -8799,7 +8799,7 @@
       },
       "Group": "ItemHead"
     },
-    "4dc5029f-be40-5e48-89d8-82b4351e794c": {
+    "53ad57e8-92d1-5edb-a2fe-febeaf380193": {
       "requireAllTagsToEquip": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
@@ -8815,8 +8815,8 @@
       "renderWhenLinked": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
-      "Model": "cff6f669-e164-56cd-879c-dfebcb4a8814",
-      "name": "4dc5029f-be40-5e48-89d8-82b4351e794c",
+      "Model": "7848f7fe-3a31-5d37-aece-c73281e97717",
+      "name": "53ad57e8-92d1-5edb-a2fe-febeaf380193",
       "LinkableBy": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381",
         "KDBlindfoldLinkA"
@@ -8850,7 +8850,7 @@
       },
       "Group": "ItemHead"
     },
-    "888b2642-13b8-505e-b20b-6ca269d080e6": {
+    "a89a6785-fd02-50ed-8cef-fdbb006df798": {
       "enemyTags": {},
       "shrine": [
         "29DB8B83-CDC4-45A5-A3AA-481AE1F85193",
@@ -8860,8 +8860,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "a567f2fc-401a-5fdb-b1e5-b9a3c01a51f6",
-      "name": "888b2642-13b8-505e-b20b-6ca269d080e6",
+      "Model": "52ffeebd-9a3f-51e2-9659-f828b33b903f",
+      "name": "a89a6785-fd02-50ed-8cef-fdbb006df798",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -8892,7 +8892,7 @@
       },
       "Group": "ItemHead"
     },
-    "e93dd1b9-5428-5c2e-9d5b-170361dd480f": {
+    "54a4b93b-407d-5d80-bfd2-7ab27795567e": {
       "requireAllTagsToEquip": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
@@ -8908,8 +8908,8 @@
       "renderWhenLinked": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
-      "Model": "8697f2e6-6699-5f5e-b1ed-647c9378ca59",
-      "name": "e93dd1b9-5428-5c2e-9d5b-170361dd480f",
+      "Model": "a15b7e52-b259-5cce-8d1c-600095ab2f17",
+      "name": "54a4b93b-407d-5d80-bfd2-7ab27795567e",
       "LinkableBy": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381",
         "KDBlindfoldLinkA"
@@ -8943,7 +8943,7 @@
       },
       "Group": "ItemHead"
     },
-    "0f3a5d9d-7eb7-57f2-a07b-6388f2d2ce28": {
+    "3609013f-202f-5516-a4eb-2b75a51e89b7": {
       "requireAllTagsToEquip": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
@@ -8959,8 +8959,8 @@
       "renderWhenLinked": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
-      "Model": "e944878b-6968-5968-a658-ee1e7caafb61",
-      "name": "0f3a5d9d-7eb7-57f2-a07b-6388f2d2ce28",
+      "Model": "37bee9c4-1863-5ce4-9a5f-00bf4a202942",
+      "name": "3609013f-202f-5516-a4eb-2b75a51e89b7",
       "LinkableBy": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590",
         "KDMaskLinkA"
@@ -8994,7 +8994,7 @@
       },
       "Group": "ItemHead"
     },
-    "08c9b625-2351-56e4-a46f-5b2d5d69cf39": {
+    "0d7b3bff-1907-5b7c-bb33-c7a10e412d88": {
       "requireAllTagsToEquip": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
@@ -9010,8 +9010,8 @@
       "renderWhenLinked": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
-      "Model": "bfe396d4-c96b-5665-91b8-da09ee6405b7",
-      "name": "08c9b625-2351-56e4-a46f-5b2d5d69cf39",
+      "Model": "68ba9f49-0afa-5636-918f-61fc1890b83d",
+      "name": "0d7b3bff-1907-5b7c-bb33-c7a10e412d88",
       "LinkableBy": [
         "884C4320-844D-4B26-A708-0BE135980B80",
         "KDVisorLinkA"
@@ -9045,7 +9045,7 @@
       },
       "Group": "ItemHead"
     },
-    "824bcb91-82ae-5d04-b934-bca1c3eed427": {
+    "9bfe8f06-6886-5adc-bc63-3f885c0a43cb": {
       "requireAllTagsToEquip": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
@@ -9061,8 +9061,8 @@
       "renderWhenLinked": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
-      "Model": "6e0f37ab-5045-50c5-a0f6-552a05cd950b",
-      "name": "824bcb91-82ae-5d04-b934-bca1c3eed427",
+      "Model": "9152f585-9fd9-595b-be3d-8ba03251aa1d",
+      "name": "9bfe8f06-6886-5adc-bc63-3f885c0a43cb",
       "LinkableBy": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590",
         "KDMaskLinkA"
@@ -9096,7 +9096,7 @@
       },
       "Group": "ItemHead"
     },
-    "6bbb6ef5-afd7-51de-89f7-2748e5fa6458": {
+    "799851c5-7c72-55ef-b668-546fb49ffe6d": {
       "enemyTags": {},
       "shrine": [
         "29DB8B83-CDC4-45A5-A3AA-481AE1F85193",
@@ -9106,8 +9106,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "7eb461b2-3fc9-5a99-a090-bbbd3101df32",
-      "name": "6bbb6ef5-afd7-51de-89f7-2748e5fa6458",
+      "Model": "ab8348a1-510d-5131-be87-8e4b9d2d7831",
+      "name": "799851c5-7c72-55ef-b668-546fb49ffe6d",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -9139,7 +9139,7 @@
       },
       "Group": "ItemHead"
     },
-    "b2c18ec3-7361-5eb7-9fc4-a1861f7b7a7d": {
+    "bd522393-0424-5c88-9a48-c942ef4155d2": {
       "requireAllTagsToEquip": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
@@ -9155,8 +9155,8 @@
       "renderWhenLinked": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
-      "Model": "b52b337e-3612-5e64-9a31-ac4c887c3f78",
-      "name": "b2c18ec3-7361-5eb7-9fc4-a1861f7b7a7d",
+      "Model": "8c6a5b50-0c29-5880-9295-afdb04787173",
+      "name": "bd522393-0424-5c88-9a48-c942ef4155d2",
       "LinkableBy": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F",
         "KDMaskLinkA"
@@ -9189,7 +9189,7 @@
       },
       "Group": "ItemHead"
     },
-    "19ca58a5-d4db-5973-b7d9-d4bd6a5a6cf1": {
+    "3f535b78-37e2-5d76-8d5c-12ea0b9a1af4": {
       "requireAllTagsToEquip": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
@@ -9205,8 +9205,8 @@
       "renderWhenLinked": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
-      "Model": "1c9f9a8d-6d9a-5742-8e40-89c5d8b7e2fa",
-      "name": "19ca58a5-d4db-5973-b7d9-d4bd6a5a6cf1",
+      "Model": "ca30c0e6-65d7-5d80-929b-d7f4497c82e0",
+      "name": "3f535b78-37e2-5d76-8d5c-12ea0b9a1af4",
       "LinkableBy": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F",
         "KDMaskLinkA"
@@ -9240,7 +9240,7 @@
       },
       "Group": "ItemHead"
     },
-    "1edd8e94-35e5-52ab-8627-95fd106974e5": {
+    "5b30477d-cff4-5e33-9689-5d678468c972": {
       "requireAllTagsToEquip": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
@@ -9256,8 +9256,8 @@
       "renderWhenLinked": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
-      "Model": "d658aa31-f5b1-54d1-ac3c-31074cce98b1",
-      "name": "1edd8e94-35e5-52ab-8627-95fd106974e5",
+      "Model": "873895d0-f935-5f78-a207-b517e67ce271",
+      "name": "5b30477d-cff4-5e33-9689-5d678468c972",
       "LinkableBy": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F",
         "KDMaskLinkA"
@@ -9291,7 +9291,7 @@
       },
       "Group": "ItemHead"
     },
-    "ce749c5e-9820-59fb-91cd-aa27dff38aba": {
+    "988ee5a3-33c5-5fde-bc16-05355357ba15": {
       "enemyTags": {},
       "shrine": [
         "A4F264B6-5AD2-40BC-94D4-F928D8F23040",
@@ -9301,8 +9301,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "8156535b-be7c-54c7-808e-3267dbcc43ac",
-      "name": "ce749c5e-9820-59fb-91cd-aa27dff38aba",
+      "Model": "4441e2a6-30ad-5e0e-94bd-4be8c1304de7",
+      "name": "988ee5a3-33c5-5fde-bc16-05355357ba15",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -9334,7 +9334,7 @@
       },
       "Group": "ItemHead"
     },
-    "b05adbce-1537-5f24-8c6f-5af182bc6f8f": {
+    "4519df24-fe8b-5561-b952-48f7e0b5ae05": {
       "requireAllTagsToEquip": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
@@ -9350,8 +9350,8 @@
       "renderWhenLinked": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
-      "Model": "fc54de4d-978c-5276-9e5c-6bfcb4beff1b",
-      "name": "b05adbce-1537-5f24-8c6f-5af182bc6f8f",
+      "Model": "87e9246e-9819-5b83-955c-99ef22b80893",
+      "name": "4519df24-fe8b-5561-b952-48f7e0b5ae05",
       "LinkableBy": [
         "884C4320-844D-4B26-A708-0BE135980B80",
         "KDVisorLinkA"
@@ -9385,7 +9385,7 @@
       },
       "Group": "ItemHead"
     },
-    "bf581f04-30b2-567c-869f-2a70e0313a20": {
+    "98615614-ce47-54ce-b1e9-e4e7b8c30bb5": {
       "requireAllTagsToEquip": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
@@ -9401,8 +9401,8 @@
       "renderWhenLinked": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
-      "Model": "222116a0-a404-57d3-8e87-cd7deca9e47b",
-      "name": "bf581f04-30b2-567c-869f-2a70e0313a20",
+      "Model": "f892e767-5a3e-59b4-bd3e-6d63ec784ff9",
+      "name": "98615614-ce47-54ce-b1e9-e4e7b8c30bb5",
       "LinkableBy": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381",
         "KDBlindfoldLinkA"
@@ -9435,7 +9435,7 @@
       },
       "Group": "ItemHead"
     },
-    "a33c86f6-b8f7-5898-899a-6bf5f3983779": {
+    "09d2aae8-1b0e-5243-aaa0-94bef3119e60": {
       "enemyTags": {},
       "shrine": [
         "D985C637-0514-49C6-BD00-17DB7C63D2D7",
@@ -9445,8 +9445,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "8ee462dd-be36-5a10-9d2e-4911da0a33d9",
-      "name": "a33c86f6-b8f7-5898-899a-6bf5f3983779",
+      "Model": "2d905b89-cb88-5c71-b6f4-da9f3f3e164a",
+      "name": "09d2aae8-1b0e-5243-aaa0-94bef3119e60",
       "LinkableBy": [
         "KDVisorLinkA"
       ],
@@ -9478,7 +9478,7 @@
       },
       "Group": "ItemHead"
     },
-    "c9f93548-bfc0-567e-80e9-c8130e604538": {
+    "86e98029-b600-5c32-b5c5-6c4dbb388074": {
       "enemyTags": {},
       "shrine": [
         "6798ED87-6698-481A-98D2-7BD037700DFC",
@@ -9488,8 +9488,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "a6392e59-a0a2-5696-952e-b0033781cc0c",
-      "name": "c9f93548-bfc0-567e-80e9-c8130e604538",
+      "Model": "94d752c0-9a05-5fbd-a566-6c5eb2352d67",
+      "name": "86e98029-b600-5c32-b5c5-6c4dbb388074",
       "LinkableBy": [
         "KDBlindfoldLinkA"
       ],
@@ -9520,7 +9520,7 @@
       },
       "Group": "ItemHead"
     },
-    "87ff6c34-9dc2-51ce-b80d-67ed22c8fe5b": {
+    "c4aff19b-2b51-56a6-9134-f3d8a6f21e96": {
       "requireAllTagsToEquip": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
@@ -9536,8 +9536,8 @@
       "renderWhenLinked": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
-      "Model": "57eb4552-72b9-5061-96fa-dfee58de8a35",
-      "name": "87ff6c34-9dc2-51ce-b80d-67ed22c8fe5b",
+      "Model": "1a6635c0-dcfa-52d1-ba04-9f370430ba25",
+      "name": "c4aff19b-2b51-56a6-9134-f3d8a6f21e96",
       "LinkableBy": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590",
         "KDMaskLinkA"
@@ -9570,7 +9570,7 @@
       },
       "Group": "ItemHead"
     },
-    "148802f5-a2ba-554a-9b17-e567b4b8b00d": {
+    "656736b8-1ebf-5218-8087-4f88ab9864a1": {
       "requireAllTagsToEquip": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
@@ -9586,8 +9586,8 @@
       "renderWhenLinked": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
-      "Model": "8a1026ad-5acd-5818-9075-ffa7622fd95e",
-      "name": "148802f5-a2ba-554a-9b17-e567b4b8b00d",
+      "Model": "477e7830-3e9b-55a8-8150-065e2747e79c",
+      "name": "656736b8-1ebf-5218-8087-4f88ab9864a1",
       "LinkableBy": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381",
         "KDBlindfoldLinkA"
@@ -9621,7 +9621,7 @@
       },
       "Group": "ItemHead"
     },
-    "bf850c88-8435-536a-90b2-d79bcb0724f9": {
+    "9c3b6735-8e61-5036-a902-95caee81d5ac": {
       "enemyTags": {},
       "shrine": [
         "6798ED87-6698-481A-98D2-7BD037700DFC",
@@ -9631,8 +9631,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "e758dbe6-9487-539c-8208-df03023d538b",
-      "name": "bf850c88-8435-536a-90b2-d79bcb0724f9",
+      "Model": "5b2ac4d3-efa9-58b8-b80f-32b669c177cb",
+      "name": "9c3b6735-8e61-5036-a902-95caee81d5ac",
       "LinkableBy": [
         "KDBlindfoldLinkA"
       ],
@@ -9664,7 +9664,7 @@
       },
       "Group": "ItemHead"
     },
-    "4fee0caa-bedd-5f6f-997e-d11804ee1a1b": {
+    "c99d1f89-04de-5299-ab6f-73e504c141f4": {
       "enemyTags": {},
       "shrine": [
         "A4F264B6-5AD2-40BC-94D4-F928D8F23040",
@@ -9674,8 +9674,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "4065a07c-7bf8-5552-8486-38135af49fee",
-      "name": "4fee0caa-bedd-5f6f-997e-d11804ee1a1b",
+      "Model": "ff41ebf6-fca4-5631-9f6a-a51d83d7c267",
+      "name": "c99d1f89-04de-5299-ab6f-73e504c141f4",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -9707,7 +9707,7 @@
       },
       "Group": "ItemHead"
     },
-    "7422984c-4810-582a-bb30-69e5575c032b": {
+    "4512dda0-1365-5f52-9619-20e7b3361b5c": {
       "requireAllTagsToEquip": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
@@ -9723,8 +9723,8 @@
       "renderWhenLinked": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
-      "Model": "5c9a5684-ef97-50a4-b1b2-2ac1a8a4f3dd",
-      "name": "7422984c-4810-582a-bb30-69e5575c032b",
+      "Model": "c19639c0-242d-5148-9ed0-0c951a4e32d2",
+      "name": "4512dda0-1365-5f52-9619-20e7b3361b5c",
       "LinkableBy": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F",
         "KDMaskLinkA"
@@ -9758,7 +9758,7 @@
       },
       "Group": "ItemHead"
     },
-    "5b843e93-97b5-527c-882e-bd6a67cc62a6": {
+    "e230c055-9147-57b4-a430-7cef972b5339": {
       "enemyTags": {},
       "shrine": [
         "A4F264B6-5AD2-40BC-94D4-F928D8F23040",
@@ -9768,8 +9768,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "facab414-8cf3-5e12-ab3d-0a48005135f6",
-      "name": "5b843e93-97b5-527c-882e-bd6a67cc62a6",
+      "Model": "8f30bc4a-0e01-543a-84b9-18d277aa084c",
+      "name": "e230c055-9147-57b4-a430-7cef972b5339",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -9800,7 +9800,7 @@
       },
       "Group": "ItemHead"
     },
-    "7d7dce9e-05e1-50e8-91e0-208aaca6e654": {
+    "9cb48c55-d447-5626-8dd3-a3a88a8c829f": {
       "enemyTags": {},
       "shrine": [
         "29DB8B83-CDC4-45A5-A3AA-481AE1F85193",
@@ -9810,8 +9810,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "8e57bf6f-38e1-5eef-b515-b69bcbfeec29",
-      "name": "7d7dce9e-05e1-50e8-91e0-208aaca6e654",
+      "Model": "9b14aca5-a7fb-57f8-9f20-995a939691d9",
+      "name": "9cb48c55-d447-5626-8dd3-a3a88a8c829f",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -9843,7 +9843,7 @@
       },
       "Group": "ItemHead"
     },
-    "4bbe6d4d-b2f0-59bc-b71d-98e0f4afd833": {
+    "244d12cf-a4e2-5c13-b376-abef3ea1a1c8": {
       "requireAllTagsToEquip": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
@@ -9859,8 +9859,8 @@
       "renderWhenLinked": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
-      "Model": "426cbfe3-d54c-504b-a292-780843937806",
-      "name": "4bbe6d4d-b2f0-59bc-b71d-98e0f4afd833",
+      "Model": "3d6fad3a-c1de-5d59-ba32-0b00c4f696d4",
+      "name": "244d12cf-a4e2-5c13-b376-abef3ea1a1c8",
       "LinkableBy": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381",
         "KDBlindfoldLinkA"
@@ -9894,7 +9894,7 @@
       },
       "Group": "ItemHead"
     },
-    "30df9f0b-3cf9-5709-a922-c9b2223d83e9": {
+    "54b32ad7-af91-5cf3-a826-a305c4a57c0f": {
       "enemyTags": {},
       "shrine": [
         "A4F264B6-5AD2-40BC-94D4-F928D8F23040",
@@ -9904,8 +9904,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "4b1de67b-d541-54e4-83cd-104ea0743a7a",
-      "name": "30df9f0b-3cf9-5709-a922-c9b2223d83e9",
+      "Model": "2afacf4c-2a09-5a22-bae3-f23d06702ed2",
+      "name": "54b32ad7-af91-5cf3-a826-a305c4a57c0f",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -9937,7 +9937,7 @@
       },
       "Group": "ItemHead"
     },
-    "e8038c23-21b0-5dc5-85eb-075075f86623": {
+    "661520be-5506-5a91-b73a-683e4a6f4af0": {
       "requireAllTagsToEquip": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
@@ -9953,8 +9953,8 @@
       "renderWhenLinked": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
-      "Model": "01c796bf-9f10-5ead-8b5a-b36e62261cb6",
-      "name": "e8038c23-21b0-5dc5-85eb-075075f86623",
+      "Model": "d896d238-0c32-5ea5-9c78-da01ee8b6595",
+      "name": "661520be-5506-5a91-b73a-683e4a6f4af0",
       "LinkableBy": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F",
         "KDMaskLinkA"
@@ -9987,7 +9987,7 @@
       },
       "Group": "ItemHead"
     },
-    "9deea359-4183-53d1-8b6b-39744153cdd6": {
+    "68987c0e-d18e-5b69-96c8-712df4653b87": {
       "requireAllTagsToEquip": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
@@ -10003,8 +10003,8 @@
       "renderWhenLinked": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
-      "Model": "c8dc2630-057d-553a-81a8-3b7af5a2ad4b",
-      "name": "9deea359-4183-53d1-8b6b-39744153cdd6",
+      "Model": "340cd292-604a-5840-8092-f38b70ca2776",
+      "name": "68987c0e-d18e-5b69-96c8-712df4653b87",
       "LinkableBy": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F",
         "KDMaskLinkA"
@@ -10038,7 +10038,7 @@
       },
       "Group": "ItemHead"
     },
-    "dbcdf674-bcf0-5d4f-acd5-1975934189e7": {
+    "8dcd6701-7390-5852-bba9-66531581b498": {
       "requireAllTagsToEquip": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
@@ -10054,8 +10054,8 @@
       "renderWhenLinked": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
-      "Model": "831b6eae-f119-53a7-98b0-91cc4e01d3b1",
-      "name": "dbcdf674-bcf0-5d4f-acd5-1975934189e7",
+      "Model": "fb194d79-890a-5ae1-aa83-98ce813d4b2d",
+      "name": "8dcd6701-7390-5852-bba9-66531581b498",
       "LinkableBy": [
         "884C4320-844D-4B26-A708-0BE135980B80",
         "KDVisorLinkA"
@@ -10088,7 +10088,7 @@
       },
       "Group": "ItemHead"
     },
-    "9e4d8510-4527-5d21-9b83-1699293f1c0a": {
+    "d1f13882-8996-596b-bfae-229d6e6d3347": {
       "requireAllTagsToEquip": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
@@ -10104,8 +10104,8 @@
       "renderWhenLinked": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
-      "Model": "090bab07-06e8-50fa-96a6-fa6f9523922e",
-      "name": "9e4d8510-4527-5d21-9b83-1699293f1c0a",
+      "Model": "e1840ca9-7911-54fe-aca2-8098f3ccae55",
+      "name": "d1f13882-8996-596b-bfae-229d6e6d3347",
       "LinkableBy": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590",
         "KDMaskLinkA"
@@ -10138,7 +10138,7 @@
       },
       "Group": "ItemHead"
     },
-    "a19cf644-8914-5bf6-96fc-cc6fb712141c": {
+    "60db09c6-e59d-5254-8bb4-d73e2a8e2658": {
       "requireAllTagsToEquip": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
@@ -10154,8 +10154,8 @@
       "renderWhenLinked": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
-      "Model": "0a898f97-d282-563b-8fc8-3fd2ab5a9d45",
-      "name": "a19cf644-8914-5bf6-96fc-cc6fb712141c",
+      "Model": "2b61a55d-ec11-5049-abca-57b81c236f26",
+      "name": "60db09c6-e59d-5254-8bb4-d73e2a8e2658",
       "LinkableBy": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381",
         "KDBlindfoldLinkA"
@@ -10188,7 +10188,7 @@
       },
       "Group": "ItemHead"
     },
-    "7069483c-c176-54b4-b3aa-112ade0f4900": {
+    "b220e2f5-2b24-5cb2-9232-624d6cdf5a59": {
       "enemyTags": {},
       "shrine": [
         "A4F264B6-5AD2-40BC-94D4-F928D8F23040",
@@ -10198,8 +10198,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "0f932171-3da9-54f0-b3e5-3744309993d5",
-      "name": "7069483c-c176-54b4-b3aa-112ade0f4900",
+      "Model": "addc0ea3-e49f-528a-95f3-6c55b000106d",
+      "name": "b220e2f5-2b24-5cb2-9232-624d6cdf5a59",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -10230,7 +10230,7 @@
       },
       "Group": "ItemHead"
     },
-    "44b2bbbe-ae33-5ce4-a8c2-fbdceaf6cf0b": {
+    "9d1af538-0f0f-5a0a-b207-8b6a1fa2c56c": {
       "enemyTags": {},
       "shrine": [
         "6798ED87-6698-481A-98D2-7BD037700DFC",
@@ -10240,8 +10240,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "8a7a6546-8d9f-5acf-b919-7b69cd9aab3c",
-      "name": "44b2bbbe-ae33-5ce4-a8c2-fbdceaf6cf0b",
+      "Model": "7dfd40f1-6c50-5a53-a5d8-6a5870403460",
+      "name": "9d1af538-0f0f-5a0a-b207-8b6a1fa2c56c",
       "LinkableBy": [
         "KDBlindfoldLinkA"
       ],
@@ -10272,7 +10272,7 @@
       },
       "Group": "ItemHead"
     },
-    "732af275-e475-542e-a19a-c0e9d103393c": {
+    "16a9023a-c3e6-5dcf-8570-ebc6cc3e94d2": {
       "enemyTags": {},
       "shrine": [
         "6798ED87-6698-481A-98D2-7BD037700DFC",
@@ -10282,8 +10282,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "e7583c2e-205a-52fe-b544-3cb895db6ce5",
-      "name": "732af275-e475-542e-a19a-c0e9d103393c",
+      "Model": "992657cf-77df-5a3f-96c3-f8d1ec3b4608",
+      "name": "16a9023a-c3e6-5dcf-8570-ebc6cc3e94d2",
       "LinkableBy": [
         "KDBlindfoldLinkA"
       ],
@@ -10315,7 +10315,7 @@
       },
       "Group": "ItemHead"
     },
-    "fb2d16a2-1789-5834-b046-1b011d8dd4d7": {
+    "2e0ceba1-4e1b-5bb9-b4ea-2388a49cb261": {
       "requireAllTagsToEquip": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
@@ -10331,8 +10331,8 @@
       "renderWhenLinked": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
-      "Model": "fee639ce-6ccd-5e54-b25b-9f8a5ab5648b",
-      "name": "fb2d16a2-1789-5834-b046-1b011d8dd4d7",
+      "Model": "5379308a-a86d-5832-9cfb-f90697953deb",
+      "name": "2e0ceba1-4e1b-5bb9-b4ea-2388a49cb261",
       "LinkableBy": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590",
         "KDMaskLinkA"
@@ -10366,7 +10366,7 @@
       },
       "Group": "ItemHead"
     },
-    "7799b07e-fd8e-57ca-b981-f5c2264d7338": {
+    "b410345a-1f70-58e6-b724-3bbab82b4e79": {
       "requireAllTagsToEquip": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
@@ -10382,8 +10382,8 @@
       "renderWhenLinked": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
-      "Model": "3e7fb3dd-3ef8-5c56-9939-9ffbed4a95af",
-      "name": "7799b07e-fd8e-57ca-b981-f5c2264d7338",
+      "Model": "8ce8d818-54a1-5154-bd82-103189df948f",
+      "name": "b410345a-1f70-58e6-b724-3bbab82b4e79",
       "LinkableBy": [
         "884C4320-844D-4B26-A708-0BE135980B80",
         "KDVisorLinkA"
@@ -10417,7 +10417,7 @@
       },
       "Group": "ItemHead"
     },
-    "4f4400f8-55c0-5b48-8c26-1a452a379209": {
+    "a41c5ad4-f5f1-58fc-86ad-28acf671276a": {
       "enemyTags": {},
       "shrine": [
         "29DB8B83-CDC4-45A5-A3AA-481AE1F85193",
@@ -10427,8 +10427,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "677dceb0-e478-546d-9dc3-2833d4f0b94d",
-      "name": "4f4400f8-55c0-5b48-8c26-1a452a379209",
+      "Model": "f39d2b05-1f24-5932-9879-d3c9b83a714f",
+      "name": "a41c5ad4-f5f1-58fc-86ad-28acf671276a",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -10460,7 +10460,7 @@
       },
       "Group": "ItemHead"
     },
-    "977d42e0-5273-5ae3-b189-82f1bf5db5e3": {
+    "b6e6e6cc-806d-51aa-96e1-57662246bdbe": {
       "requireAllTagsToEquip": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
@@ -10476,8 +10476,8 @@
       "renderWhenLinked": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
-      "Model": "21f50b34-9b19-50f8-b88f-fd0d6adb860e",
-      "name": "977d42e0-5273-5ae3-b189-82f1bf5db5e3",
+      "Model": "985426fa-892c-5a8b-a507-9964d71083fa",
+      "name": "b6e6e6cc-806d-51aa-96e1-57662246bdbe",
       "LinkableBy": [
         "884C4320-844D-4B26-A708-0BE135980B80",
         "KDVisorLinkA"
@@ -10510,7 +10510,7 @@
       },
       "Group": "ItemHead"
     },
-    "b976a593-c530-59d2-8207-e406e2857bc9": {
+    "b8568c08-f37e-555f-a8f9-3d6750e4f5c1": {
       "enemyTags": {},
       "shrine": [
         "29DB8B83-CDC4-45A5-A3AA-481AE1F85193",
@@ -10520,8 +10520,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "4c4cad45-6062-523e-a96e-e43429e466a2",
-      "name": "b976a593-c530-59d2-8207-e406e2857bc9",
+      "Model": "86b58764-b220-5e90-bf16-5109b1cd57cc",
+      "name": "b8568c08-f37e-555f-a8f9-3d6750e4f5c1",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -10552,7 +10552,7 @@
       },
       "Group": "ItemHead"
     },
-    "89d6b891-8006-53f1-aed1-64c9788d673f": {
+    "c71b0bba-aeae-5262-acce-735a5f25b53a": {
       "enemyTags": {},
       "shrine": [
         "6798ED87-6698-481A-98D2-7BD037700DFC",
@@ -10562,8 +10562,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "0fd8bb10-5ba5-5164-a482-fef0bf3aae4f",
-      "name": "89d6b891-8006-53f1-aed1-64c9788d673f",
+      "Model": "d9953e0d-5fe7-50ff-a82e-2865c108ce48",
+      "name": "c71b0bba-aeae-5262-acce-735a5f25b53a",
       "LinkableBy": [
         "KDBlindfoldLinkA"
       ],
@@ -10595,7 +10595,7 @@
       },
       "Group": "ItemHead"
     },
-    "4fe76b2e-60ef-536f-ab2e-041c801ae164": {
+    "779e603f-55e2-55a5-8581-31895dcd6109": {
       "enemyTags": {},
       "shrine": [
         "6798ED87-6698-481A-98D2-7BD037700DFC",
@@ -10605,8 +10605,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "33a35c0d-49d5-5b68-b2c0-6942cb489041",
-      "name": "4fe76b2e-60ef-536f-ab2e-041c801ae164",
+      "Model": "46fa7163-a33d-5c78-8d18-bec55c5d89f6",
+      "name": "779e603f-55e2-55a5-8581-31895dcd6109",
       "LinkableBy": [
         "KDBlindfoldLinkA"
       ],
@@ -10638,7 +10638,7 @@
       },
       "Group": "ItemHead"
     },
-    "4dd602d9-aeff-56f2-8431-f1e5e0811666": {
+    "9a1a61c2-34c7-5968-9a77-6d9b7bc06776": {
       "requireAllTagsToEquip": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
@@ -10654,8 +10654,8 @@
       "renderWhenLinked": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
-      "Model": "8afecfd8-e64e-55eb-b67a-16150e055df2",
-      "name": "4dd602d9-aeff-56f2-8431-f1e5e0811666",
+      "Model": "9c44baea-c61f-55ac-8dfc-151e363d5f6b",
+      "name": "9a1a61c2-34c7-5968-9a77-6d9b7bc06776",
       "LinkableBy": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590",
         "KDMaskLinkA"
@@ -10689,7 +10689,7 @@
       },
       "Group": "ItemHead"
     },
-    "d5e02e2a-4a8a-529f-9626-b66eab39a08b": {
+    "d45095a9-9410-5e27-965f-5de755b42d46": {
       "requireAllTagsToEquip": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
@@ -10705,8 +10705,8 @@
       "renderWhenLinked": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590"
       ],
-      "Model": "73baba5e-fd43-5ee3-9d81-1ff1f1aa33db",
-      "name": "d5e02e2a-4a8a-529f-9626-b66eab39a08b",
+      "Model": "a7a6640c-3a55-568e-af17-bf07b188ab60",
+      "name": "d45095a9-9410-5e27-965f-5de755b42d46",
       "LinkableBy": [
         "3978C22D-E2AC-49F3-8D89-689CE4AA0590",
         "KDMaskLinkA"
@@ -10740,7 +10740,7 @@
       },
       "Group": "ItemHead"
     },
-    "c40094e4-1ccf-5c9f-b7bf-58f7e7e8695a": {
+    "ad7f0208-2005-5652-8074-5f9b60901d7a": {
       "requireAllTagsToEquip": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
@@ -10756,8 +10756,8 @@
       "renderWhenLinked": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
-      "Model": "bda5f470-8267-5359-a0f5-cf9b1f402078",
-      "name": "c40094e4-1ccf-5c9f-b7bf-58f7e7e8695a",
+      "Model": "e32208e0-31be-5ee2-8f19-9e33a123300d",
+      "name": "ad7f0208-2005-5652-8074-5f9b60901d7a",
       "LinkableBy": [
         "884C4320-844D-4B26-A708-0BE135980B80",
         "KDVisorLinkA"
@@ -10791,7 +10791,7 @@
       },
       "Group": "ItemHead"
     },
-    "72ff3224-edf2-50b9-a296-a439e0f67e5b": {
+    "72daf873-408e-57e1-bf49-1bc64f4a3c76": {
       "enemyTags": {},
       "shrine": [
         "29DB8B83-CDC4-45A5-A3AA-481AE1F85193",
@@ -10801,8 +10801,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "ce371921-afdd-511a-9d20-eaf595b0c5d7",
-      "name": "72ff3224-edf2-50b9-a296-a439e0f67e5b",
+      "Model": "40e19d5c-381a-5265-993f-03efb6842aab",
+      "name": "72daf873-408e-57e1-bf49-1bc64f4a3c76",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -10834,7 +10834,7 @@
       },
       "Group": "ItemHead"
     },
-    "226dccb9-aa44-51d3-8049-998758e066cc": {
+    "c48c6593-dc8c-5baf-9c97-6c69a1d70f3d": {
       "requireAllTagsToEquip": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
@@ -10850,8 +10850,8 @@
       "renderWhenLinked": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
-      "Model": "e11eec76-7679-5e83-b2fd-960f56167bdd",
-      "name": "226dccb9-aa44-51d3-8049-998758e066cc",
+      "Model": "391a1cdb-a358-5dba-8f5f-49b8e11f0bd2",
+      "name": "c48c6593-dc8c-5baf-9c97-6c69a1d70f3d",
       "LinkableBy": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381",
         "KDBlindfoldLinkA"
@@ -10885,7 +10885,7 @@
       },
       "Group": "ItemHead"
     },
-    "bd0427d5-66e2-5e01-bb24-51b12f5462f5": {
+    "0777c082-5783-57d1-8778-92f816ea4541": {
       "enemyTags": {},
       "shrine": [
         "D985C637-0514-49C6-BD00-17DB7C63D2D7",
@@ -10895,8 +10895,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "3b8a0a4b-4dcb-53d8-abc9-6815c4e08d89",
-      "name": "bd0427d5-66e2-5e01-bb24-51b12f5462f5",
+      "Model": "e2a632b9-fd3e-5b67-b34a-f037fb11c646",
+      "name": "0777c082-5783-57d1-8778-92f816ea4541",
       "LinkableBy": [
         "KDVisorLinkA"
       ],
@@ -10928,7 +10928,7 @@
       },
       "Group": "ItemHead"
     },
-    "13847f0b-cc52-54ee-ba3f-53adbd0ebe17": {
+    "89a5a6ab-d425-565e-98ec-40d2b56b2d10": {
       "requireAllTagsToEquip": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
@@ -10944,8 +10944,8 @@
       "renderWhenLinked": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
-      "Model": "af76e863-6422-595a-95d7-5c647191ba09",
-      "name": "13847f0b-cc52-54ee-ba3f-53adbd0ebe17",
+      "Model": "a2cf49e3-3269-50b0-a922-1b675b13043d",
+      "name": "89a5a6ab-d425-565e-98ec-40d2b56b2d10",
       "LinkableBy": [
         "884C4320-844D-4B26-A708-0BE135980B80",
         "KDVisorLinkA"
@@ -10979,7 +10979,7 @@
       },
       "Group": "ItemHead"
     },
-    "af46d1c5-3aac-54cc-8d71-571ea8290eaf": {
+    "848ce900-542d-5543-b3e5-3283fdd1a921": {
       "enemyTags": {},
       "shrine": [
         "29DB8B83-CDC4-45A5-A3AA-481AE1F85193",
@@ -10989,8 +10989,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "25deb1e3-8213-592f-bf78-7173f6efc2e1",
-      "name": "af46d1c5-3aac-54cc-8d71-571ea8290eaf",
+      "Model": "84b5ea7f-19cb-52d9-a8f3-210061e1448b",
+      "name": "848ce900-542d-5543-b3e5-3283fdd1a921",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -11022,7 +11022,7 @@
       },
       "Group": "ItemHead"
     },
-    "ef1709f5-d15f-5904-b03d-cd6120164085": {
+    "3cf32fd7-0a38-5d8c-8320-3db0ca80a561": {
       "requireAllTagsToEquip": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
@@ -11038,8 +11038,8 @@
       "renderWhenLinked": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
-      "Model": "686c5b2c-73c4-5292-84aa-b5d384cc4f96",
-      "name": "ef1709f5-d15f-5904-b03d-cd6120164085",
+      "Model": "a327d911-b1e8-54f5-b5f4-ba6bae3f6ebc",
+      "name": "3cf32fd7-0a38-5d8c-8320-3db0ca80a561",
       "LinkableBy": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381",
         "KDBlindfoldLinkA"
@@ -11073,7 +11073,7 @@
       },
       "Group": "ItemHead"
     },
-    "ddd8b5ad-4a9b-51a6-afe9-78bd226458a8": {
+    "392f1028-f17b-5df3-84b4-eda366920147": {
       "requireAllTagsToEquip": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
@@ -11089,8 +11089,8 @@
       "renderWhenLinked": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
-      "Model": "1494a9c3-8294-5d7f-b8fd-fc960e3e1dba",
-      "name": "ddd8b5ad-4a9b-51a6-afe9-78bd226458a8",
+      "Model": "5da54bf5-6ca4-55bc-aeab-dbf603dfe031",
+      "name": "392f1028-f17b-5df3-84b4-eda366920147",
       "LinkableBy": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F",
         "KDMaskLinkA"
@@ -11124,7 +11124,7 @@
       },
       "Group": "ItemHead"
     },
-    "ff5314f7-27d7-5f6a-9924-3aaeae6f9055": {
+    "20c1391a-5dd0-539f-820f-1bff07d9d308": {
       "enemyTags": {},
       "shrine": [
         "A4F264B6-5AD2-40BC-94D4-F928D8F23040",
@@ -11134,8 +11134,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "b5104500-a272-5210-a911-7c85e4f54bba",
-      "name": "ff5314f7-27d7-5f6a-9924-3aaeae6f9055",
+      "Model": "f441d2a6-cd7c-5987-a623-4c4fc97160fe",
+      "name": "20c1391a-5dd0-539f-820f-1bff07d9d308",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -11167,7 +11167,7 @@
       },
       "Group": "ItemHead"
     },
-    "e0f8f68c-6d2f-5ee4-9d85-7829e9195d19": {
+    "851aa660-0324-5882-a1e2-66253dd8d0fc": {
       "enemyTags": {},
       "shrine": [
         "6798ED87-6698-481A-98D2-7BD037700DFC",
@@ -11177,8 +11177,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "c0b2ebd0-3f2d-53b7-87ff-a83c0b14299e",
-      "name": "e0f8f68c-6d2f-5ee4-9d85-7829e9195d19",
+      "Model": "7a80e948-1adf-5eaf-b9b4-da1c602533fb",
+      "name": "851aa660-0324-5882-a1e2-66253dd8d0fc",
       "LinkableBy": [
         "KDBlindfoldLinkA"
       ],
@@ -11210,7 +11210,7 @@
       },
       "Group": "ItemHead"
     },
-    "2a634701-ad04-51f8-a93e-05c08888176d": {
+    "0c7ca1ec-b221-5512-8426-b53bc9ad22ae": {
       "enemyTags": {},
       "shrine": [
         "29DB8B83-CDC4-45A5-A3AA-481AE1F85193",
@@ -11220,8 +11220,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "1cb2eb7c-7740-54b2-be01-b4da3e992700",
-      "name": "2a634701-ad04-51f8-a93e-05c08888176d",
+      "Model": "90663dda-ef2c-5665-a0b5-dcb4d5cce914",
+      "name": "0c7ca1ec-b221-5512-8426-b53bc9ad22ae",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -11253,7 +11253,7 @@
       },
       "Group": "ItemHead"
     },
-    "1edbe44a-1555-5c68-a2fa-2ddc94056fa0": {
+    "ea902b96-978a-5e5c-b76f-a6f624dca898": {
       "requireAllTagsToEquip": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
@@ -11269,8 +11269,8 @@
       "renderWhenLinked": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
-      "Model": "1ed26e4d-51de-54b1-bf8f-40d6edefb65d",
-      "name": "1edbe44a-1555-5c68-a2fa-2ddc94056fa0",
+      "Model": "fc72a73e-84de-59d4-af2c-5205d50e1d57",
+      "name": "ea902b96-978a-5e5c-b76f-a6f624dca898",
       "LinkableBy": [
         "884C4320-844D-4B26-A708-0BE135980B80",
         "KDVisorLinkA"
@@ -11304,7 +11304,7 @@
       },
       "Group": "ItemHead"
     },
-    "f3b60fa7-5a45-5716-b9c5-0c2227ab3db0": {
+    "08f6c498-a31d-50fd-b3d3-e424481dbacc": {
       "enemyTags": {},
       "shrine": [
         "D985C637-0514-49C6-BD00-17DB7C63D2D7",
@@ -11314,8 +11314,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "ba87b8aa-c47b-5e0b-bad8-a6a6b3aef963",
-      "name": "f3b60fa7-5a45-5716-b9c5-0c2227ab3db0",
+      "Model": "fab28a87-1905-5f7e-918f-3ca9349419fb",
+      "name": "08f6c498-a31d-50fd-b3d3-e424481dbacc",
       "LinkableBy": [
         "KDVisorLinkA"
       ],
@@ -11347,7 +11347,7 @@
       },
       "Group": "ItemHead"
     },
-    "0614658d-e550-5bc7-93c1-bafdaa5b78dc": {
+    "d3986013-c3ff-5944-bc1f-e8fe7ebd35d0": {
       "enemyTags": {},
       "shrine": [
         "29DB8B83-CDC4-45A5-A3AA-481AE1F85193",
@@ -11357,8 +11357,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "6b540b78-e8b5-5723-b660-1b99160a0167",
-      "name": "0614658d-e550-5bc7-93c1-bafdaa5b78dc",
+      "Model": "24771826-4a93-5c70-b1d1-21890c9ecd73",
+      "name": "d3986013-c3ff-5944-bc1f-e8fe7ebd35d0",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -11390,7 +11390,7 @@
       },
       "Group": "ItemHead"
     },
-    "87c35e2a-7b61-5d24-be61-a4bc47289601": {
+    "c4986f9d-96f6-5ad9-b57a-da2b8b843ffd": {
       "enemyTags": {},
       "shrine": [
         "D985C637-0514-49C6-BD00-17DB7C63D2D7",
@@ -11400,8 +11400,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "d7bbbc01-139e-5ec1-82b8-f99875a5046f",
-      "name": "87c35e2a-7b61-5d24-be61-a4bc47289601",
+      "Model": "7ce01040-31ba-58d8-ad2a-3d9f84cff825",
+      "name": "c4986f9d-96f6-5ad9-b57a-da2b8b843ffd",
       "LinkableBy": [
         "KDVisorLinkA"
       ],
@@ -11433,7 +11433,7 @@
       },
       "Group": "ItemHead"
     },
-    "bf3c8fb1-7887-5de0-882f-2d3781346b7e": {
+    "2417f6bb-6a93-5c98-946b-b6321220d4fd": {
       "enemyTags": {},
       "shrine": [
         "D985C637-0514-49C6-BD00-17DB7C63D2D7",
@@ -11443,8 +11443,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "b2d451c0-9d4c-5a50-9638-4409bdf053db",
-      "name": "bf3c8fb1-7887-5de0-882f-2d3781346b7e",
+      "Model": "a89f0062-e18f-515c-8369-806a6101b5e0",
+      "name": "2417f6bb-6a93-5c98-946b-b6321220d4fd",
       "LinkableBy": [
         "KDVisorLinkA"
       ],
@@ -11476,7 +11476,7 @@
       },
       "Group": "ItemHead"
     },
-    "54d56026-8b38-5d1f-94d3-7c74b2cc91b9": {
+    "e41ae14e-6365-59a4-96b5-f49db56e20a7": {
       "enemyTags": {},
       "shrine": [
         "D985C637-0514-49C6-BD00-17DB7C63D2D7",
@@ -11486,8 +11486,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "24c80b5f-4019-5e29-a4df-a09b5308d020",
-      "name": "54d56026-8b38-5d1f-94d3-7c74b2cc91b9",
+      "Model": "6d66aab4-ed71-5eb2-9603-370dd768c1bc",
+      "name": "e41ae14e-6365-59a4-96b5-f49db56e20a7",
       "LinkableBy": [
         "KDVisorLinkA"
       ],
@@ -11519,7 +11519,7 @@
       },
       "Group": "ItemHead"
     },
-    "c17bb5f1-527e-5818-bc18-d851d4aa2f9b": {
+    "2a4b1e4f-2cd3-521f-88fa-528aa1452910": {
       "requireAllTagsToEquip": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
@@ -11535,8 +11535,8 @@
       "renderWhenLinked": [
         "884C4320-844D-4B26-A708-0BE135980B80"
       ],
-      "Model": "606232b0-cc54-5a78-8fb7-a332c481827f",
-      "name": "c17bb5f1-527e-5818-bc18-d851d4aa2f9b",
+      "Model": "323fad9f-7995-5f50-b521-9c6323bc1e5f",
+      "name": "2a4b1e4f-2cd3-521f-88fa-528aa1452910",
       "LinkableBy": [
         "884C4320-844D-4B26-A708-0BE135980B80",
         "KDVisorLinkA"
@@ -11570,7 +11570,7 @@
       },
       "Group": "ItemHead"
     },
-    "acad8107-46ac-53fa-8ac9-029316c48643": {
+    "02fda503-3a1d-5a81-b5c5-1a28bbe07c08": {
       "enemyTags": {},
       "shrine": [
         "A4F264B6-5AD2-40BC-94D4-F928D8F23040",
@@ -11580,8 +11580,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "6cf00664-b2c4-58de-8fd2-c68db24b2810",
-      "name": "acad8107-46ac-53fa-8ac9-029316c48643",
+      "Model": "a7e066af-1b4d-5815-9769-0830a93d365c",
+      "name": "02fda503-3a1d-5a81-b5c5-1a28bbe07c08",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -11613,7 +11613,7 @@
       },
       "Group": "ItemHead"
     },
-    "bbcd17e0-2677-501e-b93e-e76fbe05925f": {
+    "d72f9435-036a-524a-8ff3-1555a68f804b": {
       "enemyTags": {},
       "shrine": [
         "D985C637-0514-49C6-BD00-17DB7C63D2D7",
@@ -11623,8 +11623,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "fa133934-e981-53e0-a661-be772e1da750",
-      "name": "bbcd17e0-2677-501e-b93e-e76fbe05925f",
+      "Model": "78d95195-10ea-513d-9ff3-4b1698eff24c",
+      "name": "d72f9435-036a-524a-8ff3-1555a68f804b",
       "LinkableBy": [
         "KDVisorLinkA"
       ],
@@ -11655,7 +11655,7 @@
       },
       "Group": "ItemHead"
     },
-    "58f7fba5-54fd-58c5-a694-2a3ce9433f3f": {
+    "2f524397-a94b-5939-83e5-c16770f153b2": {
       "enemyTags": {},
       "shrine": [
         "D985C637-0514-49C6-BD00-17DB7C63D2D7",
@@ -11665,8 +11665,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "5d4b7adf-2814-5c7d-a45a-9d0cc1ed00d3",
-      "name": "58f7fba5-54fd-58c5-a694-2a3ce9433f3f",
+      "Model": "fb7887eb-7b1c-5598-9a5c-d8c80d9e6df1",
+      "name": "2f524397-a94b-5939-83e5-c16770f153b2",
       "LinkableBy": [
         "KDVisorLinkA"
       ],
@@ -11698,7 +11698,7 @@
       },
       "Group": "ItemHead"
     },
-    "01907125-e9f9-5459-9075-8daff88a8c5f": {
+    "498015b5-6331-5002-b751-b8e9d83c7784": {
       "enemyTags": {},
       "shrine": [
         "29DB8B83-CDC4-45A5-A3AA-481AE1F85193",
@@ -11708,8 +11708,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "84b0de73-931a-5f6d-a9a9-1bf70f88fef9",
-      "name": "01907125-e9f9-5459-9075-8daff88a8c5f",
+      "Model": "47285643-6fc0-548b-9668-1452b223487c",
+      "name": "498015b5-6331-5002-b751-b8e9d83c7784",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -11741,7 +11741,7 @@
       },
       "Group": "ItemHead"
     },
-    "bd8053b8-8ee5-54d6-ae63-98937b99672f": {
+    "e82e3637-d8f5-5913-932f-1214bcb881e6": {
       "enemyTags": {},
       "shrine": [
         "D985C637-0514-49C6-BD00-17DB7C63D2D7",
@@ -11751,8 +11751,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "cb2abd0f-49b0-5820-aabd-4c8b990269d6",
-      "name": "bd8053b8-8ee5-54d6-ae63-98937b99672f",
+      "Model": "1a98b562-cda4-5ed0-b9fc-c40530e3fb05",
+      "name": "e82e3637-d8f5-5913-932f-1214bcb881e6",
       "LinkableBy": [
         "KDVisorLinkA"
       ],
@@ -11784,7 +11784,7 @@
       },
       "Group": "ItemHead"
     },
-    "c1505bdf-86ea-5d49-8477-9e2373789fea": {
+    "510aef8d-3b8c-542a-97a6-de35bfbe73e7": {
       "enemyTags": {},
       "shrine": [
         "D985C637-0514-49C6-BD00-17DB7C63D2D7",
@@ -11794,8 +11794,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassVisor",
-      "Model": "03d9d7a9-b932-595c-97fc-3b85b3fbc91f",
-      "name": "c1505bdf-86ea-5d49-8477-9e2373789fea",
+      "Model": "8b4b92c8-b136-5bdf-975d-2d9e4cf72fc5",
+      "name": "510aef8d-3b8c-542a-97a6-de35bfbe73e7",
       "LinkableBy": [
         "KDVisorLinkA"
       ],
@@ -11826,7 +11826,7 @@
       },
       "Group": "ItemHead"
     },
-    "43174758-cb2b-5b6a-83a0-d3a350a42c9b": {
+    "b32f9678-c330-5a4f-9faf-adf3b4e15c2d": {
       "requireAllTagsToEquip": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
@@ -11842,8 +11842,8 @@
       "renderWhenLinked": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
-      "Model": "eece4c56-f167-5c85-afe7-2bf2432a9f25",
-      "name": "43174758-cb2b-5b6a-83a0-d3a350a42c9b",
+      "Model": "376af91c-83f0-533e-a873-877b12f6ec14",
+      "name": "b32f9678-c330-5a4f-9faf-adf3b4e15c2d",
       "LinkableBy": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381",
         "KDBlindfoldLinkA"
@@ -11877,7 +11877,7 @@
       },
       "Group": "ItemHead"
     },
-    "0863f093-0cdc-5248-b6ce-f643d6764530": {
+    "efaaad1b-5552-5b87-861b-1b9c9eacb455": {
       "requireAllTagsToEquip": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
@@ -11893,8 +11893,8 @@
       "renderWhenLinked": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
-      "Model": "5e18642c-6528-5b38-bfd8-3894018244fe",
-      "name": "0863f093-0cdc-5248-b6ce-f643d6764530",
+      "Model": "8b2193e4-c718-5e53-9ea4-48cbd3687688",
+      "name": "efaaad1b-5552-5b87-861b-1b9c9eacb455",
       "LinkableBy": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F",
         "KDMaskLinkA"
@@ -11928,7 +11928,7 @@
       },
       "Group": "ItemHead"
     },
-    "e3bca86e-44dc-5bd6-99e5-e5eb60990fe4": {
+    "46030fb6-06ef-5059-894e-8484993bc50d": {
       "requireAllTagsToEquip": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
@@ -11944,8 +11944,8 @@
       "renderWhenLinked": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381"
       ],
-      "Model": "67eecd2f-2ada-5851-a7f5-fb667d5d5a94",
-      "name": "e3bca86e-44dc-5bd6-99e5-e5eb60990fe4",
+      "Model": "f4309ef4-3897-52af-bd75-ef874055cd3c",
+      "name": "46030fb6-06ef-5059-894e-8484993bc50d",
       "LinkableBy": [
         "3F0FDD62-DBC6-4089-B31D-843E79FB8381",
         "KDBlindfoldLinkA"
@@ -11979,7 +11979,7 @@
       },
       "Group": "ItemHead"
     },
-    "b422fbf1-5ea0-561c-adce-551c0009a30a": {
+    "489e46e3-4acf-5246-9179-165b793e668a": {
       "enemyTags": {},
       "shrine": [
         "A4F264B6-5AD2-40BC-94D4-F928D8F23040",
@@ -11989,8 +11989,8 @@
       "noDupe": true,
       "allFloors": true,
       "preview": "GlassMask",
-      "Model": "461f051f-9aa9-5ce8-af72-84b8cc8e4ab1",
-      "name": "b422fbf1-5ea0-561c-adce-551c0009a30a",
+      "Model": "02a86306-88fe-5d9a-b590-2d686ef01e64",
+      "name": "489e46e3-4acf-5246-9179-165b793e668a",
       "LinkableBy": [
         "KDMaskLinkA"
       ],
@@ -12022,7 +12022,7 @@
       },
       "Group": "ItemHead"
     },
-    "d6702d6c-e575-5afd-8363-5878f9e8f321": {
+    "6b8006b6-89eb-53c6-bee0-b922a3d0525e": {
       "requireAllTagsToEquip": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
@@ -12038,8 +12038,8 @@
       "renderWhenLinked": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
-      "Model": "fdfff760-2b20-5c79-a9b5-2dc196435a5f",
-      "name": "d6702d6c-e575-5afd-8363-5878f9e8f321",
+      "Model": "2a434a26-355d-5ad5-a538-5b44766bf41b",
+      "name": "6b8006b6-89eb-53c6-bee0-b922a3d0525e",
       "LinkableBy": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F",
         "KDMaskLinkA"
@@ -12073,7 +12073,7 @@
       },
       "Group": "ItemHead"
     },
-    "56a71da5-046c-525f-bb08-eff5071c1d1c": {
+    "34193469-e4e8-5f17-ac01-2e8f52d2f5ec": {
       "requireAllTagsToEquip": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
@@ -12089,8 +12089,8 @@
       "renderWhenLinked": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F"
       ],
-      "Model": "55f1532c-ca8c-54f2-aa45-3d2fc827c880",
-      "name": "56a71da5-046c-525f-bb08-eff5071c1d1c",
+      "Model": "a1e900af-f3aa-5fc8-9b03-94185ae3c0e3",
+      "name": "34193469-e4e8-5f17-ac01-2e8f52d2f5ec",
       "LinkableBy": [
         "CB291D66-08D1-4F56-A72B-A6EA35DF150F",
         "KDMaskLinkA"
@@ -13401,75 +13401,75 @@
       "Lockable, Back"
     ],
     [
-      "Restraint880578c0-735b-50f3-8086-2386bb7cc917",
+      "Restraint629a4169-d0c9-5b4b-89db-df671211931e",
       "Drone Arm Link"
     ],
     [
-      "Restraint880578c0-735b-50f3-8086-2386bb7cc917Flavor",
+      "Restraint629a4169-d0c9-5b4b-89db-df671211931eFlavor",
       "Variant: BetweenWristCuff"
     ],
     [
-      "Restraintab2cf7ec-e2fc-5437-9cfb-5d1924532057",
+      "Restraint42408587-cfd1-587a-a31f-cf4f4cef912f",
       "Drone Arm Link"
     ],
     [
-      "Restraintab2cf7ec-e2fc-5437-9cfb-5d1924532057Flavor",
+      "Restraint42408587-cfd1-587a-a31f-cf4f4cef912fFlavor",
       "Variant: BetweenElbowCuff"
     ],
     [
-      "Restraintcf3101f1-2919-56d5-bc08-9fe3cf6e4146",
+      "Restraint74466ddd-7329-5e50-a574-648d118e4cdc",
       "Drone Arm Link"
     ],
     [
-      "Restraintcf3101f1-2919-56d5-bc08-9fe3cf6e4146Flavor",
+      "Restraint74466ddd-7329-5e50-a574-648d118e4cdcFlavor",
       "Variant: WristToCollar"
     ],
     [
-      "Restraint4fde6bd8-d128-50b2-912d-558edfeee00d",
+      "Restraint1a8c6f51-2ae5-5795-be6f-374c9130e667",
       "Drone Arm Link"
     ],
     [
-      "Restraint4fde6bd8-d128-50b2-912d-558edfeee00dFlavor",
+      "Restraint1a8c6f51-2ae5-5795-be6f-374c9130e667Flavor",
       "Variant: BoxTie"
     ],
     [
-      "Restraint6512a38a-85d5-5ab5-a7c4-f5c4788892e4",
+      "Restraint8e5ef0db-fb4d-549d-8917-c9ec4d1f71c9",
       "Drone Arm Link"
     ],
     [
-      "Restraint6512a38a-85d5-5ab5-a7c4-f5c4788892e4Flavor",
+      "Restraint8e5ef0db-fb4d-549d-8917-c9ec4d1f71c9Flavor",
       "Variant: Elbow Tie"
     ],
     [
-      "Restraintf4d90f30-8acd-5e96-9c1b-c782b0a6ccc9",
+      "Restraintfba487ef-c283-5224-8feb-23b23f4b2ef0",
       "Drone Leg Link"
     ],
     [
-      "Restraintf4d90f30-8acd-5e96-9c1b-c782b0a6ccc9Flavor",
+      "Restraintfba487ef-c283-5224-8feb-23b23f4b2ef0Flavor",
       "Variant: BetweenAnkleCuff"
     ],
     [
-      "Restrainte721919d-4969-59db-bce7-65fbd50dec67",
+      "Restraint6e3233c0-17c1-5102-b543-3ddd902475e5",
       "Drone Leg Link"
     ],
     [
-      "Restrainte721919d-4969-59db-bce7-65fbd50dec67Flavor",
+      "Restraint6e3233c0-17c1-5102-b543-3ddd902475e5Flavor",
       "Variant: Tied Ankle"
     ],
     [
-      "Restraintc0c57947-c061-5b9e-9225-45a02a8d974a",
+      "Restraint7f92b38c-8ed5-57a6-8873-566192bb5e61",
       "Drone Leg Link"
     ],
     [
-      "Restraintc0c57947-c061-5b9e-9225-45a02a8d974aFlavor",
+      "Restraint7f92b38c-8ed5-57a6-8873-566192bb5e61Flavor",
       "Variant: BetweenThighCuff"
     ],
     [
-      "Restraint57cd7fbf-a953-50b2-bbbf-51dd3dab2662",
+      "Restraint4cc81a1b-4693-51d9-9782-2287bfe47114",
       "Drone Leg Link"
     ],
     [
-      "Restraint57cd7fbf-a953-50b2-bbbf-51dd3dab2662Flavor",
+      "Restraint4cc81a1b-4693-51d9-9782-2287bfe47114Flavor",
       "Variant: TiedThigh"
     ],
     [
@@ -13525,643 +13525,643 @@
       "<text:RestraintControlHarnessDesc2>"
     ],
     [
-      "Restraintc11d5cf7-ae18-5007-b098-67f45e54bb9b",
+      "Restraintc666b777-2c34-5dfd-ba74-8fa080d772d1",
       "Drone Visor"
     ],
     [
-      "Restraintc11d5cf7-ae18-5007-b098-67f45e54bb9bDesc",
+      "Restraintc666b777-2c34-5dfd-ba74-8fa080d772d1Desc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 3"
     ],
     [
-      "Restraintd7dd2a08-4a4c-5347-8d1c-f3ff29aa601c",
+      "Restraintfb94e78c-7334-5514-a886-b449f7271abc",
       "Drone Mask"
     ],
     [
-      "Restraintd7dd2a08-4a4c-5347-8d1c-f3ff29aa601cDesc",
+      "Restraintfb94e78c-7334-5514-a886-b449f7271abcDesc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 2"
     ],
     [
-      "Restraint9688a048-8881-5d79-9c62-3a433624a8e2",
+      "Restraintb280187a-f81d-5795-833a-5a19e18fb9f3",
       "Drone Mask"
     ],
     [
-      "Restraint9688a048-8881-5d79-9c62-3a433624a8e2Desc",
+      "Restraintb280187a-f81d-5795-833a-5a19e18fb9f3Desc",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 3"
     ],
     [
-      "Restraint7fcb73d6-f1d0-59f6-9e67-7ebad5ffbd94",
+      "Restraintc7e037f7-96d5-5453-b2db-9464b569a998",
       "Drone Visor"
     ],
     [
-      "Restraint7fcb73d6-f1d0-59f6-9e67-7ebad5ffbd94Desc",
+      "Restraintc7e037f7-96d5-5453-b2db-9464b569a998Desc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 3"
     ],
     [
-      "Restraint25f5663d-a431-5bd0-bc2a-b0c8b9265b0a",
+      "Restraint52ed7ded-18fc-528d-b75b-a37b3f62d352",
       "Drone Visor"
     ],
     [
-      "Restraint25f5663d-a431-5bd0-bc2a-b0c8b9265b0aDesc",
+      "Restraint52ed7ded-18fc-528d-b75b-a37b3f62d352Desc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 2"
     ],
     [
-      "Restraint9afe5727-c87e-546d-ad2a-05b9cca31c5f",
+      "Restraintc973d0e0-0c2c-5448-a8fc-c438280c02a1",
       "Drone Mask"
     ],
     [
-      "Restraint9afe5727-c87e-546d-ad2a-05b9cca31c5fDesc",
+      "Restraintc973d0e0-0c2c-5448-a8fc-c438280c02a1Desc",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 2"
     ],
     [
-      "Restraintc9988157-f094-5979-91d8-4f64fea8d58a",
+      "Restraintbd175829-8fad-5c18-8009-68c74733b30f",
       "Drone Mask"
     ],
     [
-      "Restraintc9988157-f094-5979-91d8-4f64fea8d58aDesc",
+      "Restraintbd175829-8fad-5c18-8009-68c74733b30fDesc",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 3"
     ],
     [
-      "Restraint02feed1b-fd62-5b77-b55d-7819bcb0c916",
+      "Restraint07162efa-1268-5b28-842e-c21c60e45748",
       "Drone Mask"
     ],
     [
-      "Restraint02feed1b-fd62-5b77-b55d-7819bcb0c916Desc",
+      "Restraint07162efa-1268-5b28-842e-c21c60e45748Desc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 4"
     ],
     [
-      "Restraintcf2c6561-793f-51e6-84ee-6eaaf848cfef",
+      "Restraint7236988b-5b57-5a04-ba47-eefcda14f7bd",
       "Drone Visor"
     ],
     [
-      "Restraintcf2c6561-793f-51e6-84ee-6eaaf848cfefDesc",
+      "Restraint7236988b-5b57-5a04-ba47-eefcda14f7bdDesc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 4"
     ],
     [
-      "Restraint4dc5029f-be40-5e48-89d8-82b4351e794c",
+      "Restraint53ad57e8-92d1-5edb-a2fe-febeaf380193",
       "Drone Visor"
     ],
     [
-      "Restraint4dc5029f-be40-5e48-89d8-82b4351e794cDesc",
+      "Restraint53ad57e8-92d1-5edb-a2fe-febeaf380193Desc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 1"
     ],
     [
-      "Restraint888b2642-13b8-505e-b20b-6ca269d080e6",
+      "Restrainta89a6785-fd02-50ed-8cef-fdbb006df798",
       "Drone Mask"
     ],
     [
-      "Restraint888b2642-13b8-505e-b20b-6ca269d080e6Desc",
+      "Restrainta89a6785-fd02-50ed-8cef-fdbb006df798Desc",
       "Visor Type: Mask\nVersion: Mask"
     ],
     [
-      "Restrainte93dd1b9-5428-5c2e-9d5b-170361dd480f",
+      "Restraint54a4b93b-407d-5d80-bfd2-7ab27795567e",
       "Drone Visor"
     ],
     [
-      "Restrainte93dd1b9-5428-5c2e-9d5b-170361dd480fDesc",
+      "Restraint54a4b93b-407d-5d80-bfd2-7ab27795567eDesc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 2"
     ],
     [
-      "Restraint0f3a5d9d-7eb7-57f2-a07b-6388f2d2ce28",
+      "Restraint3609013f-202f-5516-a4eb-2b75a51e89b7",
       "Drone Mask"
     ],
     [
-      "Restraint0f3a5d9d-7eb7-57f2-a07b-6388f2d2ce28Desc",
+      "Restraint3609013f-202f-5516-a4eb-2b75a51e89b7Desc",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 1"
     ],
     [
-      "Restraint08c9b625-2351-56e4-a46f-5b2d5d69cf39",
+      "Restraint0d7b3bff-1907-5b7c-bb33-c7a10e412d88",
       "Drone Visor"
     ],
     [
-      "Restraint08c9b625-2351-56e4-a46f-5b2d5d69cf39Desc",
+      "Restraint0d7b3bff-1907-5b7c-bb33-c7a10e412d88Desc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 3"
     ],
     [
-      "Restraint824bcb91-82ae-5d04-b934-bca1c3eed427",
+      "Restraint9bfe8f06-6886-5adc-bc63-3f885c0a43cb",
       "Drone Mask"
     ],
     [
-      "Restraint824bcb91-82ae-5d04-b934-bca1c3eed427Desc",
+      "Restraint9bfe8f06-6886-5adc-bc63-3f885c0a43cbDesc",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 2"
     ],
     [
-      "Restraint6bbb6ef5-afd7-51de-89f7-2748e5fa6458",
+      "Restraint799851c5-7c72-55ef-b668-546fb49ffe6d",
       "Drone Mask"
     ],
     [
-      "Restraint6bbb6ef5-afd7-51de-89f7-2748e5fa6458Desc",
+      "Restraint799851c5-7c72-55ef-b668-546fb49ffe6dDesc",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 3"
     ],
     [
-      "Restraintb2c18ec3-7361-5eb7-9fc4-a1861f7b7a7d",
+      "Restraintbd522393-0424-5c88-9a48-c942ef4155d2",
       "Drone Mask"
     ],
     [
-      "Restraintb2c18ec3-7361-5eb7-9fc4-a1861f7b7a7dDesc",
+      "Restraintbd522393-0424-5c88-9a48-c942ef4155d2Desc",
       "Visor Type: Mask\nVersion: Over Mask"
     ],
     [
-      "Restraint19ca58a5-d4db-5973-b7d9-d4bd6a5a6cf1",
+      "Restraint3f535b78-37e2-5d76-8d5c-12ea0b9a1af4",
       "Drone Mask"
     ],
     [
-      "Restraint19ca58a5-d4db-5973-b7d9-d4bd6a5a6cf1Desc",
+      "Restraint3f535b78-37e2-5d76-8d5c-12ea0b9a1af4Desc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 3"
     ],
     [
-      "Restraint1edd8e94-35e5-52ab-8627-95fd106974e5",
+      "Restraint5b30477d-cff4-5e33-9689-5d678468c972",
       "Drone Mask"
     ],
     [
-      "Restraint1edd8e94-35e5-52ab-8627-95fd106974e5Desc",
+      "Restraint5b30477d-cff4-5e33-9689-5d678468c972Desc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 4"
     ],
     [
-      "Restraintce749c5e-9820-59fb-91cd-aa27dff38aba",
+      "Restraint988ee5a3-33c5-5fde-bc16-05355357ba15",
       "Drone Mask"
     ],
     [
-      "Restraintce749c5e-9820-59fb-91cd-aa27dff38abaDesc",
+      "Restraint988ee5a3-33c5-5fde-bc16-05355357ba15Desc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 1"
     ],
     [
-      "Restraintb05adbce-1537-5f24-8c6f-5af182bc6f8f",
+      "Restraint4519df24-fe8b-5561-b952-48f7e0b5ae05",
       "Drone Visor"
     ],
     [
-      "Restraintb05adbce-1537-5f24-8c6f-5af182bc6f8fDesc",
+      "Restraint4519df24-fe8b-5561-b952-48f7e0b5ae05Desc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 2"
     ],
     [
-      "Restraintbf581f04-30b2-567c-869f-2a70e0313a20",
+      "Restraint98615614-ce47-54ce-b1e9-e4e7b8c30bb5",
       "Drone Visor"
     ],
     [
-      "Restraintbf581f04-30b2-567c-869f-2a70e0313a20Desc",
+      "Restraint98615614-ce47-54ce-b1e9-e4e7b8c30bb5Desc",
       "Visor Type: Goggle\nVersion: Blindfold"
     ],
     [
-      "Restrainta33c86f6-b8f7-5898-899a-6bf5f3983779",
+      "Restraint09d2aae8-1b0e-5243-aaa0-94bef3119e60",
       "Drone Visor"
     ],
     [
-      "Restrainta33c86f6-b8f7-5898-899a-6bf5f3983779Desc",
+      "Restraint09d2aae8-1b0e-5243-aaa0-94bef3119e60Desc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 4"
     ],
     [
-      "Restraintc9f93548-bfc0-567e-80e9-c8130e604538",
+      "Restraint86e98029-b600-5c32-b5c5-6c4dbb388074",
       "Drone Visor"
     ],
     [
-      "Restraintc9f93548-bfc0-567e-80e9-c8130e604538Desc",
+      "Restraint86e98029-b600-5c32-b5c5-6c4dbb388074Desc",
       "Visor Type: Goggle\nVersion: Blindfold"
     ],
     [
-      "Restraint87ff6c34-9dc2-51ce-b80d-67ed22c8fe5b",
+      "Restraintc4aff19b-2b51-56a6-9134-f3d8a6f21e96",
       "Drone Mask"
     ],
     [
-      "Restraint87ff6c34-9dc2-51ce-b80d-67ed22c8fe5bDesc",
+      "Restraintc4aff19b-2b51-56a6-9134-f3d8a6f21e96Desc",
       "Visor Type: Mask\nVersion: Mask"
     ],
     [
-      "Restraint148802f5-a2ba-554a-9b17-e567b4b8b00d",
+      "Restraint656736b8-1ebf-5218-8087-4f88ab9864a1",
       "Drone Visor"
     ],
     [
-      "Restraint148802f5-a2ba-554a-9b17-e567b4b8b00dDesc",
+      "Restraint656736b8-1ebf-5218-8087-4f88ab9864a1Desc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 2"
     ],
     [
-      "Restraintbf850c88-8435-536a-90b2-d79bcb0724f9",
+      "Restraint9c3b6735-8e61-5036-a902-95caee81d5ac",
       "Drone Visor"
     ],
     [
-      "Restraintbf850c88-8435-536a-90b2-d79bcb0724f9Desc",
+      "Restraint9c3b6735-8e61-5036-a902-95caee81d5acDesc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 3"
     ],
     [
-      "Restraint4fee0caa-bedd-5f6f-997e-d11804ee1a1b",
+      "Restraintc99d1f89-04de-5299-ab6f-73e504c141f4",
       "Drone Mask"
     ],
     [
-      "Restraint4fee0caa-bedd-5f6f-997e-d11804ee1a1bDesc",
+      "Restraintc99d1f89-04de-5299-ab6f-73e504c141f4Desc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 2"
     ],
     [
-      "Restraint7422984c-4810-582a-bb30-69e5575c032b",
+      "Restraint4512dda0-1365-5f52-9619-20e7b3361b5c",
       "Drone Mask"
     ],
     [
-      "Restraint7422984c-4810-582a-bb30-69e5575c032bDesc",
+      "Restraint4512dda0-1365-5f52-9619-20e7b3361b5cDesc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 1"
     ],
     [
-      "Restraint5b843e93-97b5-527c-882e-bd6a67cc62a6",
+      "Restrainte230c055-9147-57b4-a430-7cef972b5339",
       "Drone Mask"
     ],
     [
-      "Restraint5b843e93-97b5-527c-882e-bd6a67cc62a6Desc",
+      "Restrainte230c055-9147-57b4-a430-7cef972b5339Desc",
       "Visor Type: Mask\nVersion: Over Mask"
     ],
     [
-      "Restraint7d7dce9e-05e1-50e8-91e0-208aaca6e654",
+      "Restraint9cb48c55-d447-5626-8dd3-a3a88a8c829f",
       "Drone Mask"
     ],
     [
-      "Restraint7d7dce9e-05e1-50e8-91e0-208aaca6e654Desc",
+      "Restraint9cb48c55-d447-5626-8dd3-a3a88a8c829fDesc",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 4"
     ],
     [
-      "Restraint4bbe6d4d-b2f0-59bc-b71d-98e0f4afd833",
+      "Restraint244d12cf-a4e2-5c13-b376-abef3ea1a1c8",
       "Drone Visor"
     ],
     [
-      "Restraint4bbe6d4d-b2f0-59bc-b71d-98e0f4afd833Desc",
+      "Restraint244d12cf-a4e2-5c13-b376-abef3ea1a1c8Desc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 4"
     ],
     [
-      "Restraint30df9f0b-3cf9-5709-a922-c9b2223d83e9",
+      "Restraint54b32ad7-af91-5cf3-a826-a305c4a57c0f",
       "Drone Mask"
     ],
     [
-      "Restraint30df9f0b-3cf9-5709-a922-c9b2223d83e9Desc",
+      "Restraint54b32ad7-af91-5cf3-a826-a305c4a57c0fDesc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 4"
     ],
     [
-      "Restrainte8038c23-21b0-5dc5-85eb-075075f86623",
+      "Restraint661520be-5506-5a91-b73a-683e4a6f4af0",
       "Drone Mask"
     ],
     [
-      "Restrainte8038c23-21b0-5dc5-85eb-075075f86623Desc",
+      "Restraint661520be-5506-5a91-b73a-683e4a6f4af0Desc",
       "Visor Type: Mask\nVersion: Over Mask"
     ],
     [
-      "Restraint9deea359-4183-53d1-8b6b-39744153cdd6",
+      "Restraint68987c0e-d18e-5b69-96c8-712df4653b87",
       "Drone Mask"
     ],
     [
-      "Restraint9deea359-4183-53d1-8b6b-39744153cdd6Desc",
+      "Restraint68987c0e-d18e-5b69-96c8-712df4653b87Desc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 3"
     ],
     [
-      "Restraintdbcdf674-bcf0-5d4f-acd5-1975934189e7",
+      "Restraint8dcd6701-7390-5852-bba9-66531581b498",
       "Drone Visor"
     ],
     [
-      "Restraintdbcdf674-bcf0-5d4f-acd5-1975934189e7Desc",
+      "Restraint8dcd6701-7390-5852-bba9-66531581b498Desc",
       "Visor Type: Goggle\nVersion: Goggle"
     ],
     [
-      "Restraint9e4d8510-4527-5d21-9b83-1699293f1c0a",
+      "Restraintd1f13882-8996-596b-bfae-229d6e6d3347",
       "Drone Mask"
     ],
     [
-      "Restraint9e4d8510-4527-5d21-9b83-1699293f1c0aDesc",
+      "Restraintd1f13882-8996-596b-bfae-229d6e6d3347Desc",
       "Visor Type: Mask\nVersion: Mask"
     ],
     [
-      "Restrainta19cf644-8914-5bf6-96fc-cc6fb712141c",
+      "Restraint60db09c6-e59d-5254-8bb4-d73e2a8e2658",
       "Drone Visor"
     ],
     [
-      "Restrainta19cf644-8914-5bf6-96fc-cc6fb712141cDesc",
+      "Restraint60db09c6-e59d-5254-8bb4-d73e2a8e2658Desc",
       "Visor Type: Goggle\nVersion: Blindfold"
     ],
     [
-      "Restraint7069483c-c176-54b4-b3aa-112ade0f4900",
+      "Restraintb220e2f5-2b24-5cb2-9232-624d6cdf5a59",
       "Drone Mask"
     ],
     [
-      "Restraint7069483c-c176-54b4-b3aa-112ade0f4900Desc",
+      "Restraintb220e2f5-2b24-5cb2-9232-624d6cdf5a59Desc",
       "Visor Type: Mask\nVersion: Over Mask"
     ],
     [
-      "Restraint44b2bbbe-ae33-5ce4-a8c2-fbdceaf6cf0b",
+      "Restraint9d1af538-0f0f-5a0a-b207-8b6a1fa2c56c",
       "Drone Visor"
     ],
     [
-      "Restraint44b2bbbe-ae33-5ce4-a8c2-fbdceaf6cf0bDesc",
+      "Restraint9d1af538-0f0f-5a0a-b207-8b6a1fa2c56cDesc",
       "Visor Type: Goggle\nVersion: Blindfold"
     ],
     [
-      "Restraint732af275-e475-542e-a19a-c0e9d103393c",
+      "Restraint16a9023a-c3e6-5dcf-8570-ebc6cc3e94d2",
       "Drone Visor"
     ],
     [
-      "Restraint732af275-e475-542e-a19a-c0e9d103393cDesc",
+      "Restraint16a9023a-c3e6-5dcf-8570-ebc6cc3e94d2Desc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 1"
     ],
     [
-      "Restraintfb2d16a2-1789-5834-b046-1b011d8dd4d7",
+      "Restraint2e0ceba1-4e1b-5bb9-b4ea-2388a49cb261",
       "Drone Mask"
     ],
     [
-      "Restraintfb2d16a2-1789-5834-b046-1b011d8dd4d7Desc",
+      "Restraint2e0ceba1-4e1b-5bb9-b4ea-2388a49cb261Desc",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 1"
     ],
     [
-      "Restraint7799b07e-fd8e-57ca-b981-f5c2264d7338",
+      "Restraintb410345a-1f70-58e6-b724-3bbab82b4e79",
       "Drone Visor"
     ],
     [
-      "Restraint7799b07e-fd8e-57ca-b981-f5c2264d7338Desc",
+      "Restraintb410345a-1f70-58e6-b724-3bbab82b4e79Desc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 4"
     ],
     [
-      "Restraint4f4400f8-55c0-5b48-8c26-1a452a379209",
+      "Restrainta41c5ad4-f5f1-58fc-86ad-28acf671276a",
       "Drone Mask"
     ],
     [
-      "Restraint4f4400f8-55c0-5b48-8c26-1a452a379209Desc",
+      "Restrainta41c5ad4-f5f1-58fc-86ad-28acf671276aDesc",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 3"
     ],
     [
-      "Restraint977d42e0-5273-5ae3-b189-82f1bf5db5e3",
+      "Restraintb6e6e6cc-806d-51aa-96e1-57662246bdbe",
       "Drone Visor"
     ],
     [
-      "Restraint977d42e0-5273-5ae3-b189-82f1bf5db5e3Desc",
+      "Restraintb6e6e6cc-806d-51aa-96e1-57662246bdbeDesc",
       "Visor Type: Goggle\nVersion: Goggle"
     ],
     [
-      "Restraintb976a593-c530-59d2-8207-e406e2857bc9",
+      "Restraintb8568c08-f37e-555f-a8f9-3d6750e4f5c1",
       "Drone Mask"
     ],
     [
-      "Restraintb976a593-c530-59d2-8207-e406e2857bc9Desc",
+      "Restraintb8568c08-f37e-555f-a8f9-3d6750e4f5c1Desc",
       "Visor Type: Mask\nVersion: Mask"
     ],
     [
-      "Restraint89d6b891-8006-53f1-aed1-64c9788d673f",
+      "Restraintc71b0bba-aeae-5262-acce-735a5f25b53a",
       "Drone Visor"
     ],
     [
-      "Restraint89d6b891-8006-53f1-aed1-64c9788d673fDesc",
+      "Restraintc71b0bba-aeae-5262-acce-735a5f25b53aDesc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 1"
     ],
     [
-      "Restraint4fe76b2e-60ef-536f-ab2e-041c801ae164",
+      "Restraint779e603f-55e2-55a5-8581-31895dcd6109",
       "Drone Visor"
     ],
     [
-      "Restraint4fe76b2e-60ef-536f-ab2e-041c801ae164Desc",
+      "Restraint779e603f-55e2-55a5-8581-31895dcd6109Desc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 4"
     ],
     [
-      "Restraint4dd602d9-aeff-56f2-8431-f1e5e0811666",
+      "Restraint9a1a61c2-34c7-5968-9a77-6d9b7bc06776",
       "Drone Mask"
     ],
     [
-      "Restraint4dd602d9-aeff-56f2-8431-f1e5e0811666Desc",
+      "Restraint9a1a61c2-34c7-5968-9a77-6d9b7bc06776Desc",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 4"
     ],
     [
-      "Restraintd5e02e2a-4a8a-529f-9626-b66eab39a08b",
+      "Restraintd45095a9-9410-5e27-965f-5de755b42d46",
       "Drone Mask"
     ],
     [
-      "Restraintd5e02e2a-4a8a-529f-9626-b66eab39a08bDesc",
+      "Restraintd45095a9-9410-5e27-965f-5de755b42d46Desc",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 4"
     ],
     [
-      "Restraintc40094e4-1ccf-5c9f-b7bf-58f7e7e8695a",
+      "Restraintad7f0208-2005-5652-8074-5f9b60901d7a",
       "Drone Visor"
     ],
     [
-      "Restraintc40094e4-1ccf-5c9f-b7bf-58f7e7e8695aDesc",
+      "Restraintad7f0208-2005-5652-8074-5f9b60901d7aDesc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 4"
     ],
     [
-      "Restraint72ff3224-edf2-50b9-a296-a439e0f67e5b",
+      "Restraint72daf873-408e-57e1-bf49-1bc64f4a3c76",
       "Drone Mask"
     ],
     [
-      "Restraint72ff3224-edf2-50b9-a296-a439e0f67e5bDesc",
+      "Restraint72daf873-408e-57e1-bf49-1bc64f4a3c76Desc",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 4"
     ],
     [
-      "Restraint226dccb9-aa44-51d3-8049-998758e066cc",
+      "Restraintc48c6593-dc8c-5baf-9c97-6c69a1d70f3d",
       "Drone Visor"
     ],
     [
-      "Restraint226dccb9-aa44-51d3-8049-998758e066ccDesc",
+      "Restraintc48c6593-dc8c-5baf-9c97-6c69a1d70f3dDesc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 4"
     ],
     [
-      "Restraintbd0427d5-66e2-5e01-bb24-51b12f5462f5",
+      "Restraint0777c082-5783-57d1-8778-92f816ea4541",
       "Drone Visor"
     ],
     [
-      "Restraintbd0427d5-66e2-5e01-bb24-51b12f5462f5Desc",
+      "Restraint0777c082-5783-57d1-8778-92f816ea4541Desc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 1"
     ],
     [
-      "Restraint13847f0b-cc52-54ee-ba3f-53adbd0ebe17",
+      "Restraint89a5a6ab-d425-565e-98ec-40d2b56b2d10",
       "Drone Visor"
     ],
     [
-      "Restraint13847f0b-cc52-54ee-ba3f-53adbd0ebe17Desc",
+      "Restraint89a5a6ab-d425-565e-98ec-40d2b56b2d10Desc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 1"
     ],
     [
-      "Restraintaf46d1c5-3aac-54cc-8d71-571ea8290eaf",
+      "Restraint848ce900-542d-5543-b3e5-3283fdd1a921",
       "Drone Mask"
     ],
     [
-      "Restraintaf46d1c5-3aac-54cc-8d71-571ea8290eafDesc",
+      "Restraint848ce900-542d-5543-b3e5-3283fdd1a921Desc",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 1"
     ],
     [
-      "Restraintef1709f5-d15f-5904-b03d-cd6120164085",
+      "Restraint3cf32fd7-0a38-5d8c-8320-3db0ca80a561",
       "Drone Visor"
     ],
     [
-      "Restraintef1709f5-d15f-5904-b03d-cd6120164085Desc",
+      "Restraint3cf32fd7-0a38-5d8c-8320-3db0ca80a561Desc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 3"
     ],
     [
-      "Restraintddd8b5ad-4a9b-51a6-afe9-78bd226458a8",
+      "Restraint392f1028-f17b-5df3-84b4-eda366920147",
       "Drone Mask"
     ],
     [
-      "Restraintddd8b5ad-4a9b-51a6-afe9-78bd226458a8Desc",
+      "Restraint392f1028-f17b-5df3-84b4-eda366920147Desc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 2"
     ],
     [
-      "Restraintff5314f7-27d7-5f6a-9924-3aaeae6f9055",
+      "Restraint20c1391a-5dd0-539f-820f-1bff07d9d308",
       "Drone Mask"
     ],
     [
-      "Restraintff5314f7-27d7-5f6a-9924-3aaeae6f9055Desc",
+      "Restraint20c1391a-5dd0-539f-820f-1bff07d9d308Desc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 3"
     ],
     [
-      "Restrainte0f8f68c-6d2f-5ee4-9d85-7829e9195d19",
+      "Restraint851aa660-0324-5882-a1e2-66253dd8d0fc",
       "Drone Visor"
     ],
     [
-      "Restrainte0f8f68c-6d2f-5ee4-9d85-7829e9195d19Desc",
+      "Restraint851aa660-0324-5882-a1e2-66253dd8d0fcDesc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 2"
     ],
     [
-      "Restraint2a634701-ad04-51f8-a93e-05c08888176d",
+      "Restraint0c7ca1ec-b221-5512-8426-b53bc9ad22ae",
       "Drone Mask"
     ],
     [
-      "Restraint2a634701-ad04-51f8-a93e-05c08888176dDesc",
+      "Restraint0c7ca1ec-b221-5512-8426-b53bc9ad22aeDesc",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 1"
     ],
     [
-      "Restraint1edbe44a-1555-5c68-a2fa-2ddc94056fa0",
+      "Restraintea902b96-978a-5e5c-b76f-a6f624dca898",
       "Drone Visor"
     ],
     [
-      "Restraint1edbe44a-1555-5c68-a2fa-2ddc94056fa0Desc",
+      "Restraintea902b96-978a-5e5c-b76f-a6f624dca898Desc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 2"
     ],
     [
-      "Restraintf3b60fa7-5a45-5716-b9c5-0c2227ab3db0",
+      "Restraint08f6c498-a31d-50fd-b3d3-e424481dbacc",
       "Drone Visor"
     ],
     [
-      "Restraintf3b60fa7-5a45-5716-b9c5-0c2227ab3db0Desc",
+      "Restraint08f6c498-a31d-50fd-b3d3-e424481dbaccDesc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 3"
     ],
     [
-      "Restraint0614658d-e550-5bc7-93c1-bafdaa5b78dc",
+      "Restraintd3986013-c3ff-5944-bc1f-e8fe7ebd35d0",
       "Drone Mask"
     ],
     [
-      "Restraint0614658d-e550-5bc7-93c1-bafdaa5b78dcDesc",
+      "Restraintd3986013-c3ff-5944-bc1f-e8fe7ebd35d0Desc",
       "Visor Type: Mask\nVersion: Mask\nMode: Dark\nLevel: 2"
     ],
     [
-      "Restraint87c35e2a-7b61-5d24-be61-a4bc47289601",
+      "Restraintc4986f9d-96f6-5ad9-b57a-da2b8b843ffd",
       "Drone Visor"
     ],
     [
-      "Restraint87c35e2a-7b61-5d24-be61-a4bc47289601Desc",
+      "Restraintc4986f9d-96f6-5ad9-b57a-da2b8b843ffdDesc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 4"
     ],
     [
-      "Restraintbf3c8fb1-7887-5de0-882f-2d3781346b7e",
+      "Restraint2417f6bb-6a93-5c98-946b-b6321220d4fd",
       "Drone Visor"
     ],
     [
-      "Restraintbf3c8fb1-7887-5de0-882f-2d3781346b7eDesc",
+      "Restraint2417f6bb-6a93-5c98-946b-b6321220d4fdDesc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 1"
     ],
     [
-      "Restraint54d56026-8b38-5d1f-94d3-7c74b2cc91b9",
+      "Restrainte41ae14e-6365-59a4-96b5-f49db56e20a7",
       "Drone Visor"
     ],
     [
-      "Restraint54d56026-8b38-5d1f-94d3-7c74b2cc91b9Desc",
+      "Restrainte41ae14e-6365-59a4-96b5-f49db56e20a7Desc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 2"
     ],
     [
-      "Restraintc17bb5f1-527e-5818-bc18-d851d4aa2f9b",
+      "Restraint2a4b1e4f-2cd3-521f-88fa-528aa1452910",
       "Drone Visor"
     ],
     [
-      "Restraintc17bb5f1-527e-5818-bc18-d851d4aa2f9bDesc",
+      "Restraint2a4b1e4f-2cd3-521f-88fa-528aa1452910Desc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Dark\nLevel: 1"
     ],
     [
-      "Restraintacad8107-46ac-53fa-8ac9-029316c48643",
+      "Restraint02fda503-3a1d-5a81-b5c5-1a28bbe07c08",
       "Drone Mask"
     ],
     [
-      "Restraintacad8107-46ac-53fa-8ac9-029316c48643Desc",
+      "Restraint02fda503-3a1d-5a81-b5c5-1a28bbe07c08Desc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Full Color\nLevel: 3"
     ],
     [
-      "Restraintbbcd17e0-2677-501e-b93e-e76fbe05925f",
+      "Restraintd72f9435-036a-524a-8ff3-1555a68f804b",
       "Drone Visor"
     ],
     [
-      "Restraintbbcd17e0-2677-501e-b93e-e76fbe05925fDesc",
+      "Restraintd72f9435-036a-524a-8ff3-1555a68f804bDesc",
       "Visor Type: Goggle\nVersion: Goggle"
     ],
     [
-      "Restraint58f7fba5-54fd-58c5-a694-2a3ce9433f3f",
+      "Restraint2f524397-a94b-5939-83e5-c16770f153b2",
       "Drone Visor"
     ],
     [
-      "Restraint58f7fba5-54fd-58c5-a694-2a3ce9433f3fDesc",
+      "Restraint2f524397-a94b-5939-83e5-c16770f153b2Desc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 3"
     ],
     [
-      "Restraint01907125-e9f9-5459-9075-8daff88a8c5f",
+      "Restraint498015b5-6331-5002-b751-b8e9d83c7784",
       "Drone Mask"
     ],
     [
-      "Restraint01907125-e9f9-5459-9075-8daff88a8c5fDesc",
+      "Restraint498015b5-6331-5002-b751-b8e9d83c7784Desc",
       "Visor Type: Mask\nVersion: Mask\nMode: Full Color\nLevel: 2"
     ],
     [
-      "Restraintbd8053b8-8ee5-54d6-ae63-98937b99672f",
+      "Restrainte82e3637-d8f5-5913-932f-1214bcb881e6",
       "Drone Visor"
     ],
     [
-      "Restraintbd8053b8-8ee5-54d6-ae63-98937b99672fDesc",
+      "Restrainte82e3637-d8f5-5913-932f-1214bcb881e6Desc",
       "Visor Type: Goggle\nVersion: Goggle\nMode: Full Color\nLevel: 2"
     ],
     [
-      "Restraintc1505bdf-86ea-5d49-8477-9e2373789fea",
+      "Restraint510aef8d-3b8c-542a-97a6-de35bfbe73e7",
       "Drone Visor"
     ],
     [
-      "Restraintc1505bdf-86ea-5d49-8477-9e2373789feaDesc",
+      "Restraint510aef8d-3b8c-542a-97a6-de35bfbe73e7Desc",
       "Visor Type: Goggle\nVersion: Goggle"
     ],
     [
-      "Restraint43174758-cb2b-5b6a-83a0-d3a350a42c9b",
+      "Restraintb32f9678-c330-5a4f-9faf-adf3b4e15c2d",
       "Drone Visor"
     ],
     [
-      "Restraint43174758-cb2b-5b6a-83a0-d3a350a42c9bDesc",
+      "Restraintb32f9678-c330-5a4f-9faf-adf3b4e15c2dDesc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Dark\nLevel: 3"
     ],
     [
-      "Restraint0863f093-0cdc-5248-b6ce-f643d6764530",
+      "Restraintefaaad1b-5552-5b87-861b-1b9c9eacb455",
       "Drone Mask"
     ],
     [
-      "Restraint0863f093-0cdc-5248-b6ce-f643d6764530Desc",
+      "Restraintefaaad1b-5552-5b87-861b-1b9c9eacb455Desc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 2"
     ],
     [
-      "Restrainte3bca86e-44dc-5bd6-99e5-e5eb60990fe4",
+      "Restraint46030fb6-06ef-5059-894e-8484993bc50d",
       "Drone Visor"
     ],
     [
-      "Restrainte3bca86e-44dc-5bd6-99e5-e5eb60990fe4Desc",
+      "Restraint46030fb6-06ef-5059-894e-8484993bc50dDesc",
       "Visor Type: Goggle\nVersion: Blindfold\nMode: Full Color\nLevel: 1"
     ],
     [
-      "Restraintb422fbf1-5ea0-561c-adce-551c0009a30a",
+      "Restraint489e46e3-4acf-5246-9179-165b793e668a",
       "Drone Mask"
     ],
     [
-      "Restraintb422fbf1-5ea0-561c-adce-551c0009a30aDesc",
+      "Restraint489e46e3-4acf-5246-9179-165b793e668aDesc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 1"
     ],
     [
-      "Restraintd6702d6c-e575-5afd-8363-5878f9e8f321",
+      "Restraint6b8006b6-89eb-53c6-bee0-b922a3d0525e",
       "Drone Mask"
     ],
     [
-      "Restraintd6702d6c-e575-5afd-8363-5878f9e8f321Desc",
+      "Restraint6b8006b6-89eb-53c6-bee0-b922a3d0525eDesc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 1"
     ],
     [
-      "Restraint56a71da5-046c-525f-bb08-eff5071c1d1c",
+      "Restraint34193469-e4e8-5f17-ac01-2e8f52d2f5ec",
       "Drone Mask"
     ],
     [
-      "Restraint56a71da5-046c-525f-bb08-eff5071c1d1cDesc",
+      "Restraint34193469-e4e8-5f17-ac01-2e8f52d2f5ecDesc",
       "Visor Type: Mask\nVersion: Over Mask\nMode: Dark\nLevel: 4"
     ],
     [
@@ -14281,131 +14281,131 @@
       "Transparent Muzzle 2"
     ],
     [
-      "m_a03a543a-3ccd-5042-965f-88e81866b636",
+      "m_86ddb21f-212c-5d88-9578-a1fd33bad4c2",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":0,\"OpaqueLevel\":2,\"Dimmed\":true}"
     ],
     [
-      "m_b08d715c-479b-5dc0-9b97-60ab7f788270",
+      "m_0dd597de-1053-5e60-b74e-076ba8b019c0",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":0,\"OpaqueLevel\":2,\"Dimmed\":false}"
     ],
     [
-      "m_949bfd1a-29ba-5c18-9424-2e3d85f321ba",
+      "m_7e524e39-ced7-50b7-a4bb-268897054ff0",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":0,\"OpaqueLevel\":1,\"Dimmed\":false}"
     ],
     [
-      "m_293c51a9-4781-5297-8170-85a322715fb7",
+      "m_ee263405-b4be-5282-a02e-a265fd849048",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":2,\"OpaqueLevel\":2,\"Dimmed\":true}"
     ],
     [
-      "m_b10a7a1e-f6d2-5935-b2ad-258a2b0077ff",
+      "m_5cca97b2-d142-5f00-8481-c751f1d78128",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":2,\"OpaqueLevel\":3,\"Dimmed\":false}"
     ],
     [
-      "m_c7d673a6-0b34-5a0b-9135-e48fe2d4c0a2",
+      "m_41167677-5545-51e6-8d12-5885b9cfa11a",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":0,\"OpaqueLevel\":3,\"Dimmed\":true}"
     ],
     [
-      "m_dc99fb23-9177-5ed6-9352-cd0218b87b1f",
+      "m_effd85fe-ba35-5390-8b9d-c033d7a51fbf",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":2,\"OpaqueLevel\":4,\"Dimmed\":true}"
     ],
     [
-      "m_287a78fa-c1ed-597c-8b85-48235c20677f",
+      "m_12ed0437-cf06-51f9-85f7-600d16efbd97",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":2,\"OpaqueLevel\":4,\"Dimmed\":false}"
     ],
     [
-      "m_e823f027-7eb5-54ea-8713-fb98937eec3a",
+      "m_1045e977-24fd-5f78-92ef-1e2307c171e8",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":2,\"OpaqueLevel\":1,\"Dimmed\":true}"
     ],
     [
-      "m_107d15b1-8595-5ec8-ab51-714f5c1f3519",
+      "m_3b4a43a3-06f9-51d5-abb8-cedf3c9bb07d",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":2,\"OpaqueLevel\":1,\"Dimmed\":false}"
     ],
     [
-      "m_d98e374d-d6a1-527f-9322-5284e2a9bc1a",
+      "m_23abd325-1cdf-5df3-aa5c-6f3b4adec012",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":2,\"OpaqueLevel\":1,\"Dimmed\":false}"
     ],
     [
-      "m_688824f5-a65c-5bda-86e1-1290639ff3d8",
+      "m_a9713054-4ae4-56ae-8e1f-f53afa0e24a4",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":0,\"OpaqueLevel\":1,\"Dimmed\":true}"
     ],
     [
-      "m_9ce36ec4-1733-55d9-8d4e-fa9e2a909b46",
+      "m_f9d57847-b190-5c4f-859e-c9ed007ca7a8",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":0,\"OpaqueLevel\":1,\"Dimmed\":true}"
     ],
     [
-      "m_a3253b29-9f32-5af7-97ad-9588069d6581",
+      "m_811d6eb8-0709-5622-adc6-1e79d01fba53",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":0,\"OpaqueLevel\":1,\"Dimmed\":false}"
     ],
     [
-      "m_1fd7457d-d09f-5b05-9f8d-561711048810",
+      "m_4c366f43-af50-5bd5-b1f6-29bdb74a6106",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":0,\"OpaqueLevel\":4,\"Dimmed\":false}"
     ],
     [
-      "m_31974326-04e5-5233-a358-cc42be74afc4",
+      "m_daaf011c-2908-5f85-a21d-398d9cdfb38c",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":2,\"OpaqueLevel\":1,\"Dimmed\":true}"
     ],
     [
-      "m_df0c464a-dee4-5a28-963a-991e2f37dad4",
+      "m_6b453d60-ac4e-5dbe-9bb6-303dc0540599",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":0,\"OpaqueLevel\":2,\"Dimmed\":false}"
     ],
     [
-      "m_dc2a3b5e-f122-5caf-85ad-fec9341f6390",
+      "m_e0e0d9fe-dcf8-54eb-8c90-5d984f04625b",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":2,\"OpaqueLevel\":2,\"Dimmed\":true}"
     ],
     [
-      "m_a3047279-e530-5fe6-9e2e-9836cf1d28fe",
+      "m_4d3e2202-c5d9-5f97-bdb8-5cb048c293ab",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":2,\"OpaqueLevel\":2,\"Dimmed\":false}"
     ],
     [
-      "m_e1f1ec53-4139-53ed-af5d-17790ec444e6",
+      "m_51773be3-8735-54b3-a4dc-7b267c1e7b0b",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":2,\"OpaqueLevel\":3,\"Dimmed\":true}"
     ],
     [
-      "m_c90d3cc1-9f55-5d46-baa1-3bf48d97a2a9",
+      "m_6db356bf-4bd8-5fe9-9f40-bb6a7339a919",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":2,\"OpaqueLevel\":3,\"Dimmed\":false}"
     ],
     [
-      "m_29ae05d2-8a65-564a-af90-edae9a4d0b1f",
+      "m_5f98d48d-1605-5d4e-9832-999145b0d7ea",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":2,\"OpaqueLevel\":4,\"Dimmed\":true}"
     ],
     [
-      "m_4e63a793-f70b-5f1c-b4a0-1e71a0ef6e70",
+      "m_8368b62c-1b75-5313-a2ff-0a2f72d741ca",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":0,\"OpaqueLevel\":4,\"Dimmed\":true}"
     ],
     [
-      "m_d1df1683-0e34-5968-a160-e05666822872",
+      "m_903abffc-4a7e-5f64-a034-59b87a5a241e",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":0,\"OpaqueLevel\":4,\"Dimmed\":false}"
     ],
     [
-      "m_852b7e7b-6acf-58ab-a0c0-072641d9d154",
+      "m_18af9f54-3024-5493-958d-e2ce6a953a1e",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":0,\"OpaqueLevel\":3,\"Dimmed\":false}"
     ],
     [
-      "m_320749d8-6ff8-57d6-99ab-0d0a0d7cbd05",
+      "m_dd60ea54-8104-52ca-9af7-e2bc204a8897",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":2,\"OpaqueLevel\":2,\"Dimmed\":false}"
     ],
     [
-      "m_af6d8c1d-5bef-58c9-9dfe-c45e9ab52bd1",
+      "m_b50fae17-79a2-551b-81dd-b88cc70fc91e",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":0,\"OpaqueLevel\":2,\"Dimmed\":true}"
     ],
     [
-      "m_17277d1c-c741-58e4-8bf1-d5eb83416ab3",
+      "m_266ff2f9-c38d-5dfa-aea6-1b5ad2e41123",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":2,\"OpaqueLevel\":3,\"Dimmed\":true}"
     ],
     [
-      "m_f7ddb82f-7b24-5863-b783-c94b79b34f0a",
+      "m_f42ebc91-ccc3-5e6c-bc5f-efadc376abb0",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":0,\"OpaqueLevel\":3,\"Dimmed\":true}"
     ],
     [
-      "m_4b1dba97-a395-5a4d-bfee-6e2b90bd48d0",
+      "m_2d16e957-2832-547b-afde-fdc19903106c",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":0,\"OpaqueLevel\":3,\"Dimmed\":false}"
     ],
     [
-      "m_8011575d-9695-553a-a3b9-206875e214c0",
+      "m_d7297e87-dd79-5c40-9017-f10c7bf56d2a",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":false,\"Layer\":2,\"OpaqueLevel\":4,\"Dimmed\":false}"
     ],
     [
-      "m_08996176-bcf4-5b13-9ce5-6b09baa6f490",
+      "m_21e21b0e-aa30-5d41-91b6-e4aee478888e",
       "Boids | Futuristic Visor HUD: {\"UseFactionColor\":true,\"Layer\":0,\"OpaqueLevel\":4,\"Dimmed\":true}"
     ],
     [
@@ -14427,6 +14427,58 @@
     [
       "RestraintD76F027D-E788-42C3-9B49-94B52F0F3C7F",
       "Drone Long Mitten"
+    ],
+    [
+      "BoidsLegacySaveTitle",
+      "Boids | Compatibility Warning"
+    ],
+    [
+      "BoidsLegacySaveBody",
+      "Boids cannot determine mod version in this save.\nThis save might have been created either without Boidsor with an old version of it."
+    ],
+    [
+      "BoidsLegacySaveConsequence",
+      "If you choose to load anyway, this mod would attempt initialization as if no version of it has been installed.\nLoading a save with incompatible mod version may break the game and permanently corrupt your save."
+    ],
+    [
+      "BoidsLegacySaveLoadAnyway",
+      "Load anyway"
+    ],
+    [
+      "BoidsLegacySaveCancel",
+      "Cancel"
+    ],
+    [
+      "BoidsMigrationRefusedTitle",
+      "Boids | Compatibility Warning"
+    ],
+    [
+      "BoidsMigrationRefusedBody",
+      "This save was written by a release of Boids that this build cannot carry forward.\nThe change it needs is a breaking one, so loading it would leave the game reading a shape it no longer understands."
+    ],
+    [
+      "BoidsMigrationRefusedConsequence",
+      "The save has not been loaded and has not been modified: nothing above this message has been written to it. Returning to the menu is the safe way out, and reinstalling the release that wrote the save is the way to continue it."
+    ],
+    [
+      "BoidsMigrationRefusedReturnToMenu",
+      "Return to main menu"
+    ],
+    [
+      "BoidsMigrationRefusedStay",
+      "Stay here"
+    ],
+    [
+      "BoidsLegacySaveDeclined",
+      "This save was written before the mod recorded which release made it. It has been left unloaded; confirm the warning to load it anyway."
+    ],
+    [
+      "BoidsLegacySaveAccepted",
+      "This save predates the mod's release record. It is being loaded as though it had never carried any of the mod's equipment or control state."
+    ],
+    [
+      "BoidsSaveRefusalReported",
+      "This save cannot be loaded by this release of the mod:"
     ],
     [
       "KDVarPref8D4A3F0D-1270-46B3-A1E3-CD6A056AF7BB",
@@ -14476,15 +14528,15 @@
     "1AB75038-8339-4124-AD71-5F88F2DF5BFF",
     "9CEB10C8-EE87-4AD9-99E2-D7216FB4CF40",
     "9D1BF9D4-C99D-4BA8-A25B-2A89FF8C2B8D",
-    "880578c0-735b-50f3-8086-2386bb7cc917",
-    "ab2cf7ec-e2fc-5437-9cfb-5d1924532057",
-    "cf3101f1-2919-56d5-bc08-9fe3cf6e4146",
-    "4fde6bd8-d128-50b2-912d-558edfeee00d",
-    "6512a38a-85d5-5ab5-a7c4-f5c4788892e4",
-    "f4d90f30-8acd-5e96-9c1b-c782b0a6ccc9",
-    "e721919d-4969-59db-bce7-65fbd50dec67",
-    "c0c57947-c061-5b9e-9225-45a02a8d974a",
-    "57cd7fbf-a953-50b2-bbbf-51dd3dab2662",
+    "629a4169-d0c9-5b4b-89db-df671211931e",
+    "42408587-cfd1-587a-a31f-cf4f4cef912f",
+    "74466ddd-7329-5e50-a574-648d118e4cdc",
+    "1a8c6f51-2ae5-5795-be6f-374c9130e667",
+    "8e5ef0db-fb4d-549d-8917-c9ec4d1f71c9",
+    "fba487ef-c283-5224-8feb-23b23f4b2ef0",
+    "6e3233c0-17c1-5102-b543-3ddd902475e5",
+    "7f92b38c-8ed5-57a6-8873-566192bb5e61",
+    "4cc81a1b-4693-51d9-9782-2287bfe47114",
     "F918EAC6-DEE2-4E71-BA76-8BF84BDA173B",
     "82B14B3F-01C2-4B39-BCD9-6AACEB8E8A95",
     "081DC364-EEA5-440D-B4BD-E956F72CD9E5",
@@ -14495,86 +14547,86 @@
     "EB56F491-EE14-4431-B641-C3C397292435",
     "76C06708-B150-414C-B402-A57A1A78BC53",
     "F10BAD9F-53F1-439B-9A00-BA5DB504A646",
-    "c11d5cf7-ae18-5007-b098-67f45e54bb9b",
-    "d7dd2a08-4a4c-5347-8d1c-f3ff29aa601c",
-    "9688a048-8881-5d79-9c62-3a433624a8e2",
-    "7fcb73d6-f1d0-59f6-9e67-7ebad5ffbd94",
-    "25f5663d-a431-5bd0-bc2a-b0c8b9265b0a",
-    "9afe5727-c87e-546d-ad2a-05b9cca31c5f",
-    "c9988157-f094-5979-91d8-4f64fea8d58a",
-    "02feed1b-fd62-5b77-b55d-7819bcb0c916",
-    "cf2c6561-793f-51e6-84ee-6eaaf848cfef",
-    "4dc5029f-be40-5e48-89d8-82b4351e794c",
-    "888b2642-13b8-505e-b20b-6ca269d080e6",
-    "e93dd1b9-5428-5c2e-9d5b-170361dd480f",
-    "0f3a5d9d-7eb7-57f2-a07b-6388f2d2ce28",
-    "08c9b625-2351-56e4-a46f-5b2d5d69cf39",
-    "824bcb91-82ae-5d04-b934-bca1c3eed427",
-    "6bbb6ef5-afd7-51de-89f7-2748e5fa6458",
-    "b2c18ec3-7361-5eb7-9fc4-a1861f7b7a7d",
-    "19ca58a5-d4db-5973-b7d9-d4bd6a5a6cf1",
-    "1edd8e94-35e5-52ab-8627-95fd106974e5",
-    "ce749c5e-9820-59fb-91cd-aa27dff38aba",
-    "b05adbce-1537-5f24-8c6f-5af182bc6f8f",
-    "bf581f04-30b2-567c-869f-2a70e0313a20",
-    "a33c86f6-b8f7-5898-899a-6bf5f3983779",
-    "c9f93548-bfc0-567e-80e9-c8130e604538",
-    "87ff6c34-9dc2-51ce-b80d-67ed22c8fe5b",
-    "148802f5-a2ba-554a-9b17-e567b4b8b00d",
-    "bf850c88-8435-536a-90b2-d79bcb0724f9",
-    "4fee0caa-bedd-5f6f-997e-d11804ee1a1b",
-    "7422984c-4810-582a-bb30-69e5575c032b",
-    "5b843e93-97b5-527c-882e-bd6a67cc62a6",
-    "7d7dce9e-05e1-50e8-91e0-208aaca6e654",
-    "4bbe6d4d-b2f0-59bc-b71d-98e0f4afd833",
-    "30df9f0b-3cf9-5709-a922-c9b2223d83e9",
-    "e8038c23-21b0-5dc5-85eb-075075f86623",
-    "9deea359-4183-53d1-8b6b-39744153cdd6",
-    "dbcdf674-bcf0-5d4f-acd5-1975934189e7",
-    "9e4d8510-4527-5d21-9b83-1699293f1c0a",
-    "a19cf644-8914-5bf6-96fc-cc6fb712141c",
-    "7069483c-c176-54b4-b3aa-112ade0f4900",
-    "44b2bbbe-ae33-5ce4-a8c2-fbdceaf6cf0b",
-    "732af275-e475-542e-a19a-c0e9d103393c",
-    "fb2d16a2-1789-5834-b046-1b011d8dd4d7",
-    "7799b07e-fd8e-57ca-b981-f5c2264d7338",
-    "4f4400f8-55c0-5b48-8c26-1a452a379209",
-    "977d42e0-5273-5ae3-b189-82f1bf5db5e3",
-    "b976a593-c530-59d2-8207-e406e2857bc9",
-    "89d6b891-8006-53f1-aed1-64c9788d673f",
-    "4fe76b2e-60ef-536f-ab2e-041c801ae164",
-    "4dd602d9-aeff-56f2-8431-f1e5e0811666",
-    "d5e02e2a-4a8a-529f-9626-b66eab39a08b",
-    "c40094e4-1ccf-5c9f-b7bf-58f7e7e8695a",
-    "72ff3224-edf2-50b9-a296-a439e0f67e5b",
-    "226dccb9-aa44-51d3-8049-998758e066cc",
-    "bd0427d5-66e2-5e01-bb24-51b12f5462f5",
-    "13847f0b-cc52-54ee-ba3f-53adbd0ebe17",
-    "af46d1c5-3aac-54cc-8d71-571ea8290eaf",
-    "ef1709f5-d15f-5904-b03d-cd6120164085",
-    "ddd8b5ad-4a9b-51a6-afe9-78bd226458a8",
-    "ff5314f7-27d7-5f6a-9924-3aaeae6f9055",
-    "e0f8f68c-6d2f-5ee4-9d85-7829e9195d19",
-    "2a634701-ad04-51f8-a93e-05c08888176d",
-    "1edbe44a-1555-5c68-a2fa-2ddc94056fa0",
-    "f3b60fa7-5a45-5716-b9c5-0c2227ab3db0",
-    "0614658d-e550-5bc7-93c1-bafdaa5b78dc",
-    "87c35e2a-7b61-5d24-be61-a4bc47289601",
-    "bf3c8fb1-7887-5de0-882f-2d3781346b7e",
-    "54d56026-8b38-5d1f-94d3-7c74b2cc91b9",
-    "c17bb5f1-527e-5818-bc18-d851d4aa2f9b",
-    "acad8107-46ac-53fa-8ac9-029316c48643",
-    "bbcd17e0-2677-501e-b93e-e76fbe05925f",
-    "58f7fba5-54fd-58c5-a694-2a3ce9433f3f",
-    "01907125-e9f9-5459-9075-8daff88a8c5f",
-    "bd8053b8-8ee5-54d6-ae63-98937b99672f",
-    "c1505bdf-86ea-5d49-8477-9e2373789fea",
-    "43174758-cb2b-5b6a-83a0-d3a350a42c9b",
-    "0863f093-0cdc-5248-b6ce-f643d6764530",
-    "e3bca86e-44dc-5bd6-99e5-e5eb60990fe4",
-    "b422fbf1-5ea0-561c-adce-551c0009a30a",
-    "d6702d6c-e575-5afd-8363-5878f9e8f321",
-    "56a71da5-046c-525f-bb08-eff5071c1d1c",
+    "c666b777-2c34-5dfd-ba74-8fa080d772d1",
+    "fb94e78c-7334-5514-a886-b449f7271abc",
+    "b280187a-f81d-5795-833a-5a19e18fb9f3",
+    "c7e037f7-96d5-5453-b2db-9464b569a998",
+    "52ed7ded-18fc-528d-b75b-a37b3f62d352",
+    "c973d0e0-0c2c-5448-a8fc-c438280c02a1",
+    "bd175829-8fad-5c18-8009-68c74733b30f",
+    "07162efa-1268-5b28-842e-c21c60e45748",
+    "7236988b-5b57-5a04-ba47-eefcda14f7bd",
+    "53ad57e8-92d1-5edb-a2fe-febeaf380193",
+    "a89a6785-fd02-50ed-8cef-fdbb006df798",
+    "54a4b93b-407d-5d80-bfd2-7ab27795567e",
+    "3609013f-202f-5516-a4eb-2b75a51e89b7",
+    "0d7b3bff-1907-5b7c-bb33-c7a10e412d88",
+    "9bfe8f06-6886-5adc-bc63-3f885c0a43cb",
+    "799851c5-7c72-55ef-b668-546fb49ffe6d",
+    "bd522393-0424-5c88-9a48-c942ef4155d2",
+    "3f535b78-37e2-5d76-8d5c-12ea0b9a1af4",
+    "5b30477d-cff4-5e33-9689-5d678468c972",
+    "988ee5a3-33c5-5fde-bc16-05355357ba15",
+    "4519df24-fe8b-5561-b952-48f7e0b5ae05",
+    "98615614-ce47-54ce-b1e9-e4e7b8c30bb5",
+    "09d2aae8-1b0e-5243-aaa0-94bef3119e60",
+    "86e98029-b600-5c32-b5c5-6c4dbb388074",
+    "c4aff19b-2b51-56a6-9134-f3d8a6f21e96",
+    "656736b8-1ebf-5218-8087-4f88ab9864a1",
+    "9c3b6735-8e61-5036-a902-95caee81d5ac",
+    "c99d1f89-04de-5299-ab6f-73e504c141f4",
+    "4512dda0-1365-5f52-9619-20e7b3361b5c",
+    "e230c055-9147-57b4-a430-7cef972b5339",
+    "9cb48c55-d447-5626-8dd3-a3a88a8c829f",
+    "244d12cf-a4e2-5c13-b376-abef3ea1a1c8",
+    "54b32ad7-af91-5cf3-a826-a305c4a57c0f",
+    "661520be-5506-5a91-b73a-683e4a6f4af0",
+    "68987c0e-d18e-5b69-96c8-712df4653b87",
+    "8dcd6701-7390-5852-bba9-66531581b498",
+    "d1f13882-8996-596b-bfae-229d6e6d3347",
+    "60db09c6-e59d-5254-8bb4-d73e2a8e2658",
+    "b220e2f5-2b24-5cb2-9232-624d6cdf5a59",
+    "9d1af538-0f0f-5a0a-b207-8b6a1fa2c56c",
+    "16a9023a-c3e6-5dcf-8570-ebc6cc3e94d2",
+    "2e0ceba1-4e1b-5bb9-b4ea-2388a49cb261",
+    "b410345a-1f70-58e6-b724-3bbab82b4e79",
+    "a41c5ad4-f5f1-58fc-86ad-28acf671276a",
+    "b6e6e6cc-806d-51aa-96e1-57662246bdbe",
+    "b8568c08-f37e-555f-a8f9-3d6750e4f5c1",
+    "c71b0bba-aeae-5262-acce-735a5f25b53a",
+    "779e603f-55e2-55a5-8581-31895dcd6109",
+    "9a1a61c2-34c7-5968-9a77-6d9b7bc06776",
+    "d45095a9-9410-5e27-965f-5de755b42d46",
+    "ad7f0208-2005-5652-8074-5f9b60901d7a",
+    "72daf873-408e-57e1-bf49-1bc64f4a3c76",
+    "c48c6593-dc8c-5baf-9c97-6c69a1d70f3d",
+    "0777c082-5783-57d1-8778-92f816ea4541",
+    "89a5a6ab-d425-565e-98ec-40d2b56b2d10",
+    "848ce900-542d-5543-b3e5-3283fdd1a921",
+    "3cf32fd7-0a38-5d8c-8320-3db0ca80a561",
+    "392f1028-f17b-5df3-84b4-eda366920147",
+    "20c1391a-5dd0-539f-820f-1bff07d9d308",
+    "851aa660-0324-5882-a1e2-66253dd8d0fc",
+    "0c7ca1ec-b221-5512-8426-b53bc9ad22ae",
+    "ea902b96-978a-5e5c-b76f-a6f624dca898",
+    "08f6c498-a31d-50fd-b3d3-e424481dbacc",
+    "d3986013-c3ff-5944-bc1f-e8fe7ebd35d0",
+    "c4986f9d-96f6-5ad9-b57a-da2b8b843ffd",
+    "2417f6bb-6a93-5c98-946b-b6321220d4fd",
+    "e41ae14e-6365-59a4-96b5-f49db56e20a7",
+    "2a4b1e4f-2cd3-521f-88fa-528aa1452910",
+    "02fda503-3a1d-5a81-b5c5-1a28bbe07c08",
+    "d72f9435-036a-524a-8ff3-1555a68f804b",
+    "2f524397-a94b-5939-83e5-c16770f153b2",
+    "498015b5-6331-5002-b751-b8e9d83c7784",
+    "e82e3637-d8f5-5913-932f-1214bcb881e6",
+    "510aef8d-3b8c-542a-97a6-de35bfbe73e7",
+    "b32f9678-c330-5a4f-9faf-adf3b4e15c2d",
+    "efaaad1b-5552-5b87-861b-1b9c9eacb455",
+    "46030fb6-06ef-5059-894e-8484993bc50d",
+    "489e46e3-4acf-5246-9179-165b793e668a",
+    "6b8006b6-89eb-53c6-bee0-b922a3d0525e",
+    "34193469-e4e8-5f17-ac01-2e8f52d2f5ec",
     "B599D065-0BEA-4CA7-8E17-7F4BE959A0A8",
     "0A5E497E-952F-44F8-905B-DC45C9A746EB",
     "654C7580-D30C-4C5E-B126-648FE6D2AF27",
@@ -14843,8 +14895,8 @@
     "BaseLayer216",
     "BaseLayer217",
     "BaseLayer218",
-    "BaseLayer220",
     "BaseLayer219",
+    "BaseLayer220",
     "BaseLayer221",
     "BaseLayer222",
     "BaseLayer223",
@@ -15085,8 +15137,8 @@
     "BaseLayer216": 216,
     "BaseLayer217": 217,
     "BaseLayer218": 218,
-    "BaseLayer220": 219,
-    "BaseLayer219": 220,
+    "BaseLayer219": 219,
+    "BaseLayer220": 220,
     "BaseLayer221": 221,
     "BaseLayer222": 222,
     "BaseLayer223": 223,
@@ -15328,8 +15380,8 @@
       "BaseLayer216",
       "BaseLayer217",
       "BaseLayer218",
-      "BaseLayer220",
       "BaseLayer219",
+      "BaseLayer220",
       "BaseLayer221",
       "BaseLayer222",
       "BaseLayer223",

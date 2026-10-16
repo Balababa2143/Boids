@@ -15,6 +15,7 @@ import { GetVariant as GetLayerVariant } from './Layer'
 import { ThrowIfNull } from '../../../Utilities'
 import { InheritColor, Layering } from './Constant'
 import { AddModelVariantMapToGame, AddModelWithTextThenGetName, VariantKeyOrImmutable, ModelVariantMapBuilder, VariantKeyToImmutable } from '../../../KDExtension'
+import { DerivedVariantBase } from '../../../KDExtension/Release'
 import { FromJS } from 'immutable'
 
 const ModelTemplate = {
@@ -26,7 +27,13 @@ const ModelTemplate = {
 const DollMakerVisorFolder = 'Visors' as const
 const BoidsGlassVisorFolder = `${Constant.ModelSetRootDir}/Visor` as const
 
-const BaseName = 'E5050056-23AD-4935-BBC9-68B49F27FB9A' as const
+/**
+ * The namespace this family's model names are hashed under, derived from the mod
+ * root rather than written as a literal: a hand-written base is unversioned
+ * forever, because nothing can recognise or retire it programmatically
+ * (`KDExtension/Release.ts`).
+ */
+const BaseName = DerivedVariantBase.GlassVisorModel
 
 const ValidVariantMap = (() => {
     const builder = new ModelVariantMapBuilder<FromJS<Variant>>({ baseId: BaseName })

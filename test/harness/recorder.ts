@@ -19,6 +19,31 @@ export interface KDGlobals {
     KinkyDungeonPlayerTags: Map<string, unknown>
     KDGameData: Record<string, unknown>
     KDGameDataBase: Record<string, unknown>
+    /**
+     * The save slot the game is pointed at, and the pre-slot save list the load path falls
+     * back to. Both are read by the mod's load gate, so both have to exist before the
+     * module graph is evaluated.
+     */
+    KDSaveSlot: number
+    loadedsaveslots: unknown[]
+    /**
+     * The game's save generator and loader. The mod **wraps both** at module evaluation, so
+     * these entries are the originals it captures, and they have to behave like the game's
+     * own for the wrappers to be exercised rather than replaced.
+     */
+    KinkyDungeonGenerateSaveData: () => KinkyDungeonSave
+    KinkyDungeonLoadGame: (_: string | KinkyDungeonSave, __?: boolean) => boolean
+    /** Flattens the character's inventory to the objects themselves, as the game does. */
+    KinkyDungeonFullInventory: () => unknown[]
+    /** The game's synchronous save decode; identity in the harness. */
+    DecompressB64: (_: string) => string
+    /** The four-member `localStorage` surface the game and the mod use. */
+    localStorage: {
+        getItem: (_: string) => string | null
+        setItem: (_: string, __: string) => void
+        removeItem: (_: string) => void
+        clear: () => void
+    }
     [extra: string]: unknown
 }
 
@@ -44,6 +69,25 @@ export interface KDRecorder {
     linkUnders: Record<string, unknown>[]
     advancedTime: number[]
     pixiLoads: Record<string, unknown>[]
+
+    /**
+     * The character's inventory, as `KinkyDungeonFullInventory` flattens it. Tests seed it
+     * to put a worn item in front of the mod's item-facing code, which is the only way to
+     * reach per-instance `data` without a real game.
+     */
+    inventory: item[]
+
+    /** Every string handed to `DecompressB64`, so a test can see what the gate inspected. */
+    decompressions: string[]
+
+    /** The parsed saves the game's loader actually adopted, in call order. */
+    loads: KinkyDungeonSave[]
+
+    /** Every `localStorage.setItem`, so the mod's persisted keys are observable. */
+    localStorageWrites: [string, string][]
+
+    /** How many times the game's own save generator was reached through the mod's wrapper. */
+    saveGenerations: number
 }
 
 const EmptyGlobals = (): KDGlobals =>
@@ -62,6 +106,11 @@ export const CreateRecorder = (): KDRecorder => ({
     linkUnders: [],
     advancedTime: [],
     pixiLoads: [],
+    inventory: [],
+    decompressions: [],
+    loads: [],
+    localStorageWrites: [],
+    saveGenerations: 0,
 })
 
 let current: KDRecorder | undefined
@@ -93,4 +142,9 @@ export const ResetRecorderLogs = (): void => {
     recorder.linkUnders.length = 0
     recorder.advancedTime.length = 0
     recorder.pixiLoads.length = 0
+    recorder.inventory.length = 0
+    recorder.decompressions.length = 0
+    recorder.loads.length = 0
+    recorder.localStorageWrites.length = 0
+    recorder.saveGenerations = 0
 }

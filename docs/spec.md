@@ -234,6 +234,8 @@ authoritative and the save self-describing. Note that the save's `root_uuid` is 
 | **A slot exists for every version** | An **empty body is normal** — most versions change nothing, and the slot keeps chain indices fixed |
 | **A breaking release refuses** | It fills its slot with a refusal rather than corrupting the save |
 | **A refusal must not hang or crash** | The gate **returns cleanly with a message**; it must not throw |
+| **A refusal is always shown** | Every refusal reaches the player, with the slot's own `reason` verbatim |
+| **A refusal may offer the way out** | `ReturnToMenu` offers the game's own main menu; **either answer writes nothing** |
 
 **[既有]** The gate's timing constrains where it can live: `beforeLoadGame` fires
 **before** the save string is decompressed, so a handler there cannot see the version. Two
@@ -243,6 +245,60 @@ but blind to multi-slot saves).
 
 **[决定]** The version rides in the save as a key on `KDGameData`, which survives the
 round-trip.
+
+**[决定]** A slot's *decision* and its *work* are split, because they happen at different
+times. Whether a save may load, and whether any slot refuses it, is decided **in the gate**,
+before the game has adopted anything. A slot that accepts does its editing **after** the
+load, where the live `KDGameData` exists — so a semantic migration is written against the
+game's own state rather than against a re-encoded copy of the save string.
+
+**[决定] Phase 0 (2026-10-16) — a refusal is a value with a reason and an optional way out.**
+A slot's refusal carries its own `reason`, which reaches the player **verbatim**, and
+`ReturnToMenu`, which decides whether the player is offered the game's own main menu alongside
+staying where they are. `ReturnToMenu` is true only where staying cannot help — a save whose
+shape this build cannot carry forward will not become loadable by trying again — and false for a
+refusal about *this* save among others, where the player should be left in the load menu to
+choose a different one.
+
+**[决定] Neither answer to a refusal writes anything.** The gate refuses **before** the game has
+adopted the save, so the save on disk is byte for byte the save that was offered, and a release
+that understands it can still read it. Returning to the menu is the same single state assignment
+the game makes for its own back buttons (`base/KinkyDungeon.ts:3315`) and nothing more. That is
+the property that makes refusing *graceful* rather than destructive: the player loses a load
+attempt, not a character.
+
+**[决定] Phase 0 (2026-10-16) — a save with no recorded version may be loaded, on a warned
+confirmation.** The rule above governs a save whose version is *known and refused*. A save
+that carries **no** `root_uuid` is a different finding: it is a character written before
+versioned identifiers existed, which is not a corruption and not a newer release. It is
+therefore **refused once with a warning prompt**, and loading it on the player's
+confirmation **initialises the Coordinator as if the character had never had Boids** — a
+complete default state at the current root, while the base game's character, map,
+inventory and `Training` are untouched. A save that names a root the table does not know is
+**not** treated this way: the table carries the whole history, so an unknown root can only
+come from a newer release, and that stays a refusal.
+
+| Save | Gate |
+| --- | --- |
+| no `root_uuid` | refused once, warned, loadable on confirmation with a fresh Boids state |
+| `root_uuid` in the table, older than this release | loads, then the slots after its release run |
+| `root_uuid` not in the table | refused as a newer release's save |
+| `root_uuid` known, its slot filled with a refusal | refused with that slot's message |
+
+**[既有]** The constraint that shapes the confirmation, and it is why this is two actions
+rather than one: `KinkyDungeonLoadGame` returns a **synchronous boolean** and both call
+sites carry their post-load work inline — `KDGenMapCallback`, the state transition and
+`KDModsAfterGameStart` (`base/KinkyDungeon.ts:5743-5761`, `:6534-6549`). A prompt cannot
+block that call and then repeat it without either re-entering the game's own load button or
+losing the map-generation step. The gate therefore keeps the boolean contract, refuses the
+first attempt, and on confirmation re-enters the game's own load button — the same idiom the
+base game uses for its two-click confirmations (`:2884-2888`, `:5164-5169`).
+
+**[决定] The approval names the save it belongs to, and is discarded with the question.**
+A flag would leak across a save list — confirming one character and then clicking another
+would load the second — and an accumulating set would leave approvals behind every cancelled
+decision. It is one pending question and one approval, and discarding the question discards
+the approval.
 
 ### 4.5 Save-format surfaces
 

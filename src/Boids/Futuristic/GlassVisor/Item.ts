@@ -14,6 +14,7 @@ import { GlassType, InheritColor, ItemTags, Layering } from './Constant'
 import Variant, { AddValidVariants } from './Variant'
 import { GetGlassModelVariant, MaskMountModel } from './Model'
 import { AddRestraintWithTextThenGetName, AddRestraintVariantMapToGame, RestraintText, RestraintVariant, VariantKeyOrImmutable, VariantPart, RestraintVariantMapBuilder, VariantKeyToImmutable } from '../../../KDExtension'
+import { DerivedVariantBase } from '../../../KDExtension/Release'
 import { ThrowIfNull } from '../../../Utilities'
 import { FromJS } from 'immutable'
 import { RequireSocket } from '../Common/VariantPart'
@@ -66,7 +67,13 @@ const CalcBlind = (variant: Variant) => {
     return maxBlind * Math.pow(psi, exp)
 }
 
-const BaseName = '776675EB-33EC-485B-B204-D743B43727CC'
+/**
+ * The namespace this family's restraint names are hashed under, derived from the
+ * mod root rather than written as a literal: a hand-written base is unversioned
+ * forever, because nothing can recognise or retire it programmatically
+ * (`KDExtension/Release.ts`).
+ */
+const BaseName = DerivedVariantBase.GlassVisorItem
 
 const GetDebugText = (variant: Variant) => ({
     DisplayName: variant.GlassType == GlassType.BoidsGoggle || variant.GlassType == GlassType.DollmakerGoggle ? 'Drone Visor' : 'Drone Mask',

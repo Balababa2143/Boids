@@ -53,6 +53,15 @@ export const bundleScriptFile = 'main.bundle.js'
 /** The mod manifest, which lists what the game loads and in what order. */
 export const modManifestFile = 'mod.json'
 
+/**
+ * The source of truth for the release version inside the mod: the file that names
+ * the current release and the root its identifiers are derived under.
+ *
+ * The build reads it to check it against `package.json` rather than importing it —
+ * this config is loaded by Node, without a TypeScript transform.
+ */
+export const releaseSourceFile = path.join(srcDir, 'KDExtension', 'Release.ts')
+
 export const rootPackageJson = path.join(RepoRoot, 'package.json')
 export const testEntry = path.join(testDir, 'run-all.ts')
 export const testTsConfig = path.join(RepoRoot, 'tsconfig.webpack-test.json')

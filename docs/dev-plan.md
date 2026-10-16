@@ -47,6 +47,10 @@ steps are ordered by dependency, not by importance. Issue numbers refer to
 
 ## Phase 0 — Foundation
 
+**Status: delivered 2026-10-16.** Every step below is implemented and `npm run verify:full`
+is green; the three deviations from the steps as written are recorded after the table, and
+where the design changed, `spec` §4.4 carries the decision.
+
 **Goal:** make the substrate honest. Nothing later is safe on a save path that does not
 round-trip, or on identifiers that cannot be versioned.
 
@@ -54,6 +58,13 @@ round-trip, or on identifiers that cannot be versioned.
 scheme, the version table and the migration chain all exist and are tested; the GUID
 uniqueness test is green; and a save from a deliberately broken version is refused without
 hanging the game.
+
+**Met, with one item still needing a play session.** Everything the exit condition asks for
+is implemented and covered by the suite; the "in-game" half of "provably survives save →
+load in-game" is asserted through the game's own two seams in
+`test/save-round-trip.property.test.ts` rather than in a running browser, which is the
+strongest claim the repository's test harness can make. A single manual save → reload is
+still worth doing before it is called observed.
 
 | # | Step | Issue |
 | --- | --- | --- |
@@ -63,6 +74,43 @@ hanging the game.
 | 0.4 | **Add the GUID-uniqueness test** (`spec` §11, invariant 2). Collect every GUID literal under `src/` and fail on any duplicate. | new |
 | 0.5 | **Stand up the migration chain** (`spec` §4.4): one numbered slot per release, the load-path gate, and a clean refusal path that reports and returns rather than throwing. | new |
 | 0.6 | **Remove the leftover layer-table edit.** A personal preference with no functional contribution, meant to be commented out. Removing it takes an unexplained base-game edit out of the mod. | new |
+
+**Delivered 2026-10-16, with three deviations from the steps as written.** They are recorded
+here because the plan moves by tracking, and each is a real change to what was scheduled:
+
+- **0.3 — the release identity is `package.json`'s semver string** (`0.5.0`), not a separate
+  numbering. It is already the authority the build stamps `modbuild` from, and the two are
+  now checked against each other by the build and by the suite. The **root UUID's job is
+  therefore narrower than §4.1 implies**: it is not minted per release but per
+  *save-breaking* release, so the version table maps each minted root to the releases that
+  used it, and a release that does not intend to break saves keeps its root and adds no row.
+  Without that reading the scheme contradicts itself — a root bump renames every generated
+  name, so minting one per release would break saves every release.
+- **0.3 — `root_uuid` is a sibling key on `KDGameData`**, not a field inside the
+  coordinator's state tree. It is metadata about the *file*, while the state is the dossier
+  about the character; keeping them apart is what will let route 1 (5.3) clear the dossier
+  without touching the record of what produced the save.
+- **0.5 — the gate confirms rather than refusing the unversioned case.** It was scheduled as
+  "a clean refusal path", and that is still what it does for a save whose version is *known
+  and refused* and for an unknown root. A save with **no** recorded version is a different
+  finding, and it now loads on a warned confirmation: the character survives, and the
+  coordinator starts from an empty dossier. The constraint behind the shape is
+  **[既有]** — `KinkyDungeonLoadGame` returns a synchronous boolean and carries the caller's
+  map-generation work inline, so the confirmation refuses the first attempt and re-enters the
+  game's own load button rather than repeating the call. Recorded in `spec` §4.4.
+
+**Added after the three deviations, on review and at the designer's instruction.** 0.5 grew a
+second refusal shape once the chain existed to carry it:
+
+- **A migration slot's refusal is a value with a `reason` and a `ReturnToMenu` flag.** Every
+  refusal is shown, with the slot's own words; `ReturnToMenu` offers the game's own main menu,
+  and is true only where staying cannot help. **Neither answer writes anything** — the gate
+  refuses before the game adopts the save, so the character on disk is untouched and a release
+  that understands it can still read it. `spec` §4.4 carries the decision.
+- **The dialog was generalised and published** as `Boids.CommonUI.Prompt`, with the save
+  wording moved to `SavePrompts`. The published surface therefore went from three namespaces to
+  four, and `test/__manifest__/public-api.json` was regenerated for it — the one widening this
+  phase makes, and it is for other mods' compatibility warnings rather than for content.
 
 **Ordering constraints:**
 
@@ -323,7 +371,7 @@ this plan creates. **The `New work` column names the issues that must be opened.
 
 | Phase | Existing issues | New work |
 | --- | --- | --- |
-| 0 — Foundation | #48, #47 | identifier scheme + version table, GUID uniqueness test, migration chain, remove the leftover layer edit |
+| 0 — Foundation **(delivered)** | #48 **(closed by 0.1)**, #47 | identifier scheme + version table, GUID uniqueness test, migration chain, remove the leftover layer edit — **all delivered; the GitHub issues for the `new` work still have to be opened and closed** |
 | 1 — Control model | #19, #45, #40, #42, #43, #30, #34 | — |
 | 2 — Behavior Control | #19 | action chokepoint, arousal gate, substitution whitelist, reinforcement channel |
 | 3 — Sensory Control | #19 | seam precedence, deafener wiring, spell range, numeric buffs, map marking, shared vision |

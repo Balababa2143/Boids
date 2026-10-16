@@ -10,6 +10,7 @@
  */
 
 import { RequireSocket } from '../Common/VariantPart'
+import { DerivedVariantBase } from '../../../KDExtension/Release'
 import { BuildLinkSet, ModelRestraintBundledVariantDesc } from './Common'
 import * as Layer from './Layer'
 import * as Socket from './Socket'
@@ -138,8 +139,14 @@ const DescriptorMap = {
 export type Variant = keyof typeof DescriptorMap
 
 
-const RestraintBaseName = '8716C924-78B7-4F73-9DF9-AF9CB9F6C713'
-const ModelBaseName = 'A2FF1EAF-DF9A-4A34-8C07-0F5A42397D80'
+/**
+ * The two namespaces this family's variant keys are hashed under, derived from the
+ * mod root rather than written as literals: a hand-written base is unversioned
+ * forever, because nothing can recognise or retire it programmatically
+ * (`KDExtension/Release.ts`).
+ */
+const RestraintBaseName = DerivedVariantBase.ArmLinkRestraint
+const ModelBaseName = DerivedVariantBase.ArmLinkModel
 
 /**
  * The restraint the game registered for an arm link variant.

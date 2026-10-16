@@ -16,6 +16,7 @@ import { Record, RecordOf} from "immutable";
 import { GlassLayerTemplate, ModelTemplate } from "../Common";
 import { GlassLayerFragments, GlassSpriteName, InheritColor, Layering } from "../../GlassVisor/Constant";
 import { AddModelVariantMapToGame, ModelVariantMapBuilder } from "../../../../KDExtension";
+import { DerivedVariantBase } from "../../../../KDExtension/Release";
 import { Constant } from "../../Common";
 import { IGlassModelVariantBase, ValidGlassModelVariants } from "./Common";
 
@@ -23,7 +24,13 @@ interface IModelVariant extends IGlassModelVariantBase {
     Layer: Layering
 }
 
-const ModelBaseName = '019f8a25-2f30-7ce3-9217-ef3ea41c8a5d'
+/**
+ * The namespace this HUD glass's model names are hashed under, derived from the mod
+ * root rather than written as a literal: a hand-written base is unversioned forever,
+ * because nothing can recognise or retire it programmatically
+ * (`KDExtension/Release.ts`).
+ */
+const ModelBaseName = DerivedVariantBase.HudGlassVisorModel
 const ModelFolder = `${Constant.ModelSetRootDir}/Visor` as const
 
 /**

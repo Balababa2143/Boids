@@ -1,10 +1,12 @@
 import { readFile, stat } from 'node:fs/promises'
+import { readFileSync } from 'node:fs'
 import * as path from 'node:path'
 
 import {
     bundleDir,
     bundleScriptFile,
     modManifestFile,
+    releaseSourceFile,
     RepoRoot,
     rootPackageJson,
     typeBundleDir,
@@ -40,6 +42,66 @@ export const ReadRootVersion = async (): Promise<string> => {
     const pkg = JSON.parse(await ReadText(rootPackageJson)) as { version?: string }
     if (typeof pkg.version !== 'string') Fail('package.json declares no version')
     return pkg.version
+}
+
+/**
+ * The version as `src/KDExtension/Release.ts` declares it, or `undefined` when the
+ * declaration cannot be found.
+ *
+ * Read by pattern rather than by importing the module, because the config is loaded
+ * by webpack-cli with Node's own ESM loader: it has no TypeScript transform, so
+ * importing `src/**` from here is not available. The same reason `paths.ts` reads
+ * `tsconfig.json` instead of importing it.
+ *
+ * `test/harness/release.ts` carries the same pattern for the suite, and it cannot be
+ * shared: a module under `test/` is TypeScript too, so the build cannot import it for
+ * exactly the reason it cannot import `Release.ts`. Two small copies, each with a test
+ * or a build check of its own, is the honest trade — a shared copy would need a build
+ * step that does not exist.
+ */
+const ReadReleaseVersion = (): string | undefined => {
+    try {
+        const source = readFileSync(releaseSourceFile, 'utf8')
+        return /export const Release:\s*RootedReleaseRecord\s*=\s*\{[\s\S]*?Version:\s*'([^']+)'/.exec(source)?.[1]
+    }
+    catch {
+        return undefined
+    }
+}
+
+/**
+ * The release the mod *says* it is has to be the release it is stamped as.
+ *
+ * `Asset/mod.json`'s `modbuild` and the staged types package are both stamped from
+ * `package.json`, so the version the game reads is `package.json`'s — while the
+ * version the load gate compares a save against, and the release named in a refusal
+ * message, come from `src/KDExtension/Release.ts`. The two cannot be generated from
+ * one another without putting files outside `rootDir` into the mod's compilation,
+ * which would break the declaration tree the types package is re-rooted from. So
+ * they are checked against each other instead, and the build is where that happens.
+ *
+ * A mismatch is worse than a build failure would suggest: the gate would refuse
+ * saves (or accept them) by a version the player never sees, and the version table
+ * would localise roots against the wrong release.
+ */
+export const VerifyReleaseVersion = async () => {
+    const version = await ReadRootVersion()
+    const declared = ReadReleaseVersion()
+
+    if (declared == null) {
+        Fail(
+            `${path.relative(RepoRoot, releaseSourceFile)} declares no readable \`export const Release\` ` +
+            `with a \`Version: '<semver>'\` field, so the release version cannot be checked against ` +
+            `${path.relative(RepoRoot, rootPackageJson)}`
+        )
+    }
+    if (declared !== version) {
+        Fail(
+            `src/KDExtension/Release.ts declares release ${declared}, while package.json says ${version}. ` +
+            `Bump both together: package.json stamps modbuild and the types package, and Release.Version is ` +
+            `what the load gate compares a save's root against.`
+        )
+    }
 }
 
 /**
