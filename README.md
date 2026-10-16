@@ -355,6 +355,23 @@ mints a different identifier. `test/guid-uniqueness.test.ts` enumerates every GU
 literal under `src/` and fails on a duplicate or an unexplained change, which is
 what keeps a "quick new id" from arriving unversioned.
 
+### Reading files, and line endings
+
+The suite compares generated text against committed text, which is a comparison between
+**content** and content-plus-a-carriage-return: git stores LF in the index and checks the working
+copy out as CRLF on Windows, so a byte comparison passes on the machine that has just written the
+file and fails on every other one. The generated text reference shipped broken exactly that way.
+
+So there is one reader, `test/harness/text.ts`: every file the suite reads goes through it, and it
+hands back LF. `test/self-check.test.ts` fails if any file under `test/` reads a file itself,
+because the rule that depends on remembering is the one that already broke.
+
+A hash is a comparison too, so `CanonicalJson` in `test/harness/manifest.ts` normalises what it
+serialises. That covers the registration manifest's comparison *and* every digest in it with one
+definition of "the same content", rather than a normalisation at each call site that the next call
+site can forget. `webpack/verify.ts` normalises its own reads for the same reason; it cannot share
+the reader, because the build config runs without a TypeScript transform.
+
 ## Invariants to respect
 
 These are the things that bite. None of them are obvious from reading a single

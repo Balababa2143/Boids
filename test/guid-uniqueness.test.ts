@@ -40,9 +40,11 @@
  */
 
 import assert from 'node:assert/strict'
-import { readdirSync, readFileSync } from 'node:fs'
+import { readdirSync } from 'node:fs'
 import * as path from 'node:path'
 import { describe, it } from 'node:test'
+
+import { ReadText } from './harness/text'
 
 const RepoRoot = process.cwd()
 const SrcDir = path.resolve(RepoRoot, 'src')
@@ -212,7 +214,9 @@ const SourceFiles = (): string[] =>
 const CollectGuidOccurrences = (): GuidOccurrence[] => {
     const found: GuidOccurrence[] = []
     for (const file of SourceFiles()) {
-        const lines = readFileSync(path.resolve(SrcDir, file), 'utf8').split(/\r?\n/)
+        // The reader hands back LF, so splitting on `\n` is the whole story; the line numbers this
+        // reports are the file's own, because normalising does not add or remove a line.
+        const lines = ReadText(path.resolve(SrcDir, file)).split('\n')
         lines.forEach((line, index) => {
             for (const match of line.matchAll(GuidPattern)) {
                 found.push({ Guid: match[0].toLowerCase(), File: `src/${file}`, Line: index + 1 })

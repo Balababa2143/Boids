@@ -17,6 +17,7 @@
 
 import { createHash } from 'node:crypto'
 import { GetRecorder, type KDRecorder } from './recorder'
+import { NormalizeEol } from './text'
 
 export interface RegistrationManifest {
     models: Record<string, unknown>
@@ -97,7 +98,38 @@ export const BuildManifest = (recorder: KDRecorder = GetRecorder()): Registratio
     }
 }
 
-export const CanonicalJson = (value: unknown): string => JSON.stringify(value, null, 2)
+/**
+ * {@link NormalizeEol} through arrays and plain objects, leaving everything else alone.
+ *
+ * Only the shapes a manifest is built from are walked. A `Map` or a class instance would serialise
+ * to `{}` under `JSON.stringify` anyway, so there is nothing inside one to normalise.
+ */
+const NormalizeEolDeep = (value: unknown): unknown => {
+    if (typeof value === 'string') {
+        return NormalizeEol(value)
+    }
+    if (Array.isArray(value)) {
+        return value.map(NormalizeEolDeep)
+    }
+    if (value != null && typeof value === 'object') {
+        return Object.fromEntries(
+            Object.entries(value).map(([key, entry]) => [key, NormalizeEolDeep(entry)])
+        )
+    }
+    return value
+}
+
+/**
+ * The canonical text of anything a manifest can hold: what the baseline is *written* as, what it is
+ * *compared* as, and what every digest is taken over.
+ *
+ * It normalises line endings on the way through, so two values that differ only by CRLF are the same
+ * value here. That is what makes this comparison and every hash in {@link DigestManifest} independent
+ * of the platform that checked the file out — and doing it **inside the serializer** rather than at
+ * the call sites is the point: a hash is a comparison, so there is one definition of "the same
+ * content" and no call site to forget.
+ */
+export const CanonicalJson = (value: unknown): string => JSON.stringify(NormalizeEolDeep(value), null, 2)
 
 /**
  * A stable digest of anything the manifest can hold.

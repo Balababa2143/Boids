@@ -13,8 +13,8 @@
  * be discovered.
  */
 
-import { readFileSync } from 'node:fs'
 import * as path from 'node:path'
+import { ReadJson, ReadText } from './text'
 
 /** `src/KDExtension/Release.ts`, the one place the release version is declared in code. */
 export const releaseSourceFile = path.resolve(process.cwd(), 'src', 'KDExtension', 'Release.ts')
@@ -35,7 +35,7 @@ export const ExtractReleaseVersion = (source: string): string | undefined =>
 /** The release version the mod declares in code, or `undefined` if it cannot be read. */
 export const ReadDeclaredReleaseVersion = (): string | undefined => {
     try {
-        return ExtractReleaseVersion(readFileSync(releaseSourceFile, 'utf8'))
+        return ExtractReleaseVersion(ReadText(releaseSourceFile))
     }
     catch {
         return undefined
@@ -48,8 +48,7 @@ export const rootPackageJsonFile = path.resolve(process.cwd(), 'package.json')
 /** The version `package.json` declares, or `undefined` if it cannot be read. */
 export const ReadRootPackageVersion = (): string | undefined => {
     try {
-        const pkg = JSON.parse(readFileSync(rootPackageJsonFile, 'utf8')) as { version?: string }
-        return pkg.version
+        return ReadJson<{ version?: string }>(rootPackageJsonFile).version
     }
     catch {
         return undefined

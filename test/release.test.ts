@@ -12,7 +12,6 @@
  */
 
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
 import * as path from 'node:path'
 import { describe, it } from 'node:test'
 
@@ -35,11 +34,12 @@ import {
     ReadRootPackageVersion,
     releaseSourceFile,
 } from './harness/release'
+import { ReadJson as ReadJsonFile } from './harness/text'
 
 const RepoRoot = process.cwd()
 
-const ReadJson = (relative: string): unknown =>
-    JSON.parse(readFileSync(path.resolve(RepoRoot, relative), 'utf8')) as unknown
+/** A repository file, parsed as JSON, read through the harness's one reader. */
+const ReadJson = (relative: string): unknown => ReadJsonFile(path.resolve(RepoRoot, relative))
 
 describe('release identity', () => {
     it('declares a version that can be read out of the source', () => {

@@ -14,7 +14,7 @@
  */
 
 import assert from 'node:assert/strict'
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { describe, it } from 'node:test'
 
@@ -22,6 +22,8 @@ import * as Api from '../src/Api'
 // Side-effect import: this is the bundle entry, and importing it is what
 // publishes the global the second test below reads.
 import '../src/mod'
+
+import { ReadJsonAsync } from './harness/text'
 
 const BaselinePath = join('test', '__manifest__', 'public-api.json')
 
@@ -64,7 +66,7 @@ describe('published surface', () => {
             return
         }
 
-        const baseline = JSON.parse(await readFile(BaselinePath, 'utf8')) as string[]
+        const baseline = await ReadJsonAsync<string[]>(BaselinePath)
         assert.deepEqual(
             names,
             baseline,

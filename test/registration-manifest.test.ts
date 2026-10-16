@@ -18,7 +18,7 @@
  */
 
 import assert from 'node:assert/strict'
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, writeFile } from 'node:fs/promises'
 import * as path from 'node:path'
 import { describe, it } from 'node:test'
 
@@ -30,6 +30,7 @@ import {
     DigestManifest,
     type RegistrationManifest,
 } from './harness/manifest'
+import { ReadJsonAsync } from './harness/text'
 
 const ManifestDir = path.resolve(process.cwd(), 'test/__manifest__')
 const BaselinePath = path.resolve(ManifestDir, 'registration-manifest.json')
@@ -56,7 +57,7 @@ const ShouldUpdate = process.env.UPDATE_REGISTRATION_MANIFEST === '1'
 
 const ReadBaseline = async (): Promise<RegistrationManifest | undefined> => {
     try {
-        return JSON.parse(await readFile(BaselinePath, 'utf8')) as RegistrationManifest
+        return await ReadJsonAsync<RegistrationManifest>(BaselinePath)
     }
     catch {
         return undefined
@@ -116,6 +117,34 @@ describe('registration manifest', () => {
             [],
             'a uuid v7 generated during this run appeared in the manifest, so randomised state is being captured'
         )
+    })
+
+    it('treats line endings as the same content, in the comparison and in the digest', () => {
+        // Which line ending a checkout materialised is not content: this repository stores LF in the
+        // index and checks it out as CRLF on Windows, so a value carrying one has to compare and
+        // digest the same as the other. `harness/text` normalises what the suite *reads*; this is the
+        // half that covers what it writes and hashes, and it is one function rather than a rule the
+        // call sites have to remember.
+        const lf = { Text: 'first\nsecond', List: ['a\nb'] }
+        const crlf = { Text: 'first\r\nsecond', List: ['a\r\nb'] }
+        const loneCr = { Text: 'first\rsecond', List: ['a\rb'] }
+
+        assert.equal(CanonicalJson(crlf), CanonicalJson(lf))
+        assert.equal(CanonicalJson(loneCr), CanonicalJson(lf))
+
+        // The digest is a comparison too, so it goes through the same definition of the same value.
+        // The cast is for the sections this probe does not fill: `DigestManifest` reads the record
+        // fields with `Object.entries`, and an absent section digests as the literal `'undefined'`.
+        const digestOf = (textKeys: [string, string][]) =>
+            DigestManifest({
+                models: {},
+                restraints: {},
+                textKeys,
+                eventHandlers: {},
+                statsPresets: {},
+            } as unknown as RegistrationManifest).textKeys
+
+        assert.equal(digestOf([['TrapVibeProtoDesc', 'a\r\nb']]), digestOf([['TrapVibeProtoDesc', 'a\nb']]))
     })
 
     it('matches the committed baseline', async () => {

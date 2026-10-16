@@ -23,9 +23,11 @@
  */
 
 import assert from 'node:assert/strict'
-import { readdirSync, readFileSync } from 'node:fs'
+import { readdirSync } from 'node:fs'
 import * as path from 'node:path'
 import { describe, it } from 'node:test'
+
+import { ReadText } from './harness/text'
 
 const RepoRoot = process.cwd()
 const SrcDir = path.resolve(RepoRoot, 'src')
@@ -95,7 +97,7 @@ interface Import {
 const CollectImports = (): Import[] => {
     const imports: Import[] = []
     for (const file of SourceFiles()) {
-        const text = WithoutComments(readFileSync(path.resolve(SrcDir, file), 'utf8'))
+        const text = WithoutComments(ReadText(path.resolve(SrcDir, file)))
         for (const specifier of RelativeSpecifiers(text)) {
             // Resolved against the *directory* of the importing file, which is how the
             // bundler resolves it. No extension resolution: the check only needs the layer.

@@ -14,7 +14,7 @@
  */
 
 import assert from 'node:assert/strict'
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { describe, it } from 'node:test'
 
@@ -23,20 +23,21 @@ import { describe, it } from 'node:test'
 import '../src/mod'
 
 import { ModGroup, TextRegistry, type RegisteredText } from '../src/KDExtension'
+import { ReadTextAsync } from './harness/text'
 
 const ReferencePath = join('docs', 'localization', 'text-reference.md')
 const ShouldUpdate = process.env.UPDATE_TEXT_REFERENCE === '1'
 
 /**
- * The document with one line ending.
- *
  * The comparison is over **content**, and a checkout's line-ending policy is not content: this
- * repository normalises to LF in the index and checks out CRLF on Windows, so comparing raw file
- * text passes in the session that just wrote the file and fails in every fresh clone. That is how
- * the bug was found — by landing the work and running the gate again, rather than by running it
- * where the file had only just been generated.
+ * repository normalises to LF in the index and checks it out as CRLF on Windows, so comparing raw
+ * file bytes passes in the session that has just written the file and fails in every fresh clone.
+ * That is exactly how this gate was found broken — by landing the work and running it again, rather
+ * than by running it where the file had only just been generated.
+ *
+ * The normalising now lives in `harness/text`, which every file read in the suite goes through, so
+ * the same class of failure is closed for the whole suite rather than for this comparison.
  */
-const Normalize = (text: string): string => text.replaceAll('\r\n', '\n')
 
 /** A table cell: pipes escaped, line breaks shown, and a blank made visible. */
 const Cell = (value: string): string =>
@@ -108,7 +109,7 @@ describe('the generated text reference', () => {
             return
         }
 
-        const committed = await readFile(ReferencePath, 'utf8').catch(() => undefined)
+        const committed = await ReadTextAsync(ReferencePath).catch(() => undefined)
         if (committed == null) {
             assert.fail(
                 `${ReferencePath} does not exist. Run UPDATE_TEXT_REFERENCE=1 npm test to write it, ` +
@@ -116,7 +117,7 @@ describe('the generated text reference', () => {
             )
         }
         assert.equal(
-            Normalize(committed) === reference,
+            committed === reference,
             true,
             `${ReferencePath} is out of date. Run UPDATE_TEXT_REFERENCE=1 npm test, review the diff, ` +
             'and commit it alongside the change that moved the text.'

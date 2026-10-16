@@ -28,7 +28,17 @@ const Fail: (_: string) => never = (message) => {
     throw new Error(`Boids build check failed: ${message}`)
 }
 
-const ReadText = (file: string) => readFile(file, 'utf8')
+/**
+ * One line ending, so a comparison is over content and not over the platform's checkout.
+ *
+ * The build compares generated text against committed text exactly as the suite does, and this
+ * repository stores LF in the index while a Windows checkout materialises CRLF. It cannot import
+ * `test/harness/text.ts` for the reason given at `ReadReleaseVersion` below: this config is loaded
+ * without a TypeScript transform.
+ */
+const NormalizeEol = (text: string) => text.replace(/\r\n?/g, '\n')
+
+const ReadText = async (file: string) => NormalizeEol(await readFile(file, 'utf8'))
 
 export interface StagedModManifest {
     fileorder?: string[]
@@ -61,7 +71,7 @@ export const ReadRootVersion = async (): Promise<string> => {
  */
 const ReadReleaseVersion = (): string | undefined => {
     try {
-        const source = readFileSync(releaseSourceFile, 'utf8')
+        const source = NormalizeEol(readFileSync(releaseSourceFile, 'utf8'))
         return /export const Release:\s*RootedReleaseRecord\s*=\s*\{[\s\S]*?Version:\s*'([^']+)'/.exec(source)?.[1]
     }
     catch {
