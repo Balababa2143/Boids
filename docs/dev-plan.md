@@ -31,16 +31,23 @@ glossary), `docs/design-brief.md` (the reasoning and the base-game citations),
 steps are ordered by dependency, not by importance. Issue numbers refer to
 `github.com/Balababa2143/Boids`.
 
-> **[既有] The gate that governs every change here.** `test/registration-manifest.test.ts`
-> compares everything the mod registers against a committed baseline. **Refactoring meant to
-> preserve behaviour must leave the manifest byte-identical; a change may alter it only with
-> a reviewed diff.** So after a refactor, `git status` should not show the manifest. When a
-> change is *meant* to alter the surface:
+> **[既有] The gates that govern every change here.** Most of the suite is behaviour and
+> invariants. `test/registration-manifest.test.ts` additionally compares what the mod registers
+> against a committed **summary** — per-section counts and per-entry digests — so a dropped model,
+> a renamed restraint, or a payload that moved under an existing name fails, naming the entry.
+>
+> **[决定] Phase 0.6 split the checks that force a regeneration out of the workday gate.** They run
+> under `--audit`, which `npm run verify:full` passes, and are reported as *skipped* otherwise, so a
+> run that did not compare a generated artifact cannot read as one that did. The full 437 KB record
+> is no longer tracked: it was the equivalence proof for a rearrangement, and there are no
+> behaviour-preserving rearrangements left to gate.
 >
 > ```sh
-> UPDATE_REGISTRATION_MANIFEST=1 npm test     # registration surface
-> UPDATE_PUBLIC_API=1 npm test                # published namespace
-> npm run verify:full                          # typecheck + suite + full mod build
+> npm run verify                   # the workday gate: typecheck + suite
+> npm run test:update-manifest     # registration summary, when the surface is meant to move
+> npm run test:update-api          # published namespace
+> npm run test:update-text         # text reference, before a release
+> npm run verify:full              # typecheck + suite with audits + full mod build
 > ```
 
 ---
@@ -182,6 +189,32 @@ exactly those sections.
 - **Phase 1 waits for this phase.** Every later phase adds text, and a step that adds a string
   before the surface exists is a string that has to be found and moved afterwards — which is the
   cost this phase exists to avoid.
+
+---
+
+## Phase 0.6 — Retire the refactor-era gates
+
+**Status: delivered 2026-10-17.** `npm run verify:full` is green.
+
+**Goal:** stop taxing ordinary content work with artifacts that only a rearrangement needed, without
+losing the ability to detect an unintended change.
+
+**Exit condition:** the workday gate passes after a content change with no artifact regeneration; the
+delivery gate still fails on a stale generated artifact; and the tracked baseline is small enough
+that a one-item change is a diff someone actually reads.
+
+| # | Step | Issue |
+| --- | --- | --- |
+| 0.6.1 | **The registration record becomes a summary.** `registration-summary.json` — 345 lines, 20.7 KB — holds per-section counts and per-entry digests. The 437 KB record it replaces leaves tracking and is written on demand by `npm run test:audit`, which also holds the surface to it byte for byte when a copy has been kept. | new |
+| 0.6.2 | **The text reference leaves the workday gate.** Presence and slot coverage stay on every run; the byte comparison moves to the delivery gate, because a translator deliverable should not force a 40 KB regeneration on every reworded string. | new |
+| 0.6.3 | **Content-coupled assertions become properties.** `text-tree` asserts that every slot the registry reports as tree-sourced still resolves there, instead of naming five shipped strings; `mitten-layers` asserts that a band swaps **iff** it is a common band or a forearm band, instead of a hand-maintained count table. | new |
+| 0.6.4 | **Three subsumed tests removed**: `variant-map`'s `infrastructure surface` block, whose length check restated the module under test, and `save-prompts`' registration check, which `text-registry` already performs over the whole surface. | new |
+| 0.6.5 | **Regeneration is platform-neutral.** The `UPDATE_*=1` environment spells were a bash-ism; they are argv flags read by `test/harness/flags.ts`, with an npm script for each. | new |
+
+**Deliberately kept**, having looked at each: the enumerated GUID list — one line per new hand-written
+identifier, and the only thing that makes one deliberate — the `SharedGuidExceptions` allowlist whose
+own failure message points at it, and `release`'s "no refusal in any shipped slot yet", which is a
+deliberate-decision tripwire that retires at the first breaking release.
 
 ---
 
@@ -416,7 +449,7 @@ until they exist. **It is the last step of the programme and the only one gated 
 
 | Rule | Consequence |
 | --- | --- |
-| Refactors preserve the registration manifest | regenerate only when the surface is *meant* to change, and review the diff |
+| The registration summary is the surface's change detector | regenerate only when the surface is *meant* to change, and review the diff — the full record is written on demand (`npm run test:audit`), not committed |
 | A new test file must be added to `test/run-all.ts` | the self-check fails otherwise |
 | Moving a variant-key field requires a migration | the key is a persisted format; it is expensive to move, not immovable |
 | A new handler GUID must be globally unique | a duplicate **registration** throws at load, not at test time |

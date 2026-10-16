@@ -10,8 +10,9 @@ package-lock.json
 src/KDReference
 
 # test diagnostics
-# Written on manifest mismatch for review; the test failure itself is the signal.
+# Written on a summary mismatch, and by `npm run test:audit`; the tracked summary is what gates.
 test/__manifest__/*.next.json
+test/__manifest__/*.full.json
 
 # output
 */fable_modules

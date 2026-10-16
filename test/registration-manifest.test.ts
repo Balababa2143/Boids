@@ -1,20 +1,25 @@
 /**
- * The equivalence gate.
+ * The registration surface gate.
  *
- * Imports the mod's entry module (the same graph the webpack bundle uses) with
- * KD globals stubbed, then compares the resulting registration manifest against
- * the committed baseline in `test/__manifest__/registration-manifest.json`.
+ * Imports the mod's entry module (the same graph the webpack bundle uses) with KD globals stubbed,
+ * then compares what it registered against the committed summary in
+ * `test/__manifest__/registration-summary.json`: per-section counts and per-entry digests.
  *
- * Contract for refactors:
- *   - dead-code removal and duplication extraction must leave the baseline
- *     byte-identical, and
- *   - a defect fix may change it, but only with a reviewed, minimal diff.
+ * That comparison is the **workday** gate, and it is deliberately not the full record. Phase 0 and
+ * 0.5 needed a byte-identical 437 KB dump to prove a rearrangement changed nothing; there are no
+ * more behaviour-preserving refactors, so from here every registration change is meant, and pinning
+ * the payload would put a 16,000-line regeneration in front of every content commit. The digests
+ * still catch a dropped model, a renamed restraint or a payload that moved under an existing name,
+ * and they name it.
  *
- * Because the baseline is committed, determinism is enforced *across runs*: a
- * nondeterministic registration would fail this test the next time it runs.
- * Nothing randomised may be captured — see the exclusion test below.
+ * The record itself is still available: `npm run test:audit` writes it, and a summary mismatch
+ * writes the candidate for review.
  *
- * Regenerate deliberately with `UPDATE_REGISTRATION_MANIFEST=1 npm test`.
+ * Because the summary is committed, determinism is enforced *across runs*: a nondeterministic
+ * registration would fail this test the next time it runs. Nothing randomised may be captured — see
+ * the exclusion test below.
+ *
+ * Regenerate deliberately with `npm run test:update-manifest`.
  */
 
 import assert from 'node:assert/strict'
@@ -23,17 +28,25 @@ import * as path from 'node:path'
 import { describe, it } from 'node:test'
 
 import { InstallKDGlobals } from './harness/kd-globals'
+import { AuditSkipReason, UpdateManifest } from './harness/flags'
 import {
     BuildManifest,
+    BuildSummary,
     CanonicalJson,
+    Counts,
     DescribeDigestDiff,
     DigestManifest,
     type RegistrationManifest,
+    type RegistrationSummary,
 } from './harness/manifest'
 import { ReadJsonAsync } from './harness/text'
 
 const ManifestDir = path.resolve(process.cwd(), 'test/__manifest__')
-const BaselinePath = path.resolve(ManifestDir, 'registration-manifest.json')
+/** The tracked summary: compared on every run, and small enough to review. */
+const SummaryPath = path.resolve(ManifestDir, 'registration-summary.json')
+/** The untracked record the audit writes, and compares against when one has been kept. */
+const FullRecordPath = path.resolve(ManifestDir, 'registration-manifest.full.json')
+/** The untracked candidate, written only when the summary disagrees with what was registered. */
 const DiagnosticPath = path.resolve(ManifestDir, 'registration-manifest.next.json')
 
 /** `GameDataStateKey` from `Coordinator/Internal/StateStorage.ts` — the randomised `Entry.ID` lives under it. */
@@ -53,20 +66,37 @@ const UuidV7Timestamp = (uuid: string): number =>
 /** Values generated within this window before the test are treated as "generated during this run". */
 const GeneratedDuringRunWindowMs = 60_000
 
-const ShouldUpdate = process.env.UPDATE_REGISTRATION_MANIFEST === '1'
-
-const ReadBaseline = async (): Promise<RegistrationManifest | undefined> => {
+const ReadSummary = async (): Promise<RegistrationSummary | undefined> => {
     try {
-        return await ReadJsonAsync<RegistrationManifest>(BaselinePath)
+        return await ReadJsonAsync<RegistrationSummary>(SummaryPath)
     }
     catch {
         return undefined
     }
 }
 
-const WriteManifest = async (filePath: string, value: RegistrationManifest): Promise<void> => {
+const WriteJson = async (filePath: string, value: unknown): Promise<void> => {
     await mkdir(ManifestDir, { recursive: true })
     await writeFile(filePath, CanonicalJson(value) + '\n', 'utf8')
+}
+
+/**
+ * Which sections changed size, before the per-entry diff says which entries did.
+ *
+ * A count is the part of a mismatch a reader can act on first: a digest that moved says only that
+ * something did, while `restraints: 128 -> 127` says what to look for.
+ */
+const DescribeCountsDiff = (
+    expected: Record<string, unknown>,
+    actual: Record<string, unknown>
+): string => {
+    const show = (value: unknown) => value === undefined ? 'absent' : CanonicalJson(value)
+    const sections = [...new Set([...Object.keys(expected), ...Object.keys(actual)])]
+        .filter(section => show(expected[section]) !== show(actual[section]))
+
+    return sections.length > 0
+        ? sections.map(section => `  ${section}: ${show(expected[section])} -> ${show(actual[section])}`).join('\n')
+        : '  (no section changed size)'
 }
 
 // Load the whole mod against freshly installed stubs, exactly once, through the
@@ -88,7 +118,7 @@ await import('../src/mod')
     .KinkyDungeonSendEvent({ Event: 'afterLoadMods', data: {} })
 
 const manifest = BuildManifest()
-const baseline = await ReadBaseline()
+const committedSummary = await ReadSummary()
 
 describe('registration manifest', () => {
     it('registers the expected order of magnitude', () => {
@@ -147,29 +177,65 @@ describe('registration manifest', () => {
         assert.equal(digestOf([['TrapVibeProtoDesc', 'a\r\nb']]), digestOf([['TrapVibeProtoDesc', 'a\nb']]))
     })
 
-    it('matches the committed baseline', async () => {
-        if (ShouldUpdate || baseline == null) {
-            await WriteManifest(BaselinePath, manifest)
-            if (baseline == null) {
+    it('matches the committed summary', async () => {
+        const summary = BuildSummary(manifest)
+
+        if (UpdateManifest() || committedSummary == null) {
+            await WriteJson(SummaryPath, summary)
+            if (committedSummary == null) {
                 assert.fail(
-                    'Wrote a fresh baseline to test/__manifest__/registration-manifest.json. ' +
+                    `Wrote a fresh summary to ${path.relative(process.cwd(), SummaryPath)}. ` +
                     'Review it, then re-run the suite.'
                 )
             }
             return
         }
 
-        if (CanonicalJson(manifest) === CanonicalJson(baseline)) {
+        if (CanonicalJson(summary) === CanonicalJson(committedSummary)) {
             return
         }
 
-        await WriteManifest(DiagnosticPath, manifest)
+        await WriteJson(DiagnosticPath, manifest)
 
         assert.fail(
-            'Registration manifest changed.\n' +
-            DescribeDigestDiff(DigestManifest(baseline), DigestManifest(manifest)) + '\n\n' +
-            'Full new manifest written to test/__manifest__/registration-manifest.next.json for review.\n' +
-            'If the change is intended, re-run with UPDATE_REGISTRATION_MANIFEST=1 and commit the baseline alongside it.'
+            'The registration surface changed.\n' +
+            DescribeCountsDiff(committedSummary.counts, summary.counts) + '\n' +
+            DescribeDigestDiff(committedSummary.digests, summary.digests) + '\n\n' +
+            `The full record is written to ${path.basename(DiagnosticPath)} for review.\n` +
+            'If the change is intended, run `npm run test:update-manifest` and commit the summary alongside it.'
         )
     })
+
+    it(
+        'agrees with the kept full record, or writes it when none is kept',
+        { skip: AuditSkipReason('The full registration record') },
+        async () => {
+            // The byte-level equivalence check Phase 0 and 0.5 relied on, kept as an opt-in rather
+            // than deleted: it is the right tool for the *next* large rearrangement. Keep a copy at
+            // `registration-manifest.full.json` and the audit holds the surface to it; with none
+            // kept, the audit's job is to produce the record for reading.
+            const kept = await ReadJsonAsync<RegistrationManifest>(FullRecordPath).catch(() => undefined)
+            if (kept == null) {
+                await WriteJson(FullRecordPath, manifest)
+                return
+            }
+
+            if (CanonicalJson(kept) === CanonicalJson(manifest)) {
+                return
+            }
+
+            await WriteJson(DiagnosticPath, manifest)
+            assert.fail(
+                `The registration record differs from the kept copy at ${path.basename(FullRecordPath)}.\n` +
+                DescribeCountsDiff(
+                    Counts(kept),
+                    Counts(manifest)
+                ) + '\n' +
+                DescribeDigestDiff(DigestManifest(kept), DigestManifest(manifest)) + '\n\n' +
+                `The candidate is written to ${path.basename(DiagnosticPath)}. A refactor that meant to ` +
+                'preserve behaviour has changed it; a change that meant to alter the surface should be ' +
+                `reviewed and the kept copy replaced with ${path.basename(DiagnosticPath)}.`
+            )
+        }
+    )
 })

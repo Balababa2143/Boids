@@ -1,18 +1,26 @@
 /**
- * Builds the registration manifest: a canonical, deterministic record of
- * everything the mod registers into the game at load time.
+ * Builds the registration manifest: a canonical, deterministic record of everything the mod
+ * registers into the game at load time.
  *
- * The manifest is compared against a committed artifact
- * (`test/__manifest__/registration-manifest.json`) by
- * `test/registration-manifest.test.ts`. The contract is:
+ * ## Two tiers, because the refactors are over
  *
- *   - dead-code removal and duplication-extraction commits must leave it
- *     byte-identical, and
- *   - commits that fix a defect must show a reviewed, minimal diff.
+ * Phase 0 and 0.5 built this to prove that a large rearrangement changed nothing: a
+ * behaviour-preserving refactor had to leave it **byte-identical**, and that is how the
+ * reorganization and the text surface were shown to be neutral. Those refactors are done, and from
+ * here every registration change is *meant* — so the full record is no longer what the suite
+ * compares, and keeping it as the gate would tax every content commit with a 16,000-line diff.
  *
- * Object key order is deliberately preserved (never sorted) because insertion
- * order *is* observable behaviour here: it is the order the game sees models,
- * restraints, text keys and event handlers in.
+ *   - `test/__manifest__/registration-summary.json` is compared on every run: per-section
+ *     **counts** plus {@link DigestManifest}'s per-entry **digests**. That still catches a dropped
+ *     model, a renamed restraint, or a payload that moved under an existing name, and it names the
+ *     entry — in a few hundred lines instead of sixteen thousand.
+ *   - The **full record** is written on demand, by `npm run test:audit`, and on a summary mismatch
+ *     to the ignored `registration-manifest.full.json`. It is for reading and diffing, not for
+ *     gating: a dump everyone regenerates without reading is worse than no gate at all.
+ *
+ * Object key order is deliberately preserved (never sorted) because insertion order *is*
+ * observable behaviour here: it is the order the game sees models, restraints, text keys and event
+ * handlers in.
  */
 
 import { createHash } from 'node:crypto'
@@ -120,7 +128,7 @@ const NormalizeEolDeep = (value: unknown): unknown => {
 }
 
 /**
- * The canonical text of anything a manifest can hold: what the baseline is *written* as, what it is
+ * The canonical text of anything a manifest can hold: what the summary is *written* as, what it is
  * *compared* as, and what every digest is taken over.
  *
  * It normalises line endings on the way through, so two values that differ only by CRLF are the same
@@ -134,12 +142,61 @@ export const CanonicalJson = (value: unknown): string => JSON.stringify(Normaliz
 /**
  * A stable digest of anything the manifest can hold.
  *
- * The `?? 'undefined'` is for the first run after a section is *added*: the committed baseline
+ * Truncated to 16 hex characters — 64 bits — because the job is to tell two registrations apart,
+ * not to resist an adversary: a collision would have to happen between two versions of the same
+ * section, and a shorter line keeps a 300-entry baseline readable and cheap to commit.
+ *
+ * The `?? 'undefined'` is for the first run after a section is *added*: the committed summary
  * has no such key, and a crash while describing the difference would hide the difference. A
  * missing section then reads as a changed digest, which is what a reviewer needs to see.
  */
 const Sha256 = (value: unknown): string =>
-    createHash('sha256').update(CanonicalJson(value) ?? 'undefined').digest('hex')
+    createHash('sha256').update(CanonicalJson(value) ?? 'undefined').digest('hex').slice(0, 16)
+
+/**
+ * How many entries each section holds.
+ *
+ * Redundant with the digests for *detection* — a count change moves its section's digest — and kept
+ * anyway, because a count is the part of a mismatch a reader can act on first: `restraints: 128 ->
+ * 127` says what to look for before the per-entry diff says which entry it was.
+ *
+ * `eventHandlers` counts handler types per trigger and keeps a trigger at `0` rather than omitting
+ * it, so the shape does not shift when a handler is removed.
+ */
+export const Counts = (manifest: RegistrationManifest): Record<string, unknown> => ({
+    models: Object.keys(manifest.models).length,
+    restraints: Object.keys(manifest.restraints).length,
+    textKeys: manifest.textKeys.length,
+    modTextKeys: manifest.modTextKeys.length,
+    eventHandlers: Object.fromEntries(
+        Object.entries(manifest.eventHandlers).map(([eventMap, triggers]) => [
+            eventMap,
+            Object.fromEntries(
+                Object.entries(triggers).map(([trigger, types]) => [trigger, types.length])
+            ),
+        ])
+    ),
+    restraintsCacheKeys: manifest.restraintsCacheKeys.length,
+    categoriesStart: manifest.categoriesStart.length,
+    startPerkNames: manifest.startPerkNames.length,
+    statsPresets: Object.keys(manifest.statsPresets).length,
+    layersBase: manifest.layersBase.length,
+    modelLayers: Object.keys(manifest.modelLayers).length,
+    initLayersArgs: manifest.initLayersArgs.length,
+    getModelLayersCalls: manifest.getModelLayersCalls.length,
+    pixiLoads: manifest.pixiLoads.length,
+})
+
+/** The tracked summary: how much the surface holds, and a digest of each part of it. */
+export interface RegistrationSummary {
+    counts: Record<string, unknown>
+    digests: Record<string, unknown>
+}
+
+export const BuildSummary = (manifest: RegistrationManifest): RegistrationSummary => ({
+    counts: Counts(manifest),
+    digests: DigestManifest(manifest),
+})
 
 /** Per-section, per-entry digests: compact, and precise about what changed. */
 export const DigestManifest = (manifest: RegistrationManifest): Record<string, unknown> => {

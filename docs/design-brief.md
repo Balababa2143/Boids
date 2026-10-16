@@ -2153,9 +2153,9 @@ type ItemRegistry = {               type ControlState = {
 ```
 
 **[既有] The migration cost of doing it now is zero saves.** No released build has a
-coordinator save in the wild; `test/registration-manifest.test.ts:89-105` already asserts
-the coordinator's save key is **absent** from the registration manifest, precisely so the
-shape is not accidentally frozen.
+coordinator save in the wild; the "captures no value generated during this run" case in
+`test/registration-manifest.test.ts` already asserts the coordinator's save key is **absent**
+from the registration record, precisely so the shape is not accidentally frozen.
 
 **[决定] Migrate nothing, and say so explicitly.** This is a deliberate exception to
 §2.10's migration chain, and the exception is *only* about the old shape's age: a `fromJS`
@@ -2183,7 +2183,7 @@ The concrete list, in the order that keeps each step cheap:
 5. **[提议] Mint the dimension GUIDs** *derived from the master*, and register the
    existing slots as the first entries of the same registry.
 6. **[提议] Replace `ItemRegistry` with `ControlState`** in one change, regenerate the
-   manifest (`UPDATE_REGISTRATION_MANIFEST=1`), and review the diff.
+   surface summary (`npm run test:update-manifest`), and review the diff.
 7. **[提议] Add no variant-key fields** (§B.3), and write the rule — *a dimension is not an
    identity* — into the README's invariants list so the next person does not have to
    rediscover it.
@@ -2687,6 +2687,7 @@ toys**.
 | Date | Issue | What changed | Landed in |
 | --- | --- | --- | --- |
 | 2026-10-17 | *—* (designer's instruction, in session) | **The layout, and the text surface.** `src/Boids/` was the machine faction's root rather than the mod's, so the tree is now `src/FactionMachine/` beside `src/Common/`, with the dependency arrow `Utilities < KDInterface < KDExtension < Common < FactionMachine` gated by a test; the published surface is demoted to `Boids.FactionMachine.*` beside `Boids.CommonUI`, so a second faction is a sibling rather than a fourth top-level name. Text became one adapter in `src/KDExtension/Text/`: the engine's group for what the engine resolves and the mod's own group for what the mod resolves, composed keys beside dotted paths, a JSON tree cascade with a local layer and a declared engine source beneath it, per-family text authored once with variants overriding what differs, and the `Desc`/`Desc2` slot correction that gave every item a function line. | `spec` §4.6; `dev-plan` Phase 0.5; `README.md` |
+| 2026-10-17 | *—* (designer's instruction, in session) | **The refactor-era gates retired.** Phase 0 and 0.5 built a 437 KB manifest baseline to prove that a rearrangement changed nothing; with no behaviour-preserving rearrangements left, that gate had become a 16,000-line regeneration in front of every content commit, so the tracked artifact is now a 345-line summary of per-section counts and per-entry digests, and the full record is written on demand. The generated text reference's byte comparison moved to the delivery gate, three assertions coupled to shipped English became properties over the registry, and three subsumed tests were deleted. Regeneration switches became argv flags, because the documented `UPDATE_*=1 npm test` was a bash-ism. **The checks that force a regeneration now report as skipped in the workday gate rather than as passes.** | `spec` §4.5, §11 inv. 22; `dev-plan` Phase 0.6; `README.md` |
 
 **How to add a row:** open or cite the issue, then append one line. If the change is
 **breaking for saves**, it also needs a slot in the spec's version table and a step in the

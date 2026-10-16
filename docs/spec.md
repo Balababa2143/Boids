@@ -316,9 +316,12 @@ the approval.
 the rename. Nothing about the key is permanent; what is forbidden is moving it *without*
 writing the migration.
 
-**[既有]** As of this writing the GUID namespace is clean: 117 distinct GUID literals in
-`src/`, all distinct. That is maintained by discipline rather than by a check — **[决定]
-so uniqueness is enforced by a test over every GUID literal under `src/`.**
+**[既有]** The GUID namespace is clean: every GUID literal in `src/` is distinct. That is
+maintained by discipline rather than by a check — **[决定] so uniqueness is enforced by a test over
+every GUID literal under `src/`**, which enumerates them as well as checking them, so that a new
+hand-written identifier is a reviewed change rather than an accident. The count is deliberately not
+recorded here: it moves whenever a handler is added, and a number nobody updates is worse than no
+number.
 
 ### 4.6 The text surface
 
@@ -1303,7 +1306,7 @@ maintained by review.
 | 19 | **No registered value is a placeholder** — not its own key, not the engine's `[NotFound]` marker, and not an unfilled `${…}`. | the sink at registration, and the same assertion over the surface |
 | 20 | **A key never crosses the boundary rule** (§4.6): what the engine resolves is on the engine's side, what the mod resolves is on the mod's, and a string the engine merely displays is on the mod's. | `test/text-registry.test.ts`: the key's shape and its slot must agree |
 | 21 | **A text tree is imported by the module that reads it**, never gathered at the entry, because a bundler may reach the content tree by another path first. | `test/text-tree.test.ts`: a shipped path resolves |
-| 22 | **The text surface is reproducible**: the tree merge is a deterministic function of its inputs, key order included, so the generated reference can be compared byte for byte. | `test/text-reference.test.ts` |
+| 22 | **The text surface is reproducible**: the tree merge is a deterministic function of its inputs, key order included, so the generated reference is a function of the registry alone. | `test/text-reference.test.ts`, compared in the delivery gate (`npm run verify:full`) |
 
 ## 12. What this spec does not decide
 

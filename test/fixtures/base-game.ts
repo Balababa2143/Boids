@@ -8,9 +8,8 @@
  *   1. deterministic, and
  *   2. faithful in *shape* to what the mod inspects,
  *
- * so that the registration-manifest snapshot (see `test/harness/manifest.ts`)
- * compares the mod against itself — before and after a refactor — rather than
- * against the real game.
+ * so that a registration recorded against this fixture is a function of the mod alone, and a
+ * mismatch means the mod changed rather than the game.
  *
  * The fixture is deliberately built to exercise both branches of every load-time
  * conditional the mod runs against base-game data:

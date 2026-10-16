@@ -1,7 +1,8 @@
 # Boids — text reference
 
-> **Generated.** `UPDATE_TEXT_REFERENCE=1 npm test` writes this file, and
-> `test/text-reference.test.ts` fails when it is out of date. Do not edit it by hand.
+> **Generated.** `npm run test:update-text` writes this file, and
+> `test/text-reference.test.ts` compares it in the delivery gate (`npm run verify:full`).
+> Do not edit it by hand.
 
 Every string the mod can put in front of a player, with the address a translation overrides
 it at. **Two groups**, because the engine resolves one half of the surface and the mod

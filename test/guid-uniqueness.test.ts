@@ -63,13 +63,14 @@ const GuidPattern = /\b[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3
 /**
  * Every GUID literal the committed tree carries, lower-cased, sorted.
  *
- * Phase 0 added exactly one: `63db7078-…`, the mod root in
- * `KDExtension/Release.ts`. The seven hand-written variant bases it replaced are
- * gone — they are now *derived* from the root, so they are no longer literals and
- * deliberately do not appear here.
+ * Hand-written identifiers are the exception now: the mod's own bases are **derived** from the root
+ * (`KDExtension/Release.ts`), so they are not literals and do not appear here. What remains is the
+ * handful that must be written out — an event handler's `type`, a link category — and adding one is
+ * meant to be a deliberate act, which is why the list is enumerated rather than counted: a new
+ * literal is a reviewed diff in this file.
  *
- * Phase 0.5 added `ae5e02cb-…`: the `afterLoadMods` handler that fills a text slot from the
- * engine's own text once the engine has loaded it (`KDExtension/Text/Sink.ts`).
+ * The per-phase history of additions is deliberately not recorded here; `git log` answers that
+ * better than a comment that has to be maintained.
  */
 const ExpectedGuids: readonly string[] = [
     '019f89e6-0e42-7f7d-b5e0-606dc1c0bd58',

@@ -1,9 +1,8 @@
 /**
  * Characterization tests for the mitten layer factories.
  *
- * `Limb/Mitten/Layer.ts` contains fourteen near-identical layer literals, which
- * the refactor collapses into a data-driven factory. Three things must survive
- * that collapse, and none is obvious from reading the code:
+ * `Limb/Mitten/Layer.ts` builds fourteen near-identical bands from one data-driven factory. Three
+ * things hold, and none is obvious from reading the code:
  *
  *  1. `MakeSwapLayerPose` takes a bitmask of the poses a layer swaps in. A
  *     forearm band already sorts in `ForeMitten<suffix>`, so it only swaps in
@@ -27,19 +26,6 @@ import {
     GetSleevesBodyLayers,
 } from '../src/FactionMachine/Futuristic/Limb/Mitten/Layer'
 
-/**
- * Every layer literal that sets `SwapLayerPose`, per factory. The total is
- * asserted so that neither extracting a helper nor collapsing the literals may
- * add or drop one.
- */
-const SwapLayerPoseCounts: Record<string, number> = {
-    GetLongMittenCommonLayers: 14,
-    GetSleevesBodyLayers: 1,
-    GetEmptyBodyLayers: 1,
-    GetLongMittenBodyLayers: 1,
-    GetLongMittenCaplayers: 1,
-}
-
 const Factories: Record<string, (suffix: string) => ModelLayer[]> = {
     GetLongMittenCommonLayers,
     GetSleevesBodyLayers,
@@ -61,11 +47,34 @@ const ExpectedSwapLayerPose = (layer: ModelLayer, suffix: string) => ({
 })
 
 describe('mitten layer factories', () => {
-    it('emits the expected number of layers with a SwapLayerPose', () => {
-        for (const [name, factory] of Object.entries(Factories)) {
-            const actual = factory('Left').filter(layer => layer.SwapLayerPose != null).length
-            assert.equal(actual, SwapLayerPoseCounts[name], `${name} changed its SwapLayerPose count`)
-        }
+    it('swaps exactly the bands that have to change group for a pose', () => {
+        // This replaces a per-factory table of `SwapLayerPose` counts, which made adding a band a
+        // number to update and made its own purpose ("a band lost its pose") rest on that number.
+        // The rule is an equivalence instead, and it is content-independent: a band swaps **iff** it
+        // is one of the common bands — which exist to take over the Front and Crossed poses — or it
+        // sits in the forearm group, which cannot stay where it is when the arm crosses.
+        //
+        // It catches a dropped pose on either side, and it catches a pose appearing on a primary
+        // band, which would move art that is supposed to stay put.
+        fc.assert(
+            fc.property(fc.string({ minLength: 1, maxLength: 12 }), suffix => {
+                const commonBands = new Set(GetLongMittenCommonLayers(suffix).map(layer => layer.Name))
+
+                for (const [name, factory] of Object.entries(Factories)) {
+                    for (const layer of factory(suffix)) {
+                        const swaps = layer.SwapLayerPose != null
+                        const mustSwap = commonBands.has(layer.Name) || layer.Layer.startsWith('ForeMitten')
+
+                        assert.equal(
+                            swaps,
+                            mustSwap,
+                            `${name} / ${layer.Name} ${swaps ? 'swaps' : 'does not swap'} but ` +
+                            `should ${mustSwap ? '' : 'not '}swap (layer group ${layer.Layer})`
+                        )
+                    }
+                }
+            })
+        )
     })
 
     it('swaps forearm bands in Crossed and sleeve bands in Crossed and Front', () => {

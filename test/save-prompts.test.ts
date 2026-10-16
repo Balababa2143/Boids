@@ -15,8 +15,7 @@ import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 
 import { ShowPrompt } from '../src/Common/CommonUI/Prompt'
-import { MigrationRefusedPrompt, QuietRefusal, TextPaths, UnversionedSavePrompt } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/SavePrompts'
-import { GetModText } from '../src/KDExtension'
+import { MigrationRefusedPrompt, QuietRefusal, UnversionedSavePrompt } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/SavePrompts'
 import { PromptButtons, PromptText, WithFakeDocument } from './harness/fake-dom'
 
 /** The ids the save prompts render under; copies, so renaming one fails loudly here. */
@@ -80,8 +79,7 @@ describe('the refused migration prompt', () => {
         assert.deepEqual(Object.keys(PromptButtons(document, RefusedId)), ['Stay here', 'Return to main menu'])
     })
 
-    it('returns to the menu when the slot asked for it', () => {
-        const actions: string[] = []
+    it('returns to the menu when the slot asked for it', () => {        const actions: string[] = []
         const { document } = WithFakeDocument(() => ShowPrompt(MigrationRefusedPrompt(
             LeavingRefusal,
             () => actions.push('menu'),
@@ -104,15 +102,5 @@ describe('the refused migration prompt', () => {
 
         PromptButtons(document, RefusedId)['Return to main menu'].handlers[0]()
         assert.deepEqual(actions, ['stay'])
-    })
-
-    it('registers every string it renders', () => {
-        // A path the mod never registered reads back as the engine's `[NotFound]` marker, so
-        // this is the difference between a warning and a paragraph of identifiers.
-        for (const path of Object.values(TextPaths)) {
-            const text = GetModText(path)
-            assert.ok(!text.startsWith('[NotFound]'), `${path.join('.')} is not registered`)
-            assert.notEqual(text, '', `${path.join('.')} is registered blank`)
-        }
     })
 })

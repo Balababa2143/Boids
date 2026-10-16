@@ -223,7 +223,7 @@ Four tsconfigs, named for their jobs rather than their order:
 npm run typecheck   # tsc over src/, test/ and webpack/
 npm run test        # bundle the suite, then run it with node
 npm run verify      # both
-npm run verify:full # both, then a full mod build
+npm run verify:full # both, with the audit checks on, then a full mod build
 ```
 
 `test/` is bundled by `webpack.test.config.ts` — the project's own webpack +
@@ -234,31 +234,53 @@ The mod cannot run outside the game, so the suite installs recording KD global
 stubs *before* the module graph is evaluated (`test/setup/install.ts`) and imports
 `src/mod.ts`, the same entry the bundle ships.
 
-### The registration manifest
+### Two tiers: the workday gate and the delivery gate
 
-`test/registration-manifest.test.ts` is the equivalence gate. It records
-everything the mod registers — models, restraints, text keys, event handlers, the
-layer table, asset loads — and compares it against
-`test/__manifest__/registration-manifest.json`.
+Most of the suite is behaviour and invariants, and runs on every change. A few checks compare a
+**generated artifact against a committed copy**, and those force a regeneration whenever the thing
+they describe moves — affordable at delivery, a tax on ordinary content work. They run only under
+`--audit`, which `npm run verify:full` passes:
 
-The contract for any change to `src/`:
+| Check | `npm run verify` | `npm run verify:full` |
+| --- | --- | --- |
+| the registration summary — counts and digests | compared | compared |
+| the full registration record | not compared | compared, and written when none is kept |
+| `docs/localization/text-reference.md` | present, with one row per slot | compared byte for byte |
 
-* refactoring that is meant to preserve behaviour **must leave the manifest
-  byte-identical**; and
-* a defect fix may change it, but only with a reviewed diff.
+A demoted check reports as **skipped**, never as a pass, so a run that did not compare the
+reference cannot be mistaken for one that did.
 
-That makes `git status` a useful signal: after a behaviour-preserving change, the
-manifest should not appear. If it does, the test prints which entries changed and
-writes the new manifest to `registration-manifest.next.json` for inspection.
+### The registration summary
 
-Determinism is enforced across runs by the committed baseline. Nothing randomised
-may be captured: the coordinator's save slot is asserted absent, and a uuid v7 that
-decodes to roughly "now" fails the suite.
+`test/registration-manifest.test.ts` records everything the mod registers — models, restraints,
+text keys, event handlers, the layer table, asset loads — and compares two things against
+`test/__manifest__/registration-summary.json`: how many entries each section holds, and a digest per
+entry. A dropped model, a renamed restraint, or a payload that moved under an existing name all fail
+the run, and the failure names the entry.
 
-Regenerate deliberately:
+What it deliberately does not pin is the payload. The baseline used to be the whole record — 437 KB,
+16,000 lines — and re-reviewing that on every content change is how a gate becomes a formality. The
+record itself is one command away:
 
 ```sh
-UPDATE_REGISTRATION_MANIFEST=1 npm test
+npm run test:audit   # writes registration-manifest.full.json (ignored), and compares it if one is kept
+```
+
+Keep a copy at `test/__manifest__/registration-manifest.full.json` and the audit holds the surface
+to it byte for byte, which is the right tool for the *next* large rearrangement.
+
+Determinism is enforced across runs by the committed summary. Nothing randomised may be captured:
+the coordinator's save slot is asserted absent, and a uuid v7 that decodes to roughly "now" fails
+the suite.
+
+Regenerate deliberately — the summary after a change that is *meant* to alter the surface, the
+reference before a release:
+
+```sh
+npm run test:update-manifest    # registration summary
+npm run test:update-api         # published namespace
+npm run test:update-text         # text reference
+npm run verify:full              # typecheck + suite with audits + full mod build
 ```
 
 ### The published surface
@@ -273,7 +295,7 @@ that the global really is that namespace, and fails if an internal name reappear
 Widening or narrowing the surface is a one-line edit plus one reviewed diff:
 
 ```sh
-UPDATE_PUBLIC_API=1 npm test
+npm run test:update-api
 ```
 
 ### Property tests
@@ -427,7 +449,7 @@ and moving that block into a separate imported module changes when `ModelLayers`
 populated. Models are registered into `ModelDefs` before it runs, which works only because
 layer priorities are resolved by name at render time. (The block writes back exactly the
 priorities `InitLayers(LAYERS_BASE)` produced at boot, so it is a no-op today; removing it
-would empty the registration manifest's `initLayersArgs` and `modelLayers` sections, which
+would empty the registration summary's `initLayersArgs` and `modelLayers` sections, which
 is why it is still here.)
 
 `src/mod.ts` leans on the same rule twice more: the import that runs the registration tree

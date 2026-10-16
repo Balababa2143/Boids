@@ -10,7 +10,7 @@
  * internal on purpose, so a change to this list has to be a deliberate edit rather
  * than a side effect of moving a re-export around.
  *
- * Regenerate with `UPDATE_PUBLIC_API=1 npm test`.
+ * Regenerate with `npm run test:update-api`.
  */
 
 import assert from 'node:assert/strict'
@@ -23,11 +23,12 @@ import * as Api from '../src/Api'
 // publishes the global the second test below reads.
 import '../src/mod'
 
+import { UpdateApi } from './harness/flags'
 import { ReadJsonAsync } from './harness/text'
 
 const BaselinePath = join('test', '__manifest__', 'public-api.json')
 
-const ShouldUpdate = process.env.UPDATE_PUBLIC_API === '1'
+const ShouldUpdate = UpdateApi()
 
 /** Names the mod publishes, independent of how `Api` reaches them. */
 const PublishedNames = () => Object.keys(Api).sort()
@@ -70,7 +71,7 @@ describe('published surface', () => {
         assert.deepEqual(
             names,
             baseline,
-            'the published surface changed; see src/Api.ts and re-run with UPDATE_PUBLIC_API=1'
+            'the published surface changed; see src/Api.ts and re-run `npm run test:update-api`'
         )
     })
 

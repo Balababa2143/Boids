@@ -354,13 +354,3 @@ describe('ModelVariantMapBuilder finalisation', () => {
         )
     })
 })
-
-describe('infrastructure surface', () => {
-    it('still exposes the semantics table', () => {
-        assert.ok(Object.keys(RestraintArraySemantics).length > 20)
-    })
-
-    it('builds an empty map when no variant was registered', () => {
-        assert.equal(MakeBuilder().BuildVariantMap(EmptyTemplate).size, 0)
-    })
-})

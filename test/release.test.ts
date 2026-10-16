@@ -75,7 +75,9 @@ describe('release identity', () => {
         assert.equal(manifest.modbuild, Release.Version)
     })
 
-    it('is the version of this package', () => {
+    it('runs in the package it claims to', () => {
+        // Not a version claim, whatever the old title said: this is the guard that the tests are
+        // running against this repository and not a checkout that happens to be above it.
         const pkg = ReadJson('package.json') as { name?: string }
         assert.equal(pkg.name, 'boids')
     })
