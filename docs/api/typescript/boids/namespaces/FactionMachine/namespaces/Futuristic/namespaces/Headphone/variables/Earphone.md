@@ -4,7 +4,7 @@
 
 > `const` **Earphone**: `string`
 
-Defined in: src/FactionMachine/Futuristic/Headphone.ts:96
+Defined in: src/FactionMachine/Futuristic/Headphone.ts:97
 
 The earphone item, shown in game as "Drone Earphone" and worn in `ItemEars`. It
 is a special, unique item available from level 0 on every floor, deafening at

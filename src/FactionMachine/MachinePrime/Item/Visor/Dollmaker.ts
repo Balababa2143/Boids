@@ -13,9 +13,8 @@ import * as KDEx from '../../../../KDExtension'
 import { Scale } from '../../../../Utilities'
 import * as Futuristic from '../../../Futuristic'
 import { DollmakerGoggle, DollmakerMask, Layer } from '../../../Futuristic/GlassVisor'
-import { ItemArchetype } from '../../Constant'
 import * as Coordinator from '../../Coordinator'
-import { MakeMorphableVisor, ShouldHideBrows, VisorVariantSet } from './Common'
+import { MakeMorphableVisor, ShouldHideBrows, SightDimension, VisorVariantSet } from './Common'
 import { HardLightVisor } from './Constant'
 
 type Variants = VisorVariantSet<DollmakerGoggle, DollmakerMask>
@@ -39,15 +38,17 @@ const LN_SHIFT = 1/(Math.E-1)
 const LN_CORRECTION = Math.log(LN_SHIFT)
 
 /**
- * The layer filter that dims the Dollmaker glass as the blinder limiter rises.
+ * The layer filter that dims the Dollmaker glass as `Sight` rises.
  *
- * It runs on the game's `apply` trigger for items carrying the `HardLightVisor` data
- * key, and it reaches linked items, so the filter is recalculated whenever the glass is
- * put on. The limiter's 0..1 range goes through a logarithm that is exactly 0 at no
- * dimming and exactly 1 at full strength — without it the low end would be almost all
- * of the movement — and the result drives the glass layer's alpha up from 1 towards 3.4
- * and its brightness down from 1, with saturation pinned so the glass keeps its colour
- * as it thickens.
+ * It runs on the game's `apply` trigger for items carrying the `HardLightVisor` data key, and it
+ * reaches linked items, so the filter is recalculated whenever the glass is put on. The **resolved**
+ * strength's 0..1 range goes through a logarithm that is exactly 0 at no dimming and exactly 1 at
+ * full strength — without it the low end would be almost all of the movement — and the result drives
+ * the glass layer's alpha up from 1 towards 3.4 and its brightness down from 1, with saturation
+ * pinned so the glass keeps its colour as it thickens.
+ *
+ * It reads what the router resolved rather than its own bid, so a Dollmaker visor worn beside a
+ * stricter one dims by the stricter amount rather than by its own.
  */
 export const CalcVisorFilter = KDEx.AddEventHandler({
     eventMap: KDEventMapInventory,
@@ -59,9 +60,8 @@ export const CalcVisorFilter = KDEx.AddEventHandler({
     handler: KDEx.HandleItemEventWhenItemIsEventSource(
         (_e, item, data) => {
             if (item.data?.[HardLightVisor]) {
-                // console.log('Boids: CalcVisorFilter exec', _e, item, data)
-                const targetBlindLevel = Coordinator.SensoryControl.GetLimiterStrength(ItemArchetype.Blinder)
-                const opaqueFactor = Math.log(targetBlindLevel + LN_SHIFT) - LN_CORRECTION
+                const resolved = Coordinator.Resolve(SightDimension).Applied ?? 0
+                const opaqueFactor = Math.log(resolved + LN_SHIFT) - LN_CORRECTION
                 const dimFactor = Scale(0, 0.8, opaqueFactor)
                 const filter: LayerFilter = data['Filters'][Layer.GlassLayerName] ?? {}
                 filter.saturation = 1
@@ -84,19 +84,18 @@ const GetTemplateForVariant =
 /**
  * The registered morph handler and the variant factory for the Dollmaker glass.
  *
- * `Variant` turns a partial variant into the machine-prime restraint variant the game
- * equips: it sockets the glass and derives `HideBrows` from the limiter through
- * `ShouldHideBrows` in `./Common`, leaving the caller the glass and the layering. With
- * no levels to move between, the sprite is the same at every strength, so
- * `MorphOnBlindLimiterStrengthUpdate` is here mostly for that brow flip; the dimming
- * belongs to `CalcVisorFilter` above, inserted ahead of the morph handler. Unlike the
- * Boids visor, this family's morph does not reach linked items.
+ * `Variant` turns a partial variant into the machine-prime restraint variant the game equips: it
+ * sockets the glass and derives `HideBrows` from the applied strength through `ShouldHideBrows` in
+ * `./Common`, leaving the caller the glass and the layering. With no levels to move between, the
+ * sprite is the same at every strength, so `MorphOnBlindRateUpdate` is here mostly for that brow
+ * flip; the dimming belongs to `CalcVisorFilter` above, inserted ahead of the morph handler. Unlike
+ * the Boids visor, this family's morph does not reach linked items.
  *
- * The factory caches by value, so the brows it reads are the limiter's at the first
- * call for a given partial variant.
+ * The factory caches by value, so the brows it reads are the applied strength's at the first call
+ * for a given partial variant.
  */
 export const {
-    MorphOnBlindLimiterStrengthUpdate,
+    MorphOnBlindRateUpdate,
     Variant,
 } = MakeMorphableVisor({
     Type: '11D8DFAE-F831-4D7C-BB21-8987B8234A63',

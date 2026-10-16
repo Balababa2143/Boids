@@ -4,7 +4,7 @@
 
 > **Verify**(`v`): `void`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:181
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:182
 
 Checks that every axis is a known member and that a strap carries a numeric
 `Detail`, throwing through `ThrowInvalid` if not. Nothing else calls

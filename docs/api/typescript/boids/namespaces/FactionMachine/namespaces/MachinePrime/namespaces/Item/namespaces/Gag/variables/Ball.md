@@ -4,6 +4,6 @@
 
 > `const` **Ball**: `KDRestraintVariant`
 
-Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:150
+Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:273
 
 The muffler with the small ball, worn between the other two.

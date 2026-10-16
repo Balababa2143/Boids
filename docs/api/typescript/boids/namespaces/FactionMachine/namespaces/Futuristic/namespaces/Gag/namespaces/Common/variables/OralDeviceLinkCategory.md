@@ -4,7 +4,7 @@
 
 > `const` **OralDeviceLinkCategory**: `"39C79AA5-74A9-4391-8FBA-2B7F23C2D6E0"` = `'39C79AA5-74A9-4391-8FBA-2B7F23C2D6E0'`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:234
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:235
 
 The link category the mod's oral devices stack under, set on every muffler by
 `Muffler.MakeMuffler`.

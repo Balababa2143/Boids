@@ -4,7 +4,7 @@
 
 > `const` **HeavyLockableSuit**: `string`
 
-Defined in: src/FactionMachine/Futuristic/Suit/LatexSuit.ts:48
+Defined in: src/FactionMachine/Futuristic/Suit/LatexSuit.ts:49
 
 The catsuit item, in `ItemTorso` from level 7 and on every floor. It cannot be
 duplicated, always renders, draws its linked corsets, harnesses, ropes and other

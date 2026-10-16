@@ -55,20 +55,19 @@ const GetTemplateForVariant =
 /**
  * The registered morph handler and the variant factory for the Boids glass.
  *
- * `Variant` turns a partial variant into the machine-prime restraint variant the game
- * equips: it reads the blind level off the strength band the limiter sits in — the
- * thresholds are 0, 0.25, 0.5 and 0.75 — sockets the glass, and computes `HideBrows`
- * from the level, which is why the caller supplies neither `Level` nor `HideBrows`.
- * `MorphOnBlindLimiterStrengthUpdate` does the same mapping when the limiter moves; it
- * is already part of every variant this factory returns, so it is only useful to a
- * consumer assembling a variant by hand.
+ * `Variant` turns a partial variant into the machine-prime restraint variant the game equips: it
+ * reads the blind level off the strength band the router resolved — the thresholds are 0, 0.25, 0.5
+ * and 0.75 — sockets the glass, and computes `HideBrows` from the level, which is why the caller
+ * supplies neither `Level` nor `HideBrows`. `MorphOnBlindRateUpdate` does the same mapping when the
+ * strength moves; it is already part of every variant this factory returns, so it is only useful to
+ * a consumer assembling a variant by hand.
  *
- * The factory caches by value, so the level it reads is the limiter's at the first call
- * for a given partial variant; later movement reaches a worn item through the morph
- * handler instead, not by calling the factory again.
+ * The factory caches by value, so the level it reads is the resolved strength's at the first call
+ * for a given partial variant; later movement reaches a worn item through the morph handler
+ * instead, not by calling the factory again.
  */
 export const {
-    MorphOnBlindLimiterStrengthUpdate,
+    MorphOnBlindRateUpdate,
     Variant,
 } = MakeMorphableVisor({
     Type: '33790C6F-4629-4387-896E-A999E6641B40',

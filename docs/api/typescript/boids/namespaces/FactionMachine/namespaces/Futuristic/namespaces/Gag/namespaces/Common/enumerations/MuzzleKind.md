@@ -2,7 +2,7 @@
 
 # Enumeration: MuzzleKind
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:58
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:59
 
 The muzzle the variant wears over the mouth: the plate itself, and the second of
 the two big decisions in a variant after the ball.
@@ -17,7 +17,7 @@ of gag. `None` leaves the mouth uncovered.
 
 > **Metal**: `1`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:60
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:61
 
 ***
 
@@ -25,7 +25,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:60
 
 > **None**: `0`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:59
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:60
 
 ***
 
@@ -33,7 +33,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:59
 
 > **OTN**: `3`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:62
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:63
 
 ***
 
@@ -41,4 +41,4 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:62
 
 > **Transparent**: `2`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:61
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:62

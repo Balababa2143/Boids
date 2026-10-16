@@ -11,6 +11,7 @@
 
 import { Enum } from '../../../Utilities'
 import { FactionFilter } from '../../../KDInterface/TextKey'
+import { ControlledTag } from '../../MachinePrime/Coordinator/Tag'
 import { Category, GetGagMetal, InheritColor } from './GagMetal'
 import { GagEscapeChance, CommonItemAvailability } from '../Common'
 
@@ -321,7 +322,12 @@ export const MakeItem = (args: { name: string, category: Category, variant: Vari
         Model: GetGagMetal({ category, variant }),
         shrine: [
             'Gags',
-            category
+            category,
+            // Every gag this family makes is a participant in the control model: it fills the mouth,
+            // and the membership tag is what the controller reads when it computes what the worn set
+            // can do (`Coordinator/Membership.ts`). It is on the shared template rather than on each
+            // category because the whole family participates or none of it does.
+            ControlledTag,
         ],
         LinkableBy: link,
         renderWhenLinked: [

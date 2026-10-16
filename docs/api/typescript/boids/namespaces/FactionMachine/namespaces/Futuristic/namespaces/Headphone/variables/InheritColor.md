@@ -4,7 +4,7 @@
 
 > `const` **InheritColor**: `object`
 
-Defined in: src/FactionMachine/Futuristic/Headphone.ts:42
+Defined in: src/FactionMachine/Futuristic/Headphone.ts:43
 
 The colour banks the earphone's layers and faction filters are keyed by, named
 once so the literals below do not have to repeat them. `BaseMetal` is the only one

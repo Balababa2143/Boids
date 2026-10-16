@@ -7,6 +7,7 @@
 
 import { AddRestraintWithTextThenGetName } from '../../../KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
+import { ControlledTag } from '../../MachinePrime/Coordinator/Membership'
 import { SFX, CommonItemAvailability } from '../Common'
 import { Socket } from '../Link'
 
@@ -35,6 +36,7 @@ export const Heel = AddRestraintWithTextThenGetName(
             'Metal',
             'Boots',
             Socket.Ankle,
+            ControlledTag,
             //Socket.Heel
         ],
 

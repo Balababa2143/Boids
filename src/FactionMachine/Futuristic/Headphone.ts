@@ -8,6 +8,7 @@
 
 import { AddModelWithText, AddRestraintWithTextThenGetName } from '../../KDExtension'
 import { FactionFilter } from '../../KDInterface/TextKey'
+import { ControlledTag } from '../MachinePrime/Coordinator/Membership'
 import { SFX, Constant, CommonItemAvailability } from './Common'
 import { ItemTags, Layering } from './GlassVisor/Constant';
 
@@ -100,6 +101,7 @@ export const Earphone = AddRestraintWithTextThenGetName({
         'Earplugs',
         ItemTags[Layering.Goggle].Socket,
         ItemTags[Layering.Blindfold].Socket,
+        ControlledTag,
     ],
 
     // TODO: dynamic control

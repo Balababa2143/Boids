@@ -4,8 +4,6 @@
 
 > **SensoryControl** = [`SensoryControl`](../namespaces/SensoryControl/index.md)
 
-Defined in: src/FactionMachine/MachinePrime/Coordinator/index.ts:17
+Defined in: src/FactionMachine/MachinePrime/Coordinator/index.ts:22
 
-The limiter module as a type, for a caller that has to name its shape without
-importing it for its values — a field holding the namespace, say, rather than one
-calling it.
+The morph channel as a type, for a caller that has to name its shape without importing it.

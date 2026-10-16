@@ -75,13 +75,42 @@ npm run verify:full              # typecheck + suite with audits + full mod buil
 `Set` union versus `List` concatenation), variant-key identity including its
 field-order sensitivity, receiver semantics, the coordinator's `toJS`/`fromJS`
 round-trip, the coordinator's **whole-round-trip through the game's save path**,
-and the mitten layer factories. Where current behaviour is deliberate
+the mitten layer factories, and the control model's **separability round-trip**
+(`test/control-baseline.property.test.ts`: equip, touch every dimension, remove
+everything, and compare the dossier and every resolution field for field with the
+never-equipped state — invariant 12). Where current behaviour is deliberate
 but surprising, a property pins it, so changing it is a visible edit to a test
 rather than a side effect of tidying up. If a test's expectation looks wrong,
 that is the comment to read.
 
 A new `*.test.ts` must also be added to `test/run-all.ts`; `self-check.test.ts`
 fails if it is not, so a suite cannot be silently skipped.
+
+## Building a world, and the one thing not to do
+
+Most of the suite is fine with the globals installed once by `test/setup/install.ts`. A suite that
+needs to **build a body** — the restraint contract and the separability round-trip — needs a fresh
+world instead, and there is a right and a wrong way to ask for one:
+
+* `test/harness/world.ts`'s `FreshWorld()` is the right way: it clears the body, the recorder, the
+  constraint registries and `KDGameData`, and **keeps the identity of the globals object**.
+* `InstallKDGlobals()` is the wrong way from a suite that is not the first. It installs *everything*,
+  which replaces the mod's own `KinkyDungeonLoadGame` and `KinkyDungeonGenerateSaveData` wrappers —
+  installed once at module evaluation, and closing over `KDGameData` — with the harness's own
+  functions. Every suite after that one then drives a loader with no gate on it, and the symptom is
+  **a prompt nobody creates** rather than anything about the harness.
+
+The constraint is worth stating because it is invisible until it bites: the mod wraps those two
+globals exactly once, so nothing in the suite may reinstall them after the module graph has run.
+`InstallKDGlobals` captures the pair it finds and re-installs **the same pair** on a later call, and
+its delegates resolve the current recorder at call time, so a reinstall reproduces the state a fresh
+module graph would leave behind rather than a broken one.
+
+## The published surface, pinned twice
+
+`test/public-api.test.ts` holds the top of `globalThis.Boids`. `test/public-api-surface.test.ts` holds
+one level deeper, under `FactionMachine.MachinePrime`, because that is where the control model landed
+and a widening there would otherwise have been silent. Both regenerate with `npm run test:update-api`.
 
 ## Reading files, and line endings
 

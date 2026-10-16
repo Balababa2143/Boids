@@ -13,5 +13,5 @@ The Boids glass: four blind levels, full colour or dark.
 
 ## Variables
 
-- [MorphOnBlindLimiterStrengthUpdate](variables/MorphOnBlindLimiterStrengthUpdate.md)
+- [MorphOnBlindRateUpdate](variables/MorphOnBlindRateUpdate.md)
 - [Variant](variables/Variant.md)

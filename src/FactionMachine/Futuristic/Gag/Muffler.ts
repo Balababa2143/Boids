@@ -39,9 +39,6 @@ const MakeMuffler = (args: { name: string, variant: Variant }) => {
         MakeItem({ name, category: Category.Stuffing, variant })
     return <restraint>{
         ...baseItem,
-        shrine: [
-            ...baseItem.shrine,
-        ],
         linkCategory: OralDeviceLinkCategory,
         linkSize: 0.7,
     }

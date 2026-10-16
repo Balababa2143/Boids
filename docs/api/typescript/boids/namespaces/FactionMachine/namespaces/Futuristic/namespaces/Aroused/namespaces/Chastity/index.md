@@ -2,11 +2,18 @@
 
 # Chastity
 
-The drone belts and bras: `SlimBelt`, `SlimBra`, `BulkyBelt` and `BulkyBra`.
+The drone belts and bras, each in a slim and a bulky cut.
+
+## Type Aliases
+
+- [ChastityKind](type-aliases/ChastityKind.md)
 
 ## Variables
 
-- [BulkyBelt](variables/BulkyBelt.md)
-- [BulkyBra](variables/BulkyBra.md)
-- [SlimBelt](variables/SlimBelt.md)
-- [SlimBra](variables/SlimBra.md)
+- [ChastityKind](variables/ChastityKind.md)
+- [ChastityKinds](variables/ChastityKinds.md)
+- [ChastityRestraints](variables/ChastityRestraints.md)
+
+## Functions
+
+- [GetChastity](functions/GetChastity.md)

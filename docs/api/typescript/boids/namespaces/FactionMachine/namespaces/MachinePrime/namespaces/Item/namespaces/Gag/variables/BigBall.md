@@ -4,6 +4,6 @@
 
 > `const` **BigBall**: `KDRestraintVariant`
 
-Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:153
+Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:276
 
-The muffler with the big ball, worn above two thirds of the limiter's range.
+The muffler with the big ball, worn above two thirds of the strength's range.

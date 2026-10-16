@@ -246,6 +246,16 @@ rather than chain), **the posture states** (the set reads her binding and reconf
 | **equipment-granted capability** | she gives up an ability she was born with, and buys back a version of it that **only works while the machine is on her** |
 | **control and the proof of submission** | the restraint is **earned**. She proves she wants it, and then she wears it |
 | **the abstract controller** | **something is deciding what she is allowed to do** — and she is inside it, so she cannot see it |
+| **the equipment adapts, she does not** | a `MachinePrime` restraint **measures what she has grown used to and cancels it out**, so training, tolerance and accommodation buy her nothing while it is on |
+
+**[⇢] The fourth row has a mechanical consequence, so it is stated twice.** The base game
+rewards a wearer who adapts: `SmoothTalker` and `Incantation` soften a gag, `SomaticPlus` and
+`SomaticMinus` soften bound hands, `ClassicHeels` and `HeelWalker` soften heels, and `PoorForm`
+and `PoorBalance` are their mirror. **A `MachinePrime` piece is smart enough to compensate for
+all of it**, which is why the control model declares that a dimension it drives is **not**
+rescaled by the wearer's adaptation (`spec` §5). The fiction comes first and the rule second: the
+machine is not punishing her for being unaccustomed, it is **holding a setting** — and a setting
+does not drift because the thing it is set on got used to it.
 
 ### 2.3 Sub-factions — the recorded targets
 

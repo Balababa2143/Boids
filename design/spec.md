@@ -49,16 +49,19 @@ Other factions are out of scope (see §10).
 | **subsystem** | one of the three mechanism groups: Sensory, Stats, Behavior (§6.3) |
 | **group** | one of the three kinds of demand: Constraint, Substitution, Buff (§5) |
 | **dimension** | one separately-constrained value, identified by a `DimensionId` |
-| **facet** | a reusable semantic component a dimension composes: `Rate`, `Gate`, `Whitelist` (§6.1) |
+| **facet** | a reusable semantic component a dimension composes: `Rate`, `Posture`, `Gate`, `Whitelist` (§6.1) |
 | **descriptor** | the code-side record describing a dimension (§6.2) |
 | **router** | the layer that resolves which equipment provider wins a dimension (§6.7) |
-| **projection layer** | the mechanism by which equipment grows and displays extra parts (§6.7, §8.2) |
+| **projection layer** | the mechanism by which equipment grows and displays extra parts (§6.7, §8.2). **Not** the engine value map below: only the first of the two is a layer, and they are otherwise unrelated |
+| **engine value** | what a dimension's resolved 0..1 becomes **in the engine's own units**, through the map its descriptor declares (§6.2, §6.7). Blindness is an integer ladder capped at 7, a hearing radius a hyperbola that never reaches zero, a slow level an integer whose `>9` is immobility |
+| **body-state predicate** | a question the base game asks about the body **as a whole** — `getArmsBound`, `getHandsBound` — answered by a **union of the refusals** among the dimensions that feed it (§6.7). A compatibility shim, not a dimension: there is no dimension that means *"her arms are bound"* |
 | **variant key** | the object whose fields and field order determine a generated restraint name (§4.5) |
 | **archetype / limiter** | the pre-existing name for what this spec generalises into a dimension |
 | **suppression** | a `Rate` facet: how strictly a value is squeezed |
 | **servitude progress** | the record of how far the Host has overridden a character (§7.1) |
 | **controlled item** | a restraint whose template carries the Boids `shrine` tag (§6.12). The membership test (§6.10) |
-| **baseline / Free value** | what a dimension is set to when nothing is imposed: `Rate.target = 0`, `Gate.Intent = Free` (§6.5). **An absence of effect, not a stored reading** |
+| **baseline / Free value** | what a dimension is set to when nothing is imposed: every facet parameter at rest — `Rate.Target = 0`, `Gate.Intent = Free` (§6.5). **An absence of effect, not a stored reading.** `Posture` is the one exception: its `Free` is the **whole ladder**, because an unconstrained body may take any of its poses |
+| **intent** | the Host's demand for one dimension: a record whose parameters are **exactly its facets'** (§6.1, §6.5). A composition, not a value |
 | **Free state** | a dimension's condition once its **last covering item has left the body** — it sits at its Free value (§6.10). Not a body region and not a phase flag |
 | **dossier** | the Host's file about a character — the equipment half of the Coordinator's state (§5, §7.1). Route 1 of the final act deletes it (§6.10) |
 | **quest metadata** | the other half of the Coordinator's state: knowledge and keys the **quest allocator** reads (§5, §8.3). **Route 1 keeps it** — which is what makes repeat-entry skipping possible |
@@ -74,8 +77,12 @@ Other factions are out of scope (see §10).
 | Name | Status | Where it comes from |
 | --- | --- | --- |
 | `DimensionId` | open | a derived identifier (§4.1) |
-| `GateIntent` | **closed** | the three values in §6.4: `Free`, `OverrideForbidden`, `OverrideAllowed` |
-| `CapabilityKey` | **closed** | the set of abilities equipment may substitute for. **Membership rule:** a key exists only if the ability has a usable seam; speech, `immobile`-based movement and noise have none (§3.2) and are therefore excluded by construction |
+| `Intent` | **composed** | the Host's demand for one dimension: a **merge of the parameter interfaces its facets contribute**, each optional (§6.5). Not a closed set — a dimension's intent is exactly its facets' parameters |
+| `GateIntent` | **closed** | the `Gate` facet's three values in §6.4: `Free`, `OverrideForbidden`, `OverrideAllowed`. **A facet's vocabulary, not the type of an intent** (§6.5) |
+| `CapabilityKey` | **closed** | the set of abilities equipment may substitute for — the vocabulary of **one** grant channel, `Whitelist` (§6.4). **Membership rule:** a key exists only if the ability has a usable seam; speech, `immobile`-based movement and noise are excluded (§3.2) — the first two have no seam at all, and noise's fires after the decision has been made |
+| `PoseKey` | **closed** | the `Posture` facet's vocabulary (§6.13), holding the game's own pose names. Enumerable at run time like `GateIntent`, because a console has to list it and a save has to carry it |
+| `StackMode` | **closed** | how a bid stacks: `Max` or `Sum` (§6.7) |
+| `BodyStateName` | **closed** | a body-state predicate a dimension may feed: `ArmsBound`, `HandsBound` (§6.7) |
 | `Config` | open | per-dimension semantic extra fields, persisted (§6.5). Never live gameplay state |
 | `StruggleType` | existing | the base game's own struggle-type identifiers |
 
@@ -307,7 +314,7 @@ the approval.
 | Surface | Format rule |
 | --- | --- |
 | variant keys | field names **and order** are the format |
-| coordinator state | `target` / `equipment` / `config` keyed maps (§6.5) |
+| coordinator state | `intent` / `config` keyed maps (§6.5) |
 | the recorded `root_uuid` | `root_uuid` per character, which localises the release (§4.3) |
 | handler GUIDs | globally unique across the game **and every other mod**; a duplicate **literal** is a build-time concern, and a **registered** duplicate throws at load |
 
@@ -398,7 +405,7 @@ that into gameplay.
 | Group | Operation | Intent | Capability |
 | --- | --- | --- | --- |
 | **Constraint** | squeeze a value | `number` 0..1 | `number` 0..1 — the ceiling |
-| **Substitution** | **take an existing ability away and re-grant it through another carrier** — a prosthesis, a spell generator | the gate enum (§6.4) | a whitelist of `CapabilityKey`s |
+| **Substitution** | **take an existing ability away and re-grant it through another carrier** — a prosthesis, a spell generator | the gate enum (§6.4) | a whitelist of `CapabilityKey`s, or a `Posture` set — **whichever grant channel the dimension actually has** (§6.4, §6.13) |
 | **Buff** | **give something the character never had** | which buffs | which buffs, and their ceiling |
 
 > **[决定]** Substitution is a **transfer**; Buff is an **addition**. They are not merged.
@@ -411,7 +418,7 @@ that into gameplay.
 
 | Part | What it is | Cleared by route 1? |
 | --- | --- | --- |
-| **the dossier** | the character's control state — `intent`, `equipment`, `config` (§6.5) — i.e. what the Host demands of her on this attempt | **yes** (§6.10) |
+| **the dossier** | the character's control state — `intent` and `config` (§6.5) — i.e. what the Host demands of her on this attempt | **yes** (§6.10) |
 | **quest metadata** | what the **quest allocator** reads to place quests: knowledge and keys (blueprints, obtained keys, completion records) (§8.3) | **no** |
 
 **[决定]** The split is not incidental: it is what makes the repeat-entry skip criterion
@@ -423,6 +430,19 @@ Coordinator applies the real binding strength dynamically — the item does not 
 it *becomes* strict. §8.2 states what this means for progression. It follows from restraint
 definitions being read-only (§6.2, §6.8).
 
+**[决定] The wearer's adaptation is compensated, not rewarded.** A dimension the controller
+drives is **not** rescaled by the base game's wearer-adaptation perks: `SmoothTalker` and
+`Incantation` do not soften a gag, `SomaticPlus` and `SomaticMinus` do not soften bound hands,
+`Butterfingers` does not fold one binding into another, and the `ClassicHeels` / `Flexible` /
+`PoorForm` / `HeelWalker` / `PoorBalance` family does not move the lower body's tracks. The
+fiction is the reason, and it is a claim about the **equipment** rather than about her: a
+`MachinePrime` piece is smart enough to measure what she has grown used to and cancel it out
+(`design/codex.md` §2.2). Mechanically it is the same statement the paragraph above makes —
+**a setting is a setting**, and it does not drift because the thing it is set on got used to it.
+**[待定] How this is realised** is Phase 2's step 2.8. Whether the controller bypasses the perk
+at its own seam or neutralises the perk outright is an implementation question, and the two are
+**not** equivalent for a dimension the mod does not drive.
+
 ## 6. The control specification
 
 ### 6.1 Dimensions are composed, not classified
@@ -433,23 +453,46 @@ because semantics genuinely overlap — *struggle* is both a permission and a di
 ```ts
 interface Identity  { Id: DimensionId }
 interface Rate      { Target: number; Ceiling: number }
+interface Posture   { Allowed: ReadonlySet<PoseKey> }
 interface Gate      { Intent: GateIntent }
 interface Whitelist { Granted: ReadonlySet<CapabilityKey> }
 
 type Sight     = Identity & Rate
-type Speech    = Identity & Gate
+type Speech    = Identity & Rate & Gate
 type Struggle  = Identity & Gate & Rate & { Types: StruggleType[] }
 type WeaponUse = Identity & Gate & Whitelist
+type PoseArms  = Identity & Posture & Gate
+type Noise     = Identity & Rate
 ```
 
 > **[决定] There is no separate `Capability: boolean`.** Whether the equipment can offer a
-> substitute for a dimension is exactly *whether the dimension's `Whitelist` is non-empty*,
-> so a boolean would be a second source of truth for the same fact. `Rate`'s `Ceiling` is
-> the analogous field for the Constraint group.
+> substitute for a dimension is exactly *whether the dimension's grant channel is non-empty* —
+> `Whitelist`'s `Granted` for an ability, `Posture`'s `Allowed` for a posture — so a boolean
+> would be a second source of truth for the same fact. `Rate`'s `Ceiling` is the analogous
+> field for the Constraint group.
 
-The four types above are **worked examples**, one per facet combination the design needs
-so far. `Sight` is the dimension the game calls blindness; `Speech`, `Struggle` and
-`WeaponUse` are likewise dimensions, not base-game concepts.
+The types above are **worked examples**, one per facet combination the design needs so far.
+`Sight` is the dimension the game calls blindness; `Speech`, `Struggle`, `WeaponUse`,
+`PoseArms` and `Noise` are likewise dimensions, not base-game concepts.
+
+> **[决定] `Posture` exists because a body configuration is a *set*, not a number.** The arms
+> can be free, in front, crossed, wrist-tied, box-tied, yoked or raised, and the legs spread,
+> closed, kneeling, kneeling-closed or hogtied; the base game already treats each as a named
+> pose with a permitted set (`Data/Poses.ts:1, :16`). So the facet carries `Allowed`, and
+> **its `Free` value is the whole ladder rather than the empty set** — the one facet whose
+> baseline is not "nothing". §6.7 states how a set resolves; §6.13 states the route.
+
+> **[决定] Appearance is the equipment's declaration — not a facet, and not a demand.** The
+> base game's `gag` property is one number that drives the mechanics **and** selects the
+> model, so a larger ball there is necessarily a stricter one and the two can never disagree.
+> They should be able to: *a small ball on a strict mechanism* and *a large one that only
+> blocks the words* are both coherent equipment. An earlier reading of this section answered
+> that with a `Form` facet carrying a Host-chosen `Size`; **that was wrong and is now
+> retracted.** The look of a thing is a property of the thing — §6.12 clause 4 says capability
+> is read from what is worn and never demanded — so an item declares its own appearance beside
+> its own bid, and the Host has **no cosmetic lever at all**. The expressibility `Form` was
+> created for survives and moves: a small ball on a strict mechanism is now one item variant
+> declaring a small appearance and a high bid, and its sibling declaring the opposite.
 
 **[决定]** Facets live in the **type system** and in a **code-side descriptor registry**.
 The persisted shape stays uniform (§6.5). The migration chain is the backstop, not the
@@ -465,8 +508,11 @@ A dimension descriptor is a code-side record, not persisted state. It must carry
 | owning **subsystem** (Sensory / Stats / Behavior) | they ship separately and in a fixed order (§6.3) |
 | composed **facets**, and any `config` fields they need | §6.1 |
 | **direction**: grant, deny, or both | an ability may be one-way at the seam even when the design wants both |
-| **every seam** it uses, with a **precedence** relative to the game's own writes | some values are written by an early seam and overwritten by a later one |
+| **every seam** it uses, its **kind**, and a **precedence** relative to the game's own writes | some values are written by an early seam and overwritten by a later one, and the four kinds of seam are written by four different algebras |
 | whether it has a **buff side** | a deny-only seam can never express its inverse buff |
+| the **engine value** map, when it composes `Rate` | a rate is uniform in the model and no base-game quantity is on that scale (§6.7) |
+| its **ladder**, when it composes `Posture` | the poses it governs, and therefore what its `Free` means (§6.1) |
+| the **body-state predicates** it feeds, when it can be refused | the base game asks *"are her arms bound"* as **one** question with some fifty callers; the answer is a union of refusals and has to know which dimensions contribute (§6.7) |
 | `DimensionId`, **derived from the version master** | §4.1 |
 
 **[决定]** A dimension may need **more than one seam**. The `Sight` dimension is not one
@@ -478,6 +524,37 @@ fails silently**, so the descriptor must name every tool the dimension uses.
 writes*** is proposed but not settled. The observation above is verified; the requirement
 that follows from it is not yet a decision.
 
+> **[决定] Every seam records its *kind*, because the base game has four algebras rather than
+> one.** They were found by reading, not assumed. `calcDeaf` is an **addition** to a pair of
+> accumulators whose weights are themselves part of the payload
+> (`player/KinkyDungeonStats.ts:413-435`). `calcBlind` is an **absolute value** a handler
+> replaces outright (`:2063-2075`). `calcHearing` is a **multiplier**
+> (`effect/KinkyDungeonEvents.ts:7263-7267`). And the pose availability functions are none of
+> the three — they are pure functions with no event at all, so the only way in is to
+> **replace** their answer by wrapping the global (`Data/Poses.ts:382, :477`). A descriptor
+> that named a trigger and no kind could not tell a phase which of the four it was being asked
+> to write, and a dimension that composes `Posture` has no event to name at all.
+
+> **[决定] A `Rate` dimension declares an *engine value* map, and a `Posture` dimension
+> declares a *ladder*.** `Rate` is **uniformly 0..1 in the model** — that is what makes one
+> clamp rule and one body of property tests possible — but no base-game quantity is on that
+> scale: blindness is an integer ladder capped at 7, deafness an unbounded weighted sum, a
+> hearing radius a hyperbola that never reaches zero, and a slow level an integer whose `>9`
+> is immobility. So each dimension owns the function that turns its resolved 0..1 into what
+> the engine actually reads. **Every `Rate` dimension declares one, writing the identity where
+> nothing needs converting** rather than leaving it out — the same rule that makes a seam be
+> recorded before it is verified, and for the same reason: an omission that reads as working
+> code is the failure this registry exists to prevent. A `Posture` dimension needs no such
+> map, because the engine already speaks pose sets; what it needs instead is the **ladder** it
+> governs, which is also what its `Free` means (§6.1).
+
+> **[决定] The two new fields are guarded at registration, not by review.** A dimension that
+> declares an engine value map but composes no `Rate` is refused; a `Posture` dimension with
+> an empty ladder, a ladder member that is not a pose, or no `Replace` seam is refused, because
+> a set with nowhere to go is unimplemented rather than described; and a body-state predicate may
+> only be declared on a dimension that composes `Gate`, since the predicate is a union of
+> refusals and only a gate can be refused.
+
 ### 6.3 Subsystems, and the build order
 
 **[决定]** Three subsystems, split by **mechanism**, not by body part:
@@ -486,7 +563,7 @@ that follows from it is not yet a decision.
 | --- | --- |
 | **Sensory Control** | perception values — blindness, vision, deafness, hearing, spell range |
 | **Stats Control** | multipliers and rates — damage, evasion, crit, spell accuracy, resource costs, stat ceilings, sprint |
-| **Behavior Control** | action gates — binding, speech, movement, attack, casting, escaping, arousal |
+| **Behavior Control** | action gates — struggling, speaking, moving, attacking, casting, using what she holds, blocking, escaping, arousal, operating the world, body configuration and noise |
 
 **[决定] Scope of the first delivery:** **Sensory + Behavior**, with **Behavior first**
 (driven by the equipment-upgrade framework, §8.3). **Stats Control is deferred** until the
@@ -501,58 +578,169 @@ implemented, and logic is added in stages from simple to hard.
 | --- | --- | --- |
 | **Free** | neither the restraint layer nor the substitution layer is engaged | **the injection layer injects nothing.** The behavioural boundary is the `restraint` template's own defaults — the game's rules, unmodified |
 | **OverrideForbidden** | the Host applies the restraint effect | the injection layer denies |
-| **OverrideAllowed** | the Host re-grants an ability **through the equipment** | the injection layer grants, **but only from the equipment's `Granted` whitelist** |
+| **OverrideAllowed** | the Host re-grants an ability **through the equipment** | the injection layer grants, **but only from the equipment's grant channel for that dimension** — its `Granted` whitelist for an ability, its `Allowed` posture set for a body configuration (§6.13) |
 
 **[决定] Free means "inject nothing", so the three layers compose rather than replace.**
 The restraint template's defaults are always the floor.
 
-**[决定] A hard rule, enforced at write time:** *if the equipment does not offer a
-substitute capability, the Host cannot set `OverrideAllowed` for it.* "Allow" is a promise
-about a specific capability; with no capability there is nothing to promise. The router
-**rejects the write** rather than letting it fail silently later.
+**[决定] A hard rule, enforced at write time (invariant 6):** *if the equipment does not offer
+a substitute **on the dimension's grant channel**, the Host cannot set `OverrideAllowed` for
+it.* "Allow" is a promise about a specific capability; with no capability there is nothing to
+promise. The validator **refuses the write** rather than letting it fail silently later.
+
+> **[决定] There are two grant channels, and the rule is stated over the channel rather than
+> over `CapabilityKey` alone.** A dimension that composes `Whitelist` promises **abilities**,
+> by key. A dimension that composes `Posture` promises **body configurations**, by pose. Writing
+> the rule as *"the whitelist is non-empty"* would make `OverrideAllowed` unreachable for every
+> posture dimension until the first capability key exists — which is neither what invariant 6
+> says nor what §6.13 needs. So the validator is handed the promise **on the channel that
+> dimension actually has**, and checks that one.
 
 **[决定] `CapabilityKey` is a closed union.** Speech, `immobile`-based movement and noise
 (§3.2) must never appear in it, so attempting to is a **compile error**, not a design review.
+It is **not the whole of what can be granted** — it is the vocabulary of one grant channel,
+and `Posture` carries its own (§6.13).
 
 **[决定] The Host's working order is: read capability, then set intent.**
 
 ### 6.5 The persisted shape
 
+**[决定] One `intent` per dimension, and its shape is a composition of that dimension's
+facets.** A dimension is not a number and not a flag: it composes facets (§6.1), so **what
+the Host may demand of it is exactly what those facets take as parameters, and nothing
+else.** The intent is therefore a duct-typed record — a merge of the facets' parameter
+interfaces, each **optional**, contributed only where the descriptor declares that facet.
+
 ```ts
+// The parameter each facet contributes to an intent, optional because a dimension
+// composes only the facets it needs (FacetIntentParameters, src/KDExtension/Control/Descriptor.ts).
+interface IntentRate      { Target?: number }             // how hard to squeeze, 0..1
+interface IntentPosture   { Allowed?: PoseKey[] }         // which body configurations, by pose
+interface IntentGate      { Intent?: GateIntent }         // which permission: Free / forbidden / allowed
+interface IntentWhitelist {}                              // contributes nothing — see below
+
+type Intent = IntentRate & IntentPosture & IntentGate & IntentWhitelist
+
 type ControlState = {
-    readonly intent:    { [D: DimensionId]: GateIntent }  // the Host's demand; default `Free`
-    readonly equipment: { [D: DimensionId]: number }      // the equipment group's ceiling; 0 = free
-    readonly config:    { [D: DimensionId]: Config }      // sparse; semantic extra fields
+    readonly intent: { [D: DimensionId]: Intent }   // sparse; an absent key is the baseline
+    readonly config: { [D: DimensionId]: Config }   // sparse; semantic extra fields
 }
 ```
 
-**[决定] `intent` is persisted and `target` is not.** `target` — the strength actually
-applied — is **derived at runtime** from the intent and the equipment's current capability.
-It is a computed value, so persisting it would store the answer to a question that must be
-re-derived whenever the worn set changes.
+**What that produces, for the dimensions in the catalogue today:**
 
-**[决定] The baseline is the `Free` value, and it is not a separate field:** for every
-dimension, **`Rate.target = 0` and `Gate.Intent = Free`.** "Nothing is imposed on the
-character" is therefore **the absence of an effect, not a stored reading** — which is why
-removing equipment *releases* an override instead of having to *restore* a value
-(invariant 12), and why route 1's clearance has nothing to preserve.
+| Dimension | Facets it composes (`Catalog/Dimensions.ts`) | Its intent |
+| --- | --- | --- |
+| `Sight`, `Hearing`, `SpellRange`, `Noise`, and the `Stats` dimensions | `Rate` | `{ Target }` |
+| `Struggle`, `Speech`, `Movement`, `Attack`, `Casting`, `Defense`, `Interaction` | `Rate` + `Gate` | `{ Target, Intent }` |
+| `Escape`, `Arousal` | `Gate` | `{ Intent }` |
+| `WeaponUse` | `Gate` + `Whitelist` | `{ Intent }` |
+| `PoseArms`, `PoseLegs` | `Posture` + `Gate` | `{ Allowed, Intent }` |
+
+**Twenty-three dimensions, and the list is the point rather than the count.** The Behaviour
+group is the one that grew: `Defense` (blocking), `Interaction` (what the hands do to the world
+— doors, picking things up, eating and drinking, tethers, shrines) and the two posture
+dimensions were each a real mechanism hiding inside another dimension's property, and `Noise`
+was a real consumer with no dimension at all. **There is no `Arms` dimension and no `Hands`
+dimension**, and that absence is deliberate — see the next decision.
+
+> **[既有] A binding is not one demand, it is a bundle, and the bundle has no dimension of its
+> own.** The base game's `bindarms` is a boolean and `bindhands` is a number
+> (`base/KDTypeDefs.ts:487-492`), and between them they pay for melee accuracy and damage
+> (`fight/KinkyDungeonFight.ts:322-345`), blocking (`:574-599`), whether a weapon may be used
+> (`player/KinkyDungeonStats.ts:1594-1599`), the `Arms` and `Legs` spell components
+> (`magic/KinkyDungeonMagic.ts:95-137`), escaping (`restraint/KinkyDungeonRestraints.ts:2422,
+> :2633-2645`), locks (`:2013-2022, :2067-2073`), doors (`map/KinkyDungeonTilesList.ts:1864`),
+> picking things up (`item/KinkyDungeonItem.ts:272`) and the body's own configuration. Those are
+> seven different capabilities, so **an arm restraint is a set of bids on the dimensions that own
+> them** and never a dimension called "bound arms". The base game's own content already varies
+> the two independently — ninety-nine items take `bindarms` and their hands stay free, sixteen
+> plus one take `bindhands` with the arms free, and the two properties ride slots that are not
+> the arm or the hand at all.
+
+> **[决定] `Speech` composes `Rate` + `Gate`, and the two are orthogonal.** An earlier reading
+> had `Speech` as a pure permission, which left the base game's `gag` value with nowhere to
+> live: that property is a number and it drives how badly speech degrades. Split two ways, the
+> **rate** is how strictly the mouth is filled and the **gate** is whether speech is denied or
+> re-granted through equipment — so a wearer may be talking through a prosthesis with her mouth
+> still visibly full. *How large the thing in her mouth looks* is a third and separate question,
+> and it belongs to the item rather than to the demand (§6.1).
+
+> **[既有] A gag is not one demand either — it is four.** The inventory of
+> `KinkyDungeonGagTotal` (`player/KinkyDungeonStats.ts:2209`) and its consumers shows one
+> property paying for speech (`:2241-2246`), the `Verbal` spell component
+> (`magic/KinkyDungeonMagic.ts:63-76`), drinking and eating
+> (`item/KinkyDungeonConsumables.ts:570-577, :754`), and the shout and moan radii
+> (`base/KinkyDungeonInput.ts:421`, `player/KinkyDungeonStats.ts:2318`). So a muffler declares a
+> bid on `Speech`, `Casting`, `Interaction` and `Noise`, and **not** on `Struggle`. The rule it
+> is an instance of is §6.7's.
+
+> **[决定] `Posture` contributes `Allowed`, and it is the one parameter whose value is a set.**
+> Every other parameter is a number or one of three names; this one is a list of poses, because a
+> body configuration is chosen from a ladder rather than measured. It is optional like the rest,
+> and an absent one is the ladder's own reading of "nothing was asked" — see §6.7 for what a set
+> resolves to and §6.13 for the route it travels.
+
+> **[决定] `Whitelist` contributes no intent parameter, and that is the design rather than an
+> omission.** A whitelist lists what **equipment** can re-grant; **which keys those are is the
+> equipment's declaration, read from what is worn, never the Host's demand** (§6.12 clause 4).
+> So the Host's only lever over a whitelist is the gate in front of it: *"you may have it
+> back, through the gear"* — `Gate.Intent = OverrideAllowed` — and the gear decides *which*
+> abilities that covers. Adding a `Granted` to the intent would be the Host promising a
+> capability the equipment may not offer, which is the write §6.6 refuses.
+
+> **[决定] `GateIntent` is the `Gate` facet's vocabulary, not the type of an intent.** It is
+> the three values in §6.4 and it belongs to one facet; a dimension without `Gate` in its
+> facets cannot carry it at all. Earlier drafts of this section wrote the whole persisted
+> demand as `{ [D]: GateIntent }`, which was wrong in a way that mattered: it **collapsed a
+> rate dimension's intent onto a gate's vocabulary**, so "the Host squeezes `Sight` to 0.4"
+> had no representation, and it made a facet's value list look like the model's whole intent
+> space. **`PoseKey` is the same kind of thing for `Posture`** (§6.13): a facet's vocabulary,
+> enumerated by that facet and by nothing else, and never a second name for an intent.
+
+**[决定] An absent key is the baseline, and the baseline is the `Free` value — not a stored
+reading.** For every dimension, the baseline is **every facet parameter-at-rest**:
+**`Rate.Target = 0`** (nothing imposed) and **`Gate.Intent = Free`** (inject nothing) —
+`Whitelist` contributes no parameter at all, so there is nothing of it to rest. So "nothing is
+imposed on the character" is **the absence of an effect**, which is why removing equipment
+*releases* an override instead of having to *restore* a value (invariant 12), and why route 1's
+clearance has nothing to preserve.
+
+> **[决定] `Posture` is the one exception, and it is stated rather than assumed.**
+> `Posture.Allowed` at rest is **the whole ladder** — every pose the dimension governs —
+> because an unconstrained body is free to take any of them, and `Posture` is by construction a
+> permission rather than a severity. So for this one facet "nothing is imposed" is a **full**
+> value rather than an empty one, which is why the parameter is written as a permitted set and
+> not as a list of refusals: `Free` and "every pose allowed" have to be the same statement, or
+> removing the last covering item would have to *restore* a set instead of releasing one.
+
+**[决定] `intent` is persisted and an applied strength is not.** The value a seam ultimately
+receives — the resolved severity — is **derived at runtime** from the intent and the
+equipment's current capability (§6.7). It is a computed value, so persisting it would store
+the answer to a question that must be re-derived whenever the worn set changes. **The
+persisted `Target` is the demand; the resolved severity is the outcome.**
 
 **[决定]** `config` **is persisted**. It holds **semantics only** — which struggle types a
 gate governs, and so on — never live gameplay state. "Which options are currently open"
 belongs to progress, not to the controller.
 
-**[决定] `target > equipment` is legal**, and the router takes the stricter value. The
-Host's order is capability-then-intent, but an intent may be recorded before the gear that
-can honour it exists.
-
-**[决定] The equipment's contribution is never recorded on the item, and the equipment group
-is never recorded in the controller.** The current group's capability is **computed at
-execution time from what is worn** — §6.12's contract. So a piece of equipment entering or
-leaving the body changes the answer immediately, with no cached value to invalidate.
+**[决定] There is no `equipment` key, and there must not be one.** The equipment group's
+capability is **computed at execution time from what is worn** (§6.12 clause 4), so a stored
+ceiling would be a cached answer to a question the worn set can change. This is also why the
+rule *"an intent may be stricter than the equipment can honour"* has no stored number to
+compare against: **the working order is read capability, then set intent**, and equipment
+upgrades are gradual, so an intent recorded before the gear exists is normal rather than an
+error.
 
 > **[既有] A stored key is a namespaced path plus the character's `root_uuid`**, exactly like
 > every other identifier (§4.1–4.2): the key is not a bare UUID, and the `root_uuid` is
 > carried once for the character rather than repeated per dimension.
+>
+> **[既有] A dimension this build does not know is kept rather than dropped** when the maps are
+> rebuilt from a save. Dropping it would lose another release's setting the moment this build
+> saved over the file — and the load gate already refuses a save whose root this build cannot
+> place, so an unknown key here means an id the catalogue moved, which the migration chain is
+> the answer to rather than a silent delete.
 
 ### 6.6 Write validators
 
@@ -560,22 +748,35 @@ Rejection happens at write time, never as a silent runtime failure.
 
 | Facet | Validator |
 | --- | --- |
-| **Gate** | `OverrideAllowed` requires the equipment's `Whitelist.Granted` to **contain every key the dimension needs** |
-| **Gate** | `Free` may not carry a non-zero derived `target` |
+| **Gate** | `OverrideAllowed` requires the equipment to promise something **on that dimension's own grant channel** (invariant 6): a non-empty `Granted` whitelist for a `Whitelist` dimension, a non-empty `Allowed` posture set for a `Posture` one |
+| **Gate** | `Free` may not carry a non-zero squeezed `Target`; `Free` means *inject nothing* |
+| **Rate** | every in-range number is legal — a rate is a number (§6.5). The **engine value** map is deliberately *not* a write rule: it is the descriptor's, and a dimension whose map is lossy, saturating or discontinuous is still a legal dimension |
+| **Posture** | every member of `Allowed` must be a pose **the dimension's ladder contains**. Duplicates collapse; a member that is not a pose at all, or is a real pose the dimension does not govern, is refused naming it |
 | **Whitelist** | every granted key must be a member of the closed `CapabilityKey` union |
-| **Rate** | *nothing* — `target > ceiling` is legal by §6.5 |
+| **Config** | every field must be one the dimension declares |
+| **(shape)** | a parameter the dimension's facets do not take is **refused at write time**, not stored and ignored |
+
+> **[既有] The rule *"`Free` may not carry a non-zero `Target`"* is asserted as a property,
+> not at a write site.** It became unfalsifiable as a write check when the `equipment` key
+> left the dossier (§6.5): `Free` resolves to the baseline whatever is worn, so no single
+> write can break it. The gate and the rate are **two separate facets of one demand**, and
+> the resolved severity is the stronger of the demand and what is worn — so no single write
+> can establish what a gate will resolve to either. The honest home for a rule about *every*
+> resolution is a property over the router, not a guard on one call — see
+> `test/control-router.test.ts`.
 
 ### 6.7 The router
 
 **[决定]** The router exists, and it is **one-to-many**: many items may speak to the same
 dimension, and they must not fight. **[决定]** Its fourth job is the projection layer:
 projection is **not** a side effect of equipping — it is gated on servitude progress and
-applied **retroactively** to an already-worn item.
+applied **retroactively** to an already-worn item. *(That is the **equipment** projection
+layer of §6.8. This section does not use the word for the engine value map — the glossary
+keeps the two apart, and they are unrelated.)*
 
-**[提议] The three rules for resolving a dimension are proposed, not yet decided.** They may
-be implemented as written; the designer wants implementation experience before settling them.
-**Do not treat agreement to build them as a decision** — a `[提议]` that has been built is
-still a `[提议]` until it is explicitly promoted.
+**[决定] The three rules for resolving a dimension, promoted.** They were built in Phase 1 as
+a `[提议]`; **this section is their promotion**, which is the only thing that could settle
+them (`design/README.md`: a step that is built but not promoted is still a `[提议]`).
 
 1. **Which items are providers** — an item declares its dimensions on apply, through the
    same stamped-event pattern items already use to register with the Coordinator.
@@ -585,10 +786,88 @@ still a `[提议]` until it is explicitly promoted.
 3. **How the loser expresses itself** — a losing or partial provider still changes the model,
    appearance or pose through the existing limiter-update event.
 
-> **[既有] The bid convention is copied from working code, and it is a bid on *power*, not on
-> a generic priority.** The base game's restraint handlers compute a power and raise the bid
-> only while they are winning, guarded by a separate "has anyone forced this" check. Copying
-> the shape means the forcing rule comes along with it.
+**[决定] A provider speaks to as many dimensions as it has effects, and to no others.** This is
+the rule the whole decomposition rests on: a restraint is not classified by the part of the body
+it covers, it **is a set of bids** (§6.5). An arm restraint that also denies speech declares two
+bids; a gag declares four. **No dimension means "the arms are bound".**
+
+**[决定] The algebra, per facet.** What the router does is decided by the facets, and the
+facets do different things.
+
+| Facet | Rule |
+| --- | --- |
+| **Rate** | the capability is the aggregate of the bids (below); **`Applied` is the stronger of the Host's demand and that capability**, so a demand recorded before the gear that can honour it exists *waits* rather than being discarded; the dimension's **engine value** map then turns `Applied` into the number a seam receives |
+| **Posture** | the permitted set is the **intersection of every provider's `Allowed`**, or the **ladder** when no provider speaks. **Subtract** the Host's demand where the gate forbids, then **union** it where the gate allows. **Allow wins**, and the result is **never empty** |
+| **Gate** | an absent demand reads as `Free`; `OverrideForbidden` engages where the direction can deny, `OverrideAllowed` where it can grant; a gate the seams cannot honour does not engage |
+| **Whitelist** | nothing — the Host's only lever over it is the gate in front of it |
+
+> **[决定] `Posture` combines by intersection, then subtraction, then union — and it is the same
+> rule rather than a second one.** A provider declares the body configurations it can deliver,
+> so the worn set's capability is what **all** of them can deliver: the **intersection**.
+> **[既有] The reason the combination is an intersection rather than a union is the art.** A pose
+> is a sprite variable, and an item that does not allow a pose may not carry the variable for it
+> at all — so permitting a pose the worn set cannot draw would produce a state the renderer
+> cannot represent. The Host's demand is then the axis that moves **down**: read as a set to
+> **remove** under `OverrideForbidden`, and as a set to **restore** under `OverrideAllowed`. The
+> order is fixed — **subtract first, then add** — and a pose named by both a refusal and a grant
+> is **allowed**, because a grant is capability and capability is never overridden downward by a
+> demand. This is also why `Posture` has no numeric aggregate and no meaningful winner: rule 2's
+> `Power` bid has nothing to compare, and the winning bid matters only for rule 3.
+
+> **[决定] A `Posture` resolution is never allowed to come out empty, and the fallback is the
+> game's own sentinel rather than a rule of ours.** The game indexes the available set at `[0]`
+> (`player/KinkyDungeonDress.ts:714`), so an empty one hands `undefined` to the renderer — and
+> under intersection an empty set is **easy to reach**, since two items that each deliver one
+> pose need only disagree. The base game already answers this: when its own cascade removes
+> everything it falls back through `DefaultStand`, `DefaultKneel` and finally `Hogtie`
+> (`Data/Poses.ts:459-467`) — a set every rig can draw, which is exactly the property the
+> intersection exists to protect.
+
+**[既有] Why stacking is a field at all: the base game's aggregates do not agree with one
+another.** `gag` is a **sum** with a saturating floor
+(`player/KinkyDungeonStats.ts:2209-2231`). A blind level is a **count and a maximum at once** —
+every item adds one *and* raises a floor (`:2063-2075`). A deaf level is a **weighted maximum
+plus a weighted sum** (`:413-435`). One number cannot carry all three.
+
+**[决定] Stacking: every bid declares how it stacks, and the winning bid's mode governs that
+dimension's aggregate.** Two modes, and they are the whole of it:
+
+| Mode | The capability is | The base-game quantity it is |
+| --- | --- | --- |
+| **Max** | the highest bid's power | the default, and what Phase 1 already built |
+| **Sum** | the sum of every bid's power | `gag`, and a blind level's count half |
+
+The aggregate is **clamped to 0..1 like any other rate**, and the dimension's engine value map
+is what puts it on the engine's own scale. Ties keep the earlier bid, so the answer is
+deterministic for a given worn set.
+
+> **[决定] There is no `Count` mode, and its absence is a statement about what this mod's
+> equipment *is*.** A count aggregates the **number of contributing items** rather than what any
+> of them says, so it only means anything if a piece's contribution is a fixed step — *one item,
+> one rung* — and this mod does not build fixed-value restraints: a piece declares a **power**,
+> and two pieces of the same kind are stronger than one because their powers add, not because
+> there are two of them. **Nothing is lost by the retraction**, because a count is a sum in which
+> every contributor bids the same step: the mode was `Sum` with the bids held constant, and a
+> family that wants that writes the step it wants. The retraction also removes the one place §6.7
+> argued with itself — whether a count could survive the 0..1 clamp — because a `Sum` of powers
+> is exactly the quantity the clamp and the engine value map were already stated over.
+
+**[决定] Interaction between dimensions: there is no contract for it.** The facet interface
+describes one dimension — its demand, its capability, its resolution — and nothing about any
+other. A seam **may** read anything it likes out of the game, including state that another
+dimension of ours happens to be driving; but **that is not part of the model, nothing may rely
+on it, and no test may assert it.**
+
+> **[既有] This is written down because the opposite was assumed for several rounds.** The base
+> game genuinely couples these quantities: `KinkyDungeonSlowLevel` is fed by the pose, by
+> `hobble`, by `blockfeet`, by `immobile`, by stamina and by two perks
+> (`player/KinkyDungeonStats.ts:2153-2202`); `KDBoundPowerLevel` is fed by the gag, the blind
+> level, both bindings, chastity and the heels (`:1671-1682`); and a free mouth is a tool for
+> removing hand restraints (`restraint/KinkyDungeonRestraints.ts:2521`). Those couplings exist
+> and our seams may reproduce them. What this decision refuses is **modelling** them: no
+> dependency field, no resolution that reads another dimension's resolution, no test that
+> asserts what one dimension does to another. **Unspecified is the honest status**, and it is
+> recorded here so nobody later reads it as an oversight.
 
 **[决定]** The router must be drivable from the console before any UI exists. The
 Coordinator's state accessors already are.
@@ -937,11 +1216,18 @@ for shrine interactions, but Boids already uses it as a category tag in many pla
 **[决定]** This is the membership test that §6.10's entry conditions and §6.9's kind-1 curse
 both need: *"controlled"* means *"carries the tag"*, and nothing else.
 
-**2. Registration — the coordinator learns the item exists through the game's event routing.**
-**[既有]** Implemented as two event builders in `Coordinator/Public/Event.ts`: an item spreads
-`RegisterItemOnApply` into its own `events` list, whose handler fires on **`postApply`** and
-adds the item's name to `RegisteredItems`; `UnRegisterItemOnRemoval` mirrors it on
-**`postRemoval`**. **One handler per archetype, stamped per variant** — not one per item.
+**2. Declaration — the item states its own bids on apply, and that is all it says.**
+**[既有]** An item spreads `SetItemDataOnApply` into its own `events` list, whose handler fires
+on **`postApply`** and stamps the declaration onto its own `item.data`; the membership walk reads
+it back off the worn set (§6.7 rule 1). The declaration carries the item's **bids**, one per
+dimension it moves, and its own **appearance** (§6.1) — both are properties of the item and
+neither is a demand.
+**[决定] There is no registration step and no registered-item set.** An earlier reading of this
+clause had two builders — `RegisterItemOnApply` and `UnRegisterItemOnRemoval` — maintaining a
+per-archetype `RegisteredItems` set. **Both were deleted in Phase 1 and this clause now says what
+replaced them.** Membership is the tag (clause 1) and capability is computed from what is worn
+(clause 4), so a registration set was a third copy of a fact already stated twice, and the copies
+could disagree.
 
 > **[既有] The bubbling problem is real, already encountered, and already worked around.**
 > `HandleItemEventWhenItemIsSource` (`KDExtension/Event.ts:34-43`) accepts the item
@@ -976,6 +1262,64 @@ which is what keeps the item's own definitions free of control logic.
 > **[决定] The consequence, stated once:** clauses 1 and 3 are what a curse can attach to;
 > clause 4 is what makes reversibility free; clause 5 is what makes the same restraint work
 > whether or not the Host is interested in it.
+
+### 6.13 The posture route
+
+**[决定] A posture dimension is routed *directly* from the controller to the game's own pose
+system** — not through a restraint's declarative fields, and not through the tags a restraint's
+`shrine` may carry. It is the one family whose route is neither a `calc*` seam nor a
+`forceResult` guard, because the base game offers neither: the two functions that answer *which
+poses may she take* are **pure functions with no event** (`Data/Poses.ts:382, :477`), so §6.2's
+fourth seam kind — **replace** — is the only way in.
+
+**[决定] `PoseKey` is a closed, enumerable union.** It holds the game's own pose names: the seven
+arm poses (`Free`, `Boxtie`, `Wristtie`, `Yoked`, `Front`, `Up`, `Crossed` — `Data/Poses.ts:1`)
+and the five leg poses (`Spread`, `Closed`, `Kneel`, `KneelClosed`, `Hogtie` — `:16`), plus the
+postures the availability functions test for (`FeetLinked`, `LegBind`, `ForceKneel`,
+`HandsBound`). It is **enumerable at run time** rather than a `const enum`, for §6.4's reason: a
+console has to be able to list it and a save has to stay readable. **A pose is a facet's
+vocabulary, not a dimension** — a dimension that cannot take a body configuration cannot carry
+one at all.
+
+**The route, in the order it runs.**
+
+1. **Attach at the availability functions** — `KDGetAvailablePosesArms` and
+   `KDGetAvailablePosesLegs` (`Data/Poses.ts:477, :382`) — by wrapping the globals. The mod
+   already wraps two game globals at module evaluation, so this is an established technique
+   rather than a new one.
+2. **When the controller has a demand, its set overrides the game's answer.** The base game's
+   tag cascade is consulted **only** when the gate is `Free`. Filtering instead of overriding
+   would defeat half the route: the cascade assigns a **single** pose the moment one shrine word
+   matches (`:484-498`), and a single-element set cannot be widened by subtraction.
+3. **Subtract first, then add** (§6.7), and **allow wins**.
+4. **The result is never empty.** The game indexes the set at `[0]`
+   (`player/KinkyDungeonDress.ts:714`); the non-empty sentinel is the game's own
+   (`Data/Poses.ts:459-467`) and it runs **after** both operations.
+5. **A mod restraint declares no pose fields** — not `addPose`, not `addPoseIfTopLevel`, not
+   `removePose` (`base/KDTypeDefs.ts:530-538`). Its body configuration is a bid on a posture
+   dimension and nothing else.
+6. **A mod restraint's `shrine` carries no pose-driver word.** `shrine` is the membership tag
+   (§6.12 clause 1) and the game bulk-copies it into the wearer's tag map
+   (`restraint/KinkyDungeonRestraints.ts:4245-4248`) — a second, invisible route into the pose
+   system. The excluded words are the cascade's own (`Data/Poses.ts:484-521`), `BallGags` and
+   `PlugGags` (`:683-686`), and the lower-body family. **`Hogties` matters most of all:**
+   `KDForcedToGround` reads it (`player/KinkyDungeonStats.ts:2573-2575`) and its consumers
+   include the heel level, the slow level and the melee penalty — so one word there moves the
+   lower body's numbers **outside the controller**, which is what this route exists to prevent.
+7. **A `<name>Worn` pose is not a posture.** The game injects one per worn restraint for
+   rendering (`Data/Poses.ts:682`). That is the item's **appearance declaration** (§6.12 clause 2)
+   and **not** the controller's business.
+8. **The availability function reads its own output back.** `CheckPoseOrTags` consults `Poses`
+   and `TempPoses` (`:370-377`), so the set a caller passed in becomes a tag on the next call.
+   Under rule 2 that feedback does not exist for a controlled dimension. **It is recorded as
+   intended, not as a defect to be repaired later.**
+
+> **[既有] One consequence is accepted rather than prevented.** The legs' availability answer is
+> also read as `legBondage` (`fight/KinkyDungeonFight.ts:285`), which drives the helpless melee
+> branch (`:322-326`). Subtracting `Spread` therefore reaches melee damage along a road that is
+> **not** `Attack`'s own bid. §6.7's no-interaction-contract decision covers it: the effect is
+> real, permitted, and **unspecified** — nothing asserts it and no part of the model relies on
+> it.
 
 ## 7. Control, submission, and the Host's record
 
@@ -1296,7 +1640,7 @@ maintained by review.
 | 9 | **The two curse *kinds* must not share a `condition`.** The equipment-permanence curse and the commit curse must be distinguishable by the game, or their flavour text has nowhere to attach (§6.9). | review |
 | 10 | **The save stores paths and semantics**, never types or live gameplay state. | the round-trip property test |
 | 11 | **Boids must run without any base-game patch**, degrading rather than breaking. | review; every patched path names its fallback |
-| 12 | **Restraint and control state is derived from the character's single baseline.** Baseline values live in the Coordinator, **never on an item** — so the baseline is never lost when equipment is removed, replaced, or destroyed. | a separability round-trip test: equip, run, remove everything, and compare **every dimension in the descriptor registry** field for field (`target` / `equipment` / `config`) with the never-equipped state |
+| 12 | **Restraint and control state is derived from the character's single baseline.** Baseline values live in the Coordinator, **never on an item** — so the baseline is never lost when equipment is removed, replaced, or destroyed. | a separability round-trip test: equip, run, remove everything, and compare **every dimension in the descriptor registry** field for field (`intent` / `config`) with the never-equipped state |
 | 13 | **Advancement makes leaving harder, never impossible.** Only the two commits of §6.10 are irreversible; outside them, every step has a defined non-refusing route back (§6.10, §8.2). | review |
 | 14 | **A kind-2 commit is one atomic replacement.** No reachable state leaves some worn items sealed and others unsealed. | review |
 | 15 | **The dossier is cleared before the exit teleport** on route 1, so no save is taken mid-transition. | review |
@@ -1307,6 +1651,7 @@ maintained by review.
 | 20 | **A key never crosses the boundary rule** (§4.6): what the engine resolves is on the engine's side, what the mod resolves is on the mod's, and a string the engine merely displays is on the mod's. | `test/text-registry.test.ts`: the key's shape and its slot must agree |
 | 21 | **A text tree is imported by the module that reads it**, never gathered at the entry, because a bundler may reach the content tree by another path first. | `test/text-tree.test.ts`: a shipped path resolves |
 | 22 | **The text surface is reproducible**: the tree merge is a deterministic function of its inputs, key order included, so the generated reference is a function of the registry alone. | `test/text-reference.test.ts`, compared in the delivery gate (`npm run verify:full`) |
+| 23 | **A `Posture` resolution is never empty.** The engine indexes the available set at `[0]`, so an empty one hands `undefined` to the renderer. | the router's non-empty sentinel (§6.7), and a property test over every posture dimension |
 
 ## 12. What this spec does not decide
 

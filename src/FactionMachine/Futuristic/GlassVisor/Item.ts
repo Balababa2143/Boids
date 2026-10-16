@@ -22,6 +22,7 @@ import { ThrowIfNull } from '../../../Utilities'
 import { FromJS } from 'immutable'
 import { RequireSocket } from '../Common/VariantPart'
 import { RequireLockedEvent, CommonItemAvailability } from '../Common'
+import { ControlledTag } from '../../MachinePrime/Coordinator/Tag'
 
 
 const ItemTemplate = {
@@ -181,7 +182,7 @@ const ValidVariantNameMap = (() => {
         } as const)[variant.Layering])
         variantMapBuilder.AddVariantPart(immutableVariantKey, {
             LinkableBy: link,
-            shrine
+            shrine: [...shrine, ControlledTag]
         })
         variantMapBuilder.AddText(immutableVariantKey, GetVariantText(variant))
     }
@@ -231,6 +232,7 @@ export const FullMaskMount = AddRestraintWithTextThenGetName({
         'Masks',
         ItemTags[Layering.Hood].Socket,
         ItemTags[Layering.Mask].Socket,
+        ControlledTag,
 
     ],
     LinkableBy: [

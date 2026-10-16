@@ -2,7 +2,7 @@
 
 # Enumeration: BallKind
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:73
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:74
 
 What fills the mouth: nothing, a ball, or a ball big enough to hide the mouth
 entirely.
@@ -17,7 +17,7 @@ the `FaceBigGag` pose.
 
 > **Ball**: `1`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:75
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:76
 
 ***
 
@@ -25,7 +25,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:75
 
 > **BigBall**: `2`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:76
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:77
 
 ***
 
@@ -33,4 +33,4 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:76
 
 > **None**: `0`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:74
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:75

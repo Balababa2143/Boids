@@ -4,7 +4,7 @@
 
 > **ToStringKey**(`variant`): `string`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:216
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:217
 
 Renders the variant as the `_`-joined key that ends a generated model name, for
 example `None_Strap-SideStrap_None_PerioralClip` for `FaceCover.SimpleHarness`.

@@ -4,7 +4,7 @@
 
 > **GetVariant**(`variant`): `string`
 
-Defined in: src/FactionMachine/Futuristic/GlassVisor/Item.ts:215
+Defined in: src/FactionMachine/Futuristic/GlassVisor/Item.ts:216
 
 The registered restraint name for a visor variant — the entry point a
 downstream mod calls to make a visor of a given glass.

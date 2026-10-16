@@ -4,7 +4,7 @@
 
 > `const` **ControlHarness**: `string`
 
-Defined in: src/FactionMachine/Futuristic/Strap.ts:19
+Defined in: src/FactionMachine/Futuristic/Strap.ts:20
 
 The torso harness, shown in game as "Drone Harness" in `ItemTorso`, from level 7
 and on every floor. It is a harness of moderate strength that always renders,

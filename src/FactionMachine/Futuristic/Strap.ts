@@ -6,6 +6,7 @@
  */
 
 import { AddRestraintWithTextThenGetName } from '../../KDExtension';
+import { ControlledTag } from '../MachinePrime/Coordinator/Membership';
 import { SFX } from './Common';
 import { RequireLockedEvent } from './Common';
 
@@ -22,7 +23,7 @@ export const ControlHarness =
             name: '76C06708-B150-414C-B402-A57A1A78BC53',
             Group: 'ItemTorso',
             inventory: true,
-            shrine: ['Metal', 'Harnesses', 'Cyber'],
+            shrine: ['Metal', 'Harnesses', 'Cyber', ControlledTag],
             LinkableBy: [...KDHarnessLink],
             accessible: true,
 

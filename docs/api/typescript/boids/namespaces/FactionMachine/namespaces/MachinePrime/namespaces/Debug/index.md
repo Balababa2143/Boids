@@ -9,3 +9,5 @@ sensory limiter driver is load-bearing placeholder code rather than debris.
 
 - [SetBlindStrength](functions/SetBlindStrength.md)
 - [SetGagStrength](functions/SetGagStrength.md)
+- [SetPostureArms](functions/SetPostureArms.md)
+- [SetPostureLegs](functions/SetPostureLegs.md)

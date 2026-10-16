@@ -4,6 +4,6 @@
 
 > **Mask** = `Variants`\[`"Mask"`\]
 
-Defined in: src/FactionMachine/MachinePrime/Item/Visor/Dollmaker.ts:26
+Defined in: src/FactionMachine/MachinePrime/Item/Visor/Dollmaker.ts:25
 
 A Dollmaker mask, worn as a mask.

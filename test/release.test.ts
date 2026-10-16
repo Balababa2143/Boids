@@ -123,7 +123,9 @@ describe('the migration chain', () => {
         assert.deepEqual(
             MigrationChain.map(slot => slot.Release),
             ReleaseTable.map(record => record.Version),
-            'a release without a slot would be skipped silently rather than failed'
+            `a release without a slot would be skipped silently rather than failed ` +
+            `(chain=${MigrationChain.length} ${JSON.stringify(MigrationChain.map(slot => slot.Release))}, ` +
+            `table=${ReleaseTable.length} ${JSON.stringify(ReleaseTable.map(record => record.Version))})`
         )
     })
 

@@ -25,12 +25,9 @@
  */
 
 import assert from 'node:assert/strict'
-import { Map as IMMap, Set as IMSet } from 'immutable'
 import { describe, it } from 'node:test'
 
-import { Entry, Gag, ItemRegistry, SensoryLimiter, State as StateRecord, Visor } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/State'
 import { SetState } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/StateStorage'
-import { ItemArchetype } from '../src/FactionMachine/MachinePrime/Constant'
 import {
     GetCurrentReleaseIndex,
     MigrationOutcome,
@@ -39,6 +36,7 @@ import {
     RootedReleaseRecord,
     WithReleasesForTesting,
 } from '../src/KDExtension/Release'
+import { MarkerState } from './harness/dossier'
 import { GetRecorder } from './harness/recorder'
 import { PromptButtons, PromptText, WithFakeDocument, WithoutDocument } from './harness/fake-dom'
 
@@ -69,20 +67,6 @@ const Accepting = (): MigrationOutcome => ({ kind: 'accept' })
 
 /** The prompt id the migration refusal renders under; a copy, so a rename fails loudly. */
 const RefusedPromptId = 'migration-refused'
-
-/** A state worth telling apart from a default one, so "nothing was loaded" is observable. */
-const MarkerState = () =>
-    StateRecord({
-        ActivePC: Entry({
-            ID: 'existing-character',
-            Items: ItemRegistry({
-                [ItemArchetype.Blinder]: Visor({ TargetStrength: 1, RegisteredItems: IMSet(['visor']) }),
-                [ItemArchetype.Deafener]: SensoryLimiter({ TargetStrength: 1, RegisteredItems: IMSet(['phones']) }),
-                [ItemArchetype.Gag]: Gag({ TargetStrength: 1, RegisteredItems: IMSet(['gag']) }),
-            }),
-        }),
-        ActiveNPC: IMMap(),
-    })
 
 /** The loader the game would call, read through the global the mod installed. */
 const LoadGame = (save: string): boolean =>

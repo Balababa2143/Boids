@@ -157,6 +157,41 @@ export const InstallKDGlobals = (): InstalledKD => {
     const g = globalThis as unknown as Record<string, unknown>
     const tags = BuildBaseTagCollections()
 
+    /**
+     * The mod's **wrappers**, captured before this function replaces them.
+     *
+     * The mod wraps `KinkyDungeonGenerateSaveData` and `KinkyDungeonLoadGame` once, at module
+     * evaluation, and those wrappers are what the load gate and the save stamp *are*. A reinstall that
+     * overwrote them with the harness's own versions would leave every later suite driving a loader
+     * with no gate on it — and the symptom is a prompt nobody creates rather than a failing assertion
+     * about the wrapper.
+     *
+     * So the wrappers are put back after the originals are installed, which is exactly the shape the
+     * module graph leaves behind. A test that wants the *original* game function rather than the mod's
+     * wrapper reads {@link OriginalLoadGame} from the recorder.
+     */
+    const captured = {
+        GenerateSaveData: g.KinkyDungeonGenerateSaveData,
+        LoadGame: g.KinkyDungeonLoadGame,
+    }
+
+    /**
+     * `KDGameData` is **the same object across reinstalls**, and that is not an optimisation.
+     *
+     * The mod's save wrapper closes over it and writes the release root and the dossier onto it, while
+     * the game's loader adopts a save by assigning into it (`Object.assign(KDGameData, …)`). A stub
+     * that handed out a *new* object each time it was installed would leave that closure writing to an
+     * object nothing reads — and the symptom is exactly the confusing one this harness exists to
+     * avoid: a save that parses, carries a character, and has no release root on it.
+     *
+     * `ResetGameData` is how a test asks for a character with no past: it empties this object rather
+     * than replacing it, for the same reason.
+     */
+    const stableGameData = (g.KDGameData ?? {}) as Record<string, unknown>
+    for (const key of Object.keys(stableGameData)) {
+        delete stableGameData[key]
+    }
+
     const globals: KDGlobals = {
         ModelDefs: BuildBaseModels(),
         ModelLayers: {},
@@ -167,7 +202,7 @@ export const InstallKDGlobals = (): InstalledKD => {
         KDPerkStart: {},
         KinkyDungeonStatsPresets: {},
         KinkyDungeonPlayerTags: new Map<string, unknown>(),
-        KDGameData: {},
+        KDGameData: stableGameData,
         KDGameDataBase: {},
         KDSaveSlot: 1,
         loadedsaveslots: [],
@@ -209,16 +244,29 @@ export const InstallKDGlobals = (): InstalledKD => {
      * It accepts a **string or a parsed save** so a test can drive a load without encoding
      * a save the way the game does; a string is decoded through the `DecompressB64` stub.
      *
+     * ## Why it reads the *current* recorder, and not the one this installation made
+     *
+     * The mod's wrapper captures **this function** once, at module evaluation, and calls it
+     * thereafter. A harness that installed a fresh closure on every installation would leave that
+     * captured one pointing at an older `recorder` and an older `KDGameData` — so a later suite would
+     * drive a load that adopted into an object nothing reads, and the failure would present as *the
+     * prompt was never created* rather than as anything about the harness.
+     *
+     * Resolving both at call time is what makes the delegate safe to capture: `GetRecorder()` is
+     * whichever installation is current, so a reinstall changes what the wrapper reaches without
+     * changing the wrapper.
+     *
      * @returns The game's own contract: whether a save was adopted.
      */
     const LoadForGame = (source: string | KinkyDungeonSave, kdloadconsent: boolean = false): boolean => {
+        const current = GetRecorder()
         const saveData = ReadSaveForLoad(source)
         if (saveData == null || saveData.KDGameData == null) {
             return false
         }
         // The game's own adoption, matching `KDGameData = Object.assign({}, saveData.KDGameData)`.
-        Object.assign(globals.KDGameData, JSON.parse(JSON.stringify(saveData.KDGameData)))
-        recorder.loads.push(saveData)
+        Object.assign(current.globals.KDGameData, JSON.parse(JSON.stringify(saveData.KDGameData)))
+        current.loads.push(saveData)
         // The game's own signature, and the same entry point the `kd-structured` stub
         // records through, so tests observe bus traffic in one place.
         ;(g.KinkyDungeonSendEvent as ((args: { Event: string, data: unknown }) => void))({ Event: 'afterLoadGame', data: {} })
@@ -230,16 +278,66 @@ export const InstallKDGlobals = (): InstalledKD => {
      * The game's save generator. The mod wraps this and writes into `KDGameData` before
      * calling through, so the original's job is to hand back that very object — which is
      * what makes the stop on the way out observable at all.
+     *
+     * It resolves the current recorder for the reason {@link LoadForGame} does, and the object it
+     * hands back is the one whose `KDGameData` was just stamped — not an installation's leftover.
      */
     const GenerateSaveData = () => {
-        recorder.saveGenerations++
-        return { KDGameData: globals.KDGameData } as unknown as KinkyDungeonSave
+        const current = GetRecorder()
+        current.saveGenerations++
+        return { KDGameData: current.globals.KDGameData } as unknown as KinkyDungeonSave
     }
 
-    g.KinkyDungeonLoadGame = LoadForGame
-    g.KinkyDungeonGenerateSaveData = GenerateSaveData
-    globals.KinkyDungeonLoadGame = LoadForGame
-    globals.KinkyDungeonGenerateSaveData = GenerateSaveData
+    /**
+     * **The installed wrappers are captured, not re-made.**
+     *
+     * The mod wraps both globals exactly once, at module evaluation. A reinstall that installed *new*
+     * closures would leave the mod's captured pair delegating to a superseded recorder, and every
+     * suite after the first would be driving a loader whose adoption lands on an object nothing
+     * reads. Installing the same pair every time, with delegates that resolve the current recorder,
+     * is what makes a reinstall reproduce the state a fresh module graph would leave behind.
+     */
+    const installedWrappers = (g.__boidsHarnessWrappers as
+        { GenerateSaveData: () => KinkyDungeonSave, LoadGame: typeof LoadForGame } | undefined)
+        ?? { GenerateSaveData, LoadGame: LoadForGame }
+    g.__boidsHarnessWrappers = installedWrappers
+
+    g.KinkyDungeonLoadGame = installedWrappers.LoadGame
+    g.KinkyDungeonGenerateSaveData = installedWrappers.GenerateSaveData
+    globals.KinkyDungeonLoadGame = installedWrappers.LoadGame
+    globals.KinkyDungeonGenerateSaveData = installedWrappers.GenerateSaveData
+
+    /**
+     * The same pair, kept under the recorder so a test can see past the mod's wrappers — and so the
+     * harness can tell whether what is installed is its own function or the mod's wrapper around it.
+     */
+    recorder.originalLoadGame = installedWrappers.LoadGame
+    recorder.originalGenerateSaveData = installedWrappers.GenerateSaveData
+    recorder.modWrappers = captured
+
+    /**
+     * Put the mod's own wrappers back, when the module graph has already been evaluated.
+     *
+     * This is what makes a reinstall reproduce the state a *fresh* module graph would leave behind,
+     * which is the only state any suite after the first one can be written against: the mod wraps both
+     * globals exactly once, at module evaluation, and a reinstall would otherwise replace the load gate
+     * and the save stamp with the harness's own functions. The symptom of getting this wrong is not a
+     * failing assertion about a wrapper — it is a prompt nobody creates.
+     *
+     * It is a no-op before the mod has been evaluated, which is the honest answer: there is nothing to
+     * restore yet.
+     */
+    const restoreModWrappers = () => {
+        if (captured.LoadGame !== LoadForGame && captured.LoadGame != null) {
+            g.KinkyDungeonLoadGame = captured.LoadGame
+            globals.KinkyDungeonLoadGame = captured.LoadGame as KDGlobals['KinkyDungeonLoadGame']
+        }
+        if (captured.GenerateSaveData !== GenerateSaveData && captured.GenerateSaveData != null) {
+            g.KinkyDungeonGenerateSaveData = captured.GenerateSaveData
+            globals.KinkyDungeonGenerateSaveData = captured.GenerateSaveData as KDGlobals['KinkyDungeonGenerateSaveData']
+        }
+    }
+    restoreModWrappers()
 
     // --- Registration primitives -------------------------------------------------
 
@@ -272,7 +370,17 @@ export const InstallKDGlobals = (): InstalledKD => {
     g.KDRestraint = (named: Named) => {
         const key = (named as unknown as { name?: string, Name?: string })?.name
             ?? (named as unknown as { Name?: string })?.Name
-        return recorder.globals.KinkyDungeonRestraints.find(r => r.name === key)
+        const variant = (named as unknown as { inventoryVariant?: string })?.inventoryVariant
+        // Variant-aware, as the engine's is: an item whose name is not a registered restraint resolves
+        // through `inventoryVariant` to the template the variant points at. Skipping that step would
+        // report every generated variant as having no template at all, so membership would look broken
+        // when it is not — and the mod's items are variants by construction.
+        const template = recorder.restraintVariants[variant ?? key ?? '']
+        return recorder.globals.KinkyDungeonRestraints.find(r => r.name === (template?.template ?? key))
+    }
+    g.KDRest = (name: string) => {
+        const template = recorder.restraintVariants[name]
+        return recorder.globals.KinkyDungeonRestraints.find(r => r.name === (template?.template ?? name))
     }
     g.KinkyDungeonGetRestraintByName = (name: string) =>
         recorder.globals.KinkyDungeonRestraints.find(r => r.name === name)
@@ -421,6 +529,25 @@ export const InstallKDGlobals = (): InstalledKD => {
      * real objects rather than templates.
      */
     g.KinkyDungeonFullInventory = () => [...recorder.inventory]
+
+    /**
+     * What is on the character's body, including linked sub-items.
+     *
+     * The control model computes the equipment's capability from **this** rather than from the
+     * inventory, so the two are stubbed separately: a test that wants to say *she is wearing this*
+     * pushes to `recorder.worn`, and one that wants to say *she is carrying this* pushes to
+     * `recorder.inventory`. Seeding the wrong one produces a plausible-looking failure — a dimension
+     * that answers the baseline however much gear exists — which is exactly the sort of confusion the
+     * split is here to prevent.
+     *
+     * The tuple shape is the game's own: `{item, host}` with `host` null for a top-level restraint,
+     * which is what `KinkyDungeonAllRestraintDynamic` returns
+     * (`item/KinkyDungeonInventory.ts:771-785`).
+     */
+    g.KinkyDungeonAllRestraintDynamic = () => [...recorder.worn]
+
+    /** The same walk flattened to items, which the game also provides. */
+    g.KDAllRestraintDynamicList = () => recorder.worn.map(worn => worn.item)
 
     /** The game's synchronous base64/LZString decode; identity here, so a test can own both ends. */
     g.DecompressB64 = (str: string) => {

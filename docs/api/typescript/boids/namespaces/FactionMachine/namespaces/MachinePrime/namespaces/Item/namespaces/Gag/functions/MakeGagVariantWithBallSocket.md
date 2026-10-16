@@ -4,13 +4,13 @@
 
 > **MakeGagVariantWithBallSocket**(`template`): `KDRestraintVariant`
 
-Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:232
+Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:351
 
 Wraps a registered face cover as a machine-prime gag that opens a ball socket.
 
-This is the entry point of the module: a consumer — or the console — equips the
-result where it would equip the face cover, and the muffler is linked under it a
-moment later, already matching the current limiter strength.
+This is the entry point of the module: a consumer — or the console — equips the result where it
+would equip the face cover, and the muffler is linked under it a moment later, already matching
+the resolved strength.
 
 ## Parameters
 
@@ -19,13 +19,11 @@ moment later, already matching the current limiter strength.
 `string`
 
 Name of the registered restraint to build on, such as
-`Boids.FactionMachine.Futuristic.Gag.FaceCover.AdvanceHarness`. A restraint name,
-not a variant.
+  `Boids.FactionMachine.Futuristic.Gag.FaceCover.AdvanceHarness`. A restraint name, not a variant.
 
 ## Returns
 
 `KDRestraintVariant`
 
-A machine-prime variant, not a registered restraint: the name the game
-resolves it by follows from the variant key, so it is a recipe rather than a new
-restraint definition.
+A machine-prime variant, not a registered restraint: the name the game resolves it by
+  follows from the variant key, so it is a recipe rather than a new restraint definition.

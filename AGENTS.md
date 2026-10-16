@@ -109,18 +109,6 @@ Two more, because they are the expensive kind of mistake:
   baseline value on an item, or removing the item loses it and rollback becomes a restore instead
   of a release.
 
-## Git
-
-- The working branch is **`dev`** (`main` is behind it; do not commit to `main`).
-- Commit messages in this repository are long-form: a title, then a body that says what moved and
-  why, with `--` for a dash. Match that, and keep the change scoped — no drive-by reformatting, no
-  dependency upgrades, no test tidy-ups riding along.
-- **Stage explicit paths**, never `git add -A` or `git commit -a`.
-- **Do not push, and never rewrite published history.** The remote is the owner's to move; ask
-  first, and name the ref you intend to move.
-- If a commit fails on signing, commit unsigned and say so rather than retrying or changing signing
-  configuration.
-
 ## Reading order for a new task
 
 1. [`design/spec.md`](design/spec.md) — what the thing is (its glossary is the vocabulary).

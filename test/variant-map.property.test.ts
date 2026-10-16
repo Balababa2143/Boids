@@ -19,6 +19,7 @@ import fc from 'fast-check'
 import assert from 'node:assert/strict'
 import { is, isKeyed, isList, isSet, List, Map } from 'immutable'
 import { describe, it } from 'node:test'
+import { isDeepStrictEqual } from 'node:util'
 
 import { GetVariantIdFromBase, GetVariantNameFromBase, VariantKeyToImmutable, type JSReceiver } from '../src/KDExtension/Variant/Common'
 import { ModelVariantMapBuilder, ModelReceiver } from '../src/KDExtension/Variant/ModelVariantMapBuilder'
@@ -76,6 +77,14 @@ const PartArbitrary: fc.Arbitrary<TestPart> = fc.record({
 })
 
 const SortedUnique = (values: Iterable<string>): string[] => [...new Set(values)].sort()
+
+/**
+ * Deep equality for the plain objects `BuildVariantMap` hands back.
+ *
+ * `node:util`'s comparison rather than `fast-check`'s `fc.pre`-adjacent `isEqual`, because it handles
+ * Immutable collections and plain objects in one call and this file compares both.
+ */
+const IsDeepEqual = (left: unknown, right: unknown): boolean => isDeepStrictEqual(left, right)
 
 /**
  * Registers `only` explicitly, then applies the parts — a variant that no part
@@ -164,9 +173,20 @@ describe('VariantMapBuilder merge contract', () => {
                         withBeta.get('alpha'),
                         'adding parts to beta perturbed alpha'
                     )
+
+                    // Whether the beta parts *change* anything is the sample's business, not the
+                    // property's: no flags and no sizes that the template already has touch none of its
+                    // fields, so beta is legitimately identical and demanding a difference would be
+                    // demanding something false. The case is discarded instead, and the non-vacuity is
+                    // then a fact of the sample rather than a hope — asserting the difference outright
+                    // leaves the shrinker free to walk this property into exactly that empty sample,
+                    // which is how the hole was found.
+                    const beta = withoutBeta.get('beta')
+                    const betaWithParts = withBeta.get('beta')
+                    fc.pre(!IsDeepEqual(beta, betaWithParts))
                     assert.notDeepEqual(
-                        withoutBeta.get('beta'),
-                        withBeta.get('beta'),
+                        beta,
+                        betaWithParts,
                         'beta ignoring its own parts would make this property vacuous'
                     )
 

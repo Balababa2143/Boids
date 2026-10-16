@@ -204,6 +204,20 @@ export const VariantBaseNames = {
     GlassVisorModel: 'Boids.Futuristic.GlassVisor.Model.Base',
     /** The HUD glass the visor displays. */
     HudGlassVisorModel: 'Boids.Futuristic.HUD.Glass.Visor.Model.Base',
+    /**
+     * The collar and cuff family.
+     *
+     * Converted from hand-written GUIDs in Phase 1: the eight restraints and the eight copied models
+     * were literals, which made them unversionable — nothing could recognise or retire them
+     * programmatically. Their generated names differ from the literals, and the old names are not
+     * migrated: 0.5.0 has not shipped, so there is no save in the world that resolves them.
+     */
+    CuffRestraint: 'Boids.Futuristic.Cuff.Restraint.Base',
+    CuffModel: 'Boids.Futuristic.Cuff.Model.Base',
+    /** The chastity set: four restraints, one per garment and cut. */
+    ChastityRestraint: 'Boids.Futuristic.Aroused.Chastity.Restraint.Base',
+    /** The toy set: a lockable vibe and two denial plugs. */
+    ToysRestraint: 'Boids.Futuristic.Aroused.Toys.Restraint.Base',
 } as const satisfies Record<string, string>
 
 /**
@@ -259,6 +273,10 @@ export const DerivedVariantBase = {
     GlassVisorItem: DeriveIdentifier(VariantBaseNames.GlassVisorItem),
     GlassVisorModel: DeriveIdentifier(VariantBaseNames.GlassVisorModel),
     HudGlassVisorModel: DeriveIdentifier(VariantBaseNames.HudGlassVisorModel),
+    CuffRestraint: DeriveIdentifier(VariantBaseNames.CuffRestraint),
+    CuffModel: DeriveIdentifier(VariantBaseNames.CuffModel),
+    ChastityRestraint: DeriveIdentifier(VariantBaseNames.ChastityRestraint),
+    ToysRestraint: DeriveIdentifier(VariantBaseNames.ToysRestraint),
 } as const satisfies Record<keyof typeof VariantBaseNames, string>
 
 /**
@@ -346,6 +364,10 @@ export interface MigrationSlot {
  * because a missing slot would silently skip a version rather than fail.
  */
 export const MigrationChain: readonly MigrationSlot[] = [
+    {
+        Release: '0.4.0',
+        Migrate: () => ({ kind: 'accept' }),
+    },
     {
         Release: '0.5.0',
         Migrate: () => ({ kind: 'accept' }),

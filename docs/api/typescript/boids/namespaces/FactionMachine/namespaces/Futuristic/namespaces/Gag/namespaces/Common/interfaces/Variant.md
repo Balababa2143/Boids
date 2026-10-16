@@ -2,7 +2,7 @@
 
 # Interface: Variant
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:149
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:150
 
 The four axes that describe one metal gag: what fills the mouth, what holds it
 there, what covers it, and what extra hardware is bolted on.
@@ -17,7 +17,7 @@ models rather than one model with options.
 
 > **Ball**: [`BallKind`](../enumerations/BallKind.md)
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:150
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:151
 
 ***
 
@@ -25,7 +25,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:150
 
 > **Component**: [`Component`](../enumerations/Component.md)
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:155
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:156
 
 The flag set of `Component`; no flag is required.
 
@@ -35,7 +35,7 @@ The flag set of `Component`; no flag is required.
 
 > **Muzzle**: [`MuzzleKind`](../enumerations/MuzzleKind.md)
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:153
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:154
 
 ***
 
@@ -43,6 +43,6 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:153
 
 > **Strap**: [`StrapKind`](../type-aliases/StrapKind.md)
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:152
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:153
 
 The strap or harness; the `None` branch carries no `Detail`.

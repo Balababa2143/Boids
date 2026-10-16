@@ -2,7 +2,7 @@
 
 # Enumeration: Component
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:38
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:39
 
 The optional hardware a variant may wear, as a flag set: each set flag adds its
 own layers to the model and its own amount to the item's gag total, and no flag is
@@ -28,7 +28,7 @@ variant that sets no flag at all rather than as `Component.None`.
 
 > **CheekDisplay**: `4`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:41
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:42
 
 ***
 
@@ -36,7 +36,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:41
 
 > **GlabellaDisplay**: `8`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:42
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:43
 
 ***
 
@@ -44,7 +44,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:42
 
 > **None**: `1`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:39
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:40
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:39
 
 > **OTNRivets**: `16`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:43
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:44
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:43
 
 > **OTNStrap**: `32`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:44
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:45
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:44
 
 > **Panel**: `64`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:45
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:46
 
 ***
 
@@ -76,7 +76,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:45
 
 > **PerioralClip**: `2`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:40
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:41
 
 ***
 
@@ -84,7 +84,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:40
 
 > **Plug**: `128`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:46
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:47
 
 ***
 
@@ -92,4 +92,4 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:46
 
 > **PlugPort**: `256`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:47
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:48

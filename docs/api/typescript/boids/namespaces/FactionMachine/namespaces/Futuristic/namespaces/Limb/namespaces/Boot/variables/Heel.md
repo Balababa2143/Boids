@@ -4,7 +4,7 @@
 
 > `const` **Heel**: `string`
 
-Defined in: src/FactionMachine/Futuristic/Limb/Boot.ts:23
+Defined in: src/FactionMachine/Futuristic/Limb/Boot.ts:24
 
 The `Drone Heel` boot, registered in the `ItemBoots` group and tagged
 `Link.Socket.Ankle` so the ankle link set can be anchored to it.

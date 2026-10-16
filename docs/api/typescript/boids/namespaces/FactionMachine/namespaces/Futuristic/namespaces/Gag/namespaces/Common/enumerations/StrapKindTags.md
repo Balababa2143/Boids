@@ -2,7 +2,7 @@
 
 # Enumeration: StrapKindTags
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:103
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:104
 
 Which of the three strap shapes a variant wears. Unlike the flag sets above, this
 is a discriminator: it is read as `StrapKind.__Type` to pick a branch, not combined
@@ -18,7 +18,7 @@ worth several times as much gag, while `None` is the branch that carries no
 
 > **Harness**: `2`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:106
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:107
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:106
 
 > **None**: `0`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:104
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:105
 
 ***
 
@@ -34,4 +34,4 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:104
 
 > **Strap**: `1`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:105
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:106

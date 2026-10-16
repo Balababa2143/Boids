@@ -14,5 +14,5 @@ The Dollmaker glass, whose dimming is a layer filter rather than a blind level.
 ## Variables
 
 - [CalcVisorFilter](variables/CalcVisorFilter.md)
-- [MorphOnBlindLimiterStrengthUpdate](variables/MorphOnBlindLimiterStrengthUpdate.md)
+- [MorphOnBlindRateUpdate](variables/MorphOnBlindRateUpdate.md)
 - [Variant](variables/Variant.md)

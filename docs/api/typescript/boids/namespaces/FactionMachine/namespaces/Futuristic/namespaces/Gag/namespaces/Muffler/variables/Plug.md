@@ -4,7 +4,7 @@
 
 > `const` **Plug**: `string`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Muffler.ts:164
+Defined in: src/FactionMachine/Futuristic/Gag/Muffler.ts:161
 
 The `Drone Plug`: the one stuffing item that wears `Component.Plug` rather than a
 ball, which is what gives it the plug sprite and the heaviest gag of the four.

@@ -6,22 +6,25 @@ The vision and hearing limiters, their state, and the item-registration events.
 
 ## Namespaces
 
+- [Catalog](namespaces/Catalog/index.md)
+- [PoseRoute](namespaces/PoseRoute/index.md)
 - [SensoryControl](namespaces/SensoryControl/index.md)
 
 ## Interfaces
 
-- [EventWithItemArchetype](interfaces/EventWithItemArchetype.md)
+- [ProviderDeclaration](interfaces/ProviderDeclaration.md)
+- [SelectableProvider](interfaces/SelectableProvider.md)
 
 ## Type Aliases
 
 - [SensoryControl](type-aliases/SensoryControl.md)
 
-## Variables
-
-- [RegisterItemOnApply](variables/RegisterItemOnApply.md)
-- [UnRegisterItemOnRemoval](variables/UnRegisterItemOnRemoval.md)
-
 ## Functions
 
-- [Register](functions/Register.md)
-- [UnRegister](functions/UnRegister.md)
+- [DescribeCandidates](functions/DescribeCandidates.md)
+- [GetDossier](functions/GetDossier.md)
+- [Resolve](functions/Resolve.md)
+- [SelectProvider](functions/SelectProvider.md)
+- [SetConfig](functions/SetConfig.md)
+- [SetIntent](functions/SetIntent.md)
+- [WhichQualify](functions/WhichQualify.md)

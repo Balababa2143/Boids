@@ -14,6 +14,7 @@
 
 import { AddRestraintWithTextThenGetName } from '../../../../KDExtension'
 import { FactionFilter } from '../../../../KDInterface/TextKey'
+import { ControlledTag } from '../../../MachinePrime/Coordinator/Tag'
 import { SFX, CommonItemAvailability } from '../../Common'
 import { Socket } from '../../Link'
 import { InheritColor } from './Layer'
@@ -28,7 +29,8 @@ const ItemBase = {
     unlimited: true,
 
     shrine: [
-        'Metal'
+        'Metal',
+        ControlledTag,
         // Socket.Mitten
     ],
     noShrine: true,

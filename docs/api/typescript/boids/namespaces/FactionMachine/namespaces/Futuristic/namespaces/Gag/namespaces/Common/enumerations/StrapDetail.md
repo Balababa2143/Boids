@@ -2,7 +2,7 @@
 
 # Enumeration: StrapDetail
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:88
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:89
 
 How the strap or harness a variant wears is detailed, as a flag set; it is only
 read when the variant has a strap at all.
@@ -18,7 +18,7 @@ no weight, though it still appears in the generated key if it is set.
 
 > **None**: `1`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:89
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:90
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:89
 
 > **Segmented**: `2`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:90
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:91
 
 ***
 
@@ -34,4 +34,4 @@ Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:90
 
 > **SideStrap**: `4`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:91
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:92

@@ -9,6 +9,7 @@
 import { GetModelLayers } from 'kd-structured'
 import { AddModelWithTextThenGetName, AddRestraintWithTextThenGetName } from '../../../KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
+import { ControlledTag } from '../../MachinePrime/Coordinator/Tag'
 
 /**
  * The catsuit model, a top-level model in the `Catsuit` folder and group. Its name
@@ -54,7 +55,7 @@ export const HeavyLockableSuit =
             inaccessible: true,
             noDupe: true,
 
-            shrine: ['Catsuits', 'Latex', 'Suits'],
+            shrine: ['Catsuits', 'Latex', 'Suits', ControlledTag],
             LinkAll: true,
             linkCategory: 'Catsuits',
             linkSize: 0.75,

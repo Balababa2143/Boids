@@ -2,16 +2,15 @@
 
 # Interface: RequireSubItemEvent
 
-Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:174
+Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:297
 
-The event behind `RequireMuffler`: a restraint that exposes a socket asks for a
-sub-item to be linked under it the moment it is applied.
+The event behind `RequireMuffler`: a restraint that exposes a socket asks for a sub-item to be
+linked under it the moment it is applied.
 
-`Socket` is the tag looked for on the applied item, or already on the player;
-`ItemTag` is the player tag that means a sub-item is installed and suppresses a
-second one; and `SubItem` is the variant to link under the host. It is the extension
-point of this module — any machine-prime restraint can carry one of these, with its
-own socket and its own sub-item, instead of a muffler.
+`Socket` is the tag looked for on the applied item, or already on the player; `ItemTag` is the
+player tag that means a sub-item is installed and suppresses a second one; and `SubItem` is the
+variant to link under the host. It is the extension point of this module — any machine-prime
+restraint can carry one of these, with its own socket and its own sub-item, instead of a muffler.
 
 ## Extends
 
@@ -647,7 +646,7 @@ The event gets copied to any restraint if the item is linked
 
 > **ItemTag**: `string`
 
-Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:176
+Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:299
 
 ***
 
@@ -957,7 +956,7 @@ Defined in: kd-structured/KinkyDungeon/out/main.d.ts:1850
 
 > **Socket**: `string`
 
-Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:175
+Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:298
 
 ***
 
@@ -1031,7 +1030,7 @@ Stun duration
 
 > **SubItem**: `KDRestraintVariant`
 
-Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:177
+Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:300
 
 ***
 

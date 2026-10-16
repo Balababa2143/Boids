@@ -19,8 +19,10 @@ delivered as milestone **[v0.5.0: Machine Prime (mvp)](https://github.com/Balaba
 `design/dev-plan.md` Phases 1–5, plus the playtest calibration of the ending.
 
 Shipped today: the `Futuristic` outfit on the variant infrastructure, `MachinePrime`'s visor and gag
-families, and the Coordinator that holds control state across save and load. The rest of the
-mechanism layer is in progress; the milestone and the issues are where that work is tracked.
+families, and the **control model** — dimensions declared in a catalogue and resolved by a router
+against what is worn, with the Host's dossier surviving save and load. No dimension is bound to a
+game seam yet, so the model is drivable from the console and not yet felt in play; the rest of the
+mechanism layer is in progress, and the milestone and the issues are where that work is tracked.
 
 ## Requirements
 
@@ -82,15 +84,23 @@ cannot arrange that, poll for it:
     }
     if (!globalThis.Boids) return console.error('Boids did not load in time; skipping')
 
-    globalThis.Boids.FactionMachine.MachinePrime.Debug.SetBlindStrength(0.5)
+    const Coordinator = globalThis.Boids.FactionMachine.MachinePrime.Coordinator
+    const Sight = Coordinator.Catalog.DimensionIdOf(Coordinator.Catalog.DimensionName.Sight)
+    // A demand is a record of the parameters the dimension's facets take, so a rate dimension
+    // is asked for a `Target` in 0..1 and a gate dimension for an `Intent`. The router resolves
+    // that against what is worn, and `Resolve` answers with the severity that reaches a seam.
+    Coordinator.SetIntent({ dimension: Sight, intent: { Target: 0.4 } })
+    console.log('the Host demanded 0.4; sight now resolves to', Coordinator.Resolve(Sight).Applied)
 })().catch(error => console.error('my mod failed:', error))
 ```
 
 `globalThis.Boids` is never a promise, so that read is a plain property read. The surface is two
 namespaces — `Boids.FactionMachine` and `Boids.CommonUI` — and `Boids.CommonUI.Prompt.ShowPrompt`
 is a warning dialog that carries no text of its own, so reusing it costs a caller nothing but the
-wording. The full story, including what to do about `kd-structured`, is in
-[`docs/guide/modding.md`](docs/guide/modding.md).
+wording. The control model is reachable one faction down, under
+`Boids.FactionMachine.MachinePrime.Coordinator`, and
+[`docs/guide/control-model.md`](docs/guide/control-model.md) explains what it holds. The full story,
+including what to do about `kd-structured`, is in [`docs/guide/modding.md`](docs/guide/modding.md).
 
 ## Contributing
 

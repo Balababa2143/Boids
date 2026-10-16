@@ -76,11 +76,66 @@ still sees a complete save. The load gate answers with the game's own synchronou
 boolean and **throws nowhere** — a refusal is a value and a message, never an
 exception, because an exception here lands in the game's crash-report path.
 
+## A restraint's control state derives from one baseline the Coordinator holds
+
+**Never store a baseline value on an item.** Removing equipment must **release** an override, never
+**restore** a value the removal destroyed — so the baseline lives in the Coordinator, and the applied
+value is *derived* from it plus what is worn (`design/spec.md` §6.5, invariant 12).
+
+Two consequences that are easy to get backwards:
+
+* **The dossier holds no equipment.** Not a capability, not a ceiling, not a registered-item set.
+  Which items are worn is read from the game when a dimension is resolved, so the answer cannot go
+  stale and there is nothing to invalidate when a piece leaves the body. That is what makes the
+  per-facet **Free state** fall out rather than being tracked.
+* **A dimension with no entry is at its baseline**, not at a stored default — *every facet parameter at
+  rest*: `Target = 0`, `Intent = Free`, and `Allowed` the dimension's whole ladder. The baseline is the
+  *absence of an effect*, so an absent entry and an explicitly empty one are the same statement, and only
+  one of them is worth writing down. `Posture` is the one facet whose baseline is a **full** value rather
+  than an empty one, because an unconstrained body may take any of its poses.
+* **The demand is persisted; the severity is not.** The recorded `Target` is what the Host asked for, and
+  the resolved severity is the stronger of that and what the worn set can impose. Storing the resolved
+  number would cache an answer the worn set can change with nothing to invalidate it.
+
+`test/control-baseline.property.test.ts` is the enforcement: equip, touch every dimension, remove
+everything, and compare the dossier and every resolution field for field with the never-equipped
+state. See [`control-model.md`](control-model.md).
+
+## A posture resolution is never empty
+
+**The engine indexes the available set at `[0]`** (`player/KinkyDungeonDress.ts:714`), so an empty one
+hands `undefined` to the renderer. An empty set is **easy to reach** rather than a corner: a posture
+dimension's capability is an **intersection**, so two items that each deliver one pose need only disagree —
+and the Host's demand is a set to subtract on top of that (`design/spec.md` §6.7, invariant 23).
+
+Two nets, deliberately:
+
+* **The router's sentinel.** When the algebra empties the set the router answers with the **ladder's own
+  first member** — so every ladder in the catalogue is ordered with the pose every rig can draw at its
+  head (`Free` for the arms, the game's `DefaultStand` reading for the legs).
+* **The game's own sentinel**, which §6.13 rule 4 runs after both operations, falling back through
+  `DefaultStand`, `DefaultKneel` and finally `Hogtie` (`Data/Poses.ts:459-467`). The two agree because the
+  ladders are ordered for it.
+
+`test/control-pose.test.ts` is the enforcement: a property over **every** posture dimension, every demand
+that is any subset of its ladder, every gate and up to four worn sets — because the empty set is reachable
+from the intersection *and* from the subtraction, and a sampler that missed one of the two roads would call
+the invariant enforced on half its cases.
+
+## A membership tag is a persisted identifier, so it is derived
+
+A tag that goes into a restraint template's `shrine` list is written into every template that
+carries it and compared by value — so it gets the same treatment as every other identifier: the
+readable name is the stable half, the value is derived from the release root, and renaming one is a
+versioned decision rather than two spellings drifting apart (`Coordinator/Tag.ts`).
+
+The same goes for a dimension's id, which is a **key in the dossier**: renaming one renames a saved
+key, so it is a migration rather than a cleanup.
+
 ## Time advances from inside the game's tick dispatch
 
-`MachinePrime/Debug.ts` registers a `tick` handler that calls
-`SetLimiterStrength`, which ends with `KinkyDungeonAdvanceTime(1)` and
-re-enters the game's event bus via `KinkyDungeonSendEvent`. Every morph handler
-chains off that. It is the current prototype's only input to the sensory limiters,
-which is why it lives in an explicitly-named debug module instead of being deleted
-— see #19 and #40.
+`MachinePrime/Debug.ts` registers a `tick` handler that calls `Coordinator.SensoryControl.AnnounceRate`,
+which ends with `KinkyDungeonAdvanceTime(1)` and re-enters the game's event bus via
+`KinkyDungeonSendEvent`. Every morph handler chains off that. It is the prototype's only *writer* of a
+dimension, which is why it lives in an explicitly-named debug module instead of being deleted — see
+#19 and #40, and note that **retiring it is Phase 3.1**, not the phase that built the store.

@@ -227,6 +227,16 @@ deliberate-decision tripwire that retires at the first breaking release.
 
 ## Phase 1 — The control model
 
+**Status: delivered 2026-10-17, reopened for the correction recorded as steps 1.9–1.14, and
+delivered again 2026-10-17.** The first delivery is green and is described below. The correction is
+not an extension of it: it **retracts** one of the decisions that delivery shipped — `Form` — and
+with it the belief that the body has dimensions of its own. It was tracked here rather than as a new
+phase because it is the same control model being finished, and because every phase after this one
+reads the model it leaves behind. **The correction is now in the code**: steps 1.9–1.14 are
+implemented, the registry holds twenty-three dimensions, `npm run verify:full` is green at 220 tests
+over 44 suites, and the deviations from the steps as written are recorded at the end of this phase,
+including the one the implementation turned up and did **not** settle.
+
 **Goal:** replace the three-slot limiter prototype with the general control model, and give
 it a router.
 
@@ -234,23 +244,186 @@ it a router.
 resolved by the router — all drivable from the console, with the property suite extended to
 cover the new shape.
 
+**Met.** The first delivery declared eighteen dimensions by one catalogue and one descriptor
+registry — **1.9 makes it twenty-three** — with the descriptor's every §6.2 field present and
+validated at registration *and* over the whole registry by a test; the dossier is two sparse keyed
+maps with the §6.6 rules enforced at write time — including the **(shape)** rule, which refuses a parameter the dimension's facets do not
+take; the router resolves one dimension by power bid, clamps to 0..1, reports its losers, and is
+exercised both as a case and as a property. The console reaches all of it through
+`Boids.FactionMachine.MachinePrime.Coordinator`.
+
+**The exit condition that is only partly met, stated rather than glossed.** The router is drivable
+from the console and nothing else: **no dimension is bound to a game seam by this phase.** That is
+the deviation below — it is the ordering the plan already carried (3.1 is where the sensory limiter
+layer is rewritten on top of the store), but it means "resolved by the router" currently means
+"resolved", not "applied".
+
 | # | Step | Issue |
 | --- | --- | --- |
-| 1.1 | **Generalise the archetype store.** The closed three-member enum and its hard-coded registry become a keyed map over dimension IDs, seeded from a descriptor registry. | #19 |
-| 1.2 | **Implement the descriptor registry** (`spec` §6.2): group, subsystem, facets, direction, seams with precedence, buff side, derived id. **Done when** every field of that table is present and a dimension can be added by adding one record. | #19 |
-| 1.3 | **Implement the persisted shape** (`spec` §6.5): `target` / `equipment` / `config`, with the write validators of §6.6. | #19 |
-| 1.4 | **Implement the router** (`spec` §6.7): provider declaration on apply, priority bidding, loser expression. | #45 |
-| 1.5 | **Wire the first real selection.** Nothing currently chooses which visor to equip; **done when** the router picks one from a partial variant request, and the hard-coded choice is gone. | #40 |
-| 1.6 | **Convert the remaining hand-written families** to the variant infrastructure. **Done when** no family registers restraints as repeated literals over a spread base; today `Cuff` and `Aroused` are the remaining two. | #42, #43, #30 |
-| 1.7 | **Record the morphing debt** — `KDMorphToInventoryVariant` stays in use until Phase 4's projection layer replaces it. This is a tracking step, not a change. | #34 |
-| 1.8 | **Implement the restraint contract** (`spec` §6.12): the `shrine` tag as the membership test, and the rule that **no equipment is recorded in the dossier and the group's capability is computed at execution time**. **Done when** adding or removing a worn item changes the resolved capability with no cached value to invalidate, and the per-facet **Free state** falls out of it (§6.10) rather than being tracked. **Partly implemented already** — `Coordinator/Public/Event.ts` and `Coordinator/Internal/State.ts` hold the registration half. | #70 |
+| 1.1 | **The archetype store generalised.** The closed three-member `ItemArchetype` enum and its hard-coded registry are a keyed map over dimension ids, seeded from the catalogue. | #19 |
+| 1.2 | **The descriptor registry** (`spec` §6.2): group, subsystem, facets, direction, seams with precedence, buff side, derived id. A dimension is added by adding one record and one name; the registry, the router and the store are total over it. | #19 |
+| 1.3 | **The persisted shape.** `{ intent, config }` as sparse keyed maps, with §6.6's write validators enforced before the write. | #19 |
+| 1.4 | **The router** (`spec` §6.7): provider declaration on apply, bidding by power, loser reporting, and a selection helper for choosing which provider to wear. | #45 |
+| 1.5 | **The first real selection.** The visor and gag families declare themselves providers; `DebugStart.AddDroneSet` presents its two glass families as candidates and equips the one the Host's demand can be honoured on, with the hard-coded choice gone. | #40 |
+| 1.6 | **The remaining hand-written families converted** — `Cuff` (eight restraints and eight models) and `Aroused` (chastity and toys) — to the variant infrastructure. No family registers restraints as repeated literals any more. | #42, #43, #30 |
+| 1.7 | **The morphing debt recorded** — `KDMorphToInventoryVariant` stays in use until Phase 4's projection layer replaces it, and no fourth route was added. | #34 |
+| 1.8 | **The restraint contract** (`spec` §6.12): the `shrine` tag as the membership test, and no equipment recorded in the dossier — so adding or removing a worn item changes the resolved capability with nothing to invalidate, and the per-facet **Free state** falls out. | #70 |
+| 1.9 | **The decomposition recorded, and the body-part dimensions refused.** Twenty-three dimensions, four facets. `Defense`, `Interaction`, `PoseArms`, `PoseLegs` and `Noise` are declared because each was a real mechanism hiding inside another dimension's property, or a real consumer with no dimension at all; `Attack`, `Casting` and `Movement` gain a `Rate` because the base game applies a continuous penalty to all three. **There is no `Arms` dimension and no `Hands` dimension** — an arm restraint is a set of bids on the capabilities its effects actually reach. | #19 |
+| 1.10 | **`Form` retracted.** The facet was the previous delivery's answer to *size and force are separate axes*, and it was the wrong answer: appearance is a property of the item (§6.12 clause 4), not a Host demand. `Form`, its intent parameter, the provider's `Size` and the router's size fields all go; an item declares its own appearance beside its own bid, and the muffler reads its own declaration. **The Host loses the cosmetic lever**, which is the point rather than a loss. | #19, #45 |
+| 1.11 | **`Posture`, `PoseKey` and the pose route, declared.** A body configuration is a set, so it is the one facet whose value is a set and whose `Free` is not "nothing"; the route runs **directly from the controller to the game's pose system** and never through a restraint, with eight normative rules (`spec` §6.13). The module ships **declared and unbound**, exactly as every seam does. | #19, #45 |
+| 1.12 | **The seam record gains a kind, and every `Rate` dimension gains an engine value map.** The base game has four algebras rather than one — an addition (`calcDeaf`), an absolute value (`calcBlind`), a multiplier (`calcHearing`) and a **replacement** with no event at all (the pose availability functions) — while `Rate` is uniformly 0..1 in the model and no base-game quantity is on that scale. | #45 |
+| 1.13 | **A bid declares how it stacks.** `Max` and `Sum`, because the base game's aggregates disagree with one another: `gag` sums, a blind level counts *and* takes a maximum, a deaf level is a weighted maximum plus a weighted sum. **A third mode for counting was drafted and then removed** — see the deviation below — because a count aggregates the number of items rather than what they say, and nothing this mod builds is a fixed-value restraint. `Posture` is the exception that proves the field is per-facet — it has no numeric aggregate at all, and combines by **intersection** so that the worn set can always draw the pose it permits. | #45 |
+| 1.14 | **The two rules the model was missing.** **Dimensions do not contract for interaction** — a seam may read anything, but nothing may rely on it and no test may assert it, so the base game's real couplings are recorded as *unspecified* rather than modelled. And **there are two grant channels**: `OverrideAllowed` is checked against the channel the dimension actually has, so invariant 6 holds for a posture dimension without there being a `CapabilityKey`. | #19, #45 |
 
-**Ordering constraints:** 1.1 and 1.2 precede 1.3; 1.3 precedes 1.4; 1.5 needs 1.4.
+**Deviations from the steps as written, recorded:**
+
+- **1.3 — `equipment` is not persisted at all, and `spec` §6.5 has since been revised to say so.** §6.5's
+  prose said the equipment's capability is *computed at execution time* and that the group is never
+  recorded (§6.12 clause 4), while its shape block carried an `equipment` key. The two could not both
+  hold. What ships is **`{ intent, config }`**: there is no Host-owned ceiling, so there is nothing for a
+  target to exceed, and §6.5's *"`target > equipment` is legal"* and §6.6's matching row described a
+  conflict that no longer exists. **The spec revision this note asked for was made by the owner**: the
+  `equipment` key is gone and §6.5 states that there must not be one.
+- **1.3 — an intent is a *record*, and the first delivery had it as an enum.** This is a **corrected
+  implementation error**, recorded because it was the kind that reads as working code: `intent` was
+  typed `IMMap<DimensionId, GateIntent>`, so the Host's demand for a rate dimension could only be `Free`
+  or forbidden — *"squeeze sight to 0.4"* had no representation at all, and the continuous half of the
+  control model was simply absent. §6.5's own correction says what it should have been: a demand is a
+  **composition of the parameters its facets take** (`{ Target }`, `{ Intent }`, or both), which
+  `FacetIntentParameters` now derives from the descriptor so the write rule cannot drift from the
+  catalogue. Three consequences: the router takes **the stronger of the Host's demand and the equipment's
+  capability** rather than deriving a severity from the equipment alone; §6.6's **(shape)** rule became
+  meaningful and is implemented (a parameter the dimension does not take is refused, not stored and
+  ignored); and the debug driver's `SetBlindStrength`/`SetGagStrength` take a value again, which is what
+  makes the continuous behaviour playable before Phase 3.1 replaces the driver.
+  **§6.6's *"`Free` may not carry a non-zero derived `Target`"* stays a property rather than a write
+  validator**, and this is now a reason rather than an excuse: the gate and the rate are different facets
+  of one demand, and the resolved severity is the stronger of the demand and what is worn, so no single
+  write can establish what a gate resolves to. The property asserts it over every resolution.
+- **1.3 — `Form` was added, and a provider declares size apart from force.** A demand carries *how big the
+  thing imposing it looks* as well as *how hard it squeezes*, because the base game's `gag` property is one
+  number that drives the mechanics **and** selects the model — so a larger ball there is necessarily a
+  stricter one, and *a small ball on a strict mechanism* was not expressible. `Form` contributes `Size` and
+  `Rate` contributes `Target`; a provider declares `Size` beside `Power` through its own declaration, and a
+  provider that omits it offers its power as its size, which is the base game's convention for the families
+  that want it. **`Speech` therefore composes `Rate` + `Form` + `Gate`** rather than being a pure
+  permission: the rate is how strictly the mouth is filled, the form is how large the model is, and the
+  gate is whether speech is denied or re-granted — the three are orthogonal, so a wearer can talk through a
+  prosthesis with her mouth still visibly full. The muffler's display size reads the resolved `Size` rather
+  than the resolved severity, which is the decoupling this step exists for.
+- **1.8 — the base game's gag sum is *not* bound to `Speech` in this phase.** The inventory of
+  `KinkyDungeonGagTotal` (`KinkyDungeonStats.ts:2209`) and its 34 direct consumers shows the property is
+  three quantities in one: the sum every mechanic reads, a per-item enemy silence, and a boolean tag — with
+  thresholded readers at `0.01`, `0.05`, `0.25`, `0.9` and `0.99` that a continuous rate crosses. Binding
+  that onto the dimension means writing the restraint's own `gag` from the resolved value, which is the
+  limiter layer and therefore **Phase 3.1**. This phase ships the shape and the display decoupling; until
+  3.1 the muffler's *mechanical* effect is still the base game's own `gag` on its template.
+- **1.2 — every seam is declared and none is bound.** `Seam` carries `Verified`, which says whether
+  its trigger was read out of the engine or is still a hope, and the test suite fails if the whole
+  catalogue ever claims verified. `Sight`, `Hearing`, `SpellRange` and `Arousal` are verified
+  (their triggers were read); `Behavior`'s remaining dimensions and all of `Stats` are not. The
+  consequence is the honest one: the property suite covers the model, and no dimension affects play
+  yet.
+- **1.2 — `CapabilityKey` ships empty.** §3.2 rules speech, `immobile` movement and noise
+  ungrantable, and every remaining grant-capable dimension's seam is Phase 2's, so the closed union
+  is empty with a **compile-time emptiness proof** in `KDExtension/Control/Capability.ts` that fails
+  the moment a key is added without its dimension. This already refuses `OverrideAllowed`
+  everywhere, which is the one write rule Phase 1 can reach.
+- **1.6 — the converted families' names changed and are not migrated.** Their restraints and models
+  were hand-written GUIDs, so the conversion had to mint derived names. Nothing is migrated because
+  **0.5.0 has not shipped**: there is no save in the world that resolves the old names, and the
+  unversioned-save gate refuses anything older than this release anyway. From the first release
+  onward this is a migration, which is why the new bases are named in `KDExtension/Release.ts`
+  beside the rule.
+- **1.4 — a selection helper, not only resolution.** §6.7's router answers for one dimension;
+  choosing *which item to wear* is a question about a set of dimensions at once. `SelectProvider`
+  is that predicate, kept thin and separate rather than folded into the router, and it is what 1.5
+  consumes.
+- **Not this phase's, and unfixed:** the migration chain's slot for `0.4.0` was missing at HEAD
+  while the release table carried the row, so `npm run test` failed on a clean checkout at
+  `test/release.test.ts`. Restored with the chain empty-body rule the file already states. The
+  brief's Appendix E row is the record.
+- **Two gates were added beyond the plan.** The control model is a **published** namespace, and
+  `public-api.test.ts` pinned only to `MachinePrime`'s children, so the widening was invisible:
+  `test/public-api-surface.test.ts` now pins one level deeper. And the harness gained a
+  `KinkyDungeonAllRestraintDynamic` stub beside a variant-aware `KDRestraint`, because the contract
+  reads the body rather than the inventory and the two are not the same question.
+
+- **1.10 — `Form` is retracted, and the spec says so where it used to say otherwise.** The
+  previous delivery added a fifth facet on the argument that the base game's `gag` conflates size
+  with force, so *a small ball on a strict mechanism* was inexpressible. **The argument was right
+  and the answer was wrong**: making appearance a **Host demand** contradicts §6.12 clause 4, which
+  says capability is read from what is worn and never demanded, and it left an item that has a look
+  but no behavioural effect with nowhere to declare that look. `spec` §6.1 now carries the
+  retraction *in place*, because a reader who reaches that section must not find the old reasoning
+  standing. The expressibility survives and moves: one item variant declaring a small appearance
+  and a high bid, and its sibling declaring the opposite.
+- **1.9 — the decomposition refused two dimensions rather than adding them.** `Arms` and `Hands`
+  are not declared and will not be. Tracing `bindarms` / `bindhands` / `restricthands`
+  (`base/KDTypeDefs.ts:487-492`) found **two bundled properties and no axes**: between them they
+  pay for melee, blocking, weapon use, two spell components, escaping, locks, doors, picking things
+  up and the body's own configuration. The same reading was applied to the gag (four demands, not
+  one), to the blinder and the deafener (whose aggregates are a count-and-maximum and a weighted
+  maximum-plus-sum) and to the lower body (four unconnected tracks: a slow level, a heel level, a
+  balance pool, and a set of state tags).
+- **1.12 — "projection" was already taken, so the new map is called something else.** §6.7's
+  *projection layer*, §6.8, §8.2 and invariant 8 use the word for **equipment** growing extra
+  parts. The map from a resolved 0..1 to the engine's own units is therefore the dimension's
+  **engine value**, and the glossary states the distinction in both directions. The body-state
+  predicates the base game insists on are a third thing again: a compatibility shim, named
+  `BodyStateName`, and **not** a dimension.
+- **1.14 — invariant 6 was honoured rather than narrowed.** The step as first drafted would have
+  limited the `OverrideAllowed` check to `Whitelist` dimensions, which would have left a posture
+  dimension unable to take `OverrideAllowed` while `CapabilityKey` is empty — and would have broken
+  an invariant to do it. The check is instead **channel-aware**: the validator is handed the
+  promise **on the channel the dimension actually has**.
+- **Deliberately not fixed, and recorded instead.** Reading four subsystems turned up eleven
+  base-game defects: `KinkyDungeonIsArmsBoundFast` returning `undefined` on every path, a
+  `blockPotions` branch no code can reach, `forbidPose` with no consumer, `BoundFeet` written to
+  one tag map and read from another, a `Hobble` tag with three writers and no reader, a
+  `ForceHogtie` tag with no writer, a restraint `freeze` field with no writer, and four more.
+  **They are inherited, not repaired** — the register is `docs/guide/known-issues.md` — and the
+  ones that would collide with our own route are avoided by not using those fields and tags at all
+  (`spec` §6.13 rule 6).
+- **[待定→决定] 1.13 — §6.7 contradicted itself about `Count`, and the implementation followed the
+  table row rather than the paragraph.** The **table row** says the engine value map "turns `Applied`
+  into the number a seam receives", and `Applied` is a rate — so it is in 0..1. The **paragraph below
+  it** said *"the aggregate is clamped to 0..1 like any other rate, and the dimension's engine value
+  map is what puts it back on the engine's own scale — which is where a count of three items becomes
+  the integer 3 rather than three eighths."* Both cannot hold: if the aggregate is clamped to 0..1 then
+  a count of three is 1 before the map ever sees it, and no map recovers the 3. **What shipped was the
+  table row**: the aggregate is clamped, `Ceiling` saturates, and `Projected` is `Applied` through the
+  map — which is the reading that keeps *a rate is uniform in the model* true and keeps one clamp rule
+  for every rate. **Resolved the same day, by removing the mode rather than by choosing a reading:**
+  see the next deviation and the brief's Appendix E row. The finding is kept rather than deleted
+  because it is *why* the mode was looked at again.
+- **1.13 — `Count` is removed, and the reason is what this mod's equipment is.** The owner's ruling:
+  *this mod does not design fixed-value restraints*, and a count is exactly that semantics — it
+  aggregates the **number** of contributing items rather than what any of them says, so it only means
+  anything if a piece's contribution is a fixed step, *one item, one rung*. A piece here declares a
+  **power**, and two pieces of a kind are stronger than one because their powers add rather than
+  because there are two of them. **Nothing is lost**: a count is a sum in which every contributor bids
+  the same step, so a family that wants that behaviour writes the step it wants under `Sum`. The
+  retraction also **dissolves the contradiction above** rather than settling it — with no count mode
+  there is no quantity that has to survive the 0..1 clamp, and a `Sum` of powers is exactly the
+  quantity the clamp and the engine value map were already stated over. `spec` §6.7's table now carries
+  two modes with the blindness of the third recorded beside it, and `3.8` no longer carries the blind
+  level's count half through a stacking mode.
+
+**Ordering constraints:** 1.1 and 1.2 precede 1.3; 1.3 precedes 1.4; 1.5 needs 1.4. **For the
+correction: 1.9 precedes 1.10–1.14** (the catalogue cannot lose `Form` before the facets say what
+replaces it), and **1.10 precedes 1.11** (the appearance declaration is what frees `Posture` from
+carrying a size).
 
 > **The debug tick driver is not retired here.** It is currently the *only* input to the
 > sensory limiters, and it advances game time from inside tick dispatch. Its replacement is
 > the router **plus** the Phase 3 sensory work, so retiring it is **3.1**. That keeps this
 > phase's exit condition honest.
+
+**Ordering constraint, as delivered:** the driver was **rewritten** rather than retired — it now
+records an intent and announces what the router resolved, which is what makes the wearer's visor or
+gag re-model itself without any UI. It is still the only writer of a dimension, and 3.1 is still
+where it goes.
 
 ---
 
@@ -265,12 +438,14 @@ baseline intact when the Host is set to Free.
 
 | # | Step | Issue |
 | --- | --- | --- |
-| 2.1 | **Bind the gate to the base game's own bound-checks.** Drive `getArmsBound` / `getHandsBound` through their `forceResult` seam, **including `forceResult = false`** — the direction no base-game caller uses, which is what makes a bound character able to act. | #54 |
-| 2.2 | **Bind the action chokepoint.** Wrap the input registry so actions can be vetoed, and look up the relevant dimensions. | #55 |
+| 2.1 | **Bind the gate to the base game's own bound-checks.** Drive `getArmsBound` / `getHandsBound` through their `forceResult` seam, **including `forceResult = false`** — the direction no base-game caller uses, which is what makes a bound character able to act. Both are **body-state predicates** now (`spec` §6.7): the answer is the union of the refusals among the dimensions that feed them, which is also what makes this the step where `Movement`, `Attack`, `Casting`, `Defense` and `Interaction` acquire their rates. | #54 |
+| 2.2 | **Bind the action chokepoint.** Wrap the input registry so actions can be vetoed, and look up the relevant dimensions. **`Interaction` is the step's real customer**: doors, picking things up, eating and drinking, tethers and shrines are all inline reads with no `calc*` event of their own (`spec` §6.3), so the chokepoint is the only tool they have. | #55 |
 | 2.3 | **Implement the arousal gate** (`spec` §6.11) through the movable player tags, expressing it as "the Host may deny". | #56 |
 | 2.4 | **Implement the substitution whitelist** and the write rule that `OverrideAllowed` requires equipment capability (`spec` §6.4, §6.6). | #57 |
 | 2.5 | **Wire the non-verbal reinforcement channel** (`spec` §9.1): direct perception of the Host is UI feedback, never text. | #57 |
 | 2.6 | **Decouple restraint strength from the item.** Ship the declarative fields at a loose baseline and have the controller apply the real strength, so an item is not born strict. **Done when** invariant 12 holds: the character's baseline lives in the Coordinator, no baseline value is stored on an item, and removing every item returns the character to the never-equipped state field for field (`spec` §11). | #71 |
+| 2.7 | **Posture.** Build the route `spec` §6.13 declares: wrap the two availability functions, override when there is a demand, **subtract then add**, never come out empty, and keep every pose-driver word out of the mod's `shrine` lists — one word there moves the lower body's numbers outside the controller. **Done when** a console session can deny and restore a body configuration, with the base game's own cascade untouched whenever the gate is `Free`. | — *(unopened)* |
+| 2.8 | **Invalidate the wearer-adaptation perks.** `SmoothTalker`, `Incantation`, `SomaticPlus`/`SomaticMinus`/`Butterfingers`, and the `ClassicHeels`/`Flexible`/`PoorForm`/`HeelWalker`/`PoorBalance` family: a mod-controlled dimension is not rescaled by the wearer's adaptation, because the equipment compensates for it (`design/codex.md`). **Done when** the same demand resolves to the same severity with and without each perk. | — *(unopened)* |
 
 **Ordering constraints:** 2.1 and 2.2 are independent of each other and both need Phase 1;
 2.4 needs 2.1's gate values to exist; 2.6 needs 1.3.
@@ -294,14 +469,17 @@ router, with the known seam precedence handled explicitly.
 | --- | --- | --- |
 | 3.1 | **Rewrite the sensory limiter layer** on top of the Phase 1 store, and **retire the debug tick driver**. Keep the existing state accessors — they are correct and property-tested — and replace the limiter layer above them. The tick driver goes because this is the step that finally gives the limiters a real writer. | #58 |
 | 3.2 | **Handle seam precedence explicitly.** Some perception values are written by an early seam and overwritten by a later one; the descriptor must name every seam and its order, and a partial implementation must be a **loud** failure rather than a silent one. | #58 |
-| 3.3 | **Wire the deafener.** The slot's schema, guard and round-trip all exist and no item has ever emitted it; today the headphone sets a static `deaf: 2` instead. **[待定]** The source discussion recorded this as *not decided*; wiring it is the obvious first customer for the keyed store, so it is scheduled here as the cheap test of whether the store earns its keep. | #59 |
+| 3.3 | **Wire the deafener.** The slot's schema, guard and round-trip all exist and no item has ever emitted it; today the headphone sets a static `deaf: 2` instead. **[待定]** The source discussion recorded this as *not decided*; wiring it is the obvious first customer for the keyed store, so it is scheduled here as the cheap test of whether the store earns its keep. **`Hearing` is `Direction.Both` now** (`spec` §6.1): `calcHearing` has a live granting handler (`effect/KinkyDungeonEvents.ts:7263-7267`) that the base game already uses through two spells, so this step wires **both** directions rather than only the denial. | #59 |
 | 3.4 | **Wire spell range** — **done when** a dimension can change the range the game reports for a spell, with no other consumer involved. | #59 |
 | 3.5 | **Add the numeric buffs.** Numeric buffs reuse the same `calc*` seams read in the other direction. | #60 |
 | 3.6 | **Add map-unit marking.** The base game has an in-repo template for this: a calculation seam decides *what* to mark, a flag marks it, and a minimap handler renders it. | #60 |
 | 3.7 | **Add shared vision** — seeing what an allied doll sees. This is **real rendering work** and should be scheduled as its own milestone, not as part of 3.5 or 3.6. | #61 |
+| 3.8 | **Trace light and dark.** `Sight`'s producing seam composes **four** inputs — the restraint aggregate, `KinkyDungeonBlindLevelBase`, a `Blindness` buff, and `KinkyDungeonStatBlind` forcing a floor of 6 — and the aggregate is **a count and a maximum at once** (`player/KinkyDungeonStats.ts:2063-2075, :1827-1831`). **The count half is not a stacking mode** — there is no `Count` (§6.7) — so it is a `Sum` in which every contributor bids the same step, and the whole of the aggregate travels through the engine value map, which is where the integer ladder capped at 7 lives. | — *(unopened)* |
 
-**Ordering constraints:** 3.1 needs 1.4 and must precede 3.2–3.7; 3.5–3.7 are independent
-of each other, and 3.7 is the only one expected to be large.
+**Ordering constraints:** 3.1 needs 1.4 and must precede 3.2–3.8; 3.5–3.8 are independent
+of each other, and 3.7 is the only one expected to be large. **2.7 and 2.8 have no issue number
+yet** — the plan's own rule applies: *a step with no number is a step nobody is tracking, so open
+it before starting it.*
 
 ---
 
@@ -477,9 +655,9 @@ so the step tables above and this map carry the same numbers.
 | Phase | Existing issues | Opened at the freeze |
 | --- | --- | --- |
 | 0 — Foundation **(delivered)** | #48 (0.1), #47 (0.2), #50 (0.3), #51 (0.4), #52 (0.5), #53 (0.6) — **all closed** | — |
-| 1 — Control model | #19, #45, #40, #42, #43, #30, #34 | #70 (1.8, the restraint contract) |
-| 2 — Behavior Control | #54 (2.1) | #55 (2.2), #56 (2.3), #57 (2.4–2.5), #71 (2.6) |
-| 3 — Sensory Control | — | #58 (3.1–3.2), #59 (3.3–3.4), #60 (3.5–3.6), #61 (3.7) |
+| 1 — Control model | #19, #45, #40, #42, #43, #30, #34 | #70 (1.8, the restraint contract). **1.9–1.14 ride on #19 and #45** — the control model and its router — because they *correct* that delivery rather than extend it |
+| 2 — Behavior Control | #54 (2.1) | #55 (2.2), #56 (2.3), #57 (2.4–2.5), #71 (2.6) — **2.7 and 2.8 are unopened on purpose**, and each needs a number before it starts |
+| 3 — Sensory Control | — | #58 (3.1–3.2), #59 (3.3–3.4), #60 (3.5–3.6), #61 (3.7) — **3.8 is unopened on purpose**, same rule |
 | 4 — Equipment evolution | #27 (4.6), #33 and #41 (4.7), #32 (4.8), #37 (4.9) | #62 (4.1), #63 (4.4), #64 (4.5) — 4.2 and 4.3 stay unopened, deferred with the consolidation |
 | 5 — `Being Filed` | #27 (5.5, narrow form) | #65 (5.1), #66 (5.2), #72 (5.3), #73 (5.4), #74 (5.6), #75 (5.7), #67 (5.8–5.9), #76 (5.10) |
 | 6 — Content and breadth *(ongoing)* | #26, #3, #29, #9, #21, #25, #28, #20 | #68 (new sub-factions) |
@@ -489,8 +667,9 @@ so the step tables above and this map carry the same numbers.
 > **[既有] Reconciled 2026-10-17.** Every `new` this plan carried now has a number. The *exit* work
 > (the room, both commits, the two curse kinds, the decorative lock, the Controller ceiling, the
 > repeat-entry criterion, the calibration) was opened as #70–#77, and Phase 0's delivered work was
-> opened as #50–#53 and closed with a comment naming the step that holds it. Two steps stay
-> **unopened on purpose** — 4.2 and 4.3 are deferred with the morphing consolidation, and an issue
+> opened as #50–#53 and closed with a comment naming the step that holds it. Five steps stay
+> **unopened on purpose** — 4.2 and 4.3 are deferred with the morphing consolidation, and 2.7, 2.8
+> and 3.8 were added later by Phase 1's correction, after the reconciliation; an issue
 > would be a promise this plan does not make. **A step with no number is a step nobody is tracking:
 > open it before starting it.**
 
@@ -500,3 +679,17 @@ so the step tables above and this map carry the same numbers.
 > critical path" there, and is required here in a **narrow form only**: the two curse
 > *kinds* (`spec` §6.9) — **kind 1** for the equipment, in Phase 4, and **kind 2** for the
 > commit, in Phase 5. The broader lock-and-curse content stays in Phase 6.
+
+> **[待定] Raised 2026-10-17, by the correction's own implementation, and deliberately unnumbered.**
+> §6.7 carried two `[决定]` sentences about a `Count` stacking mode that could not both hold: the
+> table row had the **engine value** map convert `Applied` — a rate, and therefore in 0..1 — while
+> the paragraph below it said the aggregate is *clamped to 0..1 like any other rate* **and** that
+> the map is where *a count of three items becomes the integer 3*. If the aggregate is clamped, the
+> count is 1 before the map sees it. **Resolved the same day, and not by choosing between them**:
+> the owner ruled the mode out altogether, because this mod does not design fixed-value restraints
+> and a count is that semantics. The mode is gone from `spec` §6.7, the contradiction it created is
+> gone with it, and a count is expressible as a `Sum` in which every contributor bids the same step.
+> The finding is kept here because it is *why* the mode was looked at again, and because a
+> `[待定]` that is answered by removal rather than by a decision between two readings is worth being
+> able to tell apart from one that was simply dropped. **The plan's 1.13 and the brief's Appendix E
+> row carry the same ruling.**

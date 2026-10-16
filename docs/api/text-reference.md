@@ -35,12 +35,12 @@ covers everything beneath it, so one entry can translate a whole family.
 | engine | Name | — | Drone Belt | local |
 | engine | Flavor | — | Slim | local |
 | engine | Function | — | Base game: a cyber belt. | engine |
-| engine | Name | — | Drone Bra | local |
-| engine | Flavor | — | Slim | local |
-| engine | Function | — | Base game: a cyber bra. | engine |
 | engine | Name | — | Drone Belt | local |
 | engine | Flavor | — | Bulky | local |
 | engine | Function | — | Base game: a cyber belt. | engine |
+| engine | Name | — | Drone Bra | local |
+| engine | Flavor | — | Slim | local |
+| engine | Function | — | Base game: a cyber bra. | engine |
 | engine | Name | — | Drone Bra | local |
 | engine | Flavor | — | Bulky | local |
 | engine | Function | — | Base game: a cyber bra. | engine |

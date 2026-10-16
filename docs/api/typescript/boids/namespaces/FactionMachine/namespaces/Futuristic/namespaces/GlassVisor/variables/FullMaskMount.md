@@ -4,7 +4,7 @@
 
 > `const` **FullMaskMount**: `string`
 
-Defined in: src/FactionMachine/Futuristic/GlassVisor/Item.ts:226
+Defined in: src/FactionMachine/Futuristic/GlassVisor/Item.ts:227
 
 The `Mask Mount` restraint: the visor-less base a socketed mask or hood visor
 is attached to. It offers the mask and the hood sockets as shrine categories

@@ -12,9 +12,12 @@ The inflatable mufflers, and the ball socket that installs them.
 
 - [Ball](variables/Ball.md)
 - [BigBall](variables/BigBall.md)
-- [MorphOnTargetedGagStrengthUpdate](variables/MorphOnTargetedGagStrengthUpdate.md)
+- [MorphOnSpeechRateUpdate](variables/MorphOnSpeechRateUpdate.md)
+- [MufflerSizePower](variables/MufflerSizePower.md)
+- [MufflerSpeechPower](variables/MufflerSpeechPower.md)
 - [NonMuffler](variables/NonMuffler.md)
 - [RequireMuffler](variables/RequireMuffler.md)
+- [SpeechDimension](variables/SpeechDimension.md)
 
 ## Functions
 

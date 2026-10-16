@@ -4,7 +4,7 @@
 
 > **ThrowInvalid**(): `never`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:168
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:169
 
 Throws the "invalid metal gag variant" error, and is typed `never` so a `default`
 arm that calls it satisfies any exhaustiveness check.

@@ -4,7 +4,7 @@
 
 > **Variant**: (`_`) => `KDRestraintVariant`
 
-Defined in: src/FactionMachine/MachinePrime/Item/Visor/Dollmaker.ts:33
+Defined in: src/FactionMachine/MachinePrime/Item/Visor/Dollmaker.ts:32
 
 ## Parameters
 

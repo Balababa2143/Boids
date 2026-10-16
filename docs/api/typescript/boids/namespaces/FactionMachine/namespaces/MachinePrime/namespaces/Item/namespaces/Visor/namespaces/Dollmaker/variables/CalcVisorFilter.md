@@ -4,17 +4,19 @@
 
 > `const` **CalcVisorFilter**: `object`
 
-Defined in: src/FactionMachine/MachinePrime/Item/Visor/Dollmaker.ts:52
+Defined in: src/FactionMachine/MachinePrime/Item/Visor/Dollmaker.ts:53
 
-The layer filter that dims the Dollmaker glass as the blinder limiter rises.
+The layer filter that dims the Dollmaker glass as `Sight` rises.
 
-It runs on the game's `apply` trigger for items carrying the `HardLightVisor` data
-key, and it reaches linked items, so the filter is recalculated whenever the glass is
-put on. The limiter's 0..1 range goes through a logarithm that is exactly 0 at no
-dimming and exactly 1 at full strength — without it the low end would be almost all
-of the movement — and the result drives the glass layer's alpha up from 1 towards 3.4
-and its brightness down from 1, with saturation pinned so the glass keeps its colour
-as it thickens.
+It runs on the game's `apply` trigger for items carrying the `HardLightVisor` data key, and it
+reaches linked items, so the filter is recalculated whenever the glass is put on. The **resolved**
+strength's 0..1 range goes through a logarithm that is exactly 0 at no dimming and exactly 1 at
+full strength — without it the low end would be almost all of the movement — and the result drives
+the glass layer's alpha up from 1 towards 3.4 and its brightness down from 1, with saturation
+pinned so the glass keeps its colour as it thickens.
+
+It reads what the router resolved rather than its own bid, so a Dollmaker visor worn beside a
+stricter one dims by the stricter amount rather than by its own.
 
 ## Type Declaration
 

@@ -4,6 +4,6 @@
 
 > **OverMask** = `Variants`\[`"OverMask"`\]
 
-Defined in: src/FactionMachine/MachinePrime/Item/Visor/Dollmaker.ts:28
+Defined in: src/FactionMachine/MachinePrime/Item/Visor/Dollmaker.ts:27
 
 The same mask glass again, worn as a hood over the mask.

@@ -4,7 +4,7 @@
 
 > **MakeItem**(`args`): `restraint`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:309
+Defined in: src/FactionMachine/Futuristic/Gag/Common.ts:310
 
 Builds the restraint template for one gag or face cover from a category and a
 variant. It does not register the restraint: the caller hands the result to

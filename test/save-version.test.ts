@@ -16,13 +16,11 @@
  */
 
 import assert from 'node:assert/strict'
-import { Map as IMMap, Set as IMSet } from 'immutable'
 import { describe, it } from 'node:test'
 
-import { Entry, Gag, ItemRegistry, SensoryLimiter, State as StateRecord, Visor } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/State'
 import { GetState, SetState } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/StateStorage'
-import { ItemArchetype } from '../src/FactionMachine/MachinePrime/Constant'
 import { Release, RootUuidKey } from '../src/KDExtension/Release'
+import { MarkerState } from './harness/dossier'
 import { GetRecorder } from './harness/recorder'
 import { PromptButtons, WithFakeDocument } from './harness/fake-dom'
 
@@ -52,20 +50,6 @@ const Messages = () =>
  * a flaky gate rather than a flaky test.
  */
 const describeSerial = { concurrency: 1 } as const
-
-/** A coordinator state worth telling apart from a default one: one registered item per slot. */
-const MarkerState = () =>
-    StateRecord({
-        ActivePC: Entry({
-            ID: 'existing-character',
-            Items: ItemRegistry({
-                [ItemArchetype.Blinder]: Visor({ TargetStrength: 1, RegisteredItems: IMSet(['visor']) }),
-                [ItemArchetype.Deafener]: SensoryLimiter({ TargetStrength: 1, RegisteredItems: IMSet(['phones']) }),
-                [ItemArchetype.Gag]: Gag({ TargetStrength: 1, RegisteredItems: IMSet(['gag']) }),
-            }),
-        }),
-        ActiveNPC: IMMap(),
-    })
 
 //#endregion
 
@@ -146,8 +130,8 @@ describe('the load gate: a save from before versioning', describeSerial, () => {
             'the accepted legacy save did not reach the game exactly once'
         )
         assert.deepEqual(
-            [...GetState().ActivePC.Items[ItemArchetype.Blinder].RegisteredItems],
-            [],
+            GetState().ActivePC.Control.intent.toJS(),
+            {},
             'the accepted legacy save kept a dossier it cannot read'
         )
         assert.match(Messages(), /loaded as though it had never/)

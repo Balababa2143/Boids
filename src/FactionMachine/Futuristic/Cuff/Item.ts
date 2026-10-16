@@ -1,22 +1,50 @@
 /**
- * The drone collar and cuff restraint family: the two collars, and the cuffs for
- * arm, elbow, wrist, waist, thigh and ankle. All eight are built on one shared base
- * that marks them non-binding, unlimited and lock-required, and each is then given
- * its own model, body-slot group and link category. The tethers that attach to
- * these cuffs live in `Futuristic/Link`.
+ * The drone collar and cuff restraint family: the two collars, and the cuffs for arm, elbow, wrist,
+ * waist, thigh and ankle. All eight are built on one shared template that marks them non-binding,
+ * unlimited and lock-required, and each then declares only what tells it apart: its model, its
+ * body-slot group and its link category. The tethers that attach to these cuffs live in
+ * `Futuristic/Link`.
  *
- * Every export is the registered restraint's name, a generated GUID, and the
- * display text the item shows is written as a side effect of registering it.
+ * ## Why a variant map rather than eight literals
+ *
+ * It used to be eight `AddRestraintWithTextThenGetName` calls, each spreading `ItemBase` and repeating
+ * its own `Group`, `shrine`, `LinkableBy`, `renderWhenLinked` and text. Every registered name was a
+ * hand-written GUID, which made the family **unversionable**: nothing could recognise or retire one of
+ * those names programmatically, and a copy-paste between two of them was invisible.
+ *
+ * As a map, the eight differ in the fields `CuffItemParts` states and nothing else, and every name is
+ * `uuidv5(JSON.stringify({Name: kind}), baseId)`. That is what lets `Internal/Integrity.ts` recompute a
+ * name at load and compare it against the one the game has.
+ *
+ * ## The names changed, and are not migrated
+ *
+ * The generated names differ from the literals they replace. There is **no migration**: 0.5.0 has not
+ * shipped, so no save in the world resolves the old names. From the first release onward this is a
+ * migration rather than a rename, and `KDExtension/Release.ts` says so.
  * @module FactionMachine/Futuristic/Cuff/Item
  */
 
-import { AddRestraintWithTextThenGetName } from '../../../KDExtension'
+import { Map as IMMap } from 'immutable'
+import { AddRestraintVariantMapToGame, RestraintVariantMapBuilder, VariantPart } from '../../../KDExtension'
+import { DerivedVariantBase } from '../../../KDExtension/Release'
+import { ThrowIfNull } from '../../../Utilities'
+import { ControlledTag } from '../../MachinePrime/Coordinator/Membership'
 import { RequireLockedEvent, CommonItemAvailability, SFX } from '../Common'
 import { FactionFilter } from '../../../KDInterface/TextKey'
-import { InheritColor } from './Model'
-import * as Model from './Model'
+import { CuffKind, CuffKinds } from './Common'
+import { CuffModelNames, InheritColor } from './Model'
 import { Socket } from '../Link'
 
+/**
+ * The parts every collar and cuff shares: a special, non-inventory, accessible restraint that is not
+ * binding and can be worn unlimited times, that requires a lock to come off, and that announces
+ * itself as a **participant in the control model** through {@link ControlledTag}.
+ *
+ * The membership tag is the contract's first clause (`design/spec.md` §6.12): an item that carries it
+ * is one the controller computes capability from, and an item that does not is invisible to the
+ * control model no matter what it does. It is in the shared template because the whole family
+ * participates or none of it does.
+ */
 const ItemBase = {
     special: true,
     inventory: false,
@@ -24,6 +52,7 @@ const ItemBase = {
     shrine: [
         'Metal',
         'Cuffs',
+        ControlledTag,
     ],
     noShrine: true,
     LinkableBy: [
@@ -33,7 +62,7 @@ const ItemBase = {
     renderWhenLinked: [
         ...KDBindable
     ],
-    
+
     ...SFX.MechanicalLockSfx,
     Model: '',
     factionFilters: {
@@ -63,8 +92,6 @@ const ItemBase = {
         Unlock: 0.32,
         Cut: -0.8
     },
-    // debris: 'Chains',
-    // struggleBreak: true,
 
     noDupe: true,
     unlimited: true,
@@ -81,224 +108,175 @@ const ItemBase = {
 } satisfies Partial<restraint>
 
 /**
- * The slim neck collar, shown as "Drone Collar" with "Light" as its flavour word.
- * Worn in `ItemNeck` and linkable by the game's collar links, so tethers attach to
- * it directly.
+ * What a variant declares: the fields that tell one collar or cuff from another.
+ *
+ * `Group` and the link fields are what the game reads to decide where the item sits and what may
+ * attach to it; the rest is the two text lines a player reads.
  */
-export const LightCollar =
-    AddRestraintWithTextThenGetName(
-        {
-            ...ItemBase,
-            name: 'F918EAC6-DEE2-4E71-BA76-8BF84BDA173B',
-            Model: Model.LightCollar,
-            Group: 'ItemNeck',
-            shrine: [
-                'Metal',
-                'Collars',
-            ],
-            LinkableBy: [
-                ...KDCollarLink
-            ],
-            renderWhenLinked: [
-                ...KDCollarRender
-            ],
-            playerTags: {
-                ...ItemBase.playerTags,
-                'ItemNeckEmpty': 10
-            },
-            linkCategory: 'BasicCollar',
-            linkSize: 0.55,
-        },
-        {
-            
-            DisplayName: 'Drone Collar',
-            FlavorText: 'Light'
-        }
-    )
+interface CuffItemParts {
+    /** The second word of the display name, e.g. `Drone Collar` or `Drone Wrist Cuff`. */
+    readonly Kind: string
+    /** The flavour word, and the only thing that tells two collars or two belts apart in a list. */
+    readonly Flavor?: string
+}
 
 /**
- * The thick neck collar: "Drone Collar", flavour word "Heavy". Same `ItemNeck`
- * placement and collar links as {@link LightCollar}, over the heavier
- * `FutureCollar` model.
+ * The per-kind parts, and the **single statement** of every difference between the eight.
+ *
+ * A table rather than eight literals because the differences are exactly the interesting part: read
+ * down one column and the family's shape is visible, where eight 30-line literals hid it.
  */
-export const HeavyCollar =
-    AddRestraintWithTextThenGetName(
-        {
-            ...ItemBase,
-            name: '82B14B3F-01C2-4B39-BCD9-6AACEB8E8A95',
-            Model: Model.HeavyCollar,
-            Group: 'ItemNeck',
-            shrine: [
-                'Metal',
-                'Collars',
-            ],
-            LinkableBy: [
-                ...KDCollarLink
-            ],
-            renderWhenLinked: [
-                ...KDCollarRender
-            ],
-            playerTags: {
-                ...ItemBase.playerTags,
-                'ItemNeckEmpty': 10
-            },
-            linkCategory: 'BasicCollar',
-            linkSize: 0.55,
+const CuffItemParts: Readonly<Record<CuffKind, VariantPart<restraint> & CuffItemParts>> = {
+    LightCollar: {
+        Kind: 'Drone Collar',
+        Flavor: 'Light',
+        Group: 'ItemNeck',
+        shrine: [
+            'Metal',
+            'Collars',
+        ],
+        LinkableBy: [
+            ...KDCollarLink
+        ],
+        renderWhenLinked: [
+            ...KDCollarRender
+        ],
+        playerTags: {
+            'ItemNeckEmpty': 10
         },
-        {
-            DisplayName: 'Drone Collar',
-            FlavorText: 'Heavy'
-        }
-    )
+        linkCategory: 'BasicCollar',
+        linkSize: 0.55,
+    },
+    HeavyCollar: {
+        Kind: 'Drone Collar',
+        Flavor: 'Heavy',
+        Group: 'ItemNeck',
+        shrine: [
+            'Metal',
+            'Collars',
+        ],
+        LinkableBy: [
+            ...KDCollarLink
+        ],
+        renderWhenLinked: [
+            ...KDCollarRender
+        ],
+        playerTags: {
+            'ItemNeckEmpty': 10
+        },
+        linkCategory: 'BasicCollar',
+        linkSize: 0.55,
+    },
+    ArmCuff: {
+        Kind: 'Drone Arm Cuff',
+        Group: 'ItemArms',
+        shrine: [
+            'ArmCuffsBase',
+            Socket.Wrist,
+            Socket.Elbow,
+        ],
+        bindarms: false,
+        linkCategory: 'Cuffs',
+        linkSize: 0.7,
+    },
+    ElbowCuff: {
+        Kind: 'Drone Elbow Cuff',
+        Group: 'ItemArms',
+        shrine: [
+            'ArmCuffsBase',
+            Socket.Elbow,
+        ],
+        bindarms: false,
+        linkCategory: 'Cuffs',
+        linkSize: 0.4,
+    },
+    WristCuff: {
+        Kind: 'Drone Wrist Cuff',
+        Group: 'ItemArms',
+        shrine: [
+            'ArmCuffsBase',
+            Socket.Wrist,
+        ],
+        bindarms: false,
+        linkCategory: 'Cuffs',
+        linkSize: 0.4,
+    },
+    WaistCuff: {
+        Kind: 'Drone Waist Cuff',
+        Group: 'ItemTorso',
+        shrine: [
+            'WaistBelts',
+        ],
+        LinkAll: true,
+        AlwaysLinkable: true,
+        linkCategory: 'WaistBelt',
+        linkSize: 0.55,
+    },
+    ThighCuff: {
+        Kind: 'Drone Thigh Cuff',
+        Group: 'ItemLegs',
+        shrine: [
+            Socket.Thigh,
+            'LegCuffsBase',
+        ],
+        linkCategory: 'LegCuffs',
+        linkSize: 0.55,
+    },
+    AnkleCuff: {
+        Kind: 'Drone Ankle Cuff',
+        Group: 'ItemFeet',
+        shrine: [
+            'AnkleCuffsBase',
+            Socket.Ankle,
+        ],
+        linkCategory: 'AnkleCuffs',
+        linkSize: 0.55,
+    },
+}
+
+const builder = new RestraintVariantMapBuilder<CuffKind>({
+    baseId: DerivedVariantBase.CuffRestraint,
+})
+
+for (const kind of CuffKinds) {
+    const parts = CuffItemParts[kind]
+    // The model is named from the map the model half returned, so the restraint can only ever carry a
+    // model that was actually registered for its own kind.
+    builder.AddVariantPart(kind, {
+        Model: ThrowIfNull(CuffModelNames.get(kind), `Boids: no model was registered for '${kind}'.`),
+        ...parts,
+    } as VariantPart<restraint>)
+    builder.AddText(kind, {
+        DisplayName: parts.Kind,
+        FlavorText: parts.Flavor,
+    })
+}
 
 /**
- * The upper-arm cuff, "Drone Arm Cuff", in `ItemArms`. It sets `bindarms: false`
- * and is non-binding, so what it is for is to be something a link or a tether
- * attaches to; it offers both the wrist and the elbow socket for that.
+ * The **registered restraint name** for each kind.
+ *
+ * A lookup rather than eight exported names, because a name here is a generated identifier and a caller
+ * has no use for the literal: `GetCuff(kind)` is typed by the same union the parts table is, so an
+ * unknown kind is a compile error rather than an undefined name at runtime.
+ *
+ * ## It is the *restraint* name, not the variant name, and the difference matters
+ *
+ * Each variant of this family is registered as a **restraint**, and `BuildVariantMap`'s key is the
+ * restraint's name — so this is exactly what `KinkyDungeonGetRestraintByName` resolves, and exactly
+ * what the game's equip entry points expect to be handed.
+ *
+ * The *variant* name (`uuidv5(key, baseId)`) is minted separately, when the game equips a variant and
+ * records it under `KinkyDungeonRestraintVariants`. Handing a variant name to a `ByName` lookup finds
+ * nothing and the equip silently does nothing, which is the failure this comment exists to prevent.
  */
-export const ArmCuff =
-    AddRestraintWithTextThenGetName(
-        {
-            ...ItemBase,
-            name: '081DC364-EEA5-440D-B4BD-E956F72CD9E5',
-            Model: Model.ArmCuff,
-            Group: 'ItemArms',
-            shrine: [
-                ...ItemBase.shrine,
-                'ArmCuffsBase',
-                Socket.Wrist,
-                Socket.Elbow
-            ],
-            bindarms: false,
-            linkCategory: 'Cuffs',
-            linkSize: 0.7,
-        },
-        {
-            
-            DisplayName: 'Drone Arm Cuff'
-        }
-    )
+export const CuffRestraints: IMMap<CuffKind, string> =
+    AddRestraintVariantMapToGame(builder.BuildVariantMap(ItemBase))
 
 /**
- * The elbow cuff, "Drone Elbow Cuff", in `ItemArms`, offering only the elbow
- * socket. Like the other cuffs it does not bind the arms.
+ * The registered restraint for one kind, throwing rather than answering `undefined`.
+ *
+ * @param kind - One of the eight. The parameter is the family's own union, so a typo cannot reach here
+ *   from TypeScript; the throw is for a caller holding a string from somewhere untyped.
  */
-export const ElbowCuff =
-    AddRestraintWithTextThenGetName(
-        {
-            ...ItemBase,
-            name: '6724991E-F8F0-41FC-9FCF-8941F63CD821',
-            Model: Model.ElbowCuff,
-            Group: 'ItemArms',
-            shrine: [
-                ...ItemBase.shrine,
-                'ArmCuffsBase',
-                Socket.Elbow
-            ],
-            bindarms: false,
-            linkCategory: 'Cuffs',
-            linkSize: 0.4,
-        },
-        {
-            DisplayName: 'Drone Elbow Cuff'
-        }
-    )
-
-/**
- * The wrist cuff, "Drone Wrist Cuff", in `ItemArms`, offering only the wrist
- * socket. Like the other cuffs it does not bind the arms.
- */
-export const WristCuff =
-    AddRestraintWithTextThenGetName(
-        {
-            ...ItemBase,
-            name: '1E161AB5-4FDA-4AD4-9557-E8816F17A99A',
-            Model: Model.WristCuff,
-            Group: 'ItemArms',
-            shrine: [
-                ...ItemBase.shrine,
-                'ArmCuffsBase',
-                Socket.Wrist
-            ],
-            bindarms: false,
-            linkCategory: 'Cuffs',
-            linkSize: 0.4,
-        },
-        {   
-            DisplayName: 'Drone Wrist Cuff'
-        }
-    )
-
-/**
- * The waist cuff, "Drone Waist Cuff", in `ItemTorso`. Unlike its siblings it is
- * linkable over anything below it and can itself be linked by anything on top, so a
- * link need not match its category to be anchored here.
- */
-export const WaistCuff =
-    AddRestraintWithTextThenGetName(
-        {
-            ...ItemBase,
-            name: 'D667E4A4-E531-4D2A-B069-6F5CFA7DA2C1',
-            Model: Model.WaistCuff,
-            Group: 'ItemTorso',
-            shrine: [
-                ...ItemBase.shrine,
-                'WaistBelts'
-            ],
-            LinkAll: true,
-            AlwaysLinkable: true,
-            linkCategory: 'WaistBelt',
-            linkSize: 0.55,
-        },
-        {
-            DisplayName: 'Drone Waist Cuff'
-        }
-    )
-
-/**
- * The thigh cuff, "Drone Thigh Cuff", in `ItemLegs`, linkable at the thigh socket.
- * It does not block or hobble the legs; a link is what would do that.
- */
-export const ThighCuff =
-    AddRestraintWithTextThenGetName(
-        {
-            ...ItemBase,
-            name: 'A5EFD394-8E39-4701-BAD4-5B8623619628',
-            Model: Model.ThighCuff,
-            Group: 'ItemLegs',
-            shrine: [
-                ...ItemBase.shrine,
-                Socket.Thigh,
-                'LegCuffsBase'
-            ],
-            linkCategory: 'LegCuffs',
-            linkSize: 0.55,
-        },
-        {          
-            DisplayName: 'Drone Thigh Cuff'
-        }
-    )
-
-/**
- * The ankle cuff, "Drone Ankle Cuff", in `ItemFeet`, linkable at the ankle socket.
- * It does not block or hobble the feet; a link is what would do that.
- */
-export const AnkleCuff =
-    AddRestraintWithTextThenGetName(
-        {
-            ...ItemBase,
-            name: 'EB56F491-EE14-4431-B641-C3C397292435',
-            Model: Model.AnkleCuff,
-            Group: 'ItemFeet',
-            shrine: [
-                ...ItemBase.shrine,
-                'AnkleCuffsBase',
-                Socket.Ankle
-            ],
-            linkCategory: 'AnkleCuffs',
-            linkSize: 0.55,
-        },
-        {
-            DisplayName: 'Drone Ankle Cuff'
-        }
-    )
+export const GetCuff = (kind: CuffKind): string =>
+    ThrowIfNull(CuffRestraints.get(kind), `Boids: no restraint was registered for '${kind}'.`)

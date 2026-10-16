@@ -4,8 +4,16 @@
 
 The lockable vibe and the two denial plugs, front and rear.
 
+## Type Aliases
+
+- [ToyKind](type-aliases/ToyKind.md)
+
 ## Variables
 
-- [DenialPlugF](variables/DenialPlugF.md)
-- [DenialPlugR](variables/DenialPlugR.md)
-- [LockVibe](variables/LockVibe.md)
+- [ToyKind](variables/ToyKind.md)
+- [ToyKinds](variables/ToyKinds.md)
+- [ToyRestraints](variables/ToyRestraints.md)
+
+## Functions
+
+- [GetToy](functions/GetToy.md)

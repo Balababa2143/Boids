@@ -2,7 +2,8 @@
 
 # SensoryControl
 
-The limiter accessors items read and write, and the event a change sends.
+The strength a dimension is resolving to, the channel a morphing item hears about it on, and the
+feedback helper the item families share.
 
 ## Enumerations
 
@@ -10,10 +11,9 @@ The limiter accessors items read and write, and the event a change sends.
 
 ## Interfaces
 
-- [LimiterStrengthUpdateEventArgs](interfaces/LimiterStrengthUpdateEventArgs.md)
+- [DimensionRateUpdateEventArgs](interfaces/DimensionRateUpdateEventArgs.md)
 
 ## Functions
 
-- [GetLimiterStrength](functions/GetLimiterStrength.md)
-- [SetLimiterStrength](functions/SetLimiterStrength.md)
+- [AnnounceRate](functions/AnnounceRate.md)
 - [ShowEffectsOnItemMorph](functions/ShowEffectsOnItemMorph.md)

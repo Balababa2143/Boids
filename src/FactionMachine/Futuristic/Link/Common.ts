@@ -1,6 +1,7 @@
 import { RestraintText, ModelText } from '../../../KDExtension'
 import { AddModelVariantMapToGame, AddRestraintVariantMapToGame, ModelVariantMapBuilder, ModelWithLayerSet, RestraintVariantMapBuilder, VariantPart } from '../../../KDExtension'
 import { FactionFilter } from '../../../KDInterface/TextKey'
+import { ControlledTag } from '../../MachinePrime/Coordinator/Membership'
 import { ModelSetRootDir } from '../Common/Constant'
 import { RequireLockedEvent, CommonItemAvailability } from '../Common'
 import { ThrowIfNull } from '../../../Utilities'
@@ -74,6 +75,7 @@ export const RestraintTemplate = {
     accessible: true,
     shrine: [
         'Link',
+        ControlledTag,
     ],
     noShrine: true,
     LinkableBy: [

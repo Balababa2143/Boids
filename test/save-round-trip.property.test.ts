@@ -22,33 +22,13 @@
 
 import assert from 'node:assert/strict'
 import fc from 'fast-check'
-import { Map as IMMap, Set as IMSet } from 'immutable'
 import { describe, it } from 'node:test'
 
-import { Entry, Gag, ItemRegistry, SensoryLimiter, State as StateRecord, Visor } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/State'
 import { GetState, SetState } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/StateStorage'
-import { ItemArchetype } from '../src/FactionMachine/MachinePrime/Constant'
 import { RootUuidKey, Release } from '../src/KDExtension/Release'
+import { ArbitraryIntentState, MarkerState } from './harness/dossier'
 import { GetRecorder } from './harness/recorder'
 import { ResetGameData } from './harness/kd-globals'
-
-const StrengthArbitrary = fc.float({ min: 0, max: 1, noNaN: true })
-
-const NamesArbitrary = fc.array(fc.string({ minLength: 1, maxLength: 8 }), { maxLength: 3 })
-
-/** A coordinator state with every slot given arbitrary but valid contents. */
-const ArbitraryState = (id: string, strength: number, names: readonly string[]) =>
-    StateRecord({
-        ActivePC: Entry({
-            ID: id,
-            Items: ItemRegistry({
-                [ItemArchetype.Blinder]: Visor({ TargetStrength: strength, RegisteredItems: IMSet(names) }),
-                [ItemArchetype.Deafener]: SensoryLimiter({ TargetStrength: strength, RegisteredItems: IMSet(names) }),
-                [ItemArchetype.Gag]: Gag({ TargetStrength: strength, RegisteredItems: IMSet(names) }),
-            }),
-        }),
-        ActiveNPC: IMMap(),
-    })
 
 /** The state out of the game's save path: generate, then serialise the way the game's saver does. */
 const GenerateSave = (): string => {
@@ -70,23 +50,19 @@ const Save = (saveAsJson: string): string => saveAsJson
 describe('coordinator save round-trip', () => {
     it('carries an arbitrary state through the game\'s save and load unchanged', () => {
         fc.assert(
-            fc.property(
-                fc.string({ minLength: 1 }),
-                StrengthArbitrary,
-                NamesArbitrary,
-                (id, strength, names) => {
-                    const state = ArbitraryState(id, strength, names)
-                    SetState(state)
+            fc.property(ArbitraryIntentState, state => {
+                SetState(state)
 
-                    const save = Save(GenerateSave())
-                    assert.equal(LoadGame(save), true, 'the game\'s loader refused a save it wrote')
+                const save = Save(GenerateSave())
+                assert.equal(LoadGame(save), true, 'the game\'s loader refused a save it wrote')
 
-                    assert.ok(
-                        GetState().equals(state),
-                        `round-trip changed the state for id=${id} strength=${strength} names=${names.length}`
-                    )
-                }
-            )
+                assert.ok(
+                    GetState().equals(state),
+                    `round-trip changed the state for id=${state.ActivePC.ID}: ` +
+                    `${JSON.stringify(GetState().ActivePC.Control.toJS())} came back instead of ` +
+                    `${JSON.stringify(state.ActivePC.Control.toJS())}`
+                )
+            })
         )
     })
 
@@ -94,7 +70,7 @@ describe('coordinator save round-trip', () => {
         // The specific defect, asserted directly: the write has to land on `KDGameData`,
         // which is what `KinkyDungeonGenerateSaveData` serialises, and *not* on the
         // defaults literal, which a save never carries.
-        const state = ArbitraryState('written-where', 0.25, ['a'])
+        const state = MarkerState('written-where')
         SetState(state)
 
         const serialised = GenerateSave()
@@ -112,7 +88,7 @@ describe('coordinator save round-trip', () => {
         // The root is what localises the release for the gate, so a save that lost it would
         // be read as a pre-versioning character. Worst possible failure mode, because it is
         // silent and looks like a feature.
-        SetState(ArbitraryState('root-stamped', 0, []))
+        SetState(MarkerState('root-stamped'))
 
         const first = JSON.parse(GenerateSave()) as { KDGameData: Record<string, unknown> }
         assert.equal(first.KDGameData[RootUuidKey], Release.Root, 'the first save carries no root')
@@ -133,7 +109,7 @@ describe('coordinator save round-trip', () => {
         // `ResetGameData` is what makes the case mean what it says: the guard reads whatever is
         // already on `KDGameData`, and the harness is one long-lived process, so an earlier test's
         // load would otherwise still be sitting there.
-        const state = ArbitraryState('kept', 0.5, ['kept'])
+        const state = MarkerState('kept')
         SetState(state)
         ResetGameData()
 

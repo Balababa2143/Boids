@@ -10,7 +10,7 @@
 | `src/Api.ts` | The published surface — the faction namespace and `CommonUI`, and nothing else. |
 | `src/FactionMachine/` | The machine major faction: `Futuristic` (the outfit), `MachinePrime` (its first sub-faction) and `DebugStart`. |
 | `src/Common/` | What the mod shares across factions: the warning dialog and the item-event builders. |
-| `src/KDExtension/` | Registration helpers and the variant-map builders (the "new infrastructure"). |
+| `src/KDExtension/` | Registration helpers, the variant-map builders (the "new infrastructure"), and `Control/` — the control model's mechanism. |
 | `src/KDInterface/` | Types that describe the game's event map and text keys. |
 | `src/Utilities/` | Small generic helpers. |
 | `Asset/` | Shipped assets: `mod.json`, audio, item sprites, texture atlases. |
@@ -57,10 +57,17 @@ unchanged, and nothing below it has to learn its name.
 runtime and the typings cannot describe different things and deep paths into
 `@type/**` do not resolve for a consumer.
 
-`test/public-api.test.ts` pins the exported names as a committed baseline, asserts
-that the global really is that namespace, and fails if an internal name reappears.
-Widening or narrowing the surface is a one-line edit plus one reviewed diff:
+`test/public-api.test.ts` pins the top of the surface — `FactionMachine` and `CommonUI`, and the
+three namespaces directly under `FactionMachine` — and `test/public-api-surface.test.ts` pins one
+level deeper, so a name added under `MachinePrime` (where the control model lives) is a reviewed diff
+rather than something a consumer discovers. Both reject an internal name that reappears. Widening or
+narrowing the surface is a one-line edit plus one reviewed diff:
 
 ```sh
 npm run test:update-api
 ```
+
+**A mechanism is not published because it is general.** `KDExtension/Control` is the control model's
+mechanism and is reachable through `Boids.FactionMachine.MachinePrime.Coordinator`, one faction down,
+rather than as a fourth top-level name: a second faction writes its own catalogue and gets the same
+mechanism without the surface having to grow.

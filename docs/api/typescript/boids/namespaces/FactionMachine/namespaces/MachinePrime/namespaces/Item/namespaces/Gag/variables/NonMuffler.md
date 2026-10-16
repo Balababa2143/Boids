@@ -4,12 +4,11 @@
 
 > `const` **NonMuffler**: `KDRestraintVariant`
 
-Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:147
+Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:270
 
 The muffler at its weakest: the perioral clip of
-`Boids.FactionMachine.Futuristic.Gag.Muffler.NonMuffler` with no ball in it, worn while
-the gag limiter sits below a third.
+`Boids.FactionMachine.Futuristic.Gag.Muffler.NonMuffler` with no ball in it, worn while the
+resolved strength sits below a third.
 
-Like its two siblings this is a variant rather than a registered restraint, so it is
-a recipe the game applies when it equips or morphs the item, and its name follows
-from the variant key.
+Like its two siblings this is a variant rather than a registered restraint, so it is a recipe the
+game applies when it equips or morphs the item, and its name follows from the variant key.

@@ -4,7 +4,7 @@
 
 > `const` **BigBall**: `string`
 
-Defined in: src/FactionMachine/Futuristic/Gag/Muffler.ts:146
+Defined in: src/FactionMachine/Futuristic/Gag/Muffler.ts:143
 
 A `Drone Muffler` with the large ball, which hides the mouth and forces the
 `FaceBigGag` pose. It shares the ball's `linkSize` of 0.7.

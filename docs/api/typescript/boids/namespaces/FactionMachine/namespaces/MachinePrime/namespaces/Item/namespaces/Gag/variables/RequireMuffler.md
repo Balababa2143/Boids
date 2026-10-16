@@ -4,20 +4,18 @@
 
 > `const` **RequireMuffler**: `object`
 
-Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:198
+Defined in: src/FactionMachine/MachinePrime/Item/Gag.ts:319
 
-The handler that fills a socket: when a restraint exposing `Socket` is applied and
-the player does not yet carry `ItemTag`, the event's `SubItem` is linked under that
-restraint.
+The handler that fills a socket: when a restraint exposing `Socket` is applied and the player does
+not yet carry `ItemTag`, the event's `SubItem` is linked under that restraint.
 
-A socket counts as exposed either because the applied item's shrine lists it or
-because the player already carries it as a tag, so a host that is already worn is
-handled by the same check as the host being applied.
+A socket counts as exposed either because the applied item's shrine lists it or because the player
+already carries it as a tag, so a host that is already worn is handled by the same check as the
+host being applied.
 
-The sub-item's `template` names the registered restraint to link; its remaining
-properties are link parameters spread over the soft defaults — `Tightness: 10`,
-`Bypass`, `Deep`, lock `Cyber3` — so the sub-item has the last word on anything the
-two share.
+The sub-item's `template` names the registered restraint to link; its remaining properties are
+link parameters spread over the soft defaults — `Tightness: 10`, `Bypass`, `Deep`, lock `Cyber3` —
+so the sub-item has the last word on anything the two share.
 
 ## Type Declaration
 

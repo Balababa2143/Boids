@@ -4,6 +4,6 @@
 
 > **Goggle** = `Variants`\[`"Goggle"`\]
 
-Defined in: src/FactionMachine/MachinePrime/Item/Visor/Dollmaker.ts:24
+Defined in: src/FactionMachine/MachinePrime/Item/Visor/Dollmaker.ts:23
 
 A Dollmaker goggle, worn either over the eyes or as a blindfold.

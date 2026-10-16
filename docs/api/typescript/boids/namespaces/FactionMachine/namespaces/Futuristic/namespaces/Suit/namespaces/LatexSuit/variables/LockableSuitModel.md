@@ -4,7 +4,7 @@
 
 > `const` **LockableSuitModel**: `string`
 
-Defined in: src/FactionMachine/Futuristic/Suit/LatexSuit.ts:18
+Defined in: src/FactionMachine/Futuristic/Suit/LatexSuit.ts:19
 
 The catsuit model, a top-level model in the `Catsuit` folder and group. Its name
 is a generated GUID rather than a readable name, and it is the model

@@ -65,3 +65,31 @@ persisted-format decision exactly as a variant-key field is, and renaming one
 mints a different identifier. `test/guid-uniqueness.test.ts` enumerates every GUID
 literal under `src/` and fails on a duplicate or an unexplained change, which is
 what keeps a "quick new id" from arriving unversioned.
+
+**The literals that remain are the ones that cannot be derived**, and the list shrinks as families
+convert: a handler `type`, an item-data key, a colour bank, a `const enum` whose members are a save
+format. Everything else — variant bases (`DerivedVariantBase`), dimension ids
+(`Control/Identity.ts`), the membership tag (`Coordinator/Tag.ts`) — is recomputed from the root, so
+the GUID test's expectation is a record of exceptions rather than of identifiers.
+
+## What a save actually carries of the mod
+
+Two things, both on `KDGameData`:
+
+| Key | What it is |
+| --- | --- |
+| `BoidsRootUUID` | the release root the save was written under — **metadata about the file**, so route 1 can clear the dossier without disturbing it |
+| the coordinator's state key | the **dossier**: `intent` and `config`, keyed by dimension (`docs/guide/control-model.md`) |
+
+**The dossier's values are records, and the format is their parameter names.** A dimension's `intent` is
+`{ Target }` where it composes `Rate`, `{ Allowed }` where it composes `Posture`, `{ Intent }` where it
+composes `Gate`, and the merge of all of them where it composes several — so a parameter name is part of
+the save format, and the reader keeps every parameter it knows how to read rather than narrowing by the
+descriptor. **The store holds each demand as a `Map`**, which is what makes a round-tripped demand compare
+equal to itself; the plain record is what a caller writes and what `toJS()` produces. `Allowed` is stored
+as a set of pose names and written out as an array, because a body configuration is chosen from a ladder
+rather than measured and a pose name has to stay readable in the file.
+
+**The equipment is not in there.** Which items are worn is a fact about the game's inventory, read when
+a dimension is resolved (`design/spec.md` §6.12 clause 4), so a save cannot carry a stale capability
+and there is nothing to invalidate when a piece comes off.
