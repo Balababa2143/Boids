@@ -10,7 +10,7 @@
  *
  * ## Why these names and not ones of our own
  *
- * **[决定] The union holds the game's own pose names** (§6.13): the seven arm poses from
+ * **[Decided] The union holds the game's own pose names** (§6.13): the seven arm poses from
  * `Data/Poses.ts:1` and the five leg poses from `:16`, plus the four postures the availability
  * functions test for by name — `FeetLinked`, `LegBind`, `ForceKneel`, `HandsBound`. Inventing a
  * private name would mean a translation table between the facet's vocabulary and the engine's,
@@ -99,7 +99,7 @@ export const IsPoseKey = (value: unknown): value is PoseKey =>
 /**
  * The arm ladder: **every pose the `PoseArms` dimension governs, in order.**
  *
- * **[决定] The ladder is ordered so its first member is the pose every rig can draw**, because
+ * **[Decided] The ladder is ordered so its first member is the pose every rig can draw**, because
  * that member is what the router falls back to when its own algebra empties the set
  * (invariant 23) and what the game's own cascade reaches for first (`Data/Poses.ts:459-467`).
  * `Free` is that pose for the arms: an arm pose no model is required to draw is the one arm pose

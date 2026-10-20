@@ -13,7 +13,7 @@
 > `design/design-brief.md` or `design/spec.md`. Where this document does something they do not —
 > it extrapolates a **voice**, a **visual**, or a **script beat** — the extrapolation is
 > marked **[⇢]** and is a starting point, not canon. **Nothing invented here outranks a
-> `[待定]`.**
+> `[TBD]`.**
 
 ---
 
@@ -132,7 +132,7 @@ fiction. The reasoning, in order:
 | `HostName_FactionHostile` | hostiles | they are outside, so they must name what they inferred — and they cannot see it |
 | `HostName_FactionTechnical` | factions that study or trade with it | same inference, analytic register |
 
-> **[待定] No word has been chosen for either, and none should be invented in a scene.** The
+> **[TBD] No word has been chosen for either, and none should be invented in a scene.** The
 > constants exist so that the words can be settled **by editing one place each**. If the two
 > registers duplicate in practice, **they collapse into one** and the design is no poorer.
 
@@ -169,7 +169,7 @@ reveals the speaker's ignorance.
 
 ### 1.4 The Host never speaks
 
-**[决定] There is no speech at all.** The model is *Battlefleet Gothic: Armada II*'s
+**[Decided] There is no speech at all.** The model is *Battlefleet Gothic: Armada II*'s
 treatment of the Great Devourer: **characterised entirely through how third parties react to
 it.**
 
@@ -219,7 +219,7 @@ she is **more calm than the situation warrants**, because she is not alone in he
   that fit it.
 - A **sub-faction** explores **a different kind of play and a different relationship
   pattern**.
-- **[决定]** Sub-factions need no in-setting administrative relation to each other. They share
+- **[Decided]** Sub-factions need no in-setting administrative relation to each other. They share
   the outfit and the mechanism; **they do not need to know about one another.**
 - **[⇢] The consequence, and the reason the architecture is this way:** a new sub-faction is
   **story plus configuration, not a new art pass.** That is what makes horizontal expansion
@@ -259,7 +259,7 @@ does not drift because the thing it is set on got used to it.
 
 ### 2.3 Sub-factions — the recorded targets
 
-**[goal post]** These are on record as eventual targets. **They are not in scope for the
+**[Goal Post]** These are on record as eventual targets. **They are not in scope for the
 current delivery**, and the mechanism layer ships first.
 
 | Sub-faction | The play it explores | Notes |
@@ -274,7 +274,7 @@ different answers to "what is a doll *for*."
 
 ### 2.4 Loose ideas
 
-**[goal post]** Mentioned but never written down. **Not lost — just not yet recorded.**
+**[Goal Post]** Mentioned but never written down. **Not lost — just not yet recorded.**
 Anyone picking one up should treat it as un-designed.
 
 ---
@@ -322,7 +322,7 @@ The equipment ladder (§4.2) has a visual arc, and it should be **legible withou
 | **a lock is fitted** | the **lock icon** appears. Tier is readable at a glance |
 | **reinforcing parts** | the silhouette **grows**. This is where the projection layer earns its keep |
 | **the lock made permanent** | the icon becomes a **curse** icon — a different shape, not a recoloured lock |
-| **projection** | **[决定]** past a threshold the equipment begins to project **additional, non-interactive parts** — **retroactively**, on an item already worn. The player **notices something has always been there** |
+| **projection** | **[Decided]** past a threshold the equipment begins to project **additional, non-interactive parts** — **retroactively**, on an item already worn. The player **notices something has always been there** |
 
 > **[⇢] The projection idea worth writing toward, from the brief.** The strongest version is
 > not a thing that *appears*. It is **a thing the player notices has always been there** — and
@@ -361,16 +361,16 @@ Before any scene, the shape it hangs on:
 | **you prove you want it** | the base game's training ledger — *tolerance built by practice*, with refusal as a designed outcome | she is **credited for wanting it.** The record is the point |
 | **you earn the restraint** | the equipment-upgrade quest framework | the lock is **not given**. She **crafts** it, **fits** it, and **reinforces** it |
 | **the errands** | a **table of interchangeable mini quests** per upgrade class, assigned by **matching equipment tags** and randomised | repetitive by design — and the brief's warning is explicit: **do not let the quest line become tedious** |
-| **the tedium budget** | — | **[决定] spend it on *ceremony*, not on *errands*.** Stages stay **short and legible** |
+| **the tedium budget** | — | **[Decided] spend it on *ceremony*, not on *errands*.** Stages stay **short and legible** |
 | **the filing** | the final quest family | the ending (§4.5) |
 
-> **[决定] The design goal, in the designer's own words: the player hands her own character
+> **[Decided] The design goal, in the designer's own words: the player hands her own character
 > over, by hand, with ceremony.** Every authored stage should be a **deliberate act**, not a
 > step in a chain.
 
 ### 4.2 The ladder — three stages, then a fourth and fifth
 
-**[决定]** Equipment is **acquired loose and unlocked**, and ends **high-restraint and
+**[Decided]** Equipment is **acquired loose and unlocked**, and ends **high-restraint and
 permanently sealed**.
 
 1. **Craft a lock and fit it.**
@@ -408,13 +408,13 @@ mod, and it is worth understanding *why* before changing a beat.
 | 4 | **The free phase** | **anything may be done, in any order.** Put things on, take them off, fit decorative locks, remove them. **Both routes are open, and "I have changed my mind" is allowed** |
 | 5 | **The fork** | the only two irreversible acts in the mod |
 
-> **[决定] Why the curse-lift must be frictionless.** *"Lift the curse, then fit a decorative
+> **[Decided] Why the curse-lift must be frictionless.** *"Lift the curse, then fit a decorative
 > lock"* has to be **a pure ritual action** with nothing in its way. **A curse that had to be
 > broken would put a fight in front of a ceremony** — and worse, it would make the ceremony's
 > **re-enactment a second trial**, so the player would be fighting the ritual instead of
 > performing it.
 
-> **[决定] And the whole act has no captor in it.** From the leash to the seal, **nothing acts
+> **[Decided] And the whole act has no captor in it.** From the leash to the seal, **nothing acts
 > on her that is not her own equipment.** The equipment is hers, the decorative locks are
 > hers, and **she is the one who applies them.** The author supplies the room and the chair.
 > **The only way to stay is to do it by hand.** There is no machine to fight — which is what
@@ -433,7 +433,7 @@ Both are entered from the free phase. **Neither is a failure state.**
 | **what it costs** | **the Host deletes her dossier**, and the controlled items are **destroyed** |
 | **where she goes** | back to the world map, **at the stairs** — where she came in |
 
-> **[决定] What she does *not* lose.** Her body, her knowledge, and **her abilities** — the
+> **[Decided] What she does *not* lose.** Her body, her knowledge, and **her abilities** — the
 > surrender was a seal, not a deletion, and the seal was on the equipment. **What she loses
 > is that the Host ever acknowledged her.** And **she may do it all again**, with a different
 > set of equipment: the second attempt starts from nothing, and the Host's memory of *what it
@@ -452,7 +452,7 @@ the ending.**
 | **the commit** | in **one instant**, every decorative lock and the chair's own restraint become a **permanent curse** |
 | **the outcome** | **archived.** She is effectively dead |
 
-> **[决定] And the decorative locks are *hers to apply*, one at a time.** Their only purpose
+> **[Decided] And the decorative locks are *hers to apply*, one at a time.** Their only purpose
 > is to make *"one at a time"* something the player **performs** — **attaching them one by
 > one, and then watching them all become real at once.**
 
@@ -461,14 +461,14 @@ done it to herself before. **This is the one that counts, and she is still the o
 
 ### 4.5 The archive — "the dead save"
 
-**[决定] This is the mod's most unusual piece of writing, and it is an artistic decision
+**[Decided] This is the mod's most unusual piece of writing, and it is an artistic decision
 rather than a technical one.**
 
 When a character is filed, **the game keeps running and she has nothing meaningful left to
 do.** Waiting and futile struggling. If the player saves, and comes back a year later, she is
 **in the same chair.**
 
-> **[决定] The reading that ships: her time does not stop, and does not rewind. The player
+> **[Decided] The reading that ships: her time does not stop, and does not rewind. The player
 > merely stops observing her. Her state has been made constant — however long passes before
 > the next observation, she is unchanged.**
 
@@ -542,7 +542,7 @@ slightly wrong.**
 
 ### 5.4 The kink-and-gameplay balance, as a writing rule
 
-**[决定] The kink is the priority, and the gameplay must not be an afterthought either.**
+**[Decided] The kink is the priority, and the gameplay must not be an afterthought either.**
 Written as an instruction for content:
 
 > **Every piece of equipment must be worth looking at, and worth wearing mechanically.** If a
@@ -582,7 +582,7 @@ how to **use** them.
 
 | Term | Use | Never |
 | --- | --- | --- |
-| **the Host** | capitalised; the centreless super-consciousness | *the Master*, *the Hive*, *the Overmind* — **[待定]** no word exists, so none may be used |
+| **the Host** | capitalised; the centreless super-consciousness | *the Master*, *the Hive*, *the Overmind* — **[TBD]** no word exists, so none may be used |
 | **a doll** | a person inside the network | *drone* in prose — **[⇢]** *drone* is the **mod's** frame, not the fiction's. In-fiction it is **doll** |
 | **our / we** | inside-network, collective | as a substitute for the Host's name in **outside** dialogue |
 | **filed** | the terminal state. *"She is filed."* Passive, agentless | *converted*, *ascended*, *graduated* |
@@ -593,7 +593,7 @@ how to **use** them.
 | **controlled equipment** | equipment that belongs to the Host's inventory of her | — |
 | **a decorative lock** | a lock that means nothing **yet** | *fake lock* — it is not fake, it is **not yet real** |
 | **the lift** | clearing the equipment's permanent curse, in the room | *unlocking*, *breaking* — it is neither |
-| **the struggle** | taking the equipment off, against the machine's resistance | *escaping* — **[决定]** it is not an escape. It is a **removal**, and she is meant to be able to fail it |
+| **the struggle** | taking the equipment off, against the machine's resistance | *escaping* — **[Decided]** it is not an escape. It is a **removal**, and she is meant to be able to fail it |
 | **ceremony** | the authored beats of the ladder and the finale | *cutscene* |
 | **errand** | a repeatable mini quest | *grind* — in prose, at least |
 
@@ -619,7 +619,7 @@ how to **use** them.
 - the kink-first priority, and obedience paying out
 - the "no captor in the final act" property
 
-### **[待定] Open — do not settle it in a scene**
+### **[TBD] Open — do not settle it in a scene**
 
 | Open | Note |
 | --- | --- |
@@ -630,7 +630,7 @@ how to **use** them.
 | **what a filed character leaves behind** | deliberately undecided, along with the currency |
 | **the peak's difficulty** | calibration, by playtest |
 
-### **[goal post]** Recorded, deliberately not now
+### **[Goal Post]** Recorded, deliberately not now
 
 - the three sub-factions (§2.3)
 - the resource-system expansion and the pleasure split — **its own project, comparable in

@@ -19,10 +19,10 @@ folders cannot break it. It names no sibling folder.
 
 ## The markers
 
-`design/README.md` defines the corpus's markers — `[既有]`, `[决定]`, `[提议]`, `[待定]`,
-`[goal post]`, `[待验证]` — and those are claims about **design status**. Reusing them in a research
+`design/README.md` defines the corpus's markers — `[Existing]`, `[Decided]`, `[Proposed]`, `[TBD]`,
+`[Goal Post]`, `[To Be Verified]` — and those are claims about **design status**. Reusing them in a research
 note would imply a standing it does not have, so this folder uses its own three, and nothing here is
-ever `[决定]`:
+ever `[Decided]`:
 
 | Marker | Means |
 | --- | --- |

@@ -4,7 +4,7 @@
  *
  * ## The membership test, and why it is a tag
  *
- * **[决定] A controlled item is one whose restraint template carries this mod's tag in its
+ * **[Decided] A controlled item is one whose restraint template carries this mod's tag in its
  * `shrine` list, and nothing else** (`design/spec.md` §6.12, clause 1). The base game uses `shrine`
  * as a **generic tag list** — it concatenates `"Cursed"` onto it (`item/KDCurse.ts:998`) and
  * bulk-copies the whole list into the player's tag map

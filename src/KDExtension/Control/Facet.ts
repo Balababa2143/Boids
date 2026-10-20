@@ -139,7 +139,7 @@ export const IsGateIntent = (value: unknown): value is GateIntent =>
  *
  * ## Why one number could not carry this
  *
- * **[既有] The base game's own aggregates do not agree with one another.** A `gag` value is a
+ * **[Existing] The base game's own aggregates do not agree with one another.** A `gag` value is a
  * **sum** with a saturating floor (`player/KinkyDungeonStats.ts:2209-2231`); a blind level is a
  * **count and a maximum at once**, where every item adds one *and* raises a floor
  * (`:2063-2075`); a deaf level is a **weighted maximum plus a weighted sum** (`:413-435`). So the
@@ -148,7 +148,7 @@ export const IsGateIntent = (value: unknown): value is GateIntent =>
  *
  * ## Two modes, and why there is no third
  *
- * **[决定] There is no `Count` mode.** A count aggregates the **number** of contributing items
+ * **[Decided] There is no `Count` mode.** A count aggregates the **number** of contributing items
  * rather than what any of them says, so it only means anything if a piece's contribution is a
  * fixed step — *one item, one rung* — and this mod does not build fixed-value restraints: a piece
  * declares a **power**, and two pieces of the same kind are stronger than one because their powers

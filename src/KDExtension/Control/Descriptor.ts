@@ -130,7 +130,7 @@ export interface Seam {
      * Whether the trigger has been **read out of the engine** rather than inferred from the design.
      *
      * A seam with `Verified: false` is recorded so the descriptor is complete, and it is explicitly
-     * marked so no phase can find itself building on a guess. `[待验证]` in `design/spec.md` is the
+     * marked so no phase can find itself building on a guess. `[To Be Verified]` in `design/spec.md` is the
      * same marker.
      */
     readonly Verified: boolean

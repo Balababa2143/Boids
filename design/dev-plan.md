@@ -21,12 +21,12 @@ glossary), `design/design-brief.md` (the reasoning and the base-game citations),
 
 **Markers used here**, identical to the spec's:
 
-- **[既有]** — verified against the base game or this repository.
-- **[决定]** — a decision, not open for silent revision.
-- **[提议]** — proposed, not decided. **A step may implement one; that does not promote it.**
-- **[待定]** — deliberately open; the step that depends on it says so.
-- **[待验证]** — known to be unknown; nothing may be built on it yet.
-- **[goal post]** — recorded, deliberately out of scope for this programme.
+- **[Existing]** — verified against the base game or this repository.
+- **[Decided]** — a decision, not open for silent revision.
+- **[Proposed]** — proposed, not decided. **A step may implement one; that does not promote it.**
+- **[TBD]** — deliberately open; the step that depends on it says so.
+- **[To Be Verified]** — known to be unknown; nothing may be built on it yet.
+- **[Goal Post]** — recorded, deliberately out of scope for this programme.
 
 **How to read this:** each phase is a milestone with an exit condition. Within a phase,
 steps are ordered by dependency, not by importance. Issue numbers refer to
@@ -37,12 +37,12 @@ steps are ordered by dependency, not by importance. Issue numbers refer to
 with no exit condition and Phase 7 is optional by construction, so neither is in the milestone; a
 phase being absent from it is not a statement about its priority.
 
-> **[既有] The gates that govern every change here.** Most of the suite is behaviour and
+> **[Existing] The gates that govern every change here.** Most of the suite is behaviour and
 > invariants. `test/registration-manifest.test.ts` additionally compares what the mod registers
 > against a committed **summary** — per-section counts and per-entry digests — so a dropped model,
 > a renamed restraint, or a payload that moved under an existing name fails, naming the entry.
 >
-> **[决定] Phase 0.6 split the checks that force a regeneration out of the workday gate.** They run
+> **[Decided] Phase 0.6 split the checks that force a regeneration out of the workday gate.** They run
 > under `--audit`, which `npm run verify:full` passes, and are reported as *skipped* otherwise, so a
 > run that did not compare a generated artifact cannot read as one that did. The full 437 KB record
 > is no longer tracked: it was the equivalence proof for a rearrangement, and there are no
@@ -109,7 +109,7 @@ here because the plan moves by tracking, and each is a real change to what was s
   and refused* and for an unknown root. A save with **no** recorded version is a different
   finding, and it now loads on a warned confirmation: the character survives, and the
   coordinator starts from an empty dossier. The constraint behind the shape is
-  **[既有]** — `KinkyDungeonLoadGame` returns a synchronous boolean and carries the caller's
+  **[Existing]** — `KinkyDungeonLoadGame` returns a synchronous boolean and carries the caller's
   map-generation work inline, so the confirmation refuses the first attempt and re-enters the
   game's own load button rather than repeating the call. Recorded in `spec` §4.4.
 
@@ -450,7 +450,7 @@ baseline intact when the Host is set to Free.
 **Ordering constraints:** 2.1 and 2.2 are independent of each other and both need Phase 1;
 2.4 needs 2.1's gate values to exist; 2.6 needs 1.3.
 
-> **[决定] Invariant 12 is established here and honoured everywhere after.** Removing equipment
+> **[Decided] Invariant 12 is established here and honoured everywhere after.** Removing equipment
 > must **release** an override, never **restore** a value that the removal destroyed — so the
 > baseline may not live on an item. This is cheap to honour at 2.6 and expensive to retrofit
 > later, and it is what makes the final act's reversibility free rather than a restore path
@@ -469,7 +469,7 @@ router, with the known seam precedence handled explicitly.
 | --- | --- | --- |
 | 3.1 | **Rewrite the sensory limiter layer** on top of the Phase 1 store, and **retire the debug tick driver**. Keep the existing state accessors — they are correct and property-tested — and replace the limiter layer above them. The tick driver goes because this is the step that finally gives the limiters a real writer. | #58 |
 | 3.2 | **Handle seam precedence explicitly.** Some perception values are written by an early seam and overwritten by a later one; the descriptor must name every seam and its order, and a partial implementation must be a **loud** failure rather than a silent one. | #58 |
-| 3.3 | **Wire the deafener.** The slot's schema, guard and round-trip all exist and no item has ever emitted it; today the headphone sets a static `deaf: 2` instead. **[待定]** The source discussion recorded this as *not decided*; wiring it is the obvious first customer for the keyed store, so it is scheduled here as the cheap test of whether the store earns its keep. **`Hearing` is `Direction.Both` now** (`spec` §6.1): `calcHearing` has a live granting handler (`effect/KinkyDungeonEvents.ts:7263-7267`) that the base game already uses through two spells, so this step wires **both** directions rather than only the denial. | #59 |
+| 3.3 | **Wire the deafener.** The slot's schema, guard and round-trip all exist and no item has ever emitted it; today the headphone sets a static `deaf: 2` instead. **[TBD]** The source discussion recorded this as *not decided*; wiring it is the obvious first customer for the keyed store, so it is scheduled here as the cheap test of whether the store earns its keep. **`Hearing` is `Direction.Both` now** (`spec` §6.1): `calcHearing` has a live granting handler (`effect/KinkyDungeonEvents.ts:7263-7267`) that the base game already uses through two spells, so this step wires **both** directions rather than only the denial. | #59 |
 | 3.4 | **Wire spell range** — **done when** a dimension can change the range the game reports for a spell, with no other consumer involved. | #59 |
 | 3.5 | **Add the numeric buffs.** Numeric buffs reuse the same `calc*` seams read in the other direction. | #60 |
 | 3.6 | **Add map-unit marking.** The base game has an in-repo template for this: a calculation seam decides *what* to mark, a flag marks it, and a minimap handler renders it. | #60 |
@@ -490,7 +490,7 @@ it before starting it.*
 **Exit condition:** equipment upgrades from loose-and-unlocked to sealed-and-permanent
 through a table-driven quest chain, and projections appear as servitude progresses.
 
-> **[goal post] The morphing cleanup is *not* in this phase's exit condition.** Consolidating
+> **[Goal Post] The morphing cleanup is *not* in this phase's exit condition.** Consolidating
 > the three legacy routes into one projection layer is a **standing invitation** (`spec`
 > §6.8), not a dependency. Steps 4.2 and 4.3 below are recorded because they are real
 > defects, and they are **deferred with the consolidation** — the one hard rule is that new
@@ -511,13 +511,13 @@ through a table-driven quest chain, and projections appear as servitude progress
 **Ordering constraints:** 4.1 precedes 4.7 and 4.9, which are consumers of it. 4.2 and 4.3
 need 4.1 to exist before they can be fixed through it. 4.4 needs 4.6 and 4.5.
 
-> **[待定] 4.4 and 4.8 depend on design that is not yet settled.** The ladder's concrete
+> **[TBD] 4.4 and 4.8 depend on design that is not yet settled.** The ladder's concrete
 > stages are specified (`spec` §8.2) but not authored, and "self-locking **as an evolution
 > stage rather than a timer**" is an inference from the ladder's shape rather than a
 > decision — issue #32 says only "item self locking after several turns". Confirm before
 > building it.
 >
-> **[决定] 4.4's third stage is a *kind-1 curse* and nothing else** (`spec` §6.9, §8.2): its
+> **[Decided] 4.4's third stage is a *kind-1 curse* and nothing else** (`spec` §6.9, §8.2): its
 > `condition` is unsatisfiable anywhere in the world except the final room. **Do not
 > implement it as an unliftable lock** — a lock can be destroyed (§D.3), so it does not seal,
 > and it has no `condition` for the room to satisfy later. **The ladder's "permanent" and the
@@ -540,7 +540,7 @@ still commit**; and the filed state survives save and load.
 | 5.1 | **Implement the entry conditions** (`spec` §8.4): capability coverage as **subset**, suppression thresholds as **at least**, and the equipment-is-finished check evaluated at the controller layer. **Done when** each of the three can be tested independently and a failing condition names which one failed. | #65 |
 | 5.2 | **Implement the room and its sequence** (`spec` §6.10): the leash entry with **no world-map entrance**, control returning to the player, the **frictionless kind-1 lift** (a button — no test, no cost, no roll), and the **free phase**. | #66 |
 | 5.3 | **Implement route 1 — leave.** Set the entry condition (no **controlled** equipment worn or carried, evaluated from the controller's authoritative set) and commit on interacting with the **door**: **clear the dossier, destroy the controlled items, then teleport to the world map at the stairs — in that order** (invariant 15). **Done when** the character returns with her native abilities usable and the §8.1 ritual cost still reopenable — i.e. what was cleared was the dossier, not the baseline (`spec` §11, invariant 12). | #72 |
-| 5.4 | **Implement route 2 — descend.** Set the entry condition (`spec` §8.4's, with the lock requirement relaxed to **decorative locks**) and commit on interacting with the **`furniture`**: **one atomic replacement** of every decorative lock and **the `furniture`'s own restraint** into **kind-2 curses**, then the seal. **[既有]** The furniture is a map doodle that applies a restraint in the **`ItemDevices`** group (`spec` §6.9), so the curse goes on **that restraint** — no new curse carrier is needed, and no special case. | #73 |
+| 5.4 | **Implement route 2 — descend.** Set the entry condition (`spec` §8.4's, with the lock requirement relaxed to **decorative locks**) and commit on interacting with the **`furniture`**: **one atomic replacement** of every decorative lock and **the `furniture`'s own restraint** into **kind-2 curses**, then the seal. **[Existing]** The furniture is a map doodle that applies a restraint in the **`ItemDevices`** group (`spec` §6.9), so the curse goes on **that restraint** — no new curse carrier is needed, and no special case. | #73 |
 | 5.5 | **Register the two curse kinds** (`spec` §6.9) as separate registry entries with **distinct `condition`s**: **kind 1** unsatisfiable everywhere except the room, **kind 2** with none. **Kind 1 must also supply a `remove` hook that returns `false`** (`base/KDTypeDefs.ts:3965-3966`), so lifting the curse **clears it and leaves the equipment worn** instead of stripping it (`item/KDCurse.ts:1051, 1071, 1087`). **Done when** the post-lift state is *worn, uncursed* — which is the state step 5.2's struggle needs, and which no base-game path produces. | #27 |
 | 5.6 | **Inject the Controller ceiling that makes the struggle real** (`spec` §6.10, step 4): while any controlled item is worn, drive the dimensions it covers to **the highest suppression that still leaves removal possible** — *hard, not closed*, because a refusal outside the two commits is a bug (invariant 13). When the **last controlled item covering a facet leaves the body**, that facet drops to its **`Free` value** (`Rate.target = 0`, `Gate.Intent = Free`). **Done when** the peak is produced entirely by these injected values, with **no bespoke struggle formula**, and the Free state is what lets the free phase change equipment at will. | #74 |
 | 5.7 | **Implement the decorative lock by intercepting the self-lock feature** (`spec` §6.10): wrap or replace `KinkyDungeonSpellSpecials["Lockdown"]` (`KinkyDungeonMagicCode.ts:19, 651-681`) so that in-room it applies a Boids-registered `"Decorative"` entry in `KDLocks` instead of `"Purple"` — **required, not cosmetic**, because `KDLockableRestraints` skips every cursed item (`KinkyDungeonRestraints.ts:1264-1267`) and every controlled item is cursed at entry. Re-label the element's icon and text in-room. **Done when** every controlled piece satisfies `KinkyDungeonIsLockable` (`:697-700`), so no piece is un-lockable and route 2 is reachable for the whole set; and the lock is applied **after** the lift, since curse and lock are mutually exclusive (`:5016-5018`). | #75 |
@@ -553,11 +553,11 @@ is finished); 5.2 needs 5.5; 5.3 and 5.4 both need 5.2 and 5.5, and 5.4 addition
 5.7; 5.6 needs 5.2; 5.8 and 5.9 need 5.4; 5.10 needs 5.3 to exist, since it exists only
 because route 1 destroys everything.
 
-> **[决定] There is no escape formula to design.** The peak comes from the Controller's
+> **[Decided] There is no escape formula to design.** The peak comes from the Controller's
 > injected ceiling (5.6) running the base game's own struggle calculations — so 5.6 is
 > implementation. **Do not author a bespoke struggle curve.**
 >
-> **[决定] And the peak's calibration is not a Phase 5 step.** It needs playtesting, so it is
+> **[Decided] And the peak's calibration is not a Phase 5 step.** It needs playtesting, so it is
 > **the last step of the programme — 8.1** — and it is the only thing standing between the
 > finished mod and a release.
 
@@ -573,11 +573,11 @@ authored, and it never "completes". Nothing here blocks any earlier phase.
 | # | Step | Issue |
 | --- | --- | --- |
 | 6.1 | **Additional `Futuristic` equipment assets** — the remaining gaps in the outfit layer. | #26, #3 |
-| 6.2 | **Additional link assets and the connection ports.** **[既有]** Two sprites already ship with **no code referencing them**: `Models/Boids/Futuristic/Cuff/WaistCuffPort/PortBase.png` and `PortGlow.png` (both in `BoidsAsset0.json`). They are the drawn half of the wrist-to-waist link. | #29, #9 |
+| 6.2 | **Additional link assets and the connection ports.** **[Existing]** Two sprites already ship with **no code referencing them**: `Models/Boids/Futuristic/Cuff/WaistCuffPort/PortBase.png` and `PortGlow.png` (both in `BoidsAsset0.json`). They are the drawn half of the wrist-to-waist link. | #29, #9 |
 | 6.3 | **Gloves** — a hand item family for the futuristic set. | #21 |
 | 6.4 | **A body-coating collar.** | #25 |
 | 6.5 | **Headphone assets for the remaining ear shapes.** | #28 |
-| 6.6 | **New sub-factions** — **[goal post]**, deferred with `spec` §10: the mechanism layer ships first. Three are on record as the eventual targets. | #68 |
+| 6.6 | **New sub-factions** — **[Goal Post]**, deferred with `spec` §10: the mechanism layer ships first. Three are on record as the eventual targets. | #68 |
 
 ---
 
@@ -618,12 +618,12 @@ nowhere.** The owner has signed off on the numbers.
 decorative lock (5.7) and both commits (5.3, 5.4) — because there is nothing to calibrate
 until they exist. **It is the last step of the programme and the only one gated on feel.**
 
-> **[决定] Why this is not a Phase 5 step.** It was one, and it was moved here on the
+> **[Decided] Why this is not a Phase 5 step.** It was one, and it was moved here on the
 > designer's instruction: **calibration requires playtesting**, and playtesting requires the
 > room to exist. A tuning step that sits inside the phase that builds the thing it tunes gets
 > either skipped or guessed.
 
-> **[既有] What is *not* open here.** The mechanism is fully specified — the base game's own
+> **[Existing] What is *not* open here.** The mechanism is fully specified — the base game's own
 > struggle system, driven by the Controller's ceiling, with **no bespoke curve to author**
 > (`spec` §6.10). Only the ceiling's value is undecided. **Do not treat this phase as licence
 > to redesign the struggle.**
@@ -664,7 +664,7 @@ so the step tables above and this map carry the same numbers.
 | 7 — Optional patch mod | #44 (7.2) | #69 (7.1, 7.3–7.5) |
 | 8 — Calibration, by playtest | — | #77 (the peak's calibration) |
 
-> **[既有] Reconciled 2026-10-17.** Every `new` this plan carried now has a number. The *exit* work
+> **[Existing] Reconciled 2026-10-17.** Every `new` this plan carried now has a number. The *exit* work
 > (the room, both commits, the two curse kinds, the decorative lock, the Controller ceiling, the
 > repeat-entry criterion, the calibration) was opened as #70–#77, and Phase 0's delivered work was
 > opened as #50–#53 and closed with a comment naming the step that holds it. Five steps stay
@@ -680,8 +680,8 @@ so the step tables above and this map carry the same numbers.
 > *kinds* (`spec` §6.9) — **kind 1** for the equipment, in Phase 4, and **kind 2** for the
 > commit, in Phase 5. The broader lock-and-curse content stays in Phase 6.
 
-> **[待定] Raised 2026-10-17, by the correction's own implementation, and deliberately unnumbered.**
-> §6.7 carried two `[决定]` sentences about a `Count` stacking mode that could not both hold: the
+> **[TBD] Raised 2026-10-17, by the correction's own implementation, and deliberately unnumbered.**
+> §6.7 carried two `[Decided]` sentences about a `Count` stacking mode that could not both hold: the
 > table row had the **engine value** map convert `Applied` — a rate, and therefore in 0..1 — while
 > the paragraph below it said the aggregate is *clamped to 0..1 like any other rate* **and** that
 > the map is where *a count of three items becomes the integer 3*. If the aggregate is clamped, the
@@ -690,6 +690,6 @@ so the step tables above and this map carry the same numbers.
 > and a count is that semantics. The mode is gone from `spec` §6.7, the contradiction it created is
 > gone with it, and a count is expressible as a `Sum` in which every contributor bids the same step.
 > The finding is kept here because it is *why* the mode was looked at again, and because a
-> `[待定]` that is answered by removal rather than by a decision between two readings is worth being
+> `[TBD]` that is answered by removal rather than by a decision between two readings is worth being
 > able to tell apart from one that was simply dropped. **The plan's 1.13 and the brief's Appendix E
 > row carry the same ruling.**

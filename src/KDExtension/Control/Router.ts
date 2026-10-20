@@ -3,9 +3,9 @@
  *
  * ## The rules, and their status
  *
- * The three resolution rules are **[决定]** in `design/spec.md` §6.7. They were built as a
- * `[提议]` in Phase 1 and **this is their promotion** — which is the only thing that could settle
- * them (`design/README.md`: a step that is built but not promoted is still a `[提议]`).
+ * The three resolution rules are **[Decided]** in `design/spec.md` §6.7. They were built as a
+ * `[Proposed]` in Phase 1 and **this is their promotion** — which is the only thing that could settle
+ * them (`design/README.md`: a step that is built but not promoted is still a `[Proposed]`).
  *
  * 1. **Which items are providers** — an item declares its dimensions on apply, through the same
  *    stamped-event pattern items already use to register with the coordinator.
@@ -34,7 +34,7 @@
  * function of what the caller observed — which is what makes "no cached value to invalidate"
  * literally true rather than a promise.
  *
- * **[决定] There is no contract between dimensions.** The facet interface describes one dimension
+ * **[Decided] There is no contract between dimensions.** The facet interface describes one dimension
  * — its demand, its capability, its resolution — and nothing about any other. A seam may read
  * anything it likes out of the game, including state another dimension of ours is driving, but
  * that is not part of the model, nothing may rely on it, and no test may assert it (§6.7).

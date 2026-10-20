@@ -29,5 +29,5 @@ what makes a report checkable rather than merely readable:
 - **Name the site or the command.** A claim with a file and a line, or with a reproducer, can be
   re-derived; a claim without one is only a memory.
 - **Say how it was established**, in the folder's own vocabulary rather than in the corpus's.
-- **Do not borrow the corpus's markers.** `design/README.md`'s `[既有]`, `[决定]` and the rest are claims
+- **Do not borrow the corpus's markers.** `design/README.md`'s `[Existing]`, `[Decided]` and the rest are claims
   about **design status**, and reusing them here would lend a report a standing it does not have.

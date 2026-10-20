@@ -87,7 +87,7 @@ export const VisorSightPower = 1
  * The blindness a worn visor adds, registered on the game's `calcBlind` trigger and inherited by
  * linked items.
  *
- * **[既有] The seam is a two-field mutating one.** `KinkyDungeonGetBlindLevel` seeds
+ * **[Existing] The seam is a two-field mutating one.** `KinkyDungeonGetBlindLevel` seeds
  * `{player, blindness}` from the worn blindfolds and dispatches `calcBlind`, whose handlers mutate
  * `data.blindness` in place (`player/KinkyDungeonStats.ts:2063-2075`). This is the seam the
  * descriptor registry records for `Sight`, and it is the one seam in the catalogue that was read out

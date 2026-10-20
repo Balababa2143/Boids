@@ -26,7 +26,7 @@
  *
  * ## Which dimensions are real today
  *
- * `Sight` is `[既有]` — the game's single `blindness` field, produced at one seam and consumed
+ * `Sight` is `[Existing]` — the game's single `blindness` field, produced at one seam and consumed
  * downstream, which the visor family already writes. `Hearing` and `SpellRange` turn out to have
  * real seams too, and they are recorded as verified because they were read rather than assumed.
  * Everything in `Behavior` and `Stats` that is not posture has its seams **named but unverified**:
@@ -35,7 +35,7 @@
  *
  * ## The two fields that exist to stop a silent omission
  *
- * **[决定] Every `Rate` dimension declares an engine value map** (§6.2), because `Rate` is
+ * **[Decided] Every `Rate` dimension declares an engine value map** (§6.2), because `Rate` is
  * uniformly 0..1 in the model and no base-game quantity is on that scale. **The identity is
  * written out where the conversion has not been read yet**, and that is a claim rather than a
  * waiver: `EngineIdentity` here means *"the engine reads this dimension on the model's own 0..1
@@ -43,7 +43,7 @@
  * field out would be indistinguishable from having forgotten it, and the phase that binds the
  * seam replaces the identity then. Only `Sight` has a map this catalogue can defend.
  *
- * **[决定] `Feeds` is declared, and its contributor set is this catalogue's reading of §6.5's
+ * **[Decided] `Feeds` is declared, and its contributor set is this catalogue's reading of §6.5's
  * seven-capability list** rather than a list of body parts: the base game asks *"are her arms
  * bound"* as one question with some fifty callers, and our model answers it with a **union of the
  * refusals** among the dimensions whose refusal *is* a binding. Phase 2.1 confirms it when it
@@ -137,7 +137,7 @@ const Unread = EngineIdentity
 /**
  * How blind the wearer is, in the engine's own units.
  *
- * **[既有] Blindness is an integer ladder capped at 7** (`player/KinkyDungeonStats.ts:2063-2075`),
+ * **[Existing] Blindness is an integer ladder capped at 7** (`player/KinkyDungeonStats.ts:2063-2075`),
  * so the model's uniform 0..1 has to be put back on it: a resolved 1 is the seventh rung and a
  * resolved 0 is sight. `Math.round` rather than `Math.floor` so the top of the model's range
  * reaches the game's own ceiling instead of stopping one short of it.
@@ -149,7 +149,7 @@ const BlindLadder: EngineValue = value => Math.round(value * 7)
 /**
  * How blind the wearer is, which the game calls blindness.
  *
- * **[既有] One producer, and the seam is already used by this mod.** `KinkyDungeonGetBlindLevel`
+ * **[Existing] One producer, and the seam is already used by this mod.** `KinkyDungeonGetBlindLevel`
  * seeds `{player, blindness}` from the worn blindfolds and dispatches `calcBlind`, whose handlers
  * mutate `data.blindness` in place; the game then derives `KinkyDungeonBlindLevel` from it, and
  * everything downstream reads that derived value rather than the field
@@ -178,13 +178,13 @@ RegisterDimension({
 /**
  * How deaf the wearer is.
  *
- * **[既有] The producer seam is `calcDeaf`**, and it is a real event rather than a field read:
+ * **[Existing] The producer seam is `calcDeaf`**, and it is a real event rather than a field read:
  * `KDDeafLevel` collects `data.maxDeaf` and `data.totalDeaf` off the worn set, dispatches
  * `calcDeaf` with the mutable object, and only then combines them into a level
  * (`player/KinkyDungeonStats.ts:413-435`). `KinkyDungeonGetHearingRadius` consumes that level
  * through `calcHearing` (`:440-452`), which is the second seam.
  *
- * **[决定] Both directions, and a buff side.** An earlier reading made this deny-only, on the
+ * **[Decided] Both directions, and a buff side.** An earlier reading made this deny-only, on the
  * grounds that the restraint's `deaf` field has no event of its own — but `calcDeaf` **is** an
  * event, and it takes an accumulator rather than a value, so a handler can subtract from it as
  * readily as add. A dimension cannot be deny-only while its seam is an addition.
@@ -210,7 +210,7 @@ RegisterDimension({
 /**
  * How far the wearer's spells reach.
  *
- * **[既有] `KDGetSpellRange` is a two-field mutating seam** — `{spell, range}` seeded from the
+ * **[Existing] `KDGetSpellRange` is a two-field mutating seam** — `{spell, range}` seeded from the
  * spell's own range and dispatched as `calcSpellRange`, with the mutated field read back
  * (`base/game/KinkyDungeonDraw.ts:1005-1012`). The base game already uses it to *add* range
  * (`magic/KinkyDungeonMagicList.ts:1594-1595`), so this is the first dimension in the catalogue
@@ -266,12 +266,12 @@ RegisterDimension({
 /**
  * Whether the wearer can speak, and **how strictly her mouth is filled**.
  *
- * **[既有] Speech has no granting seam** (§3.2): the gag helpers read the restraint's own fields
+ * **[Existing] Speech has no granting seam** (§3.2): the gag helpers read the restraint's own fields
  * inline, so the only way to gate speech is the action chokepoint. That makes the gate half a
  * `Substitution` with a **deny-only** direction and no buff side — the "take it away" half is
  * expressible and the "give it back through a prosthesis" half is not.
  *
- * **[决定] Two facets, and no third.** An earlier build gave `Speech` a `Form` facet carrying a
+ * **[Decided] Two facets, and no third.** An earlier build gave `Speech` a `Form` facet carrying a
  * Host-chosen `Size`, so that *a small ball on a strict mechanism* and *a large one that only
  * blocks the words* were both expressible. **That facet is retracted** (§6.1): the look of a
  * thing is a property of the thing, so an item declares its own appearance beside its own bid and
@@ -303,7 +303,7 @@ RegisterDimension({
  * that movement has several levers the chokepoint does not cover — `KDGameData.MovePoints`, the
  * `playerStun` flag — so the descriptor names more than one tool.
  *
- * **[决定] It composes a rate as well as a gate.** *May she move at all* and *how far can she get*
+ * **[Decided] It composes a rate as well as a gate.** *May she move at all* and *how far can she get*
  * are different questions, and the base game already answers the second one separately through
  * `MovePoints`; a gate-only reading would have made a hobble inexpressible.
  */
@@ -329,7 +329,7 @@ RegisterDimension({
  * not. It carries a `Rate` because the base game's own binding pays for **melee accuracy and
  * damage** separately from whether a blow is possible at all (§6.5).
  *
- * **[既有] And the refusal is part of the arms-bound answer.** A bound arm is one of the reasons
+ * **[Existing] And the refusal is part of the arms-bound answer.** A bound arm is one of the reasons
  * this dimension is refused, so it feeds the predicate the game asks.
  */
 RegisterDimension({
@@ -395,7 +395,7 @@ RegisterDimension({
 /**
  * Whether the wearer can get out of what she is in.
  *
- * **[既有] The seam convention is the one the router copies.** `getArmsBound` and `getHandsBound`
+ * **[Existing] The seam convention is the one the router copies.** `getArmsBound` and `getHandsBound`
  * handlers compute a power, raise their bid only while they are winning, and set
  * `forceResult`/`forceResultPower` under a `forceResultPower < frp` guard
  * (`effect/KinkyDungeonEvents.ts:263-340`; payload `ArmsBoundData`/`HandsBoundData`,
@@ -403,7 +403,7 @@ RegisterDimension({
  * `forceResult != undefined`, which is why `forceResult = false` is the direction that *grants* —
  * the direction no base-game caller uses, and the one Phase 2.1 takes.
  *
- * **[既有] It is the predicate's own seam as well as a dimension**, which is why it feeds both:
+ * **[Existing] It is the predicate's own seam as well as a dimension**, which is why it feeds both:
  * the two globals it names *are* the two questions the base game asks about the body as a whole.
  */
 RegisterDimension({
@@ -424,7 +424,7 @@ RegisterDimension({
 /**
  * Whether the wearer can reach her own arousal.
  *
- * **[既有] The movable mechanism is the player tags, not the restraint flag.** `chastity` and
+ * **[Existing] The movable mechanism is the player tags, not the restraint flag.** `chastity` and
  * `chastitybra` are read inline by the chastity helpers with no event of their own, while
  * `KinkyDungeonUpdateRestraints` sets `ChastityLower`/`ChastityUpper` from those flags and *then*
  * dispatches `updatePlayerTags` — so a handler of ours runs afterwards and can set them too
@@ -453,7 +453,7 @@ RegisterDimension({
 /**
  * Whether the wearer can block.
  *
- * **[既有] It was a property of the binding rather than a dimension, and it is a mechanism of its
+ * **[Existing] It was a property of the binding rather than a dimension, and it is a mechanism of its
  * own.** The base game's own binding pays for blocking separately from whether a weapon may be
  * used (`fight/KinkyDungeonFight.ts:574-599`), so a restraint that leaves the hands free and the
  * forearms busy is expressible only if blocking is asked about on its own.
@@ -478,7 +478,7 @@ RegisterDimension({
 /**
  * What the wearer's hands do to the world.
  *
- * **[既有] It was hiding inside other dimensions and it is one mechanism.** §6.5's list of what
+ * **[Existing] It was hiding inside other dimensions and it is one mechanism.** §6.5's list of what
  * the base game's binding pays for names doors (`map/KinkyDungeonTilesList.ts:1864`), picking
  * things up (`item/KinkyDungeonItem.ts:272`), locks, and — through the gag bundle — eating and
  * drinking. Those are one question: *may her hands act on the world*.
@@ -503,7 +503,7 @@ RegisterDimension({
 /**
  * Which configurations the wearer's arms may take.
  *
- * **[决定] A body configuration is a dimension, not a property of a restraint.** The arms can be
+ * **[Decided] A body configuration is a dimension, not a property of a restraint.** The arms can be
  * free, in front, crossed, wrist-tied, box-tied, yoked or raised, and the base game already treats
  * each as a named pose with a permitted set (`Data/Poses.ts:1`) — so the demand is a set of poses
  * and the facet is `Posture` rather than `Rate`.
@@ -557,13 +557,13 @@ RegisterDimension({
 /**
  * How much noise the wearer makes.
  *
- * **[既有] A real consumer with no dimension at all, until now.** The shout radius
+ * **[Existing] A real consumer with no dimension at all, until now.** The shout radius
  * (`base/KinkyDungeonInput.ts:421`) and the moan radius
  * (`player/KinkyDungeonStats.ts:2318`) are both derived from the gag total, and §6.5's gag bundle
  * names them as one of the four things that property pays for — so a muffler declares a bid here
  * and not only on `Speech`.
  *
- * **[决定] Deny-only, and it can never be a `CapabilityKey`** (§3.2): noise's seam fires **after**
+ * **[Decided] Deny-only, and it can never be a `CapabilityKey`** (§3.2): noise's seam fires **after**
  * the decision has been made, so there is no point at which the controller could give a voice
  * back. A buff side would be a claim the dimension cannot keep.
  */
@@ -587,7 +587,7 @@ RegisterDimension({
 /**
  * The Stats dimensions are declared and deliberately left unused.
  *
- * **[决定]** Stats Control is deferred until the resource system exists; designing it before
+ * **[Decided]** Stats Control is deferred until the resource system exists; designing it before
  * that means designing it twice (§6.3). What is *not* deferred is naming them: the data model
  * covers every dimension from the start, so a later phase adds behaviour rather than a shape.
  *

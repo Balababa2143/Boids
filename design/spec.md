@@ -14,7 +14,7 @@ record an idea.** The route is:
 5. `design/design-brief.md` gains a dated row in **its Appendix E** naming the issue and the
    change — the brief's reasoning is never rewritten.
 
-> **A step that is implemented but not promoted is still a `[提议]`.** Building one never
+> **A step that is implemented but not promoted is still a `[Proposed]`.** Building one never
 > settles it: promotion is an edit here, and the markers in §§6–8 are the record of what has
 > and has not been promoted.
 
@@ -32,12 +32,12 @@ Other factions are out of scope (see §10).
 
 **Conventions used here:**
 
-- **[既有]** — verified against the base game or this repository, with a citation.
-- **[决定]** — a design decision. Not open for silent revision.
-- **[提议]** — proposed, not decided. **Building one does not promote it** (§6.7).
-- **[待定]** — deliberately open. Marked where it appears, and listed in §12.
-- **[待验证]** — known to be unknown; nothing may be built on it yet.
-- **[goal post]** — recorded, deliberately out of scope for this delivery.
+- **[Existing]** — verified against the base game or this repository, with a citation.
+- **[Decided]** — a design decision. Not open for silent revision.
+- **[Proposed]** — proposed, not decided. **Building one does not promote it** (§6.7).
+- **[TBD]** — deliberately open. Marked where it appears, and listed in §12.
+- **[To Be Verified]** — known to be unknown; nothing may be built on it yet.
+- **[Goal Post]** — recorded, deliberately out of scope for this delivery.
 
 ### Glossary
 
@@ -96,12 +96,12 @@ game evaluates at load time. It registers models, restraints, text keys and even
 into the game's globals as a side effect of being imported; the only thing it owns is the
 `globalThis.Boids` namespace (`docs/guide/architecture.md`).
 
-**Design priorities, in order:** the kink first, then the gameplay. **[决定]** Equipment
+**Design priorities, in order:** the kink first, then the gameplay. **[Decided]** Equipment
 serves the kink *and* carries real mechanics; neither is decoration for the other.
 
 ## 2. Structure: three layers
 
-**[决定]** Boids is organised in three layers, and they are distinct concerns:
+**[Decided]** Boids is organised in three layers, and they are distinct concerns:
 
 | Layer | Concern | Code |
 | --- | --- | --- |
@@ -109,13 +109,13 @@ serves the kink *and* carries real mechanics; neither is decoration for the othe
 | **Mechanism** | what is constrained, how much, and how the constraint reaches the game | `MachinePrime.Coordinator` |
 | **Sub-faction** | story, flavour, progression, privileges and their costs | not built |
 
-**[决定]** Sub-factions share the outfit layer *and* the mechanism layer in full. **[提议]**
+**[Decided]** Sub-factions share the outfit layer *and* the mechanism layer in full. **[Proposed]**
 The consequence — that a new sub-faction is story plus configuration rather than a new art
 pass — is the reasoning behind that decision, not a separate decision.
 
 ## 3. The base game: what we rely on
 
-**[既有]** The base-game source is present and readable at
+**[Existing]** The base-game source is present and readable at
 `kd-structured/KinkyDungeon/Game/src/` — 158 `.ts` files — not merely generated typings.
 Every base-game claim in this spec is read from implementation.
 
@@ -134,13 +134,13 @@ Every base-game claim in this spec is read from implementation.
 
 ### 3.2 What cannot be granted, and what the control model excludes
 
-**[既有] Two abilities have no event seam at all.** Speech and `immobile`-based movement:
+**[Existing] Two abilities have no event seam at all.** Speech and `immobile`-based movement:
 the game reads the relevant restraint fields inline, with no interception point.
 
-**[既有] A third, noise, is a different failure mode**: it *has* a seam, but the seam fires
+**[Existing] A third, noise, is a different failure mode**: it *has* a seam, but the seam fires
 after the decision has already been made, so it cannot change the outcome.
 
-**[决定]** In both cases the abilities are ungrantable, and therefore:
+**[Decided]** In both cases the abilities are ungrantable, and therefore:
 
 - they can **never** appear in a `CapabilityKey` set (§6.4);
 - the only way to gate them is the action chokepoint;
@@ -150,7 +150,7 @@ after the decision has already been made, so it cannot change the outcome.
 > than one that does not, and the noise seam in particular looks usable until the ordering
 > is checked.
 
-**[既有] Separately, five values are outside the control model**, for reasons unrelated to
+**[Existing] Separately, five values are outside the control model**, for reasons unrelated to
 seams:
 
 | Value | Excluded because |
@@ -162,12 +162,12 @@ seams:
 | `calcCorsetSPRed` | ditto |
 
 ### 3.3 Base-game changes are optional patches, never a dependency
-**[决定]** Boids may benefit from base-game changes, but those ship as a **separate
+**[Decided]** Boids may benefit from base-game changes, but those ship as a **separate
 patching mod** that Boids consumes as an **optional plugin**. Boids must run without it,
 and must degrade rather than break when it is absent. Every patched path needs a working
 non-patched path.
 
-**[既有]** The upstream route is open and has precedent: the game ships its source to
+**[Existing]** The upstream route is open and has precedent: the game ships its source to
 modders under the Kinky Contributor License, and `.github/CONTRIBUTING.md` documents a
 fork-and-PR workflow.
 
@@ -175,7 +175,7 @@ fork-and-PR workflow.
 
 ### 4.1 Construction
 
-**[决定]** Every identifier is derived deterministically:
+**[Decided]** Every identifier is derived deterministically:
 
 ```ts
 uuidv5(`Boids.MachinePrime.Item.Foo${JSON.stringify(variantKey)}`, MOD_ROOT_UUID)
@@ -187,7 +187,7 @@ uuidv5(`Boids.MachinePrime.Item.Foo${JSON.stringify(variantKey)}`, MOD_ROOT_UUID
 - `MOD_ROOT_UUID` is the **namespace** (the second argument) and the **version carrier** —
   it is the only place version information lives. No separate version field is serialised.
 
-> **[既有] Implementation trap, and the argument order is the trap.** `uuid`'s signature is
+> **[Existing] Implementation trap, and the argument order is the trap.** `uuid`'s signature is
 > `v5(value, namespace)`. The namespace argument must **parse as a UUID**:
 > `node_modules/uuid/dist/v35.js:15` calls `parse()`, and `parse.js:3-6` does
 > `throw TypeError('Invalid UUID')` for anything else. **So putting the namespaced string
@@ -197,7 +197,7 @@ uuidv5(`Boids.MachinePrime.Item.Foo${JSON.stringify(variantKey)}`, MOD_ROOT_UUID
 
 ### 4.2 What the save stores
 
-**[决定]** The save stores the **path**, not the derived UUID: the namespaced name, the
+**[Decided]** The save stores the **path**, not the derived UUID: the namespaced name, the
 variant key, and the `root_uuid` it was minted under. The id is **recomputed at load**.
 
 Consequences, all of which are requirements:
@@ -209,13 +209,13 @@ Consequences, all of which are requirements:
 
 ### 4.3 The version table
 
-**[决定]** The root → release mapping is a **table in code**, shipped with the mod. The save
+**[Decided]** The root → release mapping is a **table in code**, shipped with the mod. The save
 records **only `root_uuid`**, which is what localises the release.
 
-**[既有]** The release key already exists: `Asset/mod.json`'s `modbuild`, stamped by the
+**[Existing]** The release key already exists: `Asset/mod.json`'s `modbuild`, stamped by the
 build from `package.json`'s `version`.
 
-**[决定] The rejected alternatives**, recorded because each had a different failure mode:
+**[Decided] The rejected alternatives**, recorded because each had a different failure mode:
 
 | Placement | Rejected because |
 | --- | --- |
@@ -226,7 +226,7 @@ The chosen pair — code-side table **plus** `root_uuid` in the save — keeps t
 authoritative and the save self-describing. Note that the save's `root_uuid` is an
 **addition** to the path and variant key of §4.2, not a replacement for them.
 
-> **[待定] A contradiction in the source discussion, recorded rather than resolved.**
+> **[TBD] A contradiction in the source discussion, recorded rather than resolved.**
 > `design/design-brief.md` states in one place that the version table's home is *a follow-up
 > decision* and *"the one open piece"*, and in another that it is *resolved: in code*. The
 > designer's later and more specific instruction is **in code, with only `root_uuid` in the
@@ -234,7 +234,7 @@ authoritative and the save self-describing. Note that the save's `root_uuid` is 
 
 ### 4.4 The migration chain
 
-**[决定]** One migration function per release, numbered, walked forward on load:
+**[Decided]** One migration function per release, numbered, walked forward on load:
 
 | Rule | Detail |
 | --- | --- |
@@ -244,22 +244,22 @@ authoritative and the save self-describing. Note that the save's `root_uuid` is 
 | **A refusal is always shown** | Every refusal reaches the player, with the slot's own `reason` verbatim |
 | **A refusal may offer the way out** | `ReturnToMenu` offers the game's own main menu; **either answer writes nothing** |
 
-**[既有]** The gate's timing constrains where it can live: `beforeLoadGame` fires
+**[Existing]** The gate's timing constrains where it can live: `beforeLoadGame` fires
 **before** the save string is decompressed, so a handler there cannot see the version. Two
 viable doors: wrap `KinkyDungeonLoadGame` (precedent: Boids already wraps
 `KinkyDungeonGenerateSaveData`), or read `localStorage` inside `beforeLoadGame` (earlier,
 but blind to multi-slot saves).
 
-**[决定]** The version rides in the save as a key on `KDGameData`, which survives the
+**[Decided]** The version rides in the save as a key on `KDGameData`, which survives the
 round-trip.
 
-**[决定]** A slot's *decision* and its *work* are split, because they happen at different
+**[Decided]** A slot's *decision* and its *work* are split, because they happen at different
 times. Whether a save may load, and whether any slot refuses it, is decided **in the gate**,
 before the game has adopted anything. A slot that accepts does its editing **after** the
 load, where the live `KDGameData` exists — so a semantic migration is written against the
 game's own state rather than against a re-encoded copy of the save string.
 
-**[决定] Phase 0 (2026-10-16) — a refusal is a value with a reason and an optional way out.**
+**[Decided] Phase 0 (2026-10-16) — a refusal is a value with a reason and an optional way out.**
 A slot's refusal carries its own `reason`, which reaches the player **verbatim**, and
 `ReturnToMenu`, which decides whether the player is offered the game's own main menu alongside
 staying where they are. `ReturnToMenu` is true only where staying cannot help — a save whose
@@ -267,14 +267,14 @@ shape this build cannot carry forward will not become loadable by trying again �
 refusal about *this* save among others, where the player should be left in the load menu to
 choose a different one.
 
-**[决定] Neither answer to a refusal writes anything.** The gate refuses **before** the game has
+**[Decided] Neither answer to a refusal writes anything.** The gate refuses **before** the game has
 adopted the save, so the save on disk is byte for byte the save that was offered, and a release
 that understands it can still read it. Returning to the menu is the same single state assignment
 the game makes for its own back buttons (`base/KinkyDungeon.ts:3315`) and nothing more. That is
 the property that makes refusing *graceful* rather than destructive: the player loses a load
 attempt, not a character.
 
-**[决定] Phase 0 (2026-10-16) — a save with no recorded version may be loaded, on a warned
+**[Decided] Phase 0 (2026-10-16) — a save with no recorded version may be loaded, on a warned
 confirmation.** The rule above governs a save whose version is *known and refused*. A save
 that carries **no** `root_uuid` is a different finding: it is a character written before
 versioned identifiers existed, which is not a corruption and not a newer release. It is
@@ -292,7 +292,7 @@ come from a newer release, and that stays a refusal.
 | `root_uuid` not in the table | refused as a newer release's save |
 | `root_uuid` known, its slot filled with a refusal | refused with that slot's message |
 
-**[既有]** The constraint that shapes the confirmation, and it is why this is two actions
+**[Existing]** The constraint that shapes the confirmation, and it is why this is two actions
 rather than one: `KinkyDungeonLoadGame` returns a **synchronous boolean** and both call
 sites carry their post-load work inline — `KDGenMapCallback`, the state transition and
 `KDModsAfterGameStart` (`base/KinkyDungeon.ts:5743-5761`, `:6534-6549`). A prompt cannot
@@ -301,7 +301,7 @@ losing the map-generation step. The gate therefore keeps the boolean contract, r
 first attempt, and on confirmation re-enters the game's own load button — the same idiom the
 base game uses for its two-click confirmations (`:2884-2888`, `:5164-5169`).
 
-**[决定] The approval names the save it belongs to, and is discarded with the question.**
+**[Decided] The approval names the save it belongs to, and is discarded with the question.**
 A flag would leak across a save list — confirming one character and then clicking another
 would load the second — and an accumulating set would leave approvals behind every cancelled
 decision. It is one pending question and one approval, and discarding the question discards
@@ -309,7 +309,7 @@ the approval.
 
 ### 4.5 Save-format surfaces
 
-**[决定]** Four things are persisted formats:
+**[Decided]** Four things are persisted formats:
 
 | Surface | Format rule |
 | --- | --- |
@@ -318,13 +318,13 @@ the approval.
 | the recorded `root_uuid` | `root_uuid` per character, which localises the release (§4.3) |
 | handler GUIDs | globally unique across the game **and every other mod**; a duplicate **literal** is a build-time concern, and a **registered** duplicate throws at load |
 
-**[决定] Moving a variant-key field is a migration, never a cleanup.** The key is
+**[Decided] Moving a variant-key field is a migration, never a cleanup.** The key is
 *expensive* to move, not immovable — the migration chain (§4.4) exists precisely to carry
 the rename. Nothing about the key is permanent; what is forbidden is moving it *without*
 writing the migration.
 
-**[既有]** The GUID namespace is clean: every GUID literal in `src/` is distinct. That is
-maintained by discipline rather than by a check — **[决定] so uniqueness is enforced by a test over
+**[Existing]** The GUID namespace is clean: every GUID literal in `src/` is distinct. That is
+maintained by discipline rather than by a check — **[Decided] so uniqueness is enforced by a test over
 every GUID literal under `src/`**, which enumerates them as well as checking them, so that a new
 hand-written identifier is a reviewed change rather than an accident. The count is deliberately not
 recorded here: it moves whenever a handler is added, and a number nobody updates is worse than no
@@ -332,13 +332,13 @@ number.
 
 ### 4.6 The text surface
 
-**[既有] The engine resolves text by looking a key up in one flat map, in one group.** `TextGet`,
+**[Existing] The engine resolves text by looking a key up in one flat map, in one group.** `TextGet`,
 `hasText` and `addTextKey` are hard-wired to the group the engine calls `default`
 (`Scripts/Text.ts:439,449,678`), and no engine code reads any other group — so a mod that registers
 its text elsewhere makes it invisible to the engine, item names and both tooltip lines included
 (`KinkyDungeonInventory.ts:1297-1302`).
 
-**[决定] The boundary rule.** If the **engine** resolves the key, the key is composed by the engine
+**[Decided] The boundary rule.** If the **engine** resolves the key, the key is composed by the engine
 from an identity this mod already holds, and it is registered in the group the engine reads. If the
 **mod** resolves the key, it is addressed by a path and registered in the mod's own group. A string
 the engine merely *displays* from a value the mod resolved belongs to the mod's group: the engine
@@ -350,16 +350,16 @@ status-line wording.
 | **composed** | the engine's | `Restraint<n>`, `<n>Desc`, `<n>Desc2`; `m_<model>`, `m_<model>_l_<layer>`, `c_<category>`; `KDVarPref<p>`, `KDVarSuff<s>`; `KinkyDungeonStat<id>`, `KinkyDungeonStatDesc<id>`; `KDCategory<name>` | the engine, by composition |
 | **path** | the mod's | the dotted path itself, e.g. `Common.Session.Refused.Body` | the mod, through its own read helper |
 
-**[决定] The slots are named by their suffixes, and the mapping is the engine's, not a reader's.**
+**[Decided] The slots are named by their suffixes, and the mapping is the engine's, not a reader's.**
 `Desc` is the *flavour* line and `Desc2` the *function* line (`base/KDModUtils.ts:487-493`). So
 writing function text to `Desc` puts it where the engine draws flavour, and writing flavour to a
 `Flavor` suffix puts it nowhere: **a key the engine does not read may not be registered at all.**
 
-**[决定] Every slot is registered, including the ones nothing supplies.** An absent slot is written
+**[Decided] Every slot is registered, including the ones nothing supplies.** An absent slot is written
 as the empty string. A key that was never registered makes the engine draw the key itself, so the
 absence of text is expressed as text.
 
-**[决定] Text resolves through a precedence list, first hit per slot winning:**
+**[Decided] Text resolves through a precedence list, first hit per slot winning:**
 
 1. the active language's merged tree — the fullest path first, then each shorter prefix;
 2. the English merged tree, the same walk;
@@ -368,29 +368,29 @@ absence of text is expressed as text.
    it is not;
 5. the empty string.
 
-**[决定] Layers 1 and 2 are one cascade across two trees, not two cascades.** A translator's
+**[Decided] Layers 1 and 2 are one cascade across two trees, not two cascades.** A translator's
 general value may therefore override a more specific English one, which is the power they are being
 given; the generated reference lists every path so it stays legible.
 
-**[决定] Trees merge widest-first, leaf by leaf, last writer winning.** A scope declares its rank
+**[Decided] Trees merge widest-first, leaf by leaf, last writer winning.** A scope declares its rank
 against one shared scale — common, faction, sub-faction, family — so a narrower scope's leaf wins
 at the same path without any scope having to know another exists.
 
-**[决定] Text data lives in a JSON tree at the closest common root of the entities that use the
+**[Decided] Text data lives in a JSON tree at the closest common root of the entities that use the
 string, and the module that reads a tree imports it.** The second half is not stylistic: gathering
 the data at the entry holds only while nothing else reaches the content tree first, and a bundler
 may reach it by another path.
 
-**[决定] No key is written by hand.** A composed key comes from the single builder for its shape; a
+**[Decided] No key is written by hand.** A composed key comes from the single builder for its shape; a
 mod key is a path. A test over the whole surface asserts that, together with the three slots being
 present and no registered value being a placeholder.
 
-**[决定] Text is not a persisted format.** Nothing in this section is in a save, so a text key may
+**[Decided] Text is not a persisted format.** Nothing in this section is in a save, so a text key may
 be renamed freely, and it is deliberately absent from §4.5's table.
 
 ## 5. The control model, in one picture
 
-**[决定]** The Coordinator is the mechanism layer (§2). It records what the **Host** (§9)
+**[Decided]** The Coordinator is the mechanism layer (§2). It records what the **Host** (§9)
 demands of a character and what the character's equipment can deliver, and a router turns
 that into gameplay.
 
@@ -400,7 +400,7 @@ that into gameplay.
   equipment capability ┘
 ```
 
-**[决定] The model is split into three groups**, because they are different operations:
+**[Decided] The model is split into three groups**, because they are different operations:
 
 | Group | Operation | Intent | Capability |
 | --- | --- | --- | --- |
@@ -408,12 +408,12 @@ that into gameplay.
 | **Substitution** | **take an existing ability away and re-grant it through another carrier** — a prosthesis, a spell generator | the gate enum (§6.4) | a whitelist of `CapabilityKey`s, or a `Posture` set — **whichever grant channel the dimension actually has** (§6.4, §6.13) |
 | **Buff** | **give something the character never had** | which buffs | which buffs, and their ceiling |
 
-> **[决定]** Substitution is a **transfer**; Buff is an **addition**. They are not merged.
+> **[Decided]** Substitution is a **transfer**; Buff is an **addition**. They are not merged.
 > *(Note on naming: the group is **Substitution**, while the gate's two non-free values are
 > **`OverrideForbidden`** and **`OverrideAllowed`**. The historical name for this group was
 > "Override", which collided with those values and has been retired.)*
 
-**[决定] The Coordinator's state has two parts, and route 1 distinguishes them.** The
+**[Decided] The Coordinator's state has two parts, and route 1 distinguishes them.** The
 `Coordinator` is the mechanism layer (§2). It holds:
 
 | Part | What it is | Cleared by route 1? |
@@ -421,16 +421,16 @@ that into gameplay.
 | **the dossier** | the character's control state — `intent` and `config` (§6.5) — i.e. what the Host demands of her on this attempt | **yes** (§6.10) |
 | **quest metadata** | what the **quest allocator** reads to place quests: knowledge and keys (blueprints, obtained keys, completion records) (§8.3) | **no** |
 
-**[决定]** The split is not incidental: it is what makes the repeat-entry skip criterion
+**[Decided]** The split is not incidental: it is what makes the repeat-entry skip criterion
 possible, and it is the same distinction §7.1 draws between the Host's *file* and the
 character's *training*. **Deleting the dossier does not delete what the Host knows.**
 
-**[决定]** Boids ships restraint fields at **0 or a very loose baseline**, and the
+**[Decided]** Boids ships restraint fields at **0 or a very loose baseline**, and the
 Coordinator applies the real binding strength dynamically — the item does not begin strict,
 it *becomes* strict. §8.2 states what this means for progression. It follows from restraint
 definitions being read-only (§6.2, §6.8).
 
-**[决定] The wearer's adaptation is compensated, not rewarded.** A dimension the controller
+**[Decided] The wearer's adaptation is compensated, not rewarded.** A dimension the controller
 drives is **not** rescaled by the base game's wearer-adaptation perks: `SmoothTalker` and
 `Incantation` do not soften a gag, `SomaticPlus` and `SomaticMinus` do not soften bound hands,
 `Butterfingers` does not fold one binding into another, and the `ClassicHeels` / `Flexible` /
@@ -439,7 +439,7 @@ fiction is the reason, and it is a claim about the **equipment** rather than abo
 `MachinePrime` piece is smart enough to measure what she has grown used to and cancel it out
 (`design/codex.md` §2.2). Mechanically it is the same statement the paragraph above makes —
 **a setting is a setting**, and it does not drift because the thing it is set on got used to it.
-**[待定] How this is realised** is Phase 2's step 2.8. Whether the controller bypasses the perk
+**[TBD] How this is realised** is Phase 2's step 2.8. Whether the controller bypasses the perk
 at its own seam or neutralises the perk outright is an implementation question, and the two are
 **not** equivalent for a dimension the mod does not drive.
 
@@ -447,7 +447,7 @@ at its own seam or neutralises the perk outright is an implementation question, 
 
 ### 6.1 Dimensions are composed, not classified
 
-**[决定]** A control dimension **composes facets** rather than belonging to one category,
+**[Decided]** A control dimension **composes facets** rather than belonging to one category,
 because semantics genuinely overlap — *struggle* is both a permission and a difficulty.
 
 ```ts
@@ -465,7 +465,7 @@ type PoseArms  = Identity & Posture & Gate
 type Noise     = Identity & Rate
 ```
 
-> **[决定] There is no separate `Capability: boolean`.** Whether the equipment can offer a
+> **[Decided] There is no separate `Capability: boolean`.** Whether the equipment can offer a
 > substitute for a dimension is exactly *whether the dimension's grant channel is non-empty* —
 > `Whitelist`'s `Granted` for an ability, `Posture`'s `Allowed` for a posture — so a boolean
 > would be a second source of truth for the same fact. `Rate`'s `Ceiling` is the analogous
@@ -475,14 +475,14 @@ The types above are **worked examples**, one per facet combination the design ne
 `Sight` is the dimension the game calls blindness; `Speech`, `Struggle`, `WeaponUse`,
 `PoseArms` and `Noise` are likewise dimensions, not base-game concepts.
 
-> **[决定] `Posture` exists because a body configuration is a *set*, not a number.** The arms
+> **[Decided] `Posture` exists because a body configuration is a *set*, not a number.** The arms
 > can be free, in front, crossed, wrist-tied, box-tied, yoked or raised, and the legs spread,
 > closed, kneeling, kneeling-closed or hogtied; the base game already treats each as a named
 > pose with a permitted set (`Data/Poses.ts:1, :16`). So the facet carries `Allowed`, and
 > **its `Free` value is the whole ladder rather than the empty set** — the one facet whose
 > baseline is not "nothing". §6.7 states how a set resolves; §6.13 states the route.
 
-> **[决定] Appearance is the equipment's declaration — not a facet, and not a demand.** The
+> **[Decided] Appearance is the equipment's declaration — not a facet, and not a demand.** The
 > base game's `gag` property is one number that drives the mechanics **and** selects the
 > model, so a larger ball there is necessarily a stricter one and the two can never disagree.
 > They should be able to: *a small ball on a strict mechanism* and *a large one that only
@@ -494,7 +494,7 @@ The types above are **worked examples**, one per facet combination the design ne
 > created for survives and moves: a small ball on a strict mechanism is now one item variant
 > declaring a small appearance and a high bid, and its sibling declaring the opposite.
 
-**[决定]** Facets live in the **type system** and in a **code-side descriptor registry**.
+**[Decided]** Facets live in the **type system** and in a **code-side descriptor registry**.
 The persisted shape stays uniform (§6.5). The migration chain is the backstop, not the
 everyday mechanism.
 
@@ -515,16 +515,16 @@ A dimension descriptor is a code-side record, not persisted state. It must carry
 | the **body-state predicates** it feeds, when it can be refused | the base game asks *"are her arms bound"* as **one** question with some fifty callers; the answer is a union of refusals and has to know which dimensions contribute (§6.7) |
 | `DimensionId`, **derived from the version master** | §4.1 |
 
-**[决定]** A dimension may need **more than one seam**. The `Sight` dimension is not one
+**[Decided]** A dimension may need **more than one seam**. The `Sight` dimension is not one
 hook: the blind level is produced by one seam and consumed by another, and the game's
 training system reads the same global as a third consumer. **A partial implementation
 fails silently**, so the descriptor must name every tool the dimension uses.
 
-**[待定] Whether the descriptor must also record a precedence *relative to the game's own
+**[TBD] Whether the descriptor must also record a precedence *relative to the game's own
 writes*** is proposed but not settled. The observation above is verified; the requirement
 that follows from it is not yet a decision.
 
-> **[决定] Every seam records its *kind*, because the base game has four algebras rather than
+> **[Decided] Every seam records its *kind*, because the base game has four algebras rather than
 > one.** They were found by reading, not assumed. `calcDeaf` is an **addition** to a pair of
 > accumulators whose weights are themselves part of the payload
 > (`player/KinkyDungeonStats.ts:413-435`). `calcBlind` is an **absolute value** a handler
@@ -535,7 +535,7 @@ that follows from it is not yet a decision.
 > that named a trigger and no kind could not tell a phase which of the four it was being asked
 > to write, and a dimension that composes `Posture` has no event to name at all.
 
-> **[决定] A `Rate` dimension declares an *engine value* map, and a `Posture` dimension
+> **[Decided] A `Rate` dimension declares an *engine value* map, and a `Posture` dimension
 > declares a *ladder*.** `Rate` is **uniformly 0..1 in the model** — that is what makes one
 > clamp rule and one body of property tests possible — but no base-game quantity is on that
 > scale: blindness is an integer ladder capped at 7, deafness an unbounded weighted sum, a
@@ -548,7 +548,7 @@ that follows from it is not yet a decision.
 > map, because the engine already speaks pose sets; what it needs instead is the **ladder** it
 > governs, which is also what its `Free` means (§6.1).
 
-> **[决定] The two new fields are guarded at registration, not by review.** A dimension that
+> **[Decided] The two new fields are guarded at registration, not by review.** A dimension that
 > declares an engine value map but composes no `Rate` is refused; a `Posture` dimension with
 > an empty ladder, a ladder member that is not a pose, or no `Replace` seam is refused, because
 > a set with nowhere to go is unimplemented rather than described; and a body-state predicate may
@@ -557,7 +557,7 @@ that follows from it is not yet a decision.
 
 ### 6.3 Subsystems, and the build order
 
-**[决定]** Three subsystems, split by **mechanism**, not by body part:
+**[Decided]** Three subsystems, split by **mechanism**, not by body part:
 
 | Subsystem | Owns |
 | --- | --- |
@@ -565,11 +565,11 @@ that follows from it is not yet a decision.
 | **Stats Control** | multipliers and rates — damage, evasion, crit, spell accuracy, resource costs, stat ceilings, sprint |
 | **Behavior Control** | action gates — struggling, speaking, moving, attacking, casting, using what she holds, blocking, escaping, arousal, operating the world, body configuration and noise |
 
-**[决定] Scope of the first delivery:** **Sensory + Behavior**, with **Behavior first**
+**[Decided] Scope of the first delivery:** **Sensory + Behavior**, with **Behavior first**
 (driven by the equipment-upgrade framework, §8.3). **Stats Control is deferred** until the
 resource system exists; its dimensions are declared now and left unused.
 
-**[决定]** The data model covers **every** dimension from the start; only a few are
+**[Decided]** The data model covers **every** dimension from the start; only a few are
 implemented, and logic is added in stages from simple to hard.
 
 ### 6.4 The gate enum
@@ -580,15 +580,15 @@ implemented, and logic is added in stages from simple to hard.
 | **OverrideForbidden** | the Host applies the restraint effect | the injection layer denies |
 | **OverrideAllowed** | the Host re-grants an ability **through the equipment** | the injection layer grants, **but only from the equipment's grant channel for that dimension** — its `Granted` whitelist for an ability, its `Allowed` posture set for a body configuration (§6.13) |
 
-**[决定] Free means "inject nothing", so the three layers compose rather than replace.**
+**[Decided] Free means "inject nothing", so the three layers compose rather than replace.**
 The restraint template's defaults are always the floor.
 
-**[决定] A hard rule, enforced at write time (invariant 6):** *if the equipment does not offer
+**[Decided] A hard rule, enforced at write time (invariant 6):** *if the equipment does not offer
 a substitute **on the dimension's grant channel**, the Host cannot set `OverrideAllowed` for
 it.* "Allow" is a promise about a specific capability; with no capability there is nothing to
 promise. The validator **refuses the write** rather than letting it fail silently later.
 
-> **[决定] There are two grant channels, and the rule is stated over the channel rather than
+> **[Decided] There are two grant channels, and the rule is stated over the channel rather than
 > over `CapabilityKey` alone.** A dimension that composes `Whitelist` promises **abilities**,
 > by key. A dimension that composes `Posture` promises **body configurations**, by pose. Writing
 > the rule as *"the whitelist is non-empty"* would make `OverrideAllowed` unreachable for every
@@ -596,16 +596,16 @@ promise. The validator **refuses the write** rather than letting it fail silentl
 > says nor what §6.13 needs. So the validator is handed the promise **on the channel that
 > dimension actually has**, and checks that one.
 
-**[决定] `CapabilityKey` is a closed union.** Speech, `immobile`-based movement and noise
+**[Decided] `CapabilityKey` is a closed union.** Speech, `immobile`-based movement and noise
 (§3.2) must never appear in it, so attempting to is a **compile error**, not a design review.
 It is **not the whole of what can be granted** — it is the vocabulary of one grant channel,
 and `Posture` carries its own (§6.13).
 
-**[决定] The Host's working order is: read capability, then set intent.**
+**[Decided] The Host's working order is: read capability, then set intent.**
 
 ### 6.5 The persisted shape
 
-**[决定] One `intent` per dimension, and its shape is a composition of that dimension's
+**[Decided] One `intent` per dimension, and its shape is a composition of that dimension's
 facets.** A dimension is not a number and not a flag: it composes facets (§6.1), so **what
 the Host may demand of it is exactly what those facets take as parameters, and nothing
 else.** The intent is therefore a duct-typed record — a merge of the facets' parameter
@@ -644,7 +644,7 @@ dimensions were each a real mechanism hiding inside another dimension's property
 was a real consumer with no dimension at all. **There is no `Arms` dimension and no `Hands`
 dimension**, and that absence is deliberate — see the next decision.
 
-> **[既有] A binding is not one demand, it is a bundle, and the bundle has no dimension of its
+> **[Existing] A binding is not one demand, it is a bundle, and the bundle has no dimension of its
 > own.** The base game's `bindarms` is a boolean and `bindhands` is a number
 > (`base/KDTypeDefs.ts:487-492`), and between them they pay for melee accuracy and damage
 > (`fight/KinkyDungeonFight.ts:322-345`), blocking (`:574-599`), whether a weapon may be used
@@ -658,7 +658,7 @@ dimension**, and that absence is deliberate — see the next decision.
 > plus one take `bindhands` with the arms free, and the two properties ride slots that are not
 > the arm or the hand at all.
 
-> **[决定] `Speech` composes `Rate` + `Gate`, and the two are orthogonal.** An earlier reading
+> **[Decided] `Speech` composes `Rate` + `Gate`, and the two are orthogonal.** An earlier reading
 > had `Speech` as a pure permission, which left the base game's `gag` value with nowhere to
 > live: that property is a number and it drives how badly speech degrades. Split two ways, the
 > **rate** is how strictly the mouth is filled and the **gate** is whether speech is denied or
@@ -666,7 +666,7 @@ dimension**, and that absence is deliberate — see the next decision.
 > still visibly full. *How large the thing in her mouth looks* is a third and separate question,
 > and it belongs to the item rather than to the demand (§6.1).
 
-> **[既有] A gag is not one demand either — it is four.** The inventory of
+> **[Existing] A gag is not one demand either — it is four.** The inventory of
 > `KinkyDungeonGagTotal` (`player/KinkyDungeonStats.ts:2209`) and its consumers shows one
 > property paying for speech (`:2241-2246`), the `Verbal` spell component
 > (`magic/KinkyDungeonMagic.ts:63-76`), drinking and eating
@@ -675,13 +675,13 @@ dimension**, and that absence is deliberate — see the next decision.
 > bid on `Speech`, `Casting`, `Interaction` and `Noise`, and **not** on `Struggle`. The rule it
 > is an instance of is §6.7's.
 
-> **[决定] `Posture` contributes `Allowed`, and it is the one parameter whose value is a set.**
+> **[Decided] `Posture` contributes `Allowed`, and it is the one parameter whose value is a set.**
 > Every other parameter is a number or one of three names; this one is a list of poses, because a
 > body configuration is chosen from a ladder rather than measured. It is optional like the rest,
 > and an absent one is the ladder's own reading of "nothing was asked" — see §6.7 for what a set
 > resolves to and §6.13 for the route it travels.
 
-> **[决定] `Whitelist` contributes no intent parameter, and that is the design rather than an
+> **[Decided] `Whitelist` contributes no intent parameter, and that is the design rather than an
 > omission.** A whitelist lists what **equipment** can re-grant; **which keys those are is the
 > equipment's declaration, read from what is worn, never the Host's demand** (§6.12 clause 4).
 > So the Host's only lever over a whitelist is the gate in front of it: *"you may have it
@@ -689,7 +689,7 @@ dimension**, and that absence is deliberate — see the next decision.
 > abilities that covers. Adding a `Granted` to the intent would be the Host promising a
 > capability the equipment may not offer, which is the write §6.6 refuses.
 
-> **[决定] `GateIntent` is the `Gate` facet's vocabulary, not the type of an intent.** It is
+> **[Decided] `GateIntent` is the `Gate` facet's vocabulary, not the type of an intent.** It is
 > the three values in §6.4 and it belongs to one facet; a dimension without `Gate` in its
 > facets cannot carry it at all. Earlier drafts of this section wrote the whole persisted
 > demand as `{ [D]: GateIntent }`, which was wrong in a way that mattered: it **collapsed a
@@ -698,7 +698,7 @@ dimension**, and that absence is deliberate — see the next decision.
 > space. **`PoseKey` is the same kind of thing for `Posture`** (§6.13): a facet's vocabulary,
 > enumerated by that facet and by nothing else, and never a second name for an intent.
 
-**[决定] An absent key is the baseline, and the baseline is the `Free` value — not a stored
+**[Decided] An absent key is the baseline, and the baseline is the `Free` value — not a stored
 reading.** For every dimension, the baseline is **every facet parameter-at-rest**:
 **`Rate.Target = 0`** (nothing imposed) and **`Gate.Intent = Free`** (inject nothing) —
 `Whitelist` contributes no parameter at all, so there is nothing of it to rest. So "nothing is
@@ -706,7 +706,7 @@ imposed on the character" is **the absence of an effect**, which is why removing
 *releases* an override instead of having to *restore* a value (invariant 12), and why route 1's
 clearance has nothing to preserve.
 
-> **[决定] `Posture` is the one exception, and it is stated rather than assumed.**
+> **[Decided] `Posture` is the one exception, and it is stated rather than assumed.**
 > `Posture.Allowed` at rest is **the whole ladder** — every pose the dimension governs —
 > because an unconstrained body is free to take any of them, and `Posture` is by construction a
 > permission rather than a severity. So for this one facet "nothing is imposed" is a **full**
@@ -714,17 +714,17 @@ clearance has nothing to preserve.
 > not as a list of refusals: `Free` and "every pose allowed" have to be the same statement, or
 > removing the last covering item would have to *restore* a set instead of releasing one.
 
-**[决定] `intent` is persisted and an applied strength is not.** The value a seam ultimately
+**[Decided] `intent` is persisted and an applied strength is not.** The value a seam ultimately
 receives — the resolved severity — is **derived at runtime** from the intent and the
 equipment's current capability (§6.7). It is a computed value, so persisting it would store
 the answer to a question that must be re-derived whenever the worn set changes. **The
 persisted `Target` is the demand; the resolved severity is the outcome.**
 
-**[决定]** `config` **is persisted**. It holds **semantics only** — which struggle types a
+**[Decided]** `config` **is persisted**. It holds **semantics only** — which struggle types a
 gate governs, and so on — never live gameplay state. "Which options are currently open"
 belongs to progress, not to the controller.
 
-**[决定] There is no `equipment` key, and there must not be one.** The equipment group's
+**[Decided] There is no `equipment` key, and there must not be one.** The equipment group's
 capability is **computed at execution time from what is worn** (§6.12 clause 4), so a stored
 ceiling would be a cached answer to a question the worn set can change. This is also why the
 rule *"an intent may be stricter than the equipment can honour"* has no stored number to
@@ -732,11 +732,11 @@ compare against: **the working order is read capability, then set intent**, and 
 upgrades are gradual, so an intent recorded before the gear exists is normal rather than an
 error.
 
-> **[既有] A stored key is a namespaced path plus the character's `root_uuid`**, exactly like
+> **[Existing] A stored key is a namespaced path plus the character's `root_uuid`**, exactly like
 > every other identifier (§4.1–4.2): the key is not a bare UUID, and the `root_uuid` is
 > carried once for the character rather than repeated per dimension.
 >
-> **[既有] A dimension this build does not know is kept rather than dropped** when the maps are
+> **[Existing] A dimension this build does not know is kept rather than dropped** when the maps are
 > rebuilt from a save. Dropping it would lose another release's setting the moment this build
 > saved over the file — and the load gate already refuses a save whose root this build cannot
 > place, so an unknown key here means an id the catalogue moved, which the migration chain is
@@ -756,7 +756,7 @@ Rejection happens at write time, never as a silent runtime failure.
 | **Config** | every field must be one the dimension declares |
 | **(shape)** | a parameter the dimension's facets do not take is **refused at write time**, not stored and ignored |
 
-> **[既有] The rule *"`Free` may not carry a non-zero `Target`"* is asserted as a property,
+> **[Existing] The rule *"`Free` may not carry a non-zero `Target`"* is asserted as a property,
 > not at a write site.** It became unfalsifiable as a write check when the `equipment` key
 > left the dossier (§6.5): `Free` resolves to the baseline whatever is worn, so no single
 > write can break it. The gate and the rate are **two separate facets of one demand**, and
@@ -767,16 +767,16 @@ Rejection happens at write time, never as a silent runtime failure.
 
 ### 6.7 The router
 
-**[决定]** The router exists, and it is **one-to-many**: many items may speak to the same
-dimension, and they must not fight. **[决定]** Its fourth job is the projection layer:
+**[Decided]** The router exists, and it is **one-to-many**: many items may speak to the same
+dimension, and they must not fight. **[Decided]** Its fourth job is the projection layer:
 projection is **not** a side effect of equipping — it is gated on servitude progress and
 applied **retroactively** to an already-worn item. *(That is the **equipment** projection
 layer of §6.8. This section does not use the word for the engine value map — the glossary
 keeps the two apart, and they are unrelated.)*
 
-**[决定] The three rules for resolving a dimension, promoted.** They were built in Phase 1 as
-a `[提议]`; **this section is their promotion**, which is the only thing that could settle
-them (`design/README.md`: a step that is built but not promoted is still a `[提议]`).
+**[Decided] The three rules for resolving a dimension, promoted.** They were built in Phase 1 as
+a `[Proposed]`; **this section is their promotion**, which is the only thing that could settle
+them (`design/README.md`: a step that is built but not promoted is still a `[Proposed]`).
 
 1. **Which items are providers** — an item declares its dimensions on apply, through the
    same stamped-event pattern items already use to register with the Coordinator.
@@ -786,12 +786,12 @@ them (`design/README.md`: a step that is built but not promoted is still a `[提
 3. **How the loser expresses itself** — a losing or partial provider still changes the model,
    appearance or pose through the existing limiter-update event.
 
-**[决定] A provider speaks to as many dimensions as it has effects, and to no others.** This is
+**[Decided] A provider speaks to as many dimensions as it has effects, and to no others.** This is
 the rule the whole decomposition rests on: a restraint is not classified by the part of the body
 it covers, it **is a set of bids** (§6.5). An arm restraint that also denies speech declares two
 bids; a gag declares four. **No dimension means "the arms are bound".**
 
-**[决定] The algebra, per facet.** What the router does is decided by the facets, and the
+**[Decided] The algebra, per facet.** What the router does is decided by the facets, and the
 facets do different things.
 
 | Facet | Rule |
@@ -801,10 +801,10 @@ facets do different things.
 | **Gate** | an absent demand reads as `Free`; `OverrideForbidden` engages where the direction can deny, `OverrideAllowed` where it can grant; a gate the seams cannot honour does not engage |
 | **Whitelist** | nothing — the Host's only lever over it is the gate in front of it |
 
-> **[决定] `Posture` combines by intersection, then subtraction, then union — and it is the same
+> **[Decided] `Posture` combines by intersection, then subtraction, then union — and it is the same
 > rule rather than a second one.** A provider declares the body configurations it can deliver,
 > so the worn set's capability is what **all** of them can deliver: the **intersection**.
-> **[既有] The reason the combination is an intersection rather than a union is the art.** A pose
+> **[Existing] The reason the combination is an intersection rather than a union is the art.** A pose
 > is a sprite variable, and an item that does not allow a pose may not carry the variable for it
 > at all — so permitting a pose the worn set cannot draw would produce a state the renderer
 > cannot represent. The Host's demand is then the axis that moves **down**: read as a set to
@@ -814,7 +814,7 @@ facets do different things.
 > demand. This is also why `Posture` has no numeric aggregate and no meaningful winner: rule 2's
 > `Power` bid has nothing to compare, and the winning bid matters only for rule 3.
 
-> **[决定] A `Posture` resolution is never allowed to come out empty, and the fallback is the
+> **[Decided] A `Posture` resolution is never allowed to come out empty, and the fallback is the
 > game's own sentinel rather than a rule of ours.** The game indexes the available set at `[0]`
 > (`player/KinkyDungeonDress.ts:714`), so an empty one hands `undefined` to the renderer — and
 > under intersection an empty set is **easy to reach**, since two items that each deliver one
@@ -823,13 +823,13 @@ facets do different things.
 > (`Data/Poses.ts:459-467`) — a set every rig can draw, which is exactly the property the
 > intersection exists to protect.
 
-**[既有] Why stacking is a field at all: the base game's aggregates do not agree with one
+**[Existing] Why stacking is a field at all: the base game's aggregates do not agree with one
 another.** `gag` is a **sum** with a saturating floor
 (`player/KinkyDungeonStats.ts:2209-2231`). A blind level is a **count and a maximum at once** —
 every item adds one *and* raises a floor (`:2063-2075`). A deaf level is a **weighted maximum
 plus a weighted sum** (`:413-435`). One number cannot carry all three.
 
-**[决定] Stacking: every bid declares how it stacks, and the winning bid's mode governs that
+**[Decided] Stacking: every bid declares how it stacks, and the winning bid's mode governs that
 dimension's aggregate.** Two modes, and they are the whole of it:
 
 | Mode | The capability is | The base-game quantity it is |
@@ -841,7 +841,7 @@ The aggregate is **clamped to 0..1 like any other rate**, and the dimension's en
 is what puts it on the engine's own scale. Ties keep the earlier bid, so the answer is
 deterministic for a given worn set.
 
-> **[决定] There is no `Count` mode, and its absence is a statement about what this mod's
+> **[Decided] There is no `Count` mode, and its absence is a statement about what this mod's
 > equipment *is*.** A count aggregates the **number of contributing items** rather than what any
 > of them says, so it only means anything if a piece's contribution is a fixed step — *one item,
 > one rung* — and this mod does not build fixed-value restraints: a piece declares a **power**,
@@ -852,13 +852,13 @@ deterministic for a given worn set.
 > argued with itself — whether a count could survive the 0..1 clamp — because a `Sum` of powers
 > is exactly the quantity the clamp and the engine value map were already stated over.
 
-**[决定] Interaction between dimensions: there is no contract for it.** The facet interface
+**[Decided] Interaction between dimensions: there is no contract for it.** The facet interface
 describes one dimension — its demand, its capability, its resolution — and nothing about any
 other. A seam **may** read anything it likes out of the game, including state that another
 dimension of ours happens to be driving; but **that is not part of the model, nothing may rely
 on it, and no test may assert it.**
 
-> **[既有] This is written down because the opposite was assumed for several rounds.** The base
+> **[Existing] This is written down because the opposite was assumed for several rounds.** The base
 > game genuinely couples these quantities: `KinkyDungeonSlowLevel` is fed by the pose, by
 > `hobble`, by `blockfeet`, by `immobile`, by stamina and by two perks
 > (`player/KinkyDungeonStats.ts:2153-2202`); `KDBoundPowerLevel` is fed by the gag, the blind
@@ -869,16 +869,16 @@ on it, and no test may assert it.**
 > asserts what one dimension does to another. **Unspecified is the honest status**, and it is
 > recorded here so nobody later reads it as an oversight.
 
-**[决定]** The router must be drivable from the console before any UI exists. The
+**[Decided]** The router must be drivable from the console before any UI exists. The
 Coordinator's state accessors already are.
 
 ### 6.8 Living with a read-only restraint form
 
-**[既有]** A restraint is one model per name and nearly stateless: a variant is a name plus
+**[Existing]** A restraint is one model per name and nearly stateless: a variant is a name plus
 a small delta and all physical properties delegate to a shared template; per-item state
 lives only in `item.data` and progress counters.
 
-**[既有]** Three morphing routes exist, and two are workarounds:
+**[Existing]** Three morphing routes exist, and two are workarounds:
 
 | Route | Status |
 | --- | --- |
@@ -886,7 +886,7 @@ lives only in `item.data` and progress counters.
 | injected dynamic layer filter | **workaround** — rendering only; no new name, no unbinding |
 | socketed sub-item | **workaround, and unfinished** — projects on apply with one hard-coded sub-item |
 
-> **[goal post] Consolidating these three into one projection layer is deferred, not
+> **[Goal Post] Consolidating these three into one projection layer is deferred, not
 > required.** The target is stated in §6.7, and the variants it mints should use derived ids
 > — but this is a **standing invitation to do better**, not a decision the current work
 > depends on. Neither the projector's progress gating nor the derived-id change is required
@@ -903,12 +903,12 @@ lives only in `item.data` and progress counters.
 | display | a lock icon | a curse icon |
 | scaling a restraint's power | `lockmult` | `powerMult` / `powerBoost` |
 
-**[既有]** `lockmult` does **not** gate escape — it feeds the restraint's perceived power.
+**[Existing]** `lockmult` does **not** gate escape — it feeds the restraint's perceived power.
 It is therefore usable as a **strictness dial** independent of removal rules.
 
-**[决定] "Permanent" always means a curse**, never an unbreakable lock.
+**[Decided] "Permanent" always means a curse**, never an unbreakable lock.
 
-**[决定] There are two curse *kinds*, and they are a division of labour, not two copies of
+**[Decided] There are two curse *kinds*, and they are a division of labour, not two copies of
 one thing.** Their `condition`s and their liftability differ:
 
 | Curse kind | Role | `condition` | Liftable? |
@@ -921,7 +921,7 @@ one thing.** Their `condition`s and their liftability differ:
 | **kind 1** | the worn item | the item is sealed; the character can still act and still leave |
 | **kind 2** | **every worn item *and* the `furniture`, in one atomic replacement** | the character is stored; there is no longer anything to act with |
 
-**[既有] The `furniture` is a restraint, and this is why kind 2 has a carrier at all.** The
+**[Existing] The `furniture` is a restraint, and this is why kind 2 has a carrier at all.** The
 base game's `furniture` is a **map doodle** — `KDFurnitureDef`
 (`restraint/KinkyDungeonFurniture.ts:4-16`) carries `restraintTag`, `restraintSetTags`,
 `lockType`, a `sprite` and a `tickFunction`, and has **no `curse` field**. The binding effect
@@ -930,67 +930,67 @@ resolved by tag and applied as an ordinary restraint in the **`ItemDevices`** gr
 "the `furniture` is curse-locked" means **the restraint it applies is curse-locked**, and
 kind 2 needs **no new curse carrier**.
 
-**[决定] And because the furniture's restraint is an ordinary worn item, kind 2 needs no
+**[Decided] And because the furniture's restraint is an ordinary worn item, kind 2 needs no
 special case.** It is simply one more item in the set the atomic replacement covers; the
 `ItemDevices` group's own semantics are what make being in it a commitment, and the curse is
 what makes it permanent. **Any additional "she cannot be extracted" constraint is the room's
 business, not a second mechanism.**
 
-> **[既有] The verified chain, for implementation:** a furniture tile names a restraint via
+> **[Existing] The verified chain, for implementation:** a furniture tile names a restraint via
 > `restraintTag` (`KinkyDungeonFurniture.ts:22` and every other entry); the tag is resolved
 > through `KinkyDungeonGetRestraint({tags: [furn.restraintTag]}, …)`
 > (`prison/KinkyDungeonJail.ts:2740-2748`, `:2759-2769`); the applied restraint sits in the
 > **`ItemDevices`** group (`restraint/KinkyDungeonRestraintsList.ts`, 42 entries), which the
 > jail code treats as the device slot; and the furniture's optional `lockType` is passed
-> straight through as the lock (`map/KinkyDungeonSetpiece.ts:935`). **[决定]** So the shape is
+> straight through as the lock (`map/KinkyDungeonSetpiece.ts:935`). **[Decided]** So the shape is
 > **`furniture` (map definition) → restraint (applied, worn) → curse (kind 2)** — two
 > indirections, and the curse goes on the last one.
 
-**[既有]** The mechanism carries this directly: a curse is an entry in the `KDCurses`
+**[Existing]** The mechanism carries this directly: a curse is an entry in the `KDCurses`
 registry with its own `condition`, `remove`, `events`, `customIcon_*`, `altIcon`,
 `unlockText`, `powerMult` and `powerBoost`, so two kinds are two registry entries with no
-shared state. **[决定] The two kinds must not share a `condition` by accident** — if both
+shared state. **[Decided] The two kinds must not share a `condition` by accident** — if both
 evaluate identically the game cannot tell them apart and the flavour text has nowhere to
 attach.
 
-**[既有] And a curse is a single value per item, not a set.** `KDGetCurse` returns
+**[Existing] And a curse is a single value per item, not a set.** `KDGetCurse` returns
 `item?.curse || KDRestraint(item)?.curse` (`restraint/KinkyDungeonRestraints.ts:768-770`), so
 **the two kinds are alternatives at one slot, never simultaneous** on the same item. This is
 why kind 1 sealing the equipment and kind 2 sealing the character are separate states of the
 same field rather than two seals stacked on one item.
 
-**[决定] Kind 1 must supply a `remove` hook, and the hook must return `false`.** The base
+**[Decided] Kind 1 must supply a `remove` hook, and the hook must return `false`.** The base
 `remove` is what `KinkyDungeonCurseUnlock` consults to decide whether to take the item off,
 and the base game's own path takes it off — while kind 1 must leave it **worn** so that
-removal can be a struggle (§6.10). **[既有]** `KDCursedDef.remove` is
+removal can be a struggle (§6.10). **[Existing]** `KDCursedDef.remove` is
 `(item, host, specialMethod, index?) => boolean | void`, documented as *"Can return a
 boolean. True means the item is removed, if unlocked"* (`base/KDTypeDefs.ts:3965-3966`), so
 the whole override is the return value.
 
-**[决定] Kind 2 has no individual application step.** It is applied to the whole worn set and
+**[Decided] Kind 2 has no individual application step.** It is applied to the whole worn set and
 the `furniture` in **one atomic replacement**, so there is no reachable state in which some
 items are sealed and others are not.
 
-> **[既有] That a curse is *mechanically* liftable is not a design statement.** The
+> **[Existing] That a curse is *mechanically* liftable is not a design statement.** The
 > distinction above is design semantics: **kind 1 is not liftable anywhere in the world**,
 > because its `condition` cannot be satisfied outside the final room, and the room is the
 > key.
 
-**[决定] Reversibility, the two exit routes, and the final room's sequence are specified in
+**[Decided] Reversibility, the two exit routes, and the final room's sequence are specified in
 §6.10**, because they are the inverse of the progression §8.2 defines and must be designed
 with it rather than beside it.
 
 ### 6.10 Reversibility and the two exit routes
 
-**[决定] Before either point of commit executes, everything is reversible.** This is the
+**[Decided] Before either point of commit executes, everything is reversible.** This is the
 mechanical form of the mod's subject: descent is voluntary only while leaving is still
 possible.
 
-**[决定] Progression may only ever make leaving *harder*, never impossible.** Effort, cost
+**[Decided] Progression may only ever make leaving *harder*, never impossible.** Effort, cost
 and time may all rise without bound; **a refusal may not.** The single exception is the two
 commits below, which are irreversible by definition.
 
-**[决定] The final act has a fixed sequence:**
+**[Decided] The final act has a fixed sequence:**
 
 | # | Step | Reversible? |
 | --- | --- | --- |
@@ -1001,13 +1001,13 @@ commits below, which are irreversible by definition.
 | 5 | **The free phase** — the **Free state** is now in force, so equipment may be put on or taken off, and decorative locks added or removed, in any order. **Both routes stay open throughout.** | yes |
 | 6 | **The fork: interacting with the door, or with the `furniture`.** | **no** |
 
-**[决定] Lifting the curse is ceremony; the removal is the struggle.** The two are deliberately
+**[Decided] Lifting the curse is ceremony; the removal is the struggle.** The two are deliberately
 separated: *lifting* must be frictionless so that **"lift the curse, then fit a decorative
 lock" is a pure ritual action** with nothing in its way, and *removing* must be hard so the
 final act has a body to it. **A curse that had to be broken would put a fight in front of a
 ceremony**, and would also make the ceremony's re-enactment a second trial.
 
-**[既有] In the base game a curse-lift takes the item off the body, so kind 1 must override
+**[Existing] In the base game a curse-lift takes the item off the body, so kind 1 must override
 that.** `KDSendInput("curseUnlock")` (`base/KinkyDungeonInput.ts:155-157`) routes to
 `KinkyDungeonCurseUnlock` (`item/KDCurse.ts:1049`), which sets `keep = true` (`:1051`),
 clears `restraint.curse` and the variant's curse (`:1064-1067`), calls
@@ -1017,7 +1017,7 @@ takes the restraint off and turns it into a loose inventory item
 (`restraint/KinkyDungeonRestraints.ts:6065-6099`). **Left alone, lifting the curse would
 remove the equipment, and step 4 would have nothing to do.**
 
-**[决定] The override is a `remove` hook that returns `false`, and it is cheap.** `KDCursedDef`
+**[Decided] The override is a `remove` hook that returns `false`, and it is cheap.** `KDCursedDef`
 declares `remove: (item, host, specialMethod, index?) => boolean | void` with the comment
 *"Can return a boolean. True means the item is removed, if unlocked"*
 (`base/KDTypeDefs.ts:3965-3966`). **So kind 1's `remove` returns `false`:** the curse is
@@ -1025,18 +1025,18 @@ cleared and the equipment **stays worn**, which produces exactly the state step 
 Returning `false` is what `unlock` is bound to in `KinkyDungeonCurseUnlock`, so no other
 machinery has to be intercepted.
 
-> **[决定] The consequence is stated once, because it is what makes step 4 real: after the
+> **[Decided] The consequence is stated once, because it is what makes step 4 real: after the
 > lift, the item is worn, uncursed, and still on the body.** It is now removable only by the
 > game's ordinary struggle path — which is the peak. **And it is removable**, because
 > invariant 13 forbids a refusal.
 >
-> **[既有] Two strings come along with the base path and want overriding**: the escape status
+> **[Existing] Two strings come along with the base path and want overriding**: the escape status
 > line `KDSendStatus('escape', …, "Curse")` and the text key
 > `"KinkyDungeonCurseUnlock" + Curse` (`item/KDCurse.ts:1085-1086`), both of which read as
 > *"you are free"*. A kind-1 lift leaves the item on, so the text must say **the curse is
 > gone and the equipment is still there** — otherwise the UI contradicts the mechanics.
 
-**[既有] Curse and lock are mutually exclusive in the base game**, so the ritual is
+**[Existing] Curse and lock are mutually exclusive in the base game**, so the ritual is
 necessarily **two actions, not one**:
 
 | Evidence | Where |
@@ -1047,12 +1047,12 @@ necessarily **two actions, not one**:
 **So a decorative lock cannot be fitted to a locked or cursed item.** The order is therefore
 *lift → lock*, per item, and route 2's condition can only be assembled that way.
 
-> **[既有] And a curse is a single value, not a set.** `KDGetCurse` returns
+> **[Existing] And a curse is a single value, not a set.** `KDGetCurse` returns
 > `item?.curse || KDRestraint(item)?.curse` (`:768-770`) — **one curse per item**. A design
 > that needs two curses on the same item at the same time is not expressible; two kinds must
 > be *alternatives at the same slot*, which is what §6.9 specifies.
 
-**[决定] The difficulty is the Controller's injected ceiling.** While any controlled item is
+**[Decided] The difficulty is the Controller's injected ceiling.** While any controlled item is
 worn, the Controller drives the dimensions it covers as high as they can go **without closing
 the exit**. Nothing else supplies the resistance:
 
@@ -1073,13 +1073,13 @@ the exit**. Nothing else supplies the resistance:
   what makes "the Host lets her have her own limbs back" a diegetic event rather than a
   scripted one.
 
-> **[决定] The design has no invented curve.** There is no bespoke struggle formula to
+> **[Decided] The design has no invented curve.** There is no bespoke struggle formula to
 > author: the base game's own escape, struggle and destruction calculations supply it, and
 > the Controller's ceiling is the only dial. **The work is calibration, not construction**
 > — the peak must be hard enough to be the mod's hardest moment and still winnable, and the
 > safety valve below is what keeps an over-tuned peak from becoming a refusal.
 
-> **[决定] The standing safety valve: a player who cannot break free may still descend.**
+> **[Decided] The standing safety valve: a player who cannot break free may still descend.**
 > Route 2's requirement is *decorative locks on every worn item*. **Lifting a kind-1 curse is
 > frictionless and leaves the item worn uncursed (above), so the state a losing player is
 > already in can be turned into route 2's condition one item at a time** — lift, fit, repeat —
@@ -1087,15 +1087,15 @@ the exit**. Nothing else supplies the resistance:
 > failure of the attempt is not a dead end, it is a fork, and it resolves into the ending
 > rather than into a stall. **It is also why the ceiling may be tuned hard.**
 
-**[决定] No mechanism acts on the character in the final act.** Nothing presses anything on
+**[Decided] No mechanism acts on the character in the final act.** Nothing presses anything on
 her that is not her own equipment. The author supplies the room, the `furniture` and the
 decorative-lock interaction; **staying requires the player's own hands.** There is no captor
 and no machine to fight.
 
-**[决定] A decorative lock is a lock in appearance and nothing in substance.** It shows a
+**[Decided] A decorative lock is a lock in appearance and nothing in substance.** It shows a
 lock icon, it may be applied and removed freely, and it is neither kind 1 nor kind 2.
 
-**[决定] The decorative lock is implemented by intercepting the game's own self-lock
+**[Decided] The decorative lock is implemented by intercepting the game's own self-lock
 feature, and it needs no item.** The base game's self-lock is the player-cast `Lockdown`
 spell (`magic/KinkyDungeonMagicCode.ts:651-681`): it collects `KDLockableRestraints()`
 (`restraint/KinkyDungeonRestraints.ts:1258-1273`) and calls `KinkyDungeonLock(item, "Purple")`
@@ -1107,11 +1107,11 @@ on each. Three verified facts make it the right seam:
 | the **lock type is a parameter**, not baked into the restraint | `restraint/KinkyDungeonRestraints.ts:709-717` — `KinkyDungeonLock` sets `item.lock = lock`, and `KDLocks[lock].doLock` is optional | a Boids-registered `"Decorative"` entry in `KDLocks` is a complete lock with **no restraint behaviour** |
 | the base handler **refuses when every item is cursed** | `:1264-1267` — `KDLockableRestraints` skips any item with `KDGetCurse(item)` | the base implementation **cannot** be used as-is in this room, because every controlled item carries a kind-1 curse at entry. The interception is required, not merely convenient |
 
-**[决定] How it presents:** the same interaction, re-labelled. **Inside the room, on a
+**[Decided] How it presents:** the same interaction, re-labelled. **Inside the room, on a
 controlled item, the element carries the decorative lock's icon and text** instead of the
 base game's; outside the room it behaves as it always did.
 
-> **[既有] Two mechanical conditions the decorative lock must satisfy**, both from base-game
+> **[Existing] Two mechanical conditions the decorative lock must satisfy**, both from base-game
 > code rather than taste:
 >
 > 1. **The restraint must be *lockable*** — `KinkyDungeonIsLockable`
@@ -1122,7 +1122,7 @@ base game's; outside the room it behaves as it always did.
 > 2. **It must not defeat removal.** The decorative lock exists to be applied and lifted
 >    freely; if it gated escape, route 1 would become unreachable for a bookkeeping reason.
 
-**[决定] Both routes are entered from the free phase and committed by an interaction:**
+**[Decided] Both routes are entered from the free phase and committed by an interaction:**
 
 | | **Route 1 — leave** | **Route 2 — descend** |
 | --- | --- | --- |
@@ -1131,33 +1131,33 @@ base game's; outside the room it behaves as it always did.
 | **effect** | teleport to the world map **at the stairs** | **one atomic replacement:** every decorative lock on every worn item, and the `furniture`'s own restraint, become **kind-2 curses** |
 | **consequence** | **the progression is cleared and every controlled item is destroyed** | **the character is filed** (§8.4) |
 
-**[决定] The clearance is the deletion of the Host's dossier.** The Coordinator's state is
+**[Decided] The clearance is the deletion of the Host's dossier.** The Coordinator's state is
 not stored on the equipment (§8.2); it is one file the Host keeps *about* the character.
 Clearing the progression is therefore **deleting that file** — not unwinding a set of
 descriptor fields. The character keeps her body and her knowledge.
 
-**[决定] Leaving destroys the items, so no kind-1 curse survives into the world**, and there
+**[Decided] Leaving destroys the items, so no kind-1 curse survives into the world**, and there
 is no route out of the room carrying a permanent curse.
 
-**[决定] Even if the room persists technically, it resets on exit.** *Not returnable* is the
+**[Decided] Even if the room persists technically, it resets on exit.** *Not returnable* is the
 promise; the reset is the fallback that keeps a persistent room from contradicting it.
 
-**[既有] The player may open the box and take equipment back out.** The box holds the
+**[Existing] The player may open the box and take equipment back out.** The box holds the
 discarded gear, and everything before the commits is reversible, so it is a container rather
 than a one-way disposal. **The entry condition is evaluated from the controller's
 authoritative set** — the body and the registry — **not by enumerating containers**, so it
 cannot be defeated by stashing gear where the check does not look.
 
-**[决定] A second attempt starts from nothing.** The items are real game objects and the room
+**[Decided] A second attempt starts from nothing.** The items are real game objects and the room
 resets, so the discard destroys them; **a different equipment combination is available on
 re-entry.**
 
-**[提议] Some quests become skippable on re-entry, by one criterion:** *a quest may be
+**[Proposed] Some quests become skippable on re-entry, by one criterion:** *a quest may be
 skipped when what it produces is **knowledge** or a **key** — something the Host remembers —
 while a quest that produces a **physical** thing must be redone.* This is a rule rather than
 a list, because it must apply to quests that do not exist yet (§8.3).
 
-**[决定] And what makes that possible is that the Coordinator's state has two parts, of which
+**[Decided] And what makes that possible is that the Coordinator's state has two parts, of which
 route 1 clears only one** (§5, §7.1):
 
 | Part | Holds | Route 1 |
@@ -1169,110 +1169,110 @@ route 1 clears only one** (§5, §7.1):
 already has the memory that says "this one has been done", and the equipment side is what
 gets wiped. §8.3 uses this; **a second attempt is faster because the Host never forgot.**
 
-> **[待定] One item this section does not settle:** the **calibration** of the Controller's
+> **[TBD] One item this section does not settle:** the **calibration** of the Controller's
 > ceiling for step 4. The mechanism is decided — the base game's own struggle system, driven
 > by the Controller's maximum — so there is no formula to design; what is unsettled is **how
 > hard the peak should be**. That is tuning, and it is done against the finished room.
 
 ### 6.11 Arousal — the one movable declarative field
 
-**[决定]** `blocks arousal` is the **one** declarative restraint field that must be
+**[Decided]** `blocks arousal` is the **one** declarative restraint field that must be
 adjustable at runtime, because the dynamic switch is what makes the narrative and gameplay
 possible.
 
-**[既有]** Two mechanisms exist, and the movable one is **not** the one named `chastity`:
+**[Existing]** Two mechanisms exist, and the movable one is **not** the one named `chastity`:
 
 | Mechanism | Dynamic? |
 | --- | --- |
 | the `chastity` / `chastitybra` **flags**, read inline by the chastity helpers | **no** — no event seam |
 | the **`ChastityLower` / `ChastityUpper` player tags** | **yes** |
 
-**[既有]** The tag route works because the game sets those tags from the flags and *then*
+**[Existing]** The tag route works because the game sets those tags from the flags and *then*
 dispatches `updatePlayerTags` — which Boids already hooks, so a Boids handler runs
 afterwards and can set them too. The tags are consumed by pure tag lookups with no seam to
 block.
 
-**[提议] The gate is expressed as "the Host may deny access", not "the Host may grant it"**
-— that is the direction the existing seam supports cheaply. **[既有]** The grant direction
+**[Proposed] The gate is expressed as "the Host may deny access", not "the Host may grant it"**
+— that is the direction the existing seam supports cheaply. **[Existing]** The grant direction
 is not impossible (a handler receives the tag map and could write into it), but it needs the
 tag the game already set to be *withdrawn*, which is a different and less certain route.
-**[待定]** Which of the two directions ships is not settled.
+**[TBD]** Which of the two directions ships is not settled.
 
-> **[既有] Two limits, not glossed:** the tag route is an **add** (withdrawing a tag the
+> **[Existing] Two limits, not glossed:** the tag route is an **add** (withdrawing a tag the
 > game set needs a different route), and the chastity *helpers* are not movable at all.
 
 ### 6.12 The restraint contract
 
-**[决定] A restraint participates in the control model by meeting five clauses.** They are
+**[Decided] A restraint participates in the control model by meeting five clauses.** They are
 stated as one contract because a piece that meets four of them fails in ways that look like
-unrelated bugs. **[既有] Part of the contract is already implemented** in
+unrelated bugs. **[Existing] Part of the contract is already implemented** in
 `src/FactionMachine/MachinePrime/Coordinator/`; each clause names its status.
 
 **1. Membership — the `shrine` tag is the marker.**
-**[既有]** A controlled item is one whose restraint template carries a defined Boids tag in
+**[Existing]** A controlled item is one whose restraint template carries a defined Boids tag in
 its `shrine` list. The base game **misuses `shrine` as a generic tag list** — it is consulted
 for shrine interactions, but Boids already uses it as a category tag in many places
 (`Futuristic/Cuff/Item.ts`, `Futuristic/Headphone.ts:99`, `MachinePrime/Item/Gag.ts:160`).
-**[决定]** This is the membership test that §6.10's entry conditions and §6.9's kind-1 curse
+**[Decided]** This is the membership test that §6.10's entry conditions and §6.9's kind-1 curse
 both need: *"controlled"* means *"carries the tag"*, and nothing else.
 
 **2. Declaration — the item states its own bids on apply, and that is all it says.**
-**[既有]** An item spreads `SetItemDataOnApply` into its own `events` list, whose handler fires
+**[Existing]** An item spreads `SetItemDataOnApply` into its own `events` list, whose handler fires
 on **`postApply`** and stamps the declaration onto its own `item.data`; the membership walk reads
 it back off the worn set (§6.7 rule 1). The declaration carries the item's **bids**, one per
 dimension it moves, and its own **appearance** (§6.1) — both are properties of the item and
 neither is a demand.
-**[决定] There is no registration step and no registered-item set.** An earlier reading of this
+**[Decided] There is no registration step and no registered-item set.** An earlier reading of this
 clause had two builders — `RegisterItemOnApply` and `UnRegisterItemOnRemoval` — maintaining a
 per-archetype `RegisteredItems` set. **Both were deleted in Phase 1 and this clause now says what
 replaced them.** Membership is the tag (clause 1) and capability is computed from what is worn
 (clause 4), so a registration set was a third copy of a fact already stated twice, and the copies
 could disagree.
 
-> **[既有] The bubbling problem is real, already encountered, and already worked around.**
+> **[Existing] The bubbling problem is real, already encountered, and already worked around.**
 > `HandleItemEventWhenItemIsSource` (`KDExtension/Event.ts:34-43`) accepts the item
 > **only if it is the event's source** (`item.id === data.item.id`), and otherwise **follows
 > `dynamicLink` recursively**. That guard exists because the game spreads an item's events
 > onto linked items, so a naive handler mistakes a linked restraint for the one being applied.
-> **[待定] Whether this is the right seam is not settled** — the designer's instruction is to
+> **[TBD] Whether this is the right seam is not settled** — the designer's instruction is to
 > characterise the game's event bubbling before deciding, rather than to assume. The existing
 > implementation is the evidence to judge it by, not the conclusion.
 
 **3. Instantiation — the item must be a stateful object, not a template.**
-**[决定]** A restraint definition is one stateless model per name (§6.8), so anything the
+**[Decided]** A restraint definition is one stateless model per name (§6.8), so anything the
 control model or a curse must remember **has to live on a per-instance game object**: the
 worn item, identified by `item.id`, carrying its own `inventoryVariant`, `item.curse`,
-`item.lock` and progress counters. **[既有]** The base game already supports this and Boids
+`item.lock` and progress counters. **[Existing]** The base game already supports this and Boids
 already relies on it (`KDGetCurse` reads `item.curse`; `KinkyDungeonLock` writes `item.lock`;
 `KinkyDungeonRestraintVariants[...]` holds the variant's own copy). **A design that stores
 state on the template stores it for every character at once.**
 
 **4. No record — the equipment group is never entered into the controller's state.**
-**[决定]** Only the **current group's capability is computed, at execution time, from what is
+**[Decided]** Only the **current group's capability is computed, at execution time, from what is
 worn** (§6.5). Nothing about the equipment is persisted in the dossier, so the answer cannot
 go stale and no invalidation is needed. **This is what makes the per-facet Free state fall out
 for free** (§6.10): the last provider leaves, the dimension re-bids to `Free`.
 
 **5. Control — the equipment is driven through event callbacks.**
-**[决定]** The item does not call the controller. It receives the controller's effect through
+**[Decided]** The item does not call the controller. It receives the controller's effect through
 the seam families Appendix A enumerates — the `calc*` events, the `forceResult` guards, the
 action chokepoint, the declarative fields. **The controller is a subscriber, never a callee**,
 which is what keeps the item's own definitions free of control logic.
 
-> **[决定] The consequence, stated once:** clauses 1 and 3 are what a curse can attach to;
+> **[Decided] The consequence, stated once:** clauses 1 and 3 are what a curse can attach to;
 > clause 4 is what makes reversibility free; clause 5 is what makes the same restraint work
 > whether or not the Host is interested in it.
 
 ### 6.13 The posture route
 
-**[决定] A posture dimension is routed *directly* from the controller to the game's own pose
+**[Decided] A posture dimension is routed *directly* from the controller to the game's own pose
 system** — not through a restraint's declarative fields, and not through the tags a restraint's
 `shrine` may carry. It is the one family whose route is neither a `calc*` seam nor a
 `forceResult` guard, because the base game offers neither: the two functions that answer *which
 poses may she take* are **pure functions with no event** (`Data/Poses.ts:382, :477`), so §6.2's
 fourth seam kind — **replace** — is the only way in.
 
-**[决定] `PoseKey` is a closed, enumerable union.** It holds the game's own pose names: the seven
+**[Decided] `PoseKey` is a closed, enumerable union.** It holds the game's own pose names: the seven
 arm poses (`Free`, `Boxtie`, `Wristtie`, `Yoked`, `Front`, `Up`, `Crossed` — `Data/Poses.ts:1`)
 and the five leg poses (`Spread`, `Closed`, `Kneel`, `KneelClosed`, `Hogtie` — `:16`), plus the
 postures the availability functions test for (`FeetLinked`, `LegBind`, `ForceKneel`,
@@ -1314,7 +1314,7 @@ one at all.
    Under rule 2 that feedback does not exist for a controlled dimension. **It is recorded as
    intended, not as a defect to be repaired later.**
 
-> **[既有] One consequence is accepted rather than prevented.** The legs' availability answer is
+> **[Existing] One consequence is accepted rather than prevented.** The legs' availability answer is
 > also read as `legBondage` (`fight/KinkyDungeonFight.ts:285`), which drives the helpless melee
 > branch (`:322-326`). Subtracting `Spread` therefore reaches melee damage along a road that is
 > **not** `Attack`'s own bid. §6.7's no-interaction-contract decision covers it: the effect is
@@ -1332,41 +1332,41 @@ one at all.
 | **Training** | tolerance built up by practice | the game's own `KDGameData.Training` |
 | **The Host's file** | how far the Host has overridden the character, and what it has issued | `Coordinator` |
 
-**[既有]** The base game's training record already exists and already models voluntary
+**[Existing]** The base game's training record already exists and already models voluntary
 compliance under progressive restraint, with a persisted ledger, a progress display and a
-bonus at the end. Refusal is part of its design. **[决定]** Boids reuses it rather than
+bonus at the end. Refusal is part of its design. **[Decided]** Boids reuses it rather than
 building a parallel ledger.
 
-**[决定]** The two are **not merged**: a character can be deeply trained and barely
+**[Decided]** The two are **not merged**: a character can be deeply trained and barely
 overridden, or freshly overridden and untrained.
 
-**[决定] Only the file is what route 1 clears** (§6.10). Leaving the final room deletes the
-Host's dossier — the record of how far it had overridden the character. **[既有]** The
+**[Decided] Only the file is what route 1 clears** (§6.10). Leaving the final room deletes the
+Host's dossier — the record of how far it had overridden the character. **[Existing]** The
 **Training** record is the base game's own per-character record, the character leaves with
 her body, and the brief's reading is that **it survives.** This falls out of the two-record
 split rather than being a separate rule: training is about the character's body and is built
 by practice, the file is the Host's administrative relation to her. **Leaving costs the
 character her acknowledgement, not her tolerance.**
 
-**[决定] And route 1 clears the dossier only — the Coordinator's other part is quest
+**[Decided] And route 1 clears the dossier only — the Coordinator's other part is quest
 metadata, which survives** (§5, §8.3). The three splits line up: **the dossier is the Host's
 relation to this attempt**, quest metadata is **what the Host knows**, and Training is **what
 the character's body has learned**. Route 1 ends the first and leaves the other two.
 
 ### 7.2 The submission economy
 
-**[提议] The submission economy.** Obedience should buy something **visible and specific**;
+**[Proposed] The submission economy.** Obedience should buy something **visible and specific**;
 disobedience should be flavour and narrative, not a numbers tax. The reasoning: if obedience
-only ever costs, players route around the content and it is never seen. **[待定]** This is
+only ever costs, players route around the content and it is never seen. **[TBD]** This is
 stated as a design aim, not yet as a mechanism — what obedience buys is undecided (§8.1,
 §8.2).
 
 ### 7.3 Presentation
 
-**[提议] Control degree is not one bar**, because it is not one number. Each dimension
+**[Proposed] Control degree is not one bar**, because it is not one number. Each dimension
 presents as its own call, and **which presentation each dimension gets is undecided**.
 
-**[待定] For the aggregate**, the candidate is a **`Compliance`** stat: it provides
+**[TBD] For the aggregate**, the candidate is a **`Compliance`** stat: it provides
 resistance **equal to or greater than** the will stat's, it **shrinks the will ceiling as it
 rises**, and it is drawn as an **inverted will bar, right-to-left**. It is deferred with the
 rest of the resource work — its mechanism belongs to the control model and the quest line,
@@ -1376,7 +1376,7 @@ and its presentation is art.
 
 ### 8.1 Equipment-granted capability
 
-**[决定]** The design, exactly:
+**[Decided]** The design, exactly:
 
 1. The player performs a **ritual** and **permanently gives up a native ability**, in
    exchange for points.
@@ -1386,7 +1386,7 @@ and its presentation is art.
 4. It works **only while the corresponding equipment is worn.**
 5. Without the equipment, the ability is **gone**.
 
-**[决定] The mechanism, as a policy:**
+**[Decided] The mechanism, as a policy:**
 
 > **The native ability is denied at the action chokepoint. The mediated version is granted
 > at whatever seam the ability actually has.**
@@ -1394,63 +1394,63 @@ and its presentation is art.
 - **Denying is uniform and cheap**: wrap the input registry and refuse the relevant commands.
 - **Granting is per-ability**, because that is what the base game allows.
 
-**[决定] The surrender is not recorded anywhere, and needs no record.** What "permanently
+**[Decided] The surrender is not recorded anywhere, and needs no record.** What "permanently
 gives up a native ability" means in the mechanism is: **the equipment is sealed by a kind-1
 curse, and while it is sealed the ability is denied** (§6.9, §6.12). The seal *is* the
 surrender. So there is no surrendered-ability set, no flag, and nothing for a migration to
 carry — **and when the seal is lifted in the final room, the denial has nothing keeping it in
 place.**
 
-**[既有] And the ability itself was never destroyed.** Denial is a refusal at the chokepoint,
-not a deletion — the baseline is the `Free` value (§6.5) and was never written to. **[决定] So
+**[Existing] And the ability itself was never destroyed.** Denial is a refusal at the chokepoint,
+not a deletion — the baseline is the `Free` value (§6.5) and was never written to. **[Decided] So
 after route 1 the character has her abilities, and what she has lost is the Host's
 acknowledgement** (§6.10, §7.1). **The ritual is a thing the player may do again**, which is
 why the repeat-entry skip criterion treats it as a key rather than as a purchase.
 
 ### 8.2 The evolution ladder
 
-**[决定]** Equipment is acquired **loose and unlocked** and ends **high-restraint and
+**[Decided]** Equipment is acquired **loose and unlocked** and ends **high-restraint and
 permanently sealed**. The stages:
 
 1. **craft a lock and fit it**
 2. **craft reinforcing parts and upgrade them**
 3. **make the lock permanent**
 
-Each stage is a quest line requiring resources and travel. **[决定] The requirement on
+Each stage is a quest line requiring resources and travel. **[Decided] The requirement on
 their design is that they stay short and legible**: the tedium budget is spent on ceremony,
 not on errands. The player hands their own character over by hand, and the quest chain is
 what makes that a series of deliberate acts rather than a single one.
 
-**[决定] The two upgrade axes are bound differently:**
+**[Decided] The two upgrade axes are bound differently:**
 
 | Axis | Bound to |
 | --- | --- |
 | **restraint strength** (suppression) | **bound** to the ability/**substitution** upgrade — they advance together |
 | **the lock** | **not bound** — it advances on its own track |
 
-**[决定]** Because capability is decoupled from the restraints that carry it, progression
+**[Decided]** Because capability is decoupled from the restraints that carry it, progression
 conditions are evaluated **at the controller layer**, not by inspecting items.
 
-**[决定] The ladder is one-way, and its inverse exists exactly once.** The stages above may
+**[Decided] The ladder is one-way, and its inverse exists exactly once.** The stages above may
 only be advanced, and the only place the progression can be undone is the final act
 (§6.10): there, and only there, the equipment's **kind-1 curses** become liftable and the
 player may take the whole set back off.
 
-**[决定] Advancement makes leaving harder; it never makes leaving impossible.** Escape cost,
+**[Decided] Advancement makes leaving harder; it never makes leaving impossible.** Escape cost,
 effort and time may rise without bound. **A refusal may not.** The only exception is the two
 commits of §6.10, which are irreversible by definition.
 
-**[决定] The stage-3 "permanence" is a kind-1 curse** (§6.9): its `condition` is
+**[Decided] The stage-3 "permanence" is a kind-1 curse** (§6.9): its `condition` is
 unsatisfiable anywhere except the final room, so it is a real seal everywhere in the world
 and still removable in the one place where the choice is made.
 
-**[决定] Projection is a feedback form of servitude progress**: past a threshold, equipment
+**[Decided] Projection is a feedback form of servitude progress**: past a threshold, equipment
 projects additional, non-interactive parts. It is **retroactive** — an item already worn
 begins to project.
 
 ### 8.3 The quest framework
 
-**[决定]** Build a free, extensible framework before writing quests:
+**[Decided]** Build a free, extensible framework before writing quests:
 
 1. **Upgrades are classified by function**, each class holding **several mini quests**,
    recorded as a **table**.
@@ -1460,10 +1460,10 @@ begins to project.
 3. **The quest coordinator is built with the controller/coordinator, not beside it** — they
    read the same state.
 
-**[既有]** The game has a complete quest system: a global registry, a lifecycle, per-quest
+**[Existing]** The game has a complete quest system: a global registry, a lifecycle, per-quest
 data storage, and a generic drawing routine. **No engine change is needed** to add a quest.
 
-**[提议] Repeat-entry skip criterion.** Because route 1 of the final act destroys the
+**[Proposed] Repeat-entry skip criterion.** Because route 1 of the final act destroys the
 equipment and deletes the dossier (§6.10), a later entry redoes the chain. To reduce
 repetition, a single criterion decides what may be skipped rather than a list of exceptions:
 
@@ -1474,7 +1474,7 @@ So upgrade materials must be gathered again, while blueprints and key-acquisitio
 need not be repeated. It is stated as a rule because it must apply to quests that do not
 exist yet.
 
-**[决定] The equipment ladder, the ability ritual, and `Being Filed` are one progression,
+**[Decided] The equipment ladder, the ability ritual, and `Being Filed` are one progression,
 viewed from three sides**, and must be designed as one chain rather than three that happen
 to interlock:
 
@@ -1490,7 +1490,7 @@ for it.
 
 ### 8.4 `Being Filed`
 
-**[决定] `Being Filed` is a *family* of final quests**, not one scripted sequence. The
+**[Decided] `Being Filed` is a *family* of final quests**, not one scripted sequence. The
 content varies; the **entry condition** and the **two possible endings** are fixed.
 
 **Entry conditions — all must hold:**
@@ -1503,8 +1503,8 @@ content varies; the **entry condition** and the **two possible endings** are fix
 3. **The equipment is finished:** every controlled item worn has been upgraded to its
    strongest form **and locked with a kind-1 curse** (§6.9).
 
-**[决定]** Because capability is decoupled from the restraints that carry it, these conditions
-are evaluated **at the controller layer**, not by inspecting items. **[既有]** The design
+**[Decided]** Because capability is decoupled from the restraints that carry it, these conditions
+are evaluated **at the controller layer**, not by inspecting items. **[Existing]** The design
 already treats the equipment group as authoritative regardless of whether the pieces are
 worn at any given moment, so *"the equipment is finished"* asks the controller what it
 believes about the character rather than what an item's fields happen to say.
@@ -1523,86 +1523,86 @@ believes about the character rather than what an item's fields happen to say.
      decorative lock on every worn item and the `furniture`'s own restraint become **kind-2
      curses**, and the character is **sealed into the `furniture`**.
 
-**[决定]** At the end of route 2 the file is complete and the character is **effectively
+**[Decided]** At the end of route 2 the file is complete and the character is **effectively
 dead**: barring future content, there is no effective action left. The player's only move is
-to save and start a new character. **[决定] This is a *fixed state*, not a stopped game** —
+to save and start a new character. **[Decided] This is a *fixed state*, not a stopped game** —
 the character's time neither stops nor rewinds; the player merely stops observing her, and
-however long passes before the next observation she is unchanged. **[既有]** The game's save
+however long passes before the next observation she is unchanged. **[Existing]** The game's save
 on exit and the illegitimacy of manual saving make that literally true: a save taken in the
 filed state loads back into the same permanent cage.
 
-**[决定]** Because "no effective action" is not "no possible action", **two global sync
+**[Decided]** Because "no effective action" is not "no possible action", **two global sync
 hooks** run a **character export** when the character is in the filed state: **once on save,
 once on load.** The export is taken when the state is unambiguous rather than reconstructed
-later from a save that may have had no-op writes applied. **[决定] On route 1, the
+later from a save that may have had no-op writes applied. **[Decided] On route 1, the
 clearance fires before the teleport**, so the saved state is never mid-transition.
 
-**[决定] A second attempt is possible.** Route 1's destruction of the items and deletion of
+**[Decided] A second attempt is possible.** Route 1's destruction of the items and deletion of
 the dossier mean a later entry starts from nothing, with a different equipment combination
-available. **[提议]** Some quests are then skippable: a quest may be skipped when what it
+available. **[Proposed]** Some quests are then skippable: a quest may be skipped when what it
 produces is **knowledge** or a **key**, while one that produces a **physical** thing must be
 redone (§6.10, §8.3).
 
 ### 8.5 The archive
 
-**[决定]** The filed artifact persists in **`localStorage`** — the layer the base game uses
+**[Decided]** The filed artifact persists in **`localStorage`** — the layer the base game uses
 for cross-character unlocks, invisible to a new-game reset. A new character can read it.
 
 ## 9. The Host
 
-**[决定] Definition:** a **distributed super-consciousness that runs above the
+**[Decided] Definition:** a **distributed super-consciousness that runs above the
 consciousness of all machinery and all dolls.** It has no centre.
 
-**[决定] The defining property is a network boundary:**
+**[Decided] The defining property is a network boundary:**
 
 | Observer | Can perceive the Host? | How |
 | --- | --- | --- |
 | **inside the network** — dolls, machinery | **yes** | "spiritual sensing" |
 | **outside the network** | **no, never directly** | only by observing network members' behaviour and inferring an agent |
 
-**[决定] It is not a deity, and the distinction is load-bearing.** The spiritual sensing is
+**[Decided] It is not a deity, and the distinction is load-bearing.** The spiritual sensing is
 simply what perceiving a distributed structure feels like from inside it. A god would be
 placed *above* the network rather than *in* it, and would become directly addressable —
 which the boundary forbids.
 
 ### 9.1 Voice — it never speaks
 
-**[决定] The Host never speaks.** It is characterised **entirely through how third parties
+**[Decided] The Host never speaks.** It is characterised **entirely through how third parties
 react to it**. A character's direct perception of it is **non-verbal UI feedback only**,
 never a message. Everything else arrives **retold by a third party** — a briefing comes
 from another doll conveying intent, never from the Host to the character.
 
 ### 9.2 Appellations
 
-**[决定] Inside the network the Host is spoken *as*, not referred to.** There is no
+**[Decided] Inside the network the Host is spoken *as*, not referred to.** There is no
 otherness between the Host and a doll, so the honest form is the **first-person plural,
 "we"** — and naming it would be a category error, not a stylistic choice.
 
-**[决定] Minimise direct appellations; prefer passive and third-party constructions.** The
+**[Decided] Minimise direct appellations; prefer passive and third-party constructions.** The
 fewer direct references a text contains, the more distance it has. A briefing says *"you
 have been assigned"*, not *"⟨X⟩ assigns you"*.
 
-**[决定] Two constants survive, and both belong to parties outside the network** — the only
+**[Decided] Two constants survive, and both belong to parties outside the network** — the only
 place a name can honestly live, because only an outsider needs to name what it cannot see:
 | Constant | Who | Value |
 | --- | --- | --- |
-| `HostName_FactionHostile` | hostile factions | **[待定]** — no word chosen |
-| `HostName_FactionTechnical` | factions that study or trade with it | **[待定]** — no word chosen |
+| `HostName_FactionHostile` | hostile factions | **[TBD]** — no word chosen |
+| `HostName_FactionTechnical` | factions that study or trade with it | **[TBD]** — no word chosen |
 
-**[待定]** No appellation word has been chosen, and none is invented here. The constants
+**[TBD]** No appellation word has been chosen, and none is invented here. The constants
 exist so that the words can be settled by editing one place each. The second constant is
 optional: if the two registers duplicate in practice, they collapse to one.
 
-**[决定]** Inside-network contexts — dolls to each other, a doll addressing an outsider, the
+**[Decided]** Inside-network contexts — dolls to each other, a doll addressing an outsider, the
 filing ceremony, HUD text — **take "we" and have no constant**.
 
-> **[既有] Localisation.** "We" as a collective self-reference is not the same word in
+> **[Existing] Localisation.** "We" as a collective self-reference is not the same word in
 > every language, and the game ships translations. Strings must make the collective reading
 > explicit rather than relying on English's ambiguity.
 
 ## 10. Non-goals and deferred work
 
-**[决定]** Explicitly out of scope for the first delivery, and recorded so they are not
+**[Decided]** Explicitly out of scope for the first delivery, and recorded so they are not
 rediscovered:
 
 | Deferred | Why |
@@ -1617,7 +1617,7 @@ rediscovered:
 | **the `Compliance` aggregate's presentation** | the mechanism belongs to the control model; the presentation is art |
 | **the `Being Filed` reward for obedience** | what a filed character leaves behind is undecided, along with the currency |
 
-> **[决定] One deliberate non-migration, stated so it is not mistaken for an omission.** The
+> **[Decided] One deliberate non-migration, stated so it is not mistaken for an omission.** The
 > Coordinator's old three-slot state shape is **not** migrated. No released build ever wrote
 > it, so a migration would be written for a format nobody has. **From the first release
 > onward, every shape change goes through the chain** (§4.4).
@@ -1662,7 +1662,7 @@ maintained by review.
 - **The appellation words.** Two constants exist; no word is chosen.
 - **Art**, including the presentation of control degree.
 
-**Genuinely open, and marked `[待定]` where it appears:**
+**Genuinely open, and marked `[TBD]` where it appears:**
 
 | Open question | Where | Why it is not settled |
 | --- | --- | --- |

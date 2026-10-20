@@ -4,7 +4,7 @@
  *
  * ## Why a predicate is not a dimension
  *
- * **[既有] `getArmsBound` and `getHandsBound` are one question each with some fifty callers**
+ * **[Existing] `getArmsBound` and `getHandsBound` are one question each with some fifty callers**
  * (`effect/KinkyDungeonEvents.ts:263-340` and the callers §6.5 lists), and the base game answers
  * each with a single value computed from the restraint's own `bindarms` / `bindhands` fields. Our
  * model has no dimension that means *"her arms are bound"* and deliberately never will: an arm

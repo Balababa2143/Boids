@@ -20,8 +20,8 @@ labelled as counted rather than remembered.
 
 ## Not corpus, and marked differently on purpose
 
-[`design/README.md`](../../../README.md) defines the corpus's markers — `[既有]`, `[决定]`, `[提议]`,
-`[待定]`, `[goal post]`, `[待验证]` — and they are claims about **design status**. Reusing them here
+[`design/README.md`](../../../README.md) defines the corpus's markers — `[Existing]`, `[Decided]`, `[Proposed]`,
+`[TBD]`, `[Goal Post]`, `[To Be Verified]` — and they are claims about **design status**. Reusing them here
 would imply these notes have standing they do not have. This folder therefore uses its own three:
 
 | Marker | Means |
@@ -30,7 +30,7 @@ would imply these notes have standing they do not have. This folder therefore us
 | **[counted]** | produced by the command given in that file's *How to re-derive this* |
 | **[inferred]** | reasoned from what was read, but not confirmed by a line of the engine |
 
-Nothing in this folder is `[决定]`. A finding here can **motivate** a decision; the decision lives in
+Nothing in this folder is `[Decided]`. A finding here can **motivate** a decision; the decision lives in
 the spec, and this folder is not where you find out what the mod does.
 
 ## How paths in this folder are written

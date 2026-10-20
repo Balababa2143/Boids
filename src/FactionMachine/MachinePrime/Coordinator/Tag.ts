@@ -74,7 +74,7 @@ export const DimensionBidsKey = 'C4E1F2A7-9B3D-4E58-8A16-2F7C0D5B6E94' as const
 /**
  * The item-data key an item's **own appearance** is declared under.
  *
- * **[决定] The look of a thing is a property of the thing** (§6.1, §6.12 clause 2): the base game's
+ * **[Decided] The look of a thing is a property of the thing** (§6.1, §6.12 clause 2): the base game's
  * `gag` property is one number that drives the mechanics *and* selects the model, so a larger ball
  * there is necessarily a stricter one. Our model separates them — the bid moves the dimension and
  * this declares what the item looks like — so *a small ball on a strict mechanism* is one item

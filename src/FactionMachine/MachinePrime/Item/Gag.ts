@@ -14,7 +14,7 @@
  *
  * ## Why a muffler is four bids and one appearance
  *
- * **[既有] A gag is not one demand, it is four** (§6.5). The inventory of `KinkyDungeonGagTotal`
+ * **[Existing] A gag is not one demand, it is four** (§6.5). The inventory of `KinkyDungeonGagTotal`
  * (`player/KinkyDungeonStats.ts:2209`) and its consumers shows one property paying for speech
  * (`:2241-2246`), the `Verbal` spell component (`magic/KinkyDungeonMagic.ts:63-76`), drinking and
  * eating (`item/KinkyDungeonConsumables.ts:570-577, :754`), and the shout and moan radii

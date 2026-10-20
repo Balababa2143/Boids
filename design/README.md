@@ -23,13 +23,13 @@ The design is closed, so **none of these documents is edited to record an idea.*
 5. `design-brief.md` gains a dated row in **its Appendix E** naming the issue and the change.
    **The reasoning stays as it was reasoned; only the record accretes.**
 
-**A step that is implemented but not promoted is still a `[提议]`.** Building one never settles it —
+**A step that is implemented but not promoted is still a `[Proposed]`.** Building one never settles it —
 promotion is an edit to `spec.md`. `spec.md`'s own header is the normative statement of this
 protocol; the summary above is only an index.
 
 ## Reading the markers
 
 Every claim in the brief, the spec and the plan carries a marker, and the difference matters:
-**[既有]** verified in the base game or this repository, **[决定]** decided, **[提议]** proposed
-and not decided, **[待定]** deliberately open, **[goal post]** recorded and deliberately out of
-scope, **[待验证]** known to be unknown. The spec's conventions section defines them.
+**[Existing]** verified in the base game or this repository, **[Decided]** decided, **[Proposed]** proposed
+and not decided, **[TBD]** deliberately open, **[Goal Post]** recorded and deliberately out of
+scope, **[To Be Verified]** known to be unknown. The spec's conventions section defines them.

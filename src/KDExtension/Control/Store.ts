@@ -10,17 +10,17 @@
  * }
  * ```
  *
- * **[决定] `intent` is persisted and an applied strength is not.** The value a seam ultimately
+ * **[Decided] `intent` is persisted and an applied strength is not.** The value a seam ultimately
  * receives — the resolved severity — is **derived at runtime** from the intent and the equipment's
  * current capability (`design/spec.md` §6.5, §6.7). It is a computed value, so persisting it would
  * store the answer to a question that has to be re-derived whenever the worn set changes. **The
  * persisted `Target` is the demand; the resolved severity is the outcome.**
  *
- * **[决定] There is no `equipment` key, and there must not be one.** The equipment group's capability
+ * **[Decided] There is no `equipment` key, and there must not be one.** The equipment group's capability
  * is computed at execution time from what is worn (§6.12 clause 4), so a stored ceiling would be a
  * cached answer to a question the worn set can change.
  *
- * **[决定] The baseline is the absence of an entry, not a stored reading.** A dimension with no
+ * **[Decided] The baseline is the absence of an entry, not a stored reading.** A dimension with no
  * `intent` entry sits at *every facet parameter at rest* — and that is why removing equipment
  * **releases** an override instead of having to restore a value (invariant 12), and why route 1's
  * clearance has nothing to preserve.
@@ -532,7 +532,7 @@ export const ConfigFits = (config: Config, declared: ConfigField | undefined): b
  *
  * ## Why the mode belongs to the bid
  *
- * **[既有] The base game's own aggregates do not agree with one another** (§6.7): a `gag` is a sum
+ * **[Existing] The base game's own aggregates do not agree with one another** (§6.7): a `gag` is a sum
  * with a saturating floor, a blind level a count and a maximum at once, a deaf level a weighted
  * maximum plus a weighted sum. One combining rule cannot reproduce all three, so **the winning
  * bid's {@link StackMode} governs that dimension's aggregate** and this function is total over the
