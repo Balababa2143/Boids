@@ -19,8 +19,8 @@
  *
  * | Facet | Rule |
  * | --- | --- |
- * | `Rate` | the capability is the aggregate of the bids under the **winning bid's stacking mode**; `Applied` is the stronger of the Host's demand and that capability; the dimension's **engine value** map then turns `Applied` into the number a seam receives |
- * | `Posture` | the capability is the **intersection of every provider's `Allowed`**, or the **ladder** when none speaks; subtract the Host's demand where the gate forbids, then union it where the gate allows; **allow wins**, and the result is **never empty** |
+ * | `Rate` | the capability is the aggregate of the bids under the **winning bid's stacking mode**; `Applied` is the Host's demand **clamped to** that capability (`min(demand, capability)`, with an absent demand at 0); the dimension's **engine value** map then turns `Applied` into the number a seam receives |
+ * | `Posture` | the capability is the **intersection of every provider's `Allowed`**, or the **ladder** when none speaks; subtract the Host's demand where the gate forbids, and where the gate allows a demand may only restore a pose the capability already contains; **allow wins**, and the result is **never empty** (the sentinel is the one member allowed outside the capability) |
  * | `Gate` | an absent demand reads as `Free`; `OverrideForbidden` engages when the direction can deny, `OverrideAllowed` when it can grant — a gate the seams cannot honour does not engage |
  * | `Whitelist` | nothing: the Host's only lever over it is the gate in front of it |
  *
@@ -42,8 +42,10 @@
  */
 
 import { BodyStateName, ResolveBodyState } from './BodyState'
+import { CapabilityKey } from './Capability'
 import { AllDimensions, EngineIdentity, GetDimension } from './Descriptor'
 import { CanDeny, CanGrant, FacetName, GateIntent, StackMode } from './Facet'
+import { GrantKeys } from './Grant'
 import { DimensionId } from './Identity'
 import { IsPoseKey, PoseKey } from './Pose'
 import {
@@ -69,7 +71,8 @@ export interface ProviderBid {
     /** Which dimension the provider speaks to. */
     readonly Dimension: DimensionId
     /**
-     * How hard it speaks. Higher wins, and the winner is the one that sets the constraint.
+     * How much capability it offers. Higher wins, and the winning bid's stacking mode governs the
+     * aggregate.
      *
      * There is no scale declared here on purpose: power is only ever compared, so a provider's
      * number means what its family decided it means. The base game's own handlers do the same.
@@ -94,6 +97,14 @@ export interface ProviderBid {
      * Only a dimension that composes `Posture` reads it.
      */
     readonly Allowed?: readonly PoseKey[]
+    /**
+     * The abilities this provider can re-grant, when it speaks to a `Whitelist` dimension.
+     *
+     * The grant half of capability: keys the equipment can give back. Only a dimension that
+     * composes `Whitelist` reads it; a posture dimension promises poses through `Allowed` instead.
+     * An omission says nothing about abilities, which is a different statement from *"none"*.
+     */
+    readonly Granted?: readonly CapabilityKey[]
     /**
      * What the provider still contributes when it **loses**.
      *
@@ -129,14 +140,14 @@ export interface DimensionResolution {
      */
     readonly Demand?: number
     /**
-     * The severity a seam actually receives: **the stricter of the demand and what the gear can do.**
-     *
-     * Two independent reasons to impose something, so the answer is the strongest of them rather than
-     * one overriding the other — which is also what makes an intent recorded before the gear that can
-     * honour it exists *wait* rather than be discarded (`design/spec.md` §6.5).
+     * The severity a seam actually receives: **the Host's demand clamped to what the gear can do.**
+     * That is `min(demand, capability)`; with no recorded demand it is the baseline `0`, because
+     * capability is what the controller *can* do rather than an instruction to do it. The recorded
+     * demand is left untouched, which is what lets it *wait* for gear that can honour it
+     * (`design/spec.md` §6.5).
      */
     readonly Applied?: number
-    /** The strongest capability any provider offered: what the worn set could impose on its own. */
+    /** The capability the bids aggregate to: an upper bound on `Applied`, never a demand. */
     readonly Ceiling?: number
     /**
      * **What the engine actually reads**: `Applied` through the dimension's own engine value map.
@@ -176,6 +187,17 @@ export interface DimensionResolution {
     readonly Engaged?: boolean
     //#endregion
 
+    //#region Whitelist — present only for a dimension that composes `Whitelist`
+    /**
+     * The abilities the worn set can re-grant, as a union of every bid's `Granted`.
+     *
+     * A capability, not a demand: it is what a write of `OverrideAllowed` promises, and the field
+     * the validator's `grants` argument is read from. Empty when no provider offers one, which is
+     * different from *the dimension cannot grant* — the descriptor's direction says that.
+     */
+    readonly Granted?: ReadonlySet<CapabilityKey>
+    //#endregion
+
     /** The bid that won, or `null` when no provider spoke to this dimension at all. */
     readonly Winner: ProviderBid | null
     /**
@@ -185,6 +207,7 @@ export interface DimensionResolution {
      * reports rather than instructs, because *how* a family expresses a loss is the family's.
      */
     readonly Losers: readonly ProviderBid[]
+
     /** The semantic extra fields the dimension declared, or `{}`. */
     readonly Config: Config
 }
@@ -291,6 +314,12 @@ export const Resolve = (
     }
     //#endregion
 
+    //#region Whitelist — a capability, and the only facet with no Host parameter
+    if (descriptor.Facets.has(FacetName.Whitelist)) {
+        resolution.Granted = GrantKeys(dimension, forThisDimension)
+    }
+    //#endregion
+
     return resolution
 }
 
@@ -308,10 +337,10 @@ const IsDefined = <T>(value: T | undefined): value is T => value !== undefined
 /**
  * Resolves a `Rate` against the strongest bid.
  *
- * **Two independent reasons to impose something, so the answer is the stronger of them** rather than
- * one overriding the other. That is what lets a demand recorded before the equipment that can honour it
- * exists *wait* instead of being discarded: it is remembered, and the moment gear arrives that reaches
- * it, the outcome rises to meet it.
+ * **Capability bounds the intent, and the intent is kept.** `Applied` is the demand clamped to what
+ * the worn set can do; with nothing demanded it is the baseline 0. That is what lets a demand recorded
+ * before the equipment that can honour it exists *wait* instead of being discarded: it is remembered,
+ * and the moment gear arrives that reaches it, the outcome rises to meet it.
  *
  * The demand is reported **only when the Host actually asked for something**, so a caller can tell
  * *nothing demanded* from *a demand of zero* — the same distinction the store draws, and the reason the
@@ -326,7 +355,7 @@ const ResolveNumeric = (
     capability: number
 ): Partial<DimensionResolution> => ({
     ...(IsDefined(demand) ? { Demand: Clamp01(demand) } : {}),
-    Applied: Math.max(Clamp01(demand ?? Baseline), capability),
+    Applied: Math.min(Clamp01(demand ?? Baseline), capability),
     Ceiling: capability,
 })
 
@@ -337,10 +366,10 @@ const ResolveNumeric = (
  *
  * The worn set's capability is the **intersection** of every provider that speaks of body
  * configurations, or the dimension's **ladder** when none does. The Host's demand then moves that
- * set **down** — read as poses to remove under `OverrideForbidden` — and **up** where the gate
- * allows, read as poses to restore. **Subtract first, then add**, and a pose named by both is
- * **allowed**, because a grant is capability and capability is never overridden downward by a
- * demand (`design/spec.md` §6.7).
+ * set **down** — read as poses to remove under `OverrideForbidden` — and, where the gate allows,
+ * restores a pose **only if the capability already contains it**. **Subtract first, then add**, and
+ * a pose named by both is **allowed**, because a grant is capability and capability is never
+ * overridden downward by a demand — the demand is clamped to it (`design/spec.md` §6.7).
  *
  * ## Never empty, and the sentinel is the ladder's own head
  *
@@ -381,7 +410,7 @@ const ResolvePosture = (
                 // Only a pose this dimension governs can be restored, and `Allowed` is already
                 // refused at write time for one it does not (§6.6) — the test here is what keeps a
                 // demand off a save written by a build with a longer ladder.
-                if (IsPoseKey(pose) && ladder.includes(pose)) {
+                if (IsPoseKey(pose) && ladder.includes(pose) && ceiling.has(pose)) {
                     allowed.add(pose)
                 }
             }
@@ -436,6 +465,9 @@ export const BaselineResolution = (dimension: DimensionId): DimensionResolution 
     if (descriptor.Facets.has(FacetName.Gate)) {
         resolution.Gate = BaselineGate
         resolution.Engaged = false
+    }
+    if (descriptor.Facets.has(FacetName.Whitelist)) {
+        resolution.Granted = new Set<CapabilityKey>()
     }
     return resolution
 }

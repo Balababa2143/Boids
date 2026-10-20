@@ -4,7 +4,7 @@
 
 > **SetIntent**(`args`): `WriteOutcome`
 
-Defined in: src/FactionMachine/MachinePrime/Coordinator/Public/Control.ts:108
+Defined in: src/FactionMachine/MachinePrime/Coordinator/Public/Control.ts:111
 
 Records the Host's demand for one dimension.
 
@@ -21,6 +21,11 @@ while `{ Target: 0.4 }` is how a rate dimension's severity is asked for.
 An empty record is legal and means the baseline, which is how a demand is removed: there is no
 separate "unset", because an absent entry and an empty one are the same statement.
 
+**The grant is read, never supplied.** A caller cannot hand the validator a capability the
+equipment does not have: when the demand is `OverrideAllowed`, this function enumerates the worn
+set once and takes the promise on the dimension's own channel. Every other write leaves the body
+unread, because the grant has no bearing on it.
+
 ## Parameters
 
 ### args
@@ -31,15 +36,6 @@ separate "unset", because an absent entry and an empty one are the same statemen
 
 The dimension to write. Must be registered, or the write is refused
   rather than stored under an id nothing will ever read.
-
-#### grants?
-
-`ReadonlySet`\<`string`\>
-
-What the equipment promises for this dimension right now, by capability key.
-  Read from what is worn rather than stored, which is what makes "the Host cannot promise a
-  substitute the equipment does not offer" a fact about now. Omitted means nothing is promised,
-  which is the truth in a delivery that ships no capability keys.
 
 #### intent
 

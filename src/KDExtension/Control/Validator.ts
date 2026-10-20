@@ -127,8 +127,8 @@ export const WithConfig = (
  *
  * §6.6 lists *"`Free` may not carry a non-zero squeezed `Target`"*, and a write is genuinely the wrong
  * place for it: `Free` is the gate facet's value, the `Target` is the rate facet's, and **the resolved
- * severity is the stronger of the demand and what is worn** — so no single write can establish what
- * `Free` will resolve to. It is asserted as a **property over every resolution** in
+ * severity is the demand clamped to what is worn** — so no single write can establish what `Free`
+ * will resolve to. It is asserted as a **property over every resolution** in
  * `test/control-router.test.ts`, which is the honest home for a rule about all of them.
  *
  * @param descriptor - The dimension being written. Its facets and direction decide which rules apply.

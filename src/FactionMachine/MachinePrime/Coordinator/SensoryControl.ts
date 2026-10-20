@@ -28,9 +28,9 @@
  * ## Time still advances
  *
  * {@link AnnounceRate} ends with `KinkyDungeonAdvanceTime(1)` and re-enters the game's own tick
- * dispatch whenever it is called from inside one. That is deliberate and inherited: see the *"Time
- * advances from inside the game's tick dispatch"* invariant in `AGENTS.md` for what it costs and
- * why the prototype accepted it. Retiring this writer is **Phase 3.1**.
+ * dispatch whenever it is called from inside one. The random tick driver that used to call it from
+ * there was retired by the Phase 1 re-delivery (#82); the console driver is the only caller until
+ * **Phase 3.1** replaces it. It must still not be called from inside a tick handler.
  * @module FactionMachine/MachinePrime/Coordinator/SensoryControl
  */
 

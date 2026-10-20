@@ -94,7 +94,7 @@ Two consequences that are easy to get backwards:
   one of them is worth writing down. `Posture` is the one facet whose baseline is a **full** value rather
   than an empty one, because an unconstrained body may take any of its poses.
 * **The demand is persisted; the severity is not.** The recorded `Target` is what the Host asked for, and
-  the resolved severity is the stronger of that and what the worn set can impose. Storing the resolved
+  the resolved severity is that demand **clamped to** what the worn set can impose. Storing the resolved
   number would cache an answer the worn set can change with nothing to invalidate it.
 
 `test/control-baseline.property.test.ts` is the enforcement: equip, touch every dimension, remove
@@ -132,10 +132,10 @@ versioned decision rather than two spellings drifting apart (`Coordinator/Tag.ts
 The same goes for a dimension's id, which is a **key in the dossier**: renaming one renames a saved
 key, so it is a migration rather than a cleanup.
 
-## Time advances from inside the game's tick dispatch
+## AnnounceRate advances time, so it must not run inside a tick
 
-`MachinePrime/Debug.ts` registers a `tick` handler that calls `Coordinator.SensoryControl.AnnounceRate`,
-which ends with `KinkyDungeonAdvanceTime(1)` and re-enters the game's event bus via
-`KinkyDungeonSendEvent`. Every morph handler chains off that. It is the prototype's only *writer* of a
-dimension, which is why it lives in an explicitly-named debug module instead of being deleted — see
-#19 and #40, and note that **retiring it is Phase 3.1**, not the phase that built the store.
+`Coordinator.SensoryControl.AnnounceRate` ends with `KinkyDungeonAdvanceTime(1)` and re-enters the game's
+event bus via `KinkyDungeonSendEvent`. Every morph handler chains off that. The random `tick` handler that
+used to call it from inside the game's own dispatch was retired by the Phase 1 re-delivery (#82); the
+console driver is its only caller until 3.1 replaces it. **Never call `AnnounceRate` from inside a tick
+handler**: that is the re-entry the retirement exists to remove.

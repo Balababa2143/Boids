@@ -16,7 +16,14 @@
  * @module FactionMachine/MachinePrime/Coordinator/Provider
  */
 
-import { IsPoseKey, IsStackMode, PoseKey, StackMode } from '../../../KDExtension/Control'
+import {
+    CapabilityKey,
+    CapabilityKeys,
+    IsPoseKey,
+    IsStackMode,
+    PoseKey,
+    StackMode,
+} from '../../../KDExtension/Control'
 
 /**
  * One item's declaration that it can move a dimension.
@@ -29,9 +36,10 @@ import { IsPoseKey, IsStackMode, PoseKey, StackMode } from '../../../KDExtension
  * means what that family decided it means. **Higher is harder**, because the dimension being moved is
  * how much *restriction* applies.
  *
- * **An item declares its own appearance as well as its bids** (§6.12 clause 2, §6.1). It is not a
- * field of this record because it is not a bid: a look moves no dimension, and a declaration that
- * carried it would make it look like one.
+ * **An item's appearance is a mapping from the intent, not a field of this record** (§6.12 clause 2,
+ * §6.1). It is not a bid: a look moves no dimension, and a declaration that carried it would make it
+ * look like one. The families still render a declared `AppearanceKey`; moving that mapping onto the
+ * intent is the injector's slice (2.1/3.1).
  */
 export interface ProviderDeclaration {
     readonly Dimension: string
@@ -54,6 +62,14 @@ export interface ProviderDeclaration {
      */
     readonly Allowed?: readonly PoseKey[]
     /**
+     * The abilities this item can re-grant, when it speaks to a `Whitelist` dimension.
+     *
+     * The grant half of capability, and the same channel distinction the facet makes: a posture
+     * dimension promises poses through `Allowed`, a whitelist dimension promises abilities through
+     * `Granted`. An omission says nothing, which is a different statement from *"none"*.
+     */
+    readonly Granted?: readonly CapabilityKey[]
+    /**
      * What the item still contributes when it **loses** the bid.
      *
      * `false` is the honest answer for an item whose only contribution was the constraint. `true` says
@@ -72,13 +88,14 @@ export interface ProviderDeclaration {
  * being a provider rather than making the dimension answer with `NaN`: a value nothing downstream
  * survives, and one that would look like an equipment bug rather than a data one.
  *
- * **`Stack` and `Allowed` degrade per axis instead.** They are the two statements a family may
- * reasonably leave out, so a malformed one costs the item that statement and nothing else:
+ * **`Stack`, `Allowed` and `Granted` degrade per axis instead.** They are the statements a family
+ * may reasonably leave out, so a malformed one costs the item that statement and nothing else:
  * a `Stack` this build cannot read becomes `Max`, which is what a family that never thought about
- * stacking means anyway, and an `Allowed` it cannot read becomes `undefined` — *says nothing about
+ * stacking means anyway, an `Allowed` it cannot read becomes `undefined` — *says nothing about
  * body configurations* — rather than *permits none of them*, which is the reading that would empty
- * the ladder. Dropping the whole declaration over either would take a working constraint away with
- * it, which is the failure this boundary exists to prevent rather than to cause.
+ * the ladder, and a `Granted` it cannot keep becomes `undefined` rather than a key nothing can honour.
+ * Dropping the whole declaration over any of them would take a working constraint away with it,
+ * which is the failure this boundary exists to prevent rather than to cause.
  */
 export const ReadProviderDeclaration = (value: unknown): ProviderDeclaration | undefined => {
     if (value == null || typeof value !== 'object') {
@@ -99,6 +116,15 @@ export const ReadProviderDeclaration = (value: unknown): ProviderDeclaration | u
         Stack: IsStackMode(candidate.Stack) ? candidate.Stack : StackMode.Max,
         Allowed: Array.isArray(candidate.Allowed) && candidate.Allowed.every(IsPoseKey)
             ? candidate.Allowed
+            : undefined,
+        // A key this build cannot keep is not a statement the bid can make, so it degrades this
+        // axis to `undefined` and leaves the power and stacking intact. With the union empty in
+        // Phase 1 every non-empty array reads as absent; the first key (2.4) starts being kept
+        // without this reader changing.
+        Granted: Array.isArray(candidate.Granted)
+            && candidate.Granted.every(key =>
+                typeof key === 'string' && CapabilityKeys.has(key as CapabilityKey))
+            ? candidate.Granted
             : undefined,
         LoserExpresses: candidate.LoserExpresses,
     }

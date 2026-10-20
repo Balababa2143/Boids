@@ -4,7 +4,7 @@
 
 > **GetDossier**(): `ControlState`
 
-Defined in: src/FactionMachine/MachinePrime/Coordinator/Public/Control.ts:59
+Defined in: src/FactionMachine/MachinePrime/Coordinator/Public/Control.ts:61
 
 The Host's dossier for the active character.
 

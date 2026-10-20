@@ -120,36 +120,38 @@ describe('the router resolves one dimension', () => {
         // The equipment's contribution is still *reported*, and it does apply: an item that constrains is
         // constraining, whether or not the Host is interested.
         assert.equal(resolution.Ceiling, 0.5)
-        assert.equal(resolution.Applied, 0.5, 'the gear imposes its own capability with nothing demanded')
+        assert.equal(resolution.Applied, 0, 'capability is reported, not applied: the Host asked for nothing')
         assert.equal(resolution.Winner?.Source, 'item-0.5')
         // And a rate dimension has no gate at all, because it composes no `Gate`.
         assert.equal(resolution.Gate, undefined)
         assert.equal(resolution.Engaged, undefined)
     })
 
-    it('takes the stronger of the Host\'s demand and the equipment', () => {
-        // Two independent reasons to impose something, so the answer is the stronger of them rather
-        // than one overriding the other. That is what lets a demand recorded before the gear that can
-        // honour it exists *wait*.
+    it('clamps the Host\'s demand to the equipment', () => {
+        // Capability bounds the intent: a demand beyond what the worn set can do is executed as the
+        // closest actionable, and the demand itself is left in the dossier.
         const weakGear = Resolve(Sight, Dossier(Sight, { Target: 0.4 }), [Bid(Sight, 0.3)])
         assert.equal(weakGear.Demand, 0.4)
         assert.equal(weakGear.Ceiling, 0.3)
-        assert.equal(weakGear.Applied, 0.4, 'the demand won, because it is the stronger of the two')
+        assert.equal(weakGear.Applied, 0.3, 'the capability bounds the demand')
 
         const strongGear = Resolve(Sight, Dossier(Sight, { Target: 0.4 }), [Bid(Sight, 0.9)])
-        assert.equal(strongGear.Applied, 0.9, 'the gear won, because it is the stronger of the two')
+        assert.equal(strongGear.Applied, 0.4, 'and the demand bounds the capability')
     })
 
-    it('keeps a demand that no worn item can reach', () => {
-        // The case the "stronger" rule exists for: a demand recorded before the gear exists. It is not
-        // discarded, and the moment a stricter item is worn the answer rises without it being rewritten.
+    it('keeps a demand that no worn item can reach, and applies it once gear can', () => {
+        // The case the clamp exists for: a demand recorded before the gear exists applies nothing, is
+        // not discarded, and rises when gear that can honour it arrives.
         const bare = Resolve(Sight, Dossier(Sight, { Target: 0.8 }), [])
         assert.equal(bare.Demand, 0.8)
         assert.equal(bare.Ceiling, 0)
-        assert.equal(bare.Applied, 0.8, 'a demand with nothing worn is still a demand')
+        assert.equal(bare.Applied, 0, 'nothing worn can honour the demand, so nothing is applied')
 
         const withGear = Resolve(Sight, Dossier(Sight, { Target: 0.8 }), [Bid(Sight, 0.2)])
-        assert.equal(withGear.Applied, 0.8)
+        assert.equal(withGear.Applied, 0.2, 'the demand is clamped to the gear that arrived')
+
+        const reachesIt = Resolve(Sight, Dossier(Sight, { Target: 0.8 }), [Bid(Sight, 0.9)])
+        assert.equal(reachesIt.Applied, 0.8, 'and it reaches the demand when the gear can honour it')
     })
 
     it('gives the dimension to the highest bid', () => {
@@ -204,9 +206,43 @@ describe('the router resolves one dimension', () => {
 
     it('clamps a bid outside 0..1 rather than propagating it', () => {
         // A family's power is only ever compared with another bid, so nothing stops one supplying 3 or
-        // -1. The applied severity is what reaches the game, and the game's scales are 0..1.
-        assert.equal(Resolve(Sight, Dossier(Sight, { Target: 0 }), [Bid(Sight, 3)]).Applied, 1)
-        assert.equal(Resolve(Sight, Dossier(Sight, { Target: 0 }), [Bid(Sight, -1)]).Applied, 0)
+        // -1. The capability is what reaches the game, and the game's scales are 0..1.
+        const high = Resolve(Sight, Dossier(Sight, { Target: 1 }), [Bid(Sight, 3)])
+        assert.equal(high.Ceiling, 1)
+        assert.equal(high.Applied, 1)
+
+        const low = Resolve(Sight, Dossier(Sight, { Target: 1 }), [Bid(Sight, -1)])
+        assert.equal(low.Ceiling, 0)
+        assert.equal(low.Applied, 0)
+    })
+
+    it('bounds every rate by its ceiling, over arbitrary demands and bids', () => {
+        // The clamp is a property of every `Rate` dimension, not of `Sight`: any demand, any worn set.
+        // This is the case that fails if `Math.min` is put back to `Math.max`.
+        const RateDimension = fc.constant(null).chain(() => fc.constantFrom(
+            ...AllDimensions()
+                .filter(descriptor => descriptor.Facets.has(FacetName.Rate))
+                .map(descriptor => descriptor.Id)
+        ))
+        fc.assert(
+            fc.property(
+                RateDimension,
+                fc.float({ min: 0, max: 1, noNaN: true }),
+                fc.array(fc.float({ min: -10, max: 10, noNaN: true }), { maxLength: 6 }),
+                (dimension, demand, powers) => {
+                    const resolution = Resolve(
+                        dimension,
+                        Dossier(dimension, { Target: demand }),
+                        powers.map(power => Bid(dimension, power))
+                    )
+                    assert.equal(
+                        resolution.Applied,
+                        Math.min(demand, resolution.Ceiling ?? 0),
+                        `${dimension} did not clamp its demand to its capability`
+                    )
+                }
+            )
+        )
     })
 
     it('reports the gate and the engagement for a gate dimension, and no rate', () => {
@@ -225,6 +261,7 @@ describe('the router resolves one dimension', () => {
         assert.equal(resolution.Posture, undefined)
         assert.equal(resolution.PostureCeiling, undefined)
         assert.equal(resolution.PostureDemand, undefined)
+        assert.equal(resolution.Granted, undefined, 'a gate-only dimension composes no whitelist')
     })
 
     it('reads an absent gate demand as Free', () => {
@@ -238,16 +275,16 @@ describe('the router resolves one dimension', () => {
         // while no base-game quantity is on that scale (§6.2). `Sight` is the one dimension in the
         // catalogue whose ladder has been read — blindness is an integer capped at 7 — so it is the one
         // whose two fields differ.
-        const resolution = Resolve(Sight, Dossier(Sight, { Target: 0.5 }), [])
+        const resolution = Resolve(Sight, Dossier(Sight, { Target: 0.5 }), [Bid(Sight, 1)])
         assert.equal(resolution.Applied, 0.5)
         assert.equal(resolution.Projected, 4, 'half of a seven-rung ladder, rounded')
 
-        const full = Resolve(Sight, Dossier(Sight, { Target: 1 }), [])
+        const full = Resolve(Sight, Dossier(Sight, { Target: 1 }), [Bid(Sight, 1)])
         assert.equal(full.Projected, 7, 'and the top of the model reaches the game\'s own ceiling')
 
         // A dimension whose scale has not been read declares the identity, so the two agree — which is
         // a claim rather than a conversion, and the catalogue says so.
-        const unconverted = Resolve(Movement, Dossier(Movement, { Target: 0.4 }), [])
+        const unconverted = Resolve(Movement, Dossier(Movement, { Target: 0.4 }), [Bid(Movement, 1)])
         assert.equal(unconverted.Applied, 0.4)
         assert.equal(unconverted.Projected, 0.4)
     })
@@ -316,7 +353,7 @@ describe('the router resolves one dimension', () => {
         assert.deepEqual([...(silent.PostureCeiling ?? [])], [first], 'silence does not empty the ladder')
     })
 
-    it('subtracts the demand where the gate forbids, adds it where the gate allows, and allows wins', () => {
+    it('subtracts where the gate forbids, and a permit cannot add beyond the capability', () => {
         const ladder = [...ArmPoseLadder]
         const [first, second] = ladder
 
@@ -333,16 +370,15 @@ describe('the router resolves one dimension', () => {
             Dossier(PoseArms, { Allowed: [second], Intent: GateIntent.OverrideAllowed }),
             [Bid(PoseArms, 1, false, { Allowed: [first] })]
         )
-        assert.ok(restored.Posture?.has(second) === true, 'a grant is a capability and is not overridden downward')
-        assert.ok(restored.Posture?.has(first) === true)
+        assert.equal(restored.Posture?.has(second), false, 'a demand is clamped to the capability')
+        assert.ok(restored.Posture?.has(first) === true, 'and the capability remains permitted')
 
-        // **Allow wins**, and the order is fixed: subtract first, then add.
-        const contested = Resolve(
+        const inside = Resolve(
             PoseArms,
-            Dossier(PoseArms, { Allowed: [second], Intent: GateIntent.OverrideAllowed }),
+            Dossier(PoseArms, { Allowed: [first], Intent: GateIntent.OverrideAllowed }),
             [Bid(PoseArms, 1, false, { Allowed: [first] })]
         )
-        assert.ok(contested.Posture?.has(second) === true)
+        assert.deepEqual([...(inside.Posture ?? [])], [first])
     })
 
     it('never resolves a posture to the empty set', () => {
@@ -396,7 +432,7 @@ describe('the router resolves one dimension', () => {
         }), [Bid(Struggle, 0.3)])
 
         assert.equal(resolution.Demand, 0.6)
-        assert.equal(resolution.Applied, 0.6)
+        assert.equal(resolution.Applied, 0.3, 'the demand is clamped to the bid')
         assert.equal(resolution.Gate, GateIntent.OverrideForbidden)
         assert.equal(resolution.Engaged, true)
 

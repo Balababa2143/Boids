@@ -6,24 +6,24 @@
  * `Boids.FactionMachine.MachinePrime.Debug`, and it is evaluated for its side effects like every other
  * registration module.
  *
- * ## What the driver is for now, and why it is still here
+ * ## What the driver is for now, and what was retired
  *
- * It was the prototype's *only* input to the sensory limiters. In the control model it is a **console
- * driver for the router**: it records a demand and announces what the router resolved, which is enough
- * to make a worn visor or gag re-model itself without any UI. It is therefore load-bearing placeholder
- * code rather than leftover debris, and must not simply be deleted.
+ * It was the prototype's *only* input to the sensory limiters. In the control model the **console
+ * drivers** record a demand and announce what the router resolved, which is enough to make a worn
+ * visor or gag re-model itself without any UI. They are load-bearing placeholder code until 3.1,
+ * not leftover debris.
  *
- * **Retiring it is Phase 3.1**, not this phase: its replacement is the router *plus* the sensory work,
- * and until the limiter layer is rewritten on top of the store there is nothing else writing a demand.
- * The dev plan says so out loud, which is why this phase's exit condition does not claim the driver is
- * gone.
+ * The random `tick` handler that used to sit beside them **is retired** (the Phase 1 re-delivery,
+ * #82): it wrote a demand nobody asked for on roughly two ticks in five, and its `AnnounceRate` call
+ * advanced game time from inside the game's own tick dispatch. A playable build registers no tick
+ * handler now; what remains is the explicit console entry point.
  *
  * ## A demand, and the *continuous* half of one
  *
  * A dimension's demand is a record of its facets' parameters (`design/spec.md` §6.5), and a numeric one
  * is a **number in 0..1** — the Host's dial. This driver sets it, which is why `SetBlindStrength(0.15)`
- * and `SetBlindStrength(0.95)` are two different sessions: the resolved value is the stronger of that
- * demand and what the worn set can deliver, so a low demand with no gear is genuinely no restriction.
+ * and `SetBlindStrength(0.95)` are two different sessions: the resolved value is that demand clamped
+ * to what the worn set can deliver, so a demand with no gear applies nothing and waits.
  *
  * A **gate-only** dimension has no number to give — its parameter is which permission — so the driver
  * gives it the one that imposes something, and which one that is is read off the descriptor rather than
@@ -41,7 +41,6 @@ import {
     LegPoseLadder,
     PoseKey,
 } from '../../KDExtension/Control'
-import { AddEventHandler } from '../../KDExtension'
 import {
     Catalog,
     Resolve,
@@ -183,32 +182,11 @@ export const SetPostureLegs = (poses?: readonly PoseKey[], gate?: GateIntent) =>
     DrivePosture(LegDimension, poses ?? LegPoseLadder, gate)
 
 /**
- * Randomly nudges the speech and sight dimensions, roughly 45% of ticks in total.
- *
- * Note that `AnnounceRate` advances game time by one, and this handler runs inside the game's own tick
- * dispatch, so each firing re-enters time advancement. That is pre-existing behaviour and deliberately
- * preserved — see the module header.
- */
-AddEventHandler({
-    eventMap: KDEventMapGeneric,
-    trigger: 'tick',
-    type: '90F84036-7836-473E-BE57-14009ABE6158',
-    handler() {
-        if (Math.random() < 0.25) {
-            Drive({ dimension: Speech, strength: Math.random() })
-        }
-        else if (Math.random() < 0.2) {
-            Drive({ dimension: Sight, strength: Math.random() })
-        }
-    },
-})
-
-/**
  * Demands a given severity of the sight dimension, or a random one when none is given.
  *
  * It is the driver's console entry point and it is deliberately **continuous**: 0 is no restriction,
  * 1 is the strictest the dimension admits, and anything between is the Host asking for a partial
- * squeeze. What the wearer actually gets is the stronger of this and the worn set's own capability.
+ * squeeze. What the wearer actually gets is this demand clamped to the worn set's capability.
  */
 export const SetBlindStrength = (value?: number) => Drive({ dimension: Sight, strength: value ?? Math.random() })
 

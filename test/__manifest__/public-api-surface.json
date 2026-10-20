@@ -25,6 +25,7 @@
   "FactionMachine.MachinePrime.Coordinator": [
     "Catalog",
     "DescribeCandidates",
+    "FindProviders",
     "GetDossier",
     "PoseRoute",
     "Resolve",

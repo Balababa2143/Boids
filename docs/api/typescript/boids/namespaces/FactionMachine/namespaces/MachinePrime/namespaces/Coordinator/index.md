@@ -22,6 +22,7 @@ The vision and hearing limiters, their state, and the item-registration events.
 ## Functions
 
 - [DescribeCandidates](functions/DescribeCandidates.md)
+- [FindProviders](functions/FindProviders.md)
 - [GetDossier](functions/GetDossier.md)
 - [Resolve](functions/Resolve.md)
 - [SelectProvider](functions/SelectProvider.md)

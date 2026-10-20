@@ -104,6 +104,9 @@ export const FindProviders = (): readonly ProviderBid[] => {
                 // statement from "permits none of them" — so it is passed through rather than
                 // defaulted, and `IntersectPostures` skips it (Store.ts).
                 Allowed: bid.Allowed,
+                // The grant half, on the same channel the bid spoke about: a posture dimension's
+                // promise is its `Allowed` set, a whitelist dimension's is `Granted`.
+                Granted: bid.Granted,
                 LoserExpresses: bid.LoserExpresses,
                 // Read off the item rather than copied into the save: a stored copy would be a
                 // second name for the same item, and the two could disagree after a morph.

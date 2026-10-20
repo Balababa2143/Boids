@@ -4,14 +4,14 @@
 
 > **Resolve**(`dimension`, `bids?`): `DimensionResolution`
 
-Defined in: src/FactionMachine/MachinePrime/Coordinator/Public/Control.ts:186
+Defined in: src/FactionMachine/MachinePrime/Coordinator/Public/Control.ts:202
 
 Resolves one dimension: the Host's demand, what the equipment offers, and which provider won.
 
 The bids are enumerated fresh from the worn set unless the caller supplies them, so the answer is
 a function of the body as it is. A caller that needs answers for several dimensions should call
-`FindProviders` once and pass the result to each, rather than pay for a worn-set walk per
-dimension.
+the published [FindProviders](FindProviders.md) once and pass the result to each `Resolve`, rather than pay
+for a worn-set walk per dimension.
 
 ## Parameters
 

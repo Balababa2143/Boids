@@ -125,7 +125,6 @@ const ExpectedGuids: readonly string[] = [
     '89cb8e40-cde3-4d12-b24a-150b61c7ff8b',
     '8b3d8ff7-d09e-4e56-b014-233a1bb54140',
     '8d4a3f0d-1270-46b3-a1e3-cd6a056af7bb',
-    '90f84036-7836-473e-be57-14009abe6158',
     '9c464fc0-ba59-4b4f-8212-a8bfc7b64b5d',
     'a2c4bb95-0c66-4461-905e-35e3186403e9',
     'a4f264b6-5ad2-40bc-94d4-f928d8f23040',

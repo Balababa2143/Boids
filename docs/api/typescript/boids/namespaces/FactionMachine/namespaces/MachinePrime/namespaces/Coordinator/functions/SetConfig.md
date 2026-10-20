@@ -4,7 +4,7 @@
 
 > **SetConfig**(`args`): `WriteOutcome`
 
-Defined in: src/FactionMachine/MachinePrime/Coordinator/Public/Control.ts:151
+Defined in: src/FactionMachine/MachinePrime/Coordinator/Public/Control.ts:156
 
 Records the semantic extra fields a dimension's facets need.
 

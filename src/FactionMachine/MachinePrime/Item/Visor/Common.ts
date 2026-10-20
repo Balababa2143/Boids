@@ -94,9 +94,8 @@ export const VisorSightPower = 1
  * of the engine rather than inferred.
  *
  * **The value is the resolved severity, times six** — `Applied`, not the equipment's own capability:
- * the number a seam receives is the stronger of what the Host demanded and what the worn set can
- * impose, so a visor worn while the Host asks for a light squeeze dims by the light squeeze rather
- * than by its own maximum.
+ * the number a seam receives is the demand clamped to what the worn set can impose, so a visor worn
+ * while the Host asks for a light squeeze dims by the light squeeze rather than by its own maximum.
  *
  * Six is not a scale constant invented here: the rate's 0..1 range is stretched across the game's
  * blindness scale, where a stack of ordinary blindfolds reaches 12 and the game's own Dollmaker mask

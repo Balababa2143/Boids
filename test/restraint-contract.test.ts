@@ -40,6 +40,7 @@ const Sight = DimensionIdOf(DimensionName.Sight)
 const Speech = DimensionIdOf(DimensionName.Speech)
 const PoseArms = DimensionIdOf(DimensionName.PoseArms)
 const PoseLegs = DimensionIdOf(DimensionName.PoseLegs)
+const WeaponUse = DimensionIdOf(DimensionName.WeaponUse)
 
 /** The whole dossier, as one comparable value, so a change anywhere in it is one assertion. */
 const DossierSnapshot = (): string => JSON.stringify(GetState().ActivePC.Control.toJS())
@@ -210,6 +211,32 @@ describe('membership is the shrine tag and nothing else', () => {
         assert.equal(providers[0].Power, 0.75)
         assert.equal(providers[0].Source, 'named-variant')
     })
+
+    it('drops a granted key this build cannot keep, and keeps the bid', () => {
+        // `Granted` is a statement only when the key is in the closed union. With the union empty in
+        // Phase 1 every non-empty value is dropped, and the bid's power and stacking survive.
+        ResetWorld()
+        AddRestraint({ name: 'grant-variant', template: 'grant-template', shrine: [ControlledTag] })
+        Wear({
+            name: 'grant-variant',
+            rawBids: [{
+                Dimension: WeaponUse,
+                Power: 1,
+                Stack: 'Max',
+                Granted: ['WeaponHold'],
+                LoserExpresses: true,
+            }],
+        })
+
+        const providers = FindProviders()
+        assert.equal(providers.length, 1, 'a grant this build cannot keep took the bid away with it')
+        assert.equal(providers[0].Granted, undefined, 'an unkeepable grant is not a statement the bid can make')
+        assert.deepEqual(
+            [...(Resolve(WeaponUse).Granted ?? [])],
+            [],
+            'a key outside the closed union reached the resolution'
+        )
+    })
 })
 
 describe('the capability is computed from what is worn, never cached', () => {
@@ -231,18 +258,18 @@ describe('the capability is computed from what is worn, never cached', () => {
 
         const wearing = Resolve(Sight)
         assert.equal(wearing.Engaged, undefined, 'a rate dimension has no gate to engage')
-        // `SeedDossier` demands the strongest legal rate of every dimension, so the applied severity is
-        // the stronger of that and the worn item's bid — and the item is what moved it above the demand.
+        // `SeedDossier` demands the strongest legal rate of every dimension, and the worn item's bid is
+        // what bounds it. The demand is still 1; the applied severity is the capability.
         assert.equal(wearing.Demand, 1)
         assert.equal(wearing.Ceiling, 0.9)
-        assert.equal(wearing.Applied, 1, 'the demand and the capability agree on the strongest')
+        assert.equal(wearing.Applied, 0.9, 'the bid bounds the demand')
         assert.equal(wearing.Winner?.Source, 'only-provider')
 
         RemoveEverything()
 
         const bare = Resolve(Sight)
         assert.equal(bare.Demand, 1, 'the Host is still demanding it')
-        assert.equal(bare.Applied, 1, 'a demand outlives the item that could have helped honour it')
+        assert.equal(bare.Applied, 0, 'a demand outlives the item, and applies nothing until gear can honour it')
         assert.equal(bare.Ceiling, 0, 'the equipment ceiling survived the item that provided it')
         assert.equal(bare.Winner, null, 'a provider that is not on the body won a bid')
         assert.deepEqual([...FindProviders()], [])
@@ -348,7 +375,7 @@ describe('the capability is computed from what is worn, never cached', () => {
             0.6,
             'the case is vacuous unless the equipment was doing something'
         )
-        assert.equal(whileWorn.Applied, 1, 'the demand is the stronger of the two, so it is what applies')
+        assert.equal(whileWorn.Applied, 0.6, 'the demand is clamped to the bid')
 
         RemoveEverything()
 

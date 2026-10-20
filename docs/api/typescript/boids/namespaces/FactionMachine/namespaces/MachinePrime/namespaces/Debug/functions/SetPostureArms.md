@@ -4,7 +4,7 @@
 
 > **SetPostureArms**(`poses?`, `gate?`): `void`
 
-Defined in: src/FactionMachine/MachinePrime/Debug.ts:178
+Defined in: src/FactionMachine/MachinePrime/Debug.ts:177
 
 Names the poses the Host forbids the arms, or permits them again, and announces the resulting set.
 

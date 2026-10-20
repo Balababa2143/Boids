@@ -4,7 +4,7 @@
 
 > **SetPostureLegs**(`poses?`, `gate?`): `void`
 
-Defined in: src/FactionMachine/MachinePrime/Debug.ts:182
+Defined in: src/FactionMachine/MachinePrime/Debug.ts:181
 
 The same, for the legs.
 

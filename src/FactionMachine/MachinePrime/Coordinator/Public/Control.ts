@@ -23,12 +23,14 @@ import {
     Config,
     ControlState,
     DimensionResolution,
+    GateIntent,
     GetDimension,
     HasDimension,
     IntentRecord,
     ProviderBid,
     Refused,
     Resolve as ResolveDimension,
+    ResolveGrant,
     ToIntent,
     ValidateConfigWrite,
     ValidateIntentWrite,
@@ -39,7 +41,7 @@ import {
     Accepted,
 } from '../../../../KDExtension/Control'
 import { GetState, SetState } from '../Internal/StateStorage'
-import { FindProviders } from '../Membership'
+import { FindProviders as FindWornProviders } from '../Membership'
 /**
  * One item's declaration that it can move a dimension, re-exported so a console reader finds the
  * shape on the surface it drives.
@@ -96,32 +98,35 @@ const UnknownDimension = (dimension: string): WriteRefusal | null => {
  * An empty record is legal and means the baseline, which is how a demand is removed: there is no
  * separate "unset", because an absent entry and an empty one are the same statement.
  *
+ * **The grant is read, never supplied.** A caller cannot hand the validator a capability the
+ * equipment does not have: when the demand is `OverrideAllowed`, this function enumerates the worn
+ * set once and takes the promise on the dimension's own channel. Every other write leaves the body
+ * unread, because the grant has no bearing on it.
+ *
  * @param args.dimension - The dimension to write. Must be registered, or the write is refused
  *   rather than stored under an id nothing will ever read.
  * @param args.intent - The demand to record.
- * @param args.grants - What the equipment promises for this dimension right now, by capability key.
- *   Read from what is worn rather than stored, which is what makes "the Host cannot promise a
- *   substitute the equipment does not offer" a fact about now. Omitted means nothing is promised,
- *   which is the truth in a delivery that ships no capability keys.
  * @returns `Accepted`, or the refusal naming the dimension and the rule.
  */
 export const SetIntent = (args: {
     readonly dimension: string
     readonly intent: IntentRecord
-    readonly grants?: ReadonlySet<string>
 }): WriteOutcome => {
-    const { dimension, intent, grants } = args
+    const { dimension, intent } = args
 
     const unknown = UnknownDimension(dimension)
     if (unknown != null) {
         return unknown
     }
 
-    const outcome = ValidateIntentWrite(
-        GetDimension(dimension),
-        intent,
-        grants ?? new Set()
-    )
+    const descriptor = GetDimension(dimension)
+    // Read the promise only where a promise is being made. A rate or posture demand does not need
+    // the worn set walked, and a malformed intent (including `null`) is left to the validator rather
+    // than throwing on the gate lookup.
+    const grants = intent?.Intent === GateIntent.OverrideAllowed
+        ? ResolveGrant(descriptor, FindWornProviders())
+        : new Set<string>()
+    const outcome = ValidateIntentWrite(descriptor, intent, grants)
     if (outcome.kind === 'refused') {
         return outcome
     }
@@ -172,12 +177,23 @@ export const SetConfig = (args: {
 }
 
 /**
+ * Every provider bid the worn set is declaring right now.
+ *
+ * The enumeration `Resolve` performs itself when it is handed no bids, re-exported so a console
+ * caller — or the seam layer that resolves several dimensions per event — can walk the body **once**
+ * and pass the same list to each resolution.
+ *
+ * @returns The bids, in wear order. The order is the tie-break for equal power.
+ */
+export const FindProviders = (): readonly ProviderBid[] => FindWornProviders()
+
+/**
  * Resolves one dimension: the Host's demand, what the equipment offers, and which provider won.
  *
  * The bids are enumerated fresh from the worn set unless the caller supplies them, so the answer is
  * a function of the body as it is. A caller that needs answers for several dimensions should call
- * `FindProviders` once and pass the result to each, rather than pay for a worn-set walk per
- * dimension.
+ * the published {@link FindProviders} once and pass the result to each `Resolve`, rather than pay
+ * for a worn-set walk per dimension.
  *
  * @param dimension - The dimension to resolve. Must be registered — `GetDimension` throws for one
  *   that is not, because a resolution of an unknown dimension would have to invent its facets.
@@ -186,4 +202,4 @@ export const SetConfig = (args: {
 export const Resolve = (
     dimension: string,
     bids?: readonly ProviderBid[]
-): DimensionResolution => ResolveDimension(dimension, GetDossier(), bids ?? FindProviders())
+): DimensionResolution => ResolveDimension(dimension, GetDossier(), bids ?? FindWornProviders())

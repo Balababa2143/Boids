@@ -105,8 +105,10 @@ citations are in [`docs/guide/invariants.md`](docs/guide/invariants.md).
 - **Two game globals are wrapped at module evaluation** (`KinkyDungeonGenerateSaveData`,
   `KinkyDungeonLoadGame`), so a mod that patches either later wraps *around* Boids. Both wrappers
   are defensive, and the load gate throws nowhere: a refusal is a value and a message.
-- **Time advances from inside the game's tick dispatch** (`MachinePrime/Debug.ts`, a `tick`
-  handler), which is why it lives in an explicitly-named debug module instead of being deleted.
+- **`SensoryControl.AnnounceRate` advances game time by one** (`Coordinator/SensoryControl.ts`), so it
+  must never be called from inside a tick handler: that re-enters the game's dispatch. The random
+  tick driver that did so was retired in the Phase 1 correction; the console drivers are its only
+  callers until 3.1.
 
 Two more, because they are the expensive kind of mistake:
 

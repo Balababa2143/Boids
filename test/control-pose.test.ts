@@ -201,8 +201,20 @@ describe('invariant 23: a posture resolution is never empty', () => {
                     resolution.Posture.size > 0,
                     `${dimension} resolved to the empty set with ${JSON.stringify({ demand, gate, bids })}`
                 )
+                const ceiling = resolution.PostureCeiling ?? new Set()
+                // The sentinel is reachable two ways: an empty intersection, or a subtraction that
+                // removed every member. A permit-gate demand never gets it, because it cannot add
+                // outside the ceiling in the first place.
+                const sentinelExpected = ceiling.size === 0
+                    || (gate === GateIntent.OverrideForbidden
+                        && demand != null
+                        && [...ceiling].every(pose => demand.includes(pose)))
                 for (const pose of resolution.Posture) {
                     assert.ok(ladder.includes(pose), `${dimension} permitted '${pose}', which it does not govern`)
+                    assert.ok(
+                        ceiling.has(pose) || (sentinelExpected && pose === ladder[0]),
+                        `${dimension} permitted '${pose}' outside its capability, and it is not the sentinel`
+                    )
                 }
             })
         )

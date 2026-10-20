@@ -4,7 +4,7 @@
 
 > **SetGagStrength**(`value?`): `void`
 
-Defined in: src/FactionMachine/MachinePrime/Debug.ts:223
+Defined in: src/FactionMachine/MachinePrime/Debug.ts:201
 
 The same, for the speech dimension.
 

@@ -7,8 +7,7 @@
     "eventHandlers": {
       "KDEventMapGeneric": {
         "afterLoadMods": 1,
-        "afterLoadGame": 1,
-        "tick": 1
+        "afterLoadGame": 1
       },
       "KDEventMapInventory": {
         "postApply": 3,
@@ -326,7 +325,7 @@
     "textKeys": "eb553ca61d9e15f3",
     "modTextKeys": "82eb48f2b3800969",
     "eventHandlers": {
-      "KDEventMapGeneric": "0a5f2d8493d4a502",
+      "KDEventMapGeneric": "a140ba2e6c406b20",
       "KDEventMapInventory": "29d49de4b42f0f56"
     },
     "restraintsCacheKeys": "5f9bf5f14aef4ebf",

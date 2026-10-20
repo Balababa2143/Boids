@@ -29,10 +29,13 @@ type of an intent — `PoseKey` is the same kind of thing for `Posture`.
 
 **Appearance is not one of these words, and it is deliberately absent from the list.** The base game's
 `gag` property is one number that drives the mechanics *and* selects the model, so a larger ball there is
-necessarily a stricter one. The model separates them by giving the look to **the item** rather than to the
-Host: an item declares its own appearance beside its own bids (`Coordinator/Tag.ts`'s `AppearanceKey`), and
-the Host has **no cosmetic lever at all**. *A small ball on a strict mechanism* is one item variant
-declaring a small appearance and a high bid, and its sibling is the opposite.
+necessarily a stricter one. The model separates them by making the look **a function of the intent,
+parameterised by the item** (§6.1): an item declares the mapping from the resolved intent to its own
+models, and the Host has **no cosmetic parameter** to write. *A small ball on a strict mechanism* is one
+item variant whose mapping chooses the small model at a high intent while its bid is high, and its
+sibling maps the opposite. **The build has not moved onto that mapping yet**: the muffler still renders
+the `AppearanceKey` it declares (`Coordinator/Tag.ts`), and the code half moves with the injector
+(2.1/3.1).
 
 ## Why the mechanism and the dimensions are in different folders
 
@@ -129,13 +132,15 @@ demand would differ from itself.
 | `OverrideAllowed` | the Host re-grants an ability **through the equipment**, and only from what it can grant |
 
 `Free` means *the controller contributes no effect*, which is a different statement from *the value is
-zero*. A worn blindfold is still a blindfold when the Host is not interested.
+zero*. A worn blindfold is still a blindfold — its template's own defaults are what remains, and the
+corpus requires those to be a loose baseline (2.6) — but the controller adds nothing until the Host
+records an intent.
 
 §6.6's *"`Free` may not carry a non-zero squeezed `Target`"* is a **property** in
 `test/control-router.test.ts` rather than a write validator, and that is the honest home for it: the gate
-and the rate are different facets of one demand, and the resolved severity is the stronger of the demand
-and what is worn — so no single write can establish what a gate will resolve to, but no resolution may
-contradict it either.
+and the rate are different facets of one demand, and the resolved severity is the demand clamped to what
+is worn — so no single write can establish what a gate will resolve to, but no resolution may contradict
+it either.
 
 ## The router answers for one dimension; selection answers for a set
 
@@ -147,10 +152,10 @@ the game**, which is what lets the property suite cover it.
 
 | Facet | What the router does |
 | --- | --- |
-| `Rate` | the capability is the aggregate of the bids under **the winning bid's stacking mode**; **`Applied` is the stronger of the Host's `Demand` and that capability**; `Projected` is `Applied` through the dimension's **engine value** map |
-| `Posture` | the capability is the **intersection of every provider's `Allowed`**, or the **ladder** when none speaks; subtract the Host's demand where the gate forbids, then union it where the gate allows; **allow wins**, and the result is **never empty** |
+| `Rate` | the capability is the aggregate of the bids under **the winning bid's stacking mode**; **`Applied` is the Host's `Demand` clamped to that capability**, with an absent demand at 0; `Projected` is `Applied` through the dimension's **engine value** map |
+| `Posture` | the capability is the **intersection of every provider's `Allowed`**, or the **ladder** when none speaks; subtract the Host's demand where the gate forbids; where the gate allows, restore only a pose the capability already contains; **allow wins**, and the result is **never empty** — the sentinel is the one member allowed outside the capability |
 | `Gate` | an absent demand reads as `Free`; `OverrideForbidden` engages where the direction can deny, `OverrideAllowed` where it can grant |
-| `Whitelist` | nothing — the gate in front of it is the Host's only lever |
+| `Whitelist` | nothing — the gate in front of it is the Host's only lever; the capability is the **union of every bid's `Granted`**, reported as the resolution's `Granted` |
 
 **`Rate` is uniformly 0..1 in the model, and the engine value map is where that stops.** No base-game
 quantity is on that scale — blindness is an integer ladder capped at 7, deafness an unbounded weighted sum,
@@ -180,7 +185,8 @@ is invariant 23.
 
 **A persisted parameter is the demand; the resolved value is the outcome.** Keeping them apart is what
 lets a demand recorded before the gear that can deliver it exists *wait* rather than be discarded: it is
-remembered, and the moment gear arrives that reaches it, the outcome rises to meet it.
+remembered and applies nothing while it waits, and the moment gear arrives that reaches it, the outcome
+rises to meet it.
 
 **There is no contract between dimensions.** The facet interface describes one dimension and nothing about
 any other. A seam may read anything it likes out of the game, including state another dimension of ours
@@ -199,10 +205,16 @@ beside the router as `SelectProvider`/`WhichQualify` (`Coordinator/Public/Select
 **reports** the losers rather than instructing them, because how a family expresses a loss is the
 family's business.
 
+`Resolve` walks the worn set itself when it is handed no bids. `Public.Control.FindProviders` publishes
+that enumeration, so a console caller — or the seam layer that resolves several dimensions per event —
+can walk the body **once** and pass the same bids to each resolution.
+
 `test/control-router.test.ts` holds the resolution rules and the write refusals;
 `test/control-pose.test.ts` holds the pose vocabulary and invariant 23;
 `test/control-descriptor.test.ts` holds the registry's shape; `test/control-baseline.property.test.ts`
-holds invariant 12.
+holds invariant 12; `test/control-facade.test.ts` holds the grant path through `SetIntent` and the
+published enumeration; `test/debug-driver.test.ts` holds the retired tick handler and the console
+drivers.
 
 ## The posture route, declared and not bound
 
@@ -257,7 +269,8 @@ explains why a suite clears the world rather than reinstalling the globals.
 read out of the engine or is still a hope, and `test/control-descriptor.test.ts` fails if the whole
 catalogue ever claims verified. Binding happens in the phase that owns the subsystem — the `forceResult`
 guards and the action chokepoint in Phase 2.1, the posture route's wrap in 2.7, the sensory limiter layer
-in Phase 3.1 — and **retiring the debug tick driver is 3.1**, not this phase.
+in Phase 3.1. The random tick driver was retired by the Phase 1 re-delivery; 3.1 replaces the console
+drivers as the only writer.
 
 **And the eleven defects the route inherits are recorded rather than repaired.** They are in the base
 game, they are named with their sites in [`known-issues.md`](known-issues.md), and none of them is this

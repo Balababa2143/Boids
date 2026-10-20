@@ -12,8 +12,9 @@
  * Phase 1 declares this union and proves it empty. Every dimension that *could* grant a key —
  * `WeaponUse` and the action-chokepoint dimensions — gets its seam in Phase 2, and its key
  * joins the list with it. An empty closed union is the honest shape rather than a placeholder:
- * it already refuses `OverrideAllowed` for the whole of Phase 1, and it starts enforcing the
- * moment 2.1 lands.
+ * it refuses `OverrideAllowed` on every `Whitelist` dimension, while the **other** grant channel
+ * — a `Posture` dimension's `Allowed` set — works already, and the union starts enforcing the
+ * moment the first key arrives (2.4).
  *
  * ## What to do when the first key arrives
  *

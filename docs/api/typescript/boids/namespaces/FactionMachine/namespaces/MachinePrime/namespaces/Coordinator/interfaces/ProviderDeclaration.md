@@ -2,7 +2,7 @@
 
 # Interface: ProviderDeclaration
 
-Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:36
+Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:44
 
 One item's declaration that it can move a dimension.
 
@@ -14,9 +14,10 @@ use to reach the coordinator. `Membership.FindProviders` reads it back off the w
 means what that family decided it means. **Higher is harder**, because the dimension being moved is
 how much *restriction* applies.
 
-**An item declares its own appearance as well as its bids** (§6.12 clause 2, §6.1). It is not a
-field of this record because it is not a bid: a look moves no dimension, and a declaration that
-carried it would make it look like one.
+**An item's appearance is a mapping from the intent, not a field of this record** (§6.12 clause 2,
+§6.1). It is not a bid: a look moves no dimension, and a declaration that carried it would make it
+look like one. The families still render a declared `AppearanceKey`; moving that mapping onto the
+intent is the injector's slice (2.1/3.1).
 
 ## Properties
 
@@ -24,7 +25,7 @@ carried it would make it look like one.
 
 > `readonly` `optional` **Allowed?**: readonly `PoseKey`[]
 
-Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:55
+Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:63
 
 The body configurations this item can deliver, when it speaks to a posture dimension.
 
@@ -39,7 +40,21 @@ configurations, which is a different statement from *"none are permitted"*.
 
 > `readonly` **Dimension**: `string`
 
-Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:37
+Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:45
+
+***
+
+### Granted?
+
+> `readonly` `optional` **Granted?**: readonly `never`[]
+
+Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:71
+
+The abilities this item can re-grant, when it speaks to a `Whitelist` dimension.
+
+The grant half of capability, and the same channel distinction the facet makes: a posture
+dimension promises poses through `Allowed`, a whitelist dimension promises abilities through
+`Granted`. An omission says nothing, which is a different statement from *"none"*.
 
 ***
 
@@ -47,7 +62,7 @@ Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:37
 
 > `readonly` **LoserExpresses**: `boolean`
 
-Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:63
+Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:79
 
 What the item still contributes when it **loses** the bid.
 
@@ -61,7 +76,7 @@ item that did not win.
 
 > `readonly` **Power**: `number`
 
-Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:38
+Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:46
 
 ***
 
@@ -69,7 +84,7 @@ Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:38
 
 > `readonly` **Stack**: `StackMode`
 
-Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:46
+Defined in: src/FactionMachine/MachinePrime/Coordinator/Provider.ts:54
 
 How this bid stacks with the others, when this bid is the one that wins.
 
