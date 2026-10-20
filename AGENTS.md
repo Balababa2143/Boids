@@ -32,6 +32,83 @@ the current slice is recorded rather than fixed in passing.
 `kd-structured` must be built before a full build: `npm install` alone does not produce
 `kd-structured/Deploy/kd-structured.zip`, and the build names it when the archive is missing.
 
+## Playtesting — the game, not the suite
+
+The suite installs recording stubs and cannot load the mod
+([`docs/guide/testing.md`](docs/guide/testing.md)); registration in the real engine, text
+resolution, model lookup, the console surface and the save path can only be observed **in the
+game**. The recipe below is the one the first session used; its result and its traps are recorded
+in
+[`design/report/Play sessions/first-contact-plan.md`](design/report/Play%20sessions/first-contact-plan.md).
+A session is **non-visual**: no screenshots, no image analysis, no judging a canvas.
+
+**1. Build the game.** The checkout is `kd-structured/KinkyDungeon` (a nested submodule).
+`out/main.js` and `TextureAtlas/` are gitignored build output and do not exist after `npm install`:
+
+```sh
+cd kd-structured/KinkyDungeon
+npm run build   # tsc && python tools/pack.py — needs Python and the bundled wtxpck.exe
+```
+
+The build is complete when `out/main.js` exists and `TextureAtlas/` holds `displacement_*`,
+`game_*`, `models_*` and `models_mobile_*` webp+json pairs, written in that pack order.
+
+**2. Make the two zips current.** `Deploy/Boids.zip` comes from `npm run "Webpack Bundle: Debug"`;
+`Deploy/kd-structured.zip` is built by the submodule. Both are installed together — Boids loads at
+priority 10, `kd-structured` at 20, and the second supplies the import map the first awaits.
+
+**3. Serve without a process you cannot keep.** A shell-launched `http-server` is reaped with the
+command that started it, and background jobs are unavailable in this harness. Serve from the
+Playwright session instead, with a route that answers from disk. The origin is arbitrary but must
+**stay constant**, because the mod store is IndexedDB keyed by it:
+
+```js
+const ORIGIN = 'http://kdgame.local/'
+const ROOT = '<repository root>/'
+await page.route(ORIGIN + '**', async route => {
+  const rel = decodeURIComponent(new URL(route.request().url()).pathname).replace(/^\/+/, '')
+  try { await route.fulfill({ path: ROOT + (rel || 'kd-structured/KinkyDungeon/index.html') }) }
+  catch { await route.fulfill({ status: 404, contentType: 'text/plain', body: 'missing: ' + rel }) }
+})
+await page.goto(ORIGIN + 'kd-structured/KinkyDungeon/index.html')
+```
+
+`browser_run_code_unsafe` has no `require`, no `process` and no dynamic `import` — the snippet gets
+`page` and browser APIs only.
+
+**4. Install the mods the way the game does, minus the picker.** Online mode keeps mods in
+IndexedDB; `Mods/` is only for the desktop build's `window.kdAPI`. The file picker's calls can be
+made directly:
+
+```js
+const get = async p => new File([await (await fetch(p)).blob()], p.split('/').pop())
+await batchSaveMods([await get('/Deploy/kd-structured.zip'), await get('/Deploy/Boids.zip')])
+```
+
+`KDToggles.AutoLoadMods` is **false** by default, so after every reload call the mods screen's own
+entry point — `KDGetModsLoad(true)` — and wait for `globalThis.Boids` before touching anything.
+
+**5. Start a run, and mind the three traps.**
+
+- Use **`KinkyDungeonStartNewGame()`** with no argument. `KinkyDungeonStartNewGame(true)` is not the
+  menu's path and throws `Cannot read properties of undefined (reading 'HiddenRooms')`.
+- A save can only come out of a run: `KinkyDungeonGenerateSaveData()` at the menu throws in
+  `KinkyDungeonFilterInventory`.
+- Equip only once the game has drawn a frame or two. Equipping a gag before the wearer's model
+  exists throws `StartMods is not iterable` from `GetModelLoc`.
+
+**6. Read the failures correctly.** The engine's compatibility fields are **display only**
+(`Scripts/KDMods.ts:159-178`; `KDExecuteMods` has no compatibility branch), so a yellow *outdated*
+label is not a load failure. Two 404s are expected noise in this checkout: `Logo.png` at the game
+root and `Models/CyberMitts/Free.png`. The checkout's dev head may be newer than the mods' declared
+`gamepatch_max` — that is a record note, **not** an edit to `mod.json` in passing.
+
+**7. Record the session** under
+[`design/report/Play sessions/`](design/report/Play%20sessions/AGENTS.md), following that folder's
+conventions. If a real click is unavoidable, the draw functions are global —
+`DrawButtonKDEx` and its siblings can be wrapped to log the rectangles they lay out — but a session
+that can be answered through `page.evaluate` should be.
+
 ## Regeneration — deliberate, reviewed, committed with its cause
 
 A few tracked artifacts are **generated**. They are compared against a committed copy, and the

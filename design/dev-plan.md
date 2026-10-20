@@ -250,6 +250,12 @@ is green at **233 tests over 48 suites, 231 pass, 2 skipped by `AuditSkipReason`
 bundle built. 1.10's appearance conclusion is superseded by 1.15: the item declares the mapping
 from the intent to its look, not a fixed look beside its bid. **Reported met 2026-10-20 by the second acceptance** (`design/report/Phase reviews/phase-1-second-acceptance.md`): the exit condition holds as written at `4f22378`, each of K1–K12 is backed by a site or a mutation, and four findings are recorded outside it — F1 blocking 2.7 and F2 blocking 2.1 — with the seams still declared and unbound.
 
+**The in-game baseline, folded into this re-delivery (2026-10-20).** The second acceptance recorded that no in-game session had been run; the re-delivery now carries one. `design/report/Play sessions/first-contact-plan.md` records a non-visual session against the built 5.5.4 checkout: both mods load through the game's own mod path (priority 20 → 10), the engine's registry holds **126 restraints and 135 models** from this mod, the text surface resolves, `SetIntent` writes and `Resolve` clamps a demand, the dossier and `BoidsRootUUID` survive the game's own **save → reload → load**, and wearing the debug set moves `Sight` to `Applied 0.4 / Projected 3` while removing it releases to the never-equipped resolution. **A–F green: the session found no defect in the mod's load, text, model, console or persistence surface.**
+
+**Two observations from that session were ruled non-issues by the owner, and the ruling is recorded here because a report decides nothing.** The heavy latex suit's blank text is a **placeholder**, and content authoring is Phase 6's work — not this phase's. Game **5.5.4 is unreleased** and this mod has not been tested against it, so the session's target is a dev head rather than a compatibility claim: the declared `gamepatch_max: 3` stays the release's claim, and the engine's *outdated* label is display only. No issue is opened for either.
+
+**The two findings the acceptance recorded outside the exit condition are open problems, not notes.** **F2** — engagement is reported without the grant it promises (`Router.ts:311-313`, `Selection.ts:77-82`) — **blocks 2.1's contract**; **F1** — §6.7's posture permit restores nothing under the clamp (`Router.ts:401, :408-417`) — **blocks 2.7's acceptance**. Neither is this phase's: the exit condition asks for *resolved*, and both concern what a resolution promises. They carry issue titles in the acceptance and **no issue number yet**; opening them is the first action of the next slice, per the plan's own rule that a step with no number is a step nobody is tracking.
+
 **Goal:** replace the three-slot limiter prototype with the general control model, and give
 it a router.
 
@@ -470,7 +476,10 @@ baseline intact when the Host is set to Free.
 | 2.8 | **Invalidate the wearer-adaptation perks.** `SmoothTalker`, `Incantation`, `SomaticPlus`/`SomaticMinus`/`Butterfingers`, and the `ClassicHeels`/`Flexible`/`PoorForm`/`HeelWalker`/`PoorBalance` family: a mod-controlled dimension is not rescaled by the wearer's adaptation, because the equipment compensates for it (`design/codex.md`). **Done when** the same demand resolves to the same severity with and without each perk. | — *(unopened)* |
 
 **Ordering constraints:** 2.1 and 2.2 are independent of each other and both need Phase 1;
-2.4 needs 2.1's gate values to exist; 2.6 needs 1.3.
+2.4 needs 2.1's gate values to exist; 2.6 needs 1.3. **2.1 waits on F2** and **2.7 waits on F1**
+(`design/report/Phase reviews/phase-1-second-acceptance.md`): both findings say a resolution promises
+something the corpus has not settled, so the step that would build on the promise waits for the
+issue → decision → spec route rather than hard-coding one reading.
 
 > **[Decided] Invariant 12 is established here and honoured everywhere after.** Removing equipment
 > must **release** an override, never **restore** a value that the removal destroyed — so the
