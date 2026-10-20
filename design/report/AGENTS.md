@@ -15,6 +15,8 @@ trust it.
 | Folder | What it holds |
 | --- | --- |
 | [`Notes on Base game/`](<Notes on Base game/AGENTS.md>) | research notes on Kinky Dungeon's own code — the engine facts behind the corpus's citations |
+| [`Phase reviews/`](<Phase reviews/AGENTS.md>) | reviews of a delivered phase against its exit condition, and what the next phase is standing on |
+| [`Experience design/`](<Experience design/AGENTS.md>) | the design conversations behind the mod's intended experience — what the corpus has not said yet, and what is still open |
 
 Each report folder carries its own `AGENTS.md`, and that file is where its conventions live — the markers
 it uses, how its paths are written, and its index — because those differ from one subject to the next.

@@ -4,6 +4,27 @@ The four documents that decide what `Boids` is. They were frozen as a set on **2
 they are the source of milestone **v0.5.0: Machine Prime (mvp)** — `dev-plan.md` Phases 1–5 plus
 Phase 8.
 
+## What this development pass is
+
+> **The owner's statement of the programme, recorded 2026-10-20.** This repository is not a
+> greenfield build and not a maintenance branch: it is a **gradual rewrite of the Boids codebase,
+> one part at a time**, toward the vision this corpus was written for
+> ([design-brief.md](design-brief.md) §1). The documents below are the reference that rewrite is
+> written against; the plan's phases are the order it is written in, and each phase **replaces a
+> slice of the old mod** rather than decorating it or building beside it.
+
+Three consequences for a session that picks the work up cold:
+
+- **The target is the spec, not the old code.** Where the old implementation and
+  [spec.md](spec.md) disagree, the spec wins, and the old code is evidence of what the mod used to
+  do rather than precedent for what it should look like. A difference the rewrite intends is
+  recorded; an unrecorded one is a defect.
+- **A phase is finished when its exit condition is true as written** — not when the code compiles,
+  and not when it resembles the design. The exit conditions are a slice's acceptance test, and a
+  clause that is only partly true is a phase that is only partly delivered.
+- **Work outside the current slice is recorded, not fixed in passing.** A finding belongs to the
+  slice that owns it; the [report folder](report/) is where one waits until then.
+
 | Document | What it is | State |
 | --- | --- | --- |
 | [`design-brief.md`](design-brief.md) | the design discussion: its reasoning, its base-game citations, and the questions it left open | **frozen** — non-normative, and never rewritten |

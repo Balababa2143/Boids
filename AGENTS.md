@@ -10,6 +10,11 @@ rule; [`design/`](design/) is the design they serve.
 `design/README.md` states the protocol and `design/spec.md`'s header is its normative form.
 **Never rewrite the brief's reasoning to record a change; the reasoning stays as it was reasoned.**
 
+**This is a gradual rewrite of the codebase, one part at a time.** `design/README.md`'s *What this
+development pass is* is the framing every task inherits: the spec is the target and the old code is
+evidence, a phase is finished only when its exit condition is true as written, and a finding outside
+the current slice is recorded rather than fixed in passing.
+
 ## Commands
 
 | Command | Does |
