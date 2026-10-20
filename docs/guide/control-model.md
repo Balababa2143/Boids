@@ -153,8 +153,8 @@ the game**, which is what lets the property suite cover it.
 | Facet | What the router does |
 | --- | --- |
 | `Rate` | the capability is the aggregate of the bids under **the winning bid's stacking mode**; **`Applied` is the Host's `Demand` clamped to that capability**, with an absent demand at 0; `Projected` is `Applied` through the dimension's **engine value** map |
-| `Posture` | the capability is the **intersection of every provider's `Allowed`**, or the **ladder** when none speaks; subtract the Host's demand where the gate forbids; where the gate allows, restore only a pose the capability already contains; **allow wins**, and the result is **never empty** — the sentinel is the one member allowed outside the capability |
-| `Gate` | an absent demand reads as `Free`; `OverrideForbidden` engages where the direction can deny, `OverrideAllowed` where it can grant |
+| `Posture` | the capability is the **intersection of every provider's `Allowed`**, or the **ladder** when none speaks; the Host's demand moves that set **down only** — subtract where the gate forbids, and under `Free` and `OverrideAllowed` the answer is the capability itself. **There is no add-half** (1.21): a re-grant is the route's (§6.13 rule 2), not the algebra's. The result is **never empty** — the sentinel is the one member allowed outside the capability |
+| `Gate` | an absent demand reads as `Free`; `OverrideForbidden` engages where the direction can deny, `OverrideAllowed` where it can grant **and the worn set promises on that dimension's channel** — the promise is read at every resolution, so a permit whose gear has left reports its demand and engages nothing while it waits |
 | `Whitelist` | nothing — the gate in front of it is the Host's only lever; the capability is the **union of every bid's `Granted`**, reported as the resolution's `Granted` |
 
 **`Rate` is uniformly 0..1 in the model, and the engine value map is where that stops.** No base-game

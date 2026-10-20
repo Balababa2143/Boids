@@ -591,7 +591,7 @@ The restraint template's defaults are always the floor.
 **[Decided] A hard rule, enforced at write time (invariant 6):** *if the equipment does not offer
 a substitute **on the dimension's grant channel**, the Host cannot set `OverrideAllowed` for
 it.* "Allow" is a promise about a specific capability; with no capability there is nothing to
-promise. The validator **refuses the write** rather than letting it fail silently later.
+promise. The validator **refuses the write** rather than letting it fail silently later, **and every resolution reads the promise again** — because it is a fact about the body rather than about the dossier: a permit whose gear has left reports the demand it recorded and engages nothing until gear that can honour it is worn again (2026-10-21, 1.22).
 
 > **[Decided] There are two grant channels, and the rule is stated over the channel rather than
 > over `CapabilityKey` alone.** A dimension that composes `Whitelist` promises **abilities**,
@@ -808,8 +808,8 @@ facets do different things.
 | Facet | Rule |
 | --- | --- |
 | **Rate** | the capability is the aggregate of the bids (below); **`Applied` is the Host's recorded demand clamped to that capability** — `min(demand, capability)`, with an absent demand reading as the baseline `0` — so a demand recorded before the gear that can honour it exists *waits*: the recorded intent is untouched and the resolution rises to meet it when the gear arrives; the dimension's **engine value** map then turns `Applied` into the number a seam receives |
-| **Posture** | the permitted set is the **intersection of every provider's `Allowed`**, or the **ladder** when no provider speaks. **Subtract** the Host's demand where the gate forbids; where the gate allows, the demand may only **restore a pose the capability already contains**, because a demand is clamped to capability. **Allow wins**, and the result is **never empty** — the only member outside the capability is the non-empty sentinel |
-| **Gate** | an absent demand reads as `Free`; `OverrideForbidden` engages where the direction can deny, `OverrideAllowed` where it can grant; a gate the seams cannot honour does not engage |
+| **Posture** | the permitted set is the **intersection of every provider's `Allowed`**, or the **ladder** when no provider speaks; the Host's demand moves that set **down only** — its poses are **subtracted** where the gate forbids, and under `Free` and `OverrideAllowed` the answer is the capability itself, because the capability *is* the whole permitted set and a demand is clamped to it. **There is no add-half** (2026-10-21, 1.21): the re-grant happens at the route (§6.13 rule 2), not in this algebra. The result is **never empty** — the only member outside the capability is the non-empty sentinel |
+| **Gate** | an absent demand reads as `Free`; `OverrideForbidden` engages where the direction can deny, `OverrideAllowed` where it can grant **and the worn set promises something on that dimension's channel** — the promise is read at every resolution, so a permit whose gear has left engages nothing while its recorded demand stays and waits; a gate the seams cannot honour does not engage |
 | **Whitelist** | nothing — the Host's only lever over it is the gate in front of it; the capability is the **union of every bid's `Granted`**, reported as the resolution's `Granted` |
 
 **`Granted` is a capability, not a demand.** A bid declares it, a `Whitelist` dimension's
@@ -820,20 +820,21 @@ the equipment's declaration is read at resolution time.
 **A resolution never rewrites the recorded intent.** It reads the dossier and reports; the
 demand stays as the Host wrote it, which is what lets a demand wait for gear.
 
-> **[Decided] `Posture` combines by intersection, then subtraction, then a clamped restore — and it
-> is the same rule rather than a second one.** A provider declares the body configurations it can
-> deliver, so the worn set's capability is what **all** of them can deliver: the **intersection**.
+> **[Decided] `Posture` combines by intersection, and the demand then subtracts — there is no
+> add-half.** A provider declares the body configurations it can deliver, so the worn set's
+> capability is what **all** of them can deliver: the **intersection**.
 > **[Existing] The reason the combination is an intersection rather than a union is the art.** A pose
 > is a sprite variable, and an item that does not allow a pose may not carry the variable for it
 > at all — so permitting a pose the worn set cannot draw would produce a state the renderer
-> cannot represent. The Host's demand is then the axis that moves **down**: read as a set to
-> **remove** under `OverrideForbidden`, and as a set to **restore** under `OverrideAllowed`. The
-> order is fixed — **subtract first, then add** — and a pose named by both a refusal and a grant
-> is **allowed**, because a grant is capability and capability is never overridden downward by a
-> demand; the demand itself is clamped to capability, so an "add" can only restore a pose the
-> capability already contains. This is also why `Posture` has no numeric aggregate and no
-> meaningful winner: rule 2's `Power` bid has nothing to compare, and the winning bid matters only
-> for rule 3.
+> cannot represent. The Host's demand is then the axis that moves **down**: under
+> `OverrideForbidden` its poses are **removed**, while under `Free` and under `OverrideAllowed` the
+> answer **is** the capability — the capability is the whole permitted set, and a demand is clamped
+> to it. **The add-half is retired (2026-10-21, 1.21)**: *restore a pose the capability already
+> contains* had nothing to compute, and the re-grant it was describing happens at the route — a
+> non-`Free` gate writes the resolved set over the game's own answer (§6.13 rule 2). A permit's
+> effect is therefore the override itself, never a wider set. This is also why `Posture` has no
+> numeric aggregate and no meaningful winner: rule 2's `Power` bid has nothing to compare, and the
+> winning bid matters only for rule 3.
 
 > **[Decided] A `Posture` resolution is never allowed to come out empty, and the fallback is the
 > game's own sentinel rather than a rule of ours.** The game indexes the available set at `[0]`
@@ -1312,10 +1313,10 @@ one at all.
    tag cascade is consulted **only** when the gate is `Free`. Filtering instead of overriding
    would defeat half the route: the cascade assigns a **single** pose the moment one shrine word
    matches (`:484-498`), and a single-element set cannot be widened by subtraction.
-3. **Subtract first, then add** (§6.7), and **allow wins**.
+3. **The demand subtracts and never adds** (§6.7, 1.21): the set rule 2 writes is the capability minus the poses the gate forbids. An `OverrideAllowed` gate writes the capability itself, which is what a re-grant means on this route.
 4. **The result is never empty.** The game indexes the set at `[0]`
    (`player/KinkyDungeonDress.ts:714`); the non-empty sentinel is the game's own
-   (`Data/Poses.ts:459-467`) and it runs **after** both operations.
+   (`Data/Poses.ts:459-467`) and it runs **after** the subtraction.
 5. **A mod restraint declares no pose fields** — not `addPose`, not `addPoseIfTopLevel`, not
    `removePose` (`base/KDTypeDefs.ts:530-538`). Its body configuration is a bid on a posture
    dimension and nothing else.

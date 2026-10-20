@@ -8,6 +8,12 @@ them actually reach.
 block the acceptance of later slices rather than this phase’s. Accepting the phase is the plan’s to
 record; this report states what was found.
 
+> **Later note, 2026-10-21.** Both blocking findings were closed under the owner’s instruction, after
+> a play session’s report (`design/report/Play sessions/first-contact-plan.md`) found no other
+> blocker: **F1** by retiring the permit’s add-half (`dev-plan` 1.21) and **F2** by reading
+> engagement from the worn set at every resolution (1.22). The findings stand as what was found on
+> 2026-10-20; what changed is recorded in the plan and in the brief’s Appendix E.
+
 > **The route behind the re-delivery.** [The first review](phase-1-control-model.md) and
 > [the divergence audit](canonical-model-divergences.md) are the finding;
 > [the mid-review draft](phase-1-mid-review-draft.md) is the correction list K1–K11; #79–#84 are the
