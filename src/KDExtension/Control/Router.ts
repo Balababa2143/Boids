@@ -45,9 +45,9 @@ import { BodyStateName, ResolveBodyState } from './BodyState'
 import { CapabilityKey } from './Capability'
 import { AllDimensions, EngineIdentity, GetDimension } from './Descriptor'
 import { CanDeny, CanGrant, FacetName, GateIntent, StackMode } from './Facet'
-import { GrantKeys } from './Grant'
+import { GrantKeys, ResolveGrant } from './Grant'
 import { DimensionId } from './Identity'
-import { IsPoseKey, PoseKey } from './Pose'
+import { PoseKey } from './Pose'
 import {
     AggregateBids,
     Baseline,
@@ -305,12 +305,18 @@ export const Resolve = (
 
         // An absent demand and an explicit `Free` are the same statement, and both mean the injection
         // layer does nothing: the Host is not engaging this dimension, so the restraint template's own
-        // defaults are the boundary. `OverrideAllowed` is only expressible where the dimension can
-        // actually grant, so a gate the seams cannot honour does not engage either.
+        // defaults are the boundary.
+        //
+        // `OverrideAllowed` is only expressible where the dimension can actually grant **and the worn
+        // set promises something on that dimension's channel** — and the promise is a fact about the
+        // body, so it is read at *every* resolution rather than only at the write (§6.4, §6.7). A
+        // permit whose gear has left therefore reports the demand it recorded and `Engaged: false`,
+        // which is the gate half of the same sentence a rate demand gets: it waits.
         resolution.Gate = gate
         resolution.Engaged =
             (gate === GateIntent.OverrideForbidden && CanDeny(descriptor.Direction))
-            || (gate === GateIntent.OverrideAllowed && CanGrant(descriptor.Direction))
+            || (gate === GateIntent.OverrideAllowed && CanGrant(descriptor.Direction)
+                && ResolveGrant(descriptor, forThisDimension).size > 0)
     }
     //#endregion
 
@@ -362,14 +368,18 @@ const ResolveNumeric = (
 /**
  * Resolves a `Posture` against the same bids, on its own axis.
  *
- * ## The order is fixed: intersect, subtract, then add
+ * ## The demand moves the set down, and only down
  *
  * The worn set's capability is the **intersection** of every provider that speaks of body
  * configurations, or the dimension's **ladder** when none does. The Host's demand then moves that
- * set **down** — read as poses to remove under `OverrideForbidden` — and, where the gate allows,
- * restores a pose **only if the capability already contains it**. **Subtract first, then add**, and
- * a pose named by both is **allowed**, because a grant is capability and capability is never
- * overridden downward by a demand — the demand is clamped to it (`design/spec.md` §6.7).
+ * set **down**: the poses it names are removed under `OverrideForbidden`, and under `Free` or
+ * `OverrideAllowed` the answer is the capability itself.
+ *
+ * **There is no add-half, and retiring it was a decision rather than a simplification.** A demand is
+ * clamped to the capability, and the capability *is* the whole permitted set — so *restore a pose the
+ * capability already contains* had nothing to do, and a branch that says nothing is worse than no
+ * branch. What a permit actually does is **engage the route** (§6.13 rule 2): a non-`Free` gate writes
+ * this set over the game's own answer, and *that* is where a re-grant happens (`design/spec.md` §6.7).
  *
  * ## Never empty, and the sentinel is the ladder's own head
  *
@@ -399,21 +409,12 @@ const ResolvePosture = (
     const gate = GetGateIntent(state, dimension) ?? BaselineGate
 
     let allowed = new Set(ceiling)
-    if (demand != null) {
-        if (gate === GateIntent.OverrideForbidden) {
-            for (const pose of demand) {
-                allowed.delete(pose)
-            }
-        }
-        else if (gate === GateIntent.OverrideAllowed) {
-            for (const pose of demand) {
-                // Only a pose this dimension governs can be restored, and `Allowed` is already
-                // refused at write time for one it does not (§6.6) — the test here is what keeps a
-                // demand off a save written by a build with a longer ladder.
-                if (IsPoseKey(pose) && ladder.includes(pose) && ceiling.has(pose)) {
-                    allowed.add(pose)
-                }
-            }
+    // The demand moves the set **down** and nowhere else (§6.7) — under `Free` and under
+    // `OverrideAllowed` the answer is the capability itself. A permit's effect is the route's, not a
+    // set operation here.
+    if (demand != null && gate === GateIntent.OverrideForbidden) {
+        for (const pose of demand) {
+            allowed.delete(pose)
         }
     }
 

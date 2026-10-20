@@ -353,32 +353,42 @@ describe('the router resolves one dimension', () => {
         assert.deepEqual([...(silent.PostureCeiling ?? [])], [first], 'silence does not empty the ladder')
     })
 
-    it('subtracts where the gate forbids, and a permit cannot add beyond the capability', () => {
+    it('subtracts where the gate forbids, and a permit neither adds nor removes', () => {
+        // §6.7's posture algebra has **no add-half** (1.21): a demand is clamped to the capability,
+        // and the capability is already the whole permitted set — so a permit resolves to exactly the
+        // ceiling, whether the demand names a pose inside it or one the gear cannot draw. What a
+        // permit does is engage the route, which is why the gate and the engagement still differ.
         const ladder = [...ArmPoseLadder]
         const [first, second] = ladder
+        assert.ok(second !== undefined, 'the case needs two arm poses to tell add from subtract')
 
         const forbidden = Resolve(
             PoseArms,
             Dossier(PoseArms, { Allowed: [second], Intent: GateIntent.OverrideForbidden }),
-            []
+            [Bid(PoseArms, 1, false, { Allowed: [first, second] })]
         )
-        assert.deepEqual([...(forbidden.Posture ?? [])], ladder.filter(pose => pose !== second))
+        assert.deepEqual([...(forbidden.Posture ?? [])], [first], 'the demand removed the pose it named')
         assert.deepEqual([...(forbidden.PostureDemand ?? [])], [second])
 
-        const restored = Resolve(
+        // A permit is the capability exactly, and the demand is still reported.
+        const inside = Resolve(
+            PoseArms,
+            Dossier(PoseArms, { Allowed: [first], Intent: GateIntent.OverrideAllowed }),
+            [Bid(PoseArms, 1, false, { Allowed: [first, second] })]
+        )
+        assert.deepEqual([...(inside.Posture ?? [])], [first, second], 'a permit is the capability, exactly')
+        assert.deepEqual([...(inside.PostureDemand ?? [])], [first], 'and the demand is still reported')
+        assert.equal(inside.Gate, GateIntent.OverrideAllowed)
+        assert.equal(inside.Engaged, true, 'the gear promises a pose, so the permit engages')
+
+        // A demand cannot put a pose into the answer that the gear cannot draw.
+        const outside = Resolve(
             PoseArms,
             Dossier(PoseArms, { Allowed: [second], Intent: GateIntent.OverrideAllowed }),
             [Bid(PoseArms, 1, false, { Allowed: [first] })]
         )
-        assert.equal(restored.Posture?.has(second), false, 'a demand is clamped to the capability')
-        assert.ok(restored.Posture?.has(first) === true, 'and the capability remains permitted')
-
-        const inside = Resolve(
-            PoseArms,
-            Dossier(PoseArms, { Allowed: [first], Intent: GateIntent.OverrideAllowed }),
-            [Bid(PoseArms, 1, false, { Allowed: [first] })]
-        )
-        assert.deepEqual([...(inside.Posture ?? [])], [first])
+        assert.deepEqual([...(outside.Posture ?? [])], [first], 'a permit cannot add past the capability')
+        assert.equal(outside.Posture?.has(second), false)
     })
 
     it('never resolves a posture to the empty set', () => {

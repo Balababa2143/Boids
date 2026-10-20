@@ -24,7 +24,7 @@ import { DimensionIdOf, DimensionName } from '../src/FactionMachine/MachinePrime
 import { State } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/State'
 import { SetState } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/StateStorage'
 import { SetPostureArms } from '../src/FactionMachine/MachinePrime/Debug'
-import { AddRestraint, ControlledTag, ResetWorld, Wear } from './harness/equipment'
+import { AddRestraint, ControlledTag, RemoveEverything, ResetWorld, Wear } from './harness/equipment'
 
 const PoseArms = DimensionIdOf(DimensionName.PoseArms)
 const Sight = DimensionIdOf(DimensionName.Sight)
@@ -63,12 +63,49 @@ describe('SetIntent supplies the grant from the worn set', () => {
 
         assert.equal(outcome.kind, 'accepted', JSON.stringify(outcome))
         assert.equal(Coordinator.Resolve(PoseArms).Gate, GateIntent.OverrideAllowed)
+        assert.equal(
+            Coordinator.Resolve(PoseArms).Engaged,
+            true,
+            'the gear promises a pose, so the permit is engaged'
+        )
         assert.ok(
             Coordinator.Resolve(PoseArms).Posture?.has(first) === true,
             'the resolution dropped the pose the equipment promised'
         )
     })
 
+    it('disengages when the gear that promised leaves, and engages again when it returns', () => {
+        // F2 (1.22): a promise is a fact about the body, so engagement is read at every resolution and
+        // not only at the write. The demand survives what a rate demand survives — it waits — and the
+        // resolution keeps reporting what the Host recorded.
+        Fresh()
+        const [first] = ArmPoseLadder
+        WearArmsThatDraw(first)
+        assert.equal(Coordinator.SetIntent({
+            dimension: PoseArms,
+            intent: { Intent: GateIntent.OverrideAllowed },
+        }).kind, 'accepted')
+        assert.equal(Coordinator.Resolve(PoseArms).Engaged, true)
+        const recorded = Coordinator.GetDossier()
+
+        RemoveEverything()
+
+        const stripped = Coordinator.Resolve(PoseArms)
+        assert.equal(stripped.Gate, GateIntent.OverrideAllowed, 'the demand is what the Host recorded')
+        assert.equal(stripped.Engaged, false, 'and it engages nothing while nothing promises')
+        assert.equal(
+            stripped.Posture?.size,
+            ArmPoseLadder.length,
+            'removal releases the set to the ladder, which is the baseline'
+        )
+        assert.ok(Coordinator.GetDossier().equals(recorded), 'the resolution rewrote the dossier')
+
+        Wear({
+            name: 'grant-arms',
+            bids: [{ Dimension: PoseArms, Power: 1, Allowed: [first] }],
+        })
+        assert.equal(Coordinator.Resolve(PoseArms).Engaged, true, 'the demand waited, and re-engaged')
+    })
     it('refuses OverrideAllowed with nothing worn, and leaves the dossier untouched', () => {
         Fresh()
         const before = Coordinator.GetDossier()
