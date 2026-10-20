@@ -147,7 +147,11 @@ capability, and one dimension composing both is exactly how the corpus represent
   actually took — and §8.4's entry conditions and 2.3's arousal work will each have to invent a
   private answer.
 - **Fix:** a design addition (where the state lives, who resolves it, when) plus a module. **The
-  field list is deliberately open** — the owner is discussing the design question this raised.
+  field list is deliberately open** — and the experience-design record has since deferred it
+  **explicitly**: its §12 defers "Status's field list" until the **observed-surface design**, which
+  that record says has to be authored first, and it puts the **player-level reading** in the archive
+  layer rather than in the coordinator. So D5 is a real gap whose contents are not this phase's to
+  invent.
 - **Issue title:** *Status: the coordinator needs an observed state, and path 2 to carry it.*
 
 > **Later note, 2026-10-20 (design conversation).** A second and *separate* gap was found while the

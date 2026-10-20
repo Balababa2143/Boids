@@ -196,8 +196,16 @@ the console*, *written with validation*:
   criterion). The tree has only the dossier.
 - **Consequence:** 5.10 has nowhere to read from. Adding the second half before the first release is a
   field; after it, a persisted-format change.
-- **What would fix it:** add the quest half (empty is fine) before 0.5.0 ships, or record the decision
-  that it arrives with 5.10 as a migration.
+- **And the count has grown since:** the experience-design record's **rule mechanism** is explicitly
+  not an Intent and need not map to a dimension, and it still needs a home in the coordinator's state
+  ([willing-surrender.md §7.5](<../Experience design/willing-surrender.md>); also the later note under
+  D5 in [canonical-model-divergences.md](canonical-model-divergences.md)). So the entry has at least
+  three parts to hold — the dossier, the quest metadata, and the rules — which is a second reason not
+  to freeze `{ ID, Control }`. The **player-level reading** does *not* join them: that record puts it
+  in the archive layer.
+- **What would fix it:** add the shell fields before 0.5.0 ships. **Done 2026-10-20** — `Entry` now
+  carries `Quests` and `Rules` as empty interfaces (K12 in the [mid-review draft](phase-1-mid-review-draft.md)),
+  so what remains is filling them in their own slices rather than a persisted-format change.
 - **Blocks:** 5.10, and the shape of the save.
 - **Issue title:** *State: split the coordinator entry into dossier and quest metadata before the first release.*
 
@@ -244,6 +252,40 @@ the console*, *written with validation*:
   protocol there is nothing to do; if not, it needs one row, because the brief's own texts were rewritten
   by a commit whose subject says "label swap".
 
+## Mid-review verdict, after the canonical model and the experience design
+
+**Recorded 2026-10-20, later the same day.** The gate was re-run at `9f39210` (the commit that carries
+these reports): typecheck clean, **221 tests over 44 suites**, 219 pass, 2 skipped by `AuditSkipReason`,
+exit 0 [counted]. Two documents arrived after this review was written, and they change what "met"
+means rather than only what is missing:
+
+- the owner's **canonical statement of the control model**, audited in
+  [canonical-model-divergences.md](canonical-model-divergences.md) (D1–D7, plus the rule-mechanism note);
+- the **experience-design record**, [willing-surrender.md](<../Experience design/willing-surrender.md>),
+  which settles the *existence* of the missing Status state, **defers its contents** to the
+  observed-surface design, and establishes a third thing the coordinator's state must eventually hold —
+  standing **rules**, which are not Intents.
+
+**Verdict: the exit condition is not met as written, and the reason is no longer a set of slips.** The
+router resolves with the **wrong algebra** (D1 — capability is a floor and intent is unclamped, where
+the model says intent is clamped to capability); the **grant half** of capability is absent from the
+write path and from the resolution (F1/D3); and the cosmetics rule contradicts the model's signal path
+3 (D6). What *is* delivered and should be kept: the declaration and registration of the 23 dimensions,
+the descriptor rules and the whole-registry test, the write validators' shape rules, the persisted
+shape and its round-trip, and the property-suite skeleton.
+
+**The closeout, in three buckets.**
+
+| Bucket | Items | Why here |
+| --- | --- | --- |
+| **Corpus — one design issue** | D1 (`§6.7` algebra), D6 (`§6.1` signal 3), D3's `Granted` field, F6 (`§12` row), F7 (plan 3.1's text) | The code must not move before the target is written; these are one vocabulary |
+| **Code — the re-delivery** | D1's clamp and its three rewritten tests; F1/D3 — the facade supplies the grant and the resolution carries it; F2 — the random driver gated out; F5 — the enumeration published; F8's test for each item above, written as the item lands | Each is a clause of the exit condition, and each can be made to fail |
+| **Later slices — recorded, not now** | D2 → 2.6; D7's words → 2.7, with its gate now; D4 → 2.1, and D6's muffler with it; F4 → 2.1; D5 → after the observed-surface design; the rules' home → the coordinator's state when the rule channel is designed | A finding belongs to the slice that owns it, which is the pass's own rule |
+
+**What "done" means for the re-delivery:** a clause is true only when a test fails if it is broken, so
+F8 is not a separate task — it is how each item above is finished. Nothing in this verdict reopens what
+was accepted: the descriptor registry, the validators, the save shape and the suite skeleton stand.
+
 ## What this report does not decide
 
 - **The Sight scale is a design question**, not a report's (F3). Both candidates are defensible; what is
@@ -252,8 +294,8 @@ the console*, *written with validation*:
   grant is read from what is worn, never demanded.
 - **F4's third state** is a modelling decision with a name to choose; the report only establishes that
   two answers are not enough for the seam.
-- **Whether Phase 1 should be reopened or closed with a fix list** is the owner's call; the report says
-  which clauses are untrue, not what to do about them.
+- **Whether the re-delivery above is the right closeout shape** is the owner's call; the report says
+  which clauses are untrue and proposes an order, not the decision.
 
 ## How to re-derive this
 

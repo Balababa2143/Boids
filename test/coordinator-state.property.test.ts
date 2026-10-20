@@ -115,6 +115,27 @@ describe('coordinator state records', () => {
         )
     })
 
+    it('carries the two empty shells through a save, and restores them to one value', () => {
+        // The shells exist so that filling them is an addition rather than a migration, so the one
+        // property that has to hold before anything writes them is that they survive the round trip
+        // **and compare equal**. Immutable treats two structurally empty plain objects as different
+        // values (`is({}, {})` is false), which is exactly what a naive `{}` default would break:
+        // the state would come back not-equal to itself and the round-trip property would fail for
+        // a reason that looks like nothing.
+        const state = State({
+            ActivePC: Entry({ ID: 'shells', Control: ControlState() }),
+            ActiveNPC: IMMap(),
+        })
+        const restored = State.fromJS(JSON.parse(JSON.stringify(state.toJS())))
+
+        assert.deepEqual(restored.ActivePC.Quests, {})
+        assert.deepEqual(restored.ActivePC.Rules, {})
+        assert.ok(
+            restored.equals(state),
+            'a shell did not restore to the same value, so the state no longer equals itself'
+        )
+    })
+
     it('keeps ID as a record key', () => {
         // Regression guard: `ID` used to be installed with a non-enumerable getter, and
         // `Record(defaultValues)` only picks up enumerable own properties -- so it was

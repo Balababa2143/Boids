@@ -19,6 +19,9 @@ trusting it.
   with the issue title it would be opened under.
 - **The coverage boundary** of a phase: which claims are tested, which are tested only against a
   stub, and which are merely read.
+- **A working draft**, when a review's findings need to survive to the next session as one list: it
+  carries the verdict, the corrections and the decisions taken so far in one place, it is written to
+  be read rather than signed, and it is still not a decision.
 
 It does **not** belong here: a decision, a design argument, a change request against the spec, or a
 step rearranged in the plan. Those go through the corpus's own route — issue, decision, spec, plan,
@@ -50,6 +53,7 @@ base game's shorthand — a bare `restraint/KinkyDungeonRestraints.ts:1652` mean
 | --- | --- | --- |
 | [`phase-1-control-model.md`](phase-1-control-model.md) | 1 — the control model | whether the phase's exit condition holds as written, and what Phases 2 and 3 are standing on |
 | [`canonical-model-divergences.md`](canonical-model-divergences.md) | 1 — the control model | where the corpus and the tree diverge from the owner's canonical statement of the control system, and what each divergence blocks |
+| [`phase-1-mid-review-draft.md`](phase-1-mid-review-draft.md) | 1 — the control model | a **working draft for the next session**: the verdict, the correction list (K1–K11), what is deferred to which slice, and the decisions the owner has taken |
 
 ## What this folder is not
 

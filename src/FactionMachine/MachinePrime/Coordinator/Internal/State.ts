@@ -47,9 +47,55 @@ const DefineStateRecord =
         })
     }
 
+/**
+ * The container a shell field holds until its own slice fills it.
+ *
+ * **Shared rather than rebuilt, and that is load-bearing.** Immutable compares two structurally
+ * empty plain objects as *different* values (`is({}, {})` is false), while the state round-trip
+ * property asserts `.equals`. One frozen value makes "empty" the same value on both sides, so a
+ * save that carries `{}` restores to the object it was. The slice that fills a shell replaces it
+ * with its own record and reader, and from then on the value compares by content.
+ */
+const EmptyShell: object = Object.freeze({})
+
+/**
+ * Reads one shell field off a save, and answers the shared empty value when it carried nothing.
+ *
+ * A save is not a trusted input, so anything that is not a plain object is dropped rather than
+ * carried into the tree. A non-empty object is passed through for the slice that owns it: this
+ * reader knows the shell's *place*, not its shape, which is the whole reason the field exists
+ * before its design does.
+ */
+const ReadShell = <Shell extends object>(value: unknown): Shell =>
+    value != null && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).length === 0
+        ? EmptyShell as Shell
+        : value as Shell
+
+/**
+ * The quest metadata **route 1 must not clear**: what the quest allocator reads to place quests —
+ * knowledge and keys (blueprints, obtained keys, completion records), not the dossier.
+ *
+ * An **empty interface** on purpose. It is the save format's skeleton rather than a design: the
+ * field exists from this release so that filling it is an addition instead of a migration, and
+ * the shape belongs to the slice that authors it. Nothing writes it yet.
+ */
+interface Quests { }
+
+/**
+ * The standing rules the Hive declares — which are **not** Intents and need not map to a
+ * dimension (`design/report/Experience design/willing-surrender.md` §7.5).
+ *
+ * The same shell as {@link Quests}, for the same reason: its own design pass owns the shape, and
+ * its **home** is settled here so that pass is not also a persisted-format change. Declared and
+ * unwritten, in the same sense the seams are.
+ */
+interface Rules { }
+
 interface _Entry {
     readonly ID: string
     readonly Control: ControlState
+    readonly Quests: Quests
+    readonly Rules: Rules
 }
 
 /**
@@ -63,10 +109,14 @@ interface _Entry {
 const EntryDefault: _Entry = {
     ID: NewUUID(),
     Control: ControlState(),
+    Quests: EmptyShell,
+    Rules: EmptyShell,
 }
 
 /**
- * One entity the coordinator tracks: its id, and the dossier the Host keeps about it.
+ * One entity the coordinator tracks: its id, the dossier the Host keeps about it, and the two
+ * shells for the parts that are not the dossier — the quest metadata route 1 preserves, and the
+ * rules the Hive declares.
  *
  * A default entry mints its `ID` from a uuid v7 at module evaluation, so the default is not
  * reproducible from one run to the next. That is why nothing randomised may be captured from
@@ -77,8 +127,9 @@ export type Entry = RecordOf<_Entry>
 
 /**
  * The record constructor for an entry. Called with no fields it falls back to the defaults above,
- * so the id is the uuid minted once at module evaluation; `fromJS` instead restores the id and the
- * dossier a save carried, which is what keeps a loaded entry identifiable.
+ * so the id is the uuid minted once at module evaluation; `fromJS` instead restores the id, the
+ * dossier and the two shells a save carried, which is what keeps a loaded entry identifiable and
+ * what makes the shells round-trip before anything writes them.
  *
  * The `?.` on the nested read is deliberate even though `ControlState.fromJS` already tolerates a
  * missing argument: a save written before the dossier existed carries no `Control` key at all, and
@@ -90,6 +141,8 @@ export const Entry = DefineStateRecord<_Entry>(
     js => ({
         ID: js.ID,
         Control: ControlState.fromJS(js?.Control),
+        Quests: ReadShell<Quests>(js?.Quests),
+        Rules: ReadShell<Rules>(js?.Rules),
     }),
 )
 
