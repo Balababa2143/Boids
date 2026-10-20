@@ -54,6 +54,7 @@ base game's shorthand — a bare `restraint/KinkyDungeonRestraints.ts:1652` mean
 | [`phase-1-control-model.md`](phase-1-control-model.md) | 1 — the control model | whether the phase's exit condition holds as written, and what Phases 2 and 3 are standing on |
 | [`canonical-model-divergences.md`](canonical-model-divergences.md) | 1 — the control model | where the corpus and the tree diverge from the owner's canonical statement of the control system, and what each divergence blocks |
 | [`phase-1-mid-review-draft.md`](phase-1-mid-review-draft.md) | 1 — the control model | a **working draft for the next session**: the verdict, the correction list (K1–K11), what is deferred to which slice, and the decisions the owner has taken |
+| [`phase-1-second-acceptance.md`](phase-1-second-acceptance.md) | 1 — the control model | the **re-delivered** phase: whether its exit condition holds as written, K1–K12 clause by clause, the mutation evidence behind K10, and the four findings it records |
 
 ## What this folder is not
 

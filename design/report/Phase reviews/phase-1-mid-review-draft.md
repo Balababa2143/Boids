@@ -1,5 +1,8 @@
 # Phase 1 mid-review — acceptance report (draft)
 
+> **Superseded, 2026-10-20.** [The second acceptance](phase-1-second-acceptance.md) is the record of
+> what was delivered; this draft is kept as the correction list it became (K1–K11, tracked by #79–#84).
+
 > **Working draft, 2026-10-20.** It exists so the next session can pick the work up without
 > re-deriving it: what is delivered, what is not, the correction list, and the decisions the owner has
 > already taken. It is written to be read, not signed — a decision recorded here is only real once it

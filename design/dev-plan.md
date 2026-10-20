@@ -248,7 +248,7 @@ those steps are green and the findings' clauses are true as written.** At delive
 is green at **233 tests over 48 suites, 231 pass, 2 skipped by `AuditSkipReason`**, and
 `npm run verify:full` is green with the audit comparisons run (**233 pass, 0 skipped**) and the mod
 bundle built. 1.10's appearance conclusion is superseded by 1.15: the item declares the mapping
-from the intent to its look, not a fixed look beside its bid.
+from the intent to its look, not a fixed look beside its bid. **Reported met 2026-10-20 by the second acceptance** (`design/report/Phase reviews/phase-1-second-acceptance.md`): the exit condition holds as written at `4f22378`, each of K1–K12 is backed by a site or a mutation, and four findings are recorded outside it — F1 blocking 2.7 and F2 blocking 2.1 — with the seams still declared and unbound.
 
 **Goal:** replace the three-slot limiter prototype with the general control model, and give
 it a router.
