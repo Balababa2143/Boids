@@ -1697,3 +1697,87 @@ maintained by review.
 | whether the **morphing routes are consolidated** | §6.8, §10 | a standing invitation; the only hard rule is that no fourth route is added |
 | the **version table's home** was reported inconsistently in the source discussion | §4.3 | this spec follows the designer's later instruction; the source should be corrected |
 | the **calibration of the final act's peak** — how hard the struggle of §6.10 step 4 should be | §6.10 | the mechanism is decided (the game's own struggle system at the Controller's ceiling). What is open is the tuning, which is done against the finished room (dev-plan Phase 8) |
+
+---
+
+## Appendix A — The control model in two dimensions (informational)
+
+> **Not normative, and it changes nothing.** Added 2026-10-21 at the owner's instruction: a
+> supplement to §5–§7 that restates the same model in the terms the design conversation used — its
+> **states** and its **signal paths** — kept verbatim in the owner's language. It decides no rule and
+> no value; where it and §6 disagree, §6 wins. Everything it marks as not yet built is scheduled by
+> the plan (S1–S7) or recorded in the experience-design record; it adds no step.
+
+> **控制模型是「回应回路」＋一条与它解耦的「表达通道」，中间靠读解连接。** 表达回答 *Hive 说了什么*，回应回答 *Hive 做了什么*——两者不共用数据结构，只共用同一个玩家。
+
+### 一、状态机
+
+#### 两层五态
+
+| 层 | 状态 | 是什么 | 从什么解算／存在哪 | 持久化 |
+| --- | --- | --- | --- | --- |
+| **表达** | **Rule**（规矩／为难） | Hive 明确表达、而她**做得到违反**的意愿 | Hive 自己；`Rules` 壳已就位，形状待设计 | 待定（壳已存在） |
+| **表达** | **Refusal**（拒绝） | 对明确意愿的任何偏离；挣脱是确定无疑的那一种 | 从她的行为观察而来，不单独存 | 不持久化 |
+| **回应** | **Capability**（能做） | **抑制**（bid 强度的聚合）＋**赋予**（bid 的 `Granted` 并集），两半不互斥 | 每次解析从**所穿戴**读一次 | **不持久化** |
+| **回应** | **Intent**（想做） | 记录的 demand（`Target`／`Allowed`／`Intent`） | dossier 的 `{intent, config}` | 持久化 |
+| **回应** | **Status**（看见） | 场景级：本回合她做了什么、偏离了什么；玩家级：**读解**（她是真拒绝还是演） | 被动观察＋间接询问，全本地 | 场景级不存；玩家级壳未定 |
+
+#### 回路的走向
+
+```
+Rule / 为难 ──(她做得到)──▶ 偏离（Refusal）
+      ▲                          │
+      │                     Status 观察
+      │                          ▼
+  新的规矩 ◀── injector ◀── Intent ◀── 读解（密度；挣脱＝1）◀┘
+   （回应也是表达）          ▲
+                      Capability（钳制）
+```
+
+三点值得单说：
+
+- **回应本身也是表达**：把拘束具加上去，就是在说「待着别动」——所以下一轮偏离的违规面随之改变（挣扎）。
+- **读解是唯一的桥**：它把「她做了什么」（Status）转成「Hive 接下来想做什么」（Intent），也决定「要不要收」（关怀阈值）。
+- **规则系统不进入控制模型**（1.21／K12 之后的定论）：规矩是表达，设置是回应；把两者耦合，等于让每句话都是一个动作。
+
+### 二、信号通路
+
+#### 四条控制通路（您原来那四条，按最终版修正）
+
+| # | 路径 | 承载 | 何时／怎么 | 现状 |
+| --- | --- | --- | --- | --- |
+| **1** | 拘束具组合 → 协调器 | **Capability**：抑制（获胜 bid 的 `Stack` 聚合，钳到 0..1）＋赋予（`Granted` 并集，按该维度的通道） | **每次解析读一次**，不缓存、不落库 | 已落地 |
+| **2** | game state → 协调器 | **Status**：本回合的动作、偏离、姿势；玩家级**读解** | 被动观察＋间接询问；场景／菜单／meta 都算；全本地 | **未建**（S6；观察面未定） |
+| **3** | 协调器 → 拘束具实例 | **cosmetics**：实例从 **Intent** 解算自己的外观，物只提供参数 | 每件自己算，强度变化时重算 | spec 已改；代码待 **S4** |
+| **4** | 协调器 → 注入层 | **对 game state 的修改**：`(Intent, Capability)` → 钳制 → 该维度的 engine value → seam | 单一注入层组件；`Free` 时一律不注入 | **未建**（S3） |
+
+#### 两条表达通路（本次讨论新增）
+
+| # | 路径 | 承载 | 性质 |
+| --- | --- | --- | --- |
+| **5** | **Hive → doll** | 规矩；以及「为难」（自相矛盾、极可能越界的命令） | **声明，不强制**；戏内可闻；她**可以**违反 |
+| **6** | **doll → Hive** | 拒绝（偏离）；挣脱为确定项 | 被观察；进 Status／读解 |
+
+#### 那条独立于控制系统的地板
+
+vanilla 拘束声明只提供**很宽松的基线**（地板）；真正效果来自注入层。**宽松不是审美，是让拒绝存在的前提**（S1 待落地）。
+
+### 三、相对您最初描述的四处修正
+
+1. **「赋予」从概念变成数据结构**：bid 有 `Granted`，resolution 报告它，校验器**从身上**读承诺；`OverrideAllowed` 只在身上有承诺时 engage（1.22）。
+2. **意图不再是「更强的那个」**：`Rate` 是 `min(demand, capability)`；`Posture` **只下不上**，且 **add-half 已退役**（1.21）——「还原」发生在路由覆盖游戏答案时，不在代数里。等待的性质落在**记录的 intent** 上，解析永不改写它。
+3. **cosmetics 换了归属**：不是「物的声明」，而是 **intent 的函数、物提供参数**。
+4. **多了一层表达通道**：Rule／Refusal 与 Capability／Intent 解耦；控制设置从此是「回应」而不是「规矩」。
+
+### 四、现在可以当验收的五条
+
+- **capability bounds intent**，intent 原样保留。
+- **grant 是 capability，不是 demand**，只从身上读、不落库。
+- **Free ＝ 不注入**；地板是 vanilla 基线，且必须宽松。
+- **回应可以夺走能力；规矩不能。**
+- **一切本地**。
+
+### 五、现状（HEAD `9588f26`）
+
+**已落地**：钳制、赋予、permit 无 add-half、engage 读身上、随机 tick 驱动退役、`FindProviders` 发布、`Rules`／`Quests` 壳、对应测试与 mutation matrix。
+**待落地**：注入层（S3）、cosmetics 代码（S4）、三值身体状态（S5）、Status（S6）、规矩内容（S7）、宽松基线（S1）、姿态词（S2）。
