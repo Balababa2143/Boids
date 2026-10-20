@@ -237,6 +237,19 @@ implemented, the registry holds twenty-three dimensions, `npm run verify:full` i
 over 44 suites, and the deviations from the steps as written are recorded at the end of this phase,
 including the one the implementation turned up and did **not** settle.
 
+**Reopened 2026-10-20 by the Phase 1 review, and not accepted as delivered.** The declarative
+half stands — the 23-dimension declaration and registration, the descriptor rules, the write
+validators' shape rules, the persisted shape and its round-trip — and the resolving half is
+written again under steps 1.15–1.20 against the owner's canonical model: capability bounds the
+intent, the equipment's grant half reaches the write path, and appearance follows the intent.
+The review is `design/report/Phase reviews/phase-1-control-model.md`; the correction list is
+`phase-1-mid-review-draft.md` K1–K11, tracked by #79–#84. **The phase is finished only when
+those steps are green and the findings' clauses are true as written.** At delivery: `npm run verify`
+is green at **233 tests over 48 suites, 231 pass, 2 skipped by `AuditSkipReason`**, and
+`npm run verify:full` is green with the audit comparisons run (**233 pass, 0 skipped**) and the mod
+bundle built. 1.10's appearance conclusion is superseded by 1.15: the item declares the mapping
+from the intent to its look, not a fixed look beside its bid.
+
 **Goal:** replace the three-slot limiter prototype with the general control model, and give
 it a router.
 
@@ -274,6 +287,12 @@ layer is rewritten on top of the store), but it means "resolved by the router" c
 | 1.12 | **The seam record gains a kind, and every `Rate` dimension gains an engine value map.** The base game has four algebras rather than one — an addition (`calcDeaf`), an absolute value (`calcBlind`), a multiplier (`calcHearing`) and a **replacement** with no event at all (the pose availability functions) — while `Rate` is uniformly 0..1 in the model and no base-game quantity is on that scale. | #45 |
 | 1.13 | **A bid declares how it stacks.** `Max` and `Sum`, because the base game's aggregates disagree with one another: `gag` sums, a blind level counts *and* takes a maximum, a deaf level is a weighted maximum plus a weighted sum. **A third mode for counting was drafted and then removed** — see the deviation below — because a count aggregates the number of items rather than what they say, and nothing this mod builds is a fixed-value restraint. `Posture` is the exception that proves the field is per-facet — it has no numeric aggregate at all, and combines by **intersection** so that the worn set can always draw the pose it permits. | #45 |
 | 1.14 | **The two rules the model was missing.** **Dimensions do not contract for interaction** — a seam may read anything, but nothing may rely on it and no test may assert it, so the base game's real couplings are recorded as *unspecified* rather than modelled. And **there are two grant channels**: `OverrideAllowed` is checked against the channel the dimension actually has, so invariant 6 holds for a posture dimension without there being a `CapabilityKey`. | #19, #45 |
+| 1.15 | **The corpus correction** — §6.7's clamp, §6.1's appearance rule, the grant field, §12's stale row, and 3.1's text. | #79 |
+| 1.16 | **The router clamps both facets** — `Applied` is the demand bounded by capability, and a permit-gate demand cannot add a pose the ceiling excludes. The properties are rewritten with it. | #80 |
+| 1.17 | **The grant half reaches the write path** — `Granted` on the bid and the resolution, and `SetIntent` reads the worn set on the dimension's own channel. | #81 |
+| 1.18 | **The random tick driver is retired** — no release registers a tick handler; the console drivers remain. | #82 |
+| 1.19 | **The provider enumeration is published** — a console caller enumerates once and resolves several dimensions against the same bids. | #83 |
+| 1.20 | **The corrected paths are tested** — one case per mechanism, each failing when the mechanism is deleted; the delivery gate is re-run and the counts recorded. | #84 |
 
 **Deviations from the steps as written, recorded:**
 
@@ -300,6 +319,9 @@ layer is rewritten on top of the store), but it means "resolved by the router" c
   validator**, and this is now a reason rather than an excuse: the gate and the rate are different facets
   of one demand, and the resolved severity is the stronger of the demand and what is worn, so no single
   write can establish what a gate resolves to. The property asserts it over every resolution.
+  **Superseded 2026-10-20:** the router's `Applied` is the demand **clamped to** capability
+  (1.16), and the random tick registration is retired (1.18). This paragraph is the record of
+  the first delivery, not the current rule.
 - **1.3 — `Form` was added, and a provider declares size apart from force.** A demand carries *how big the
   thing imposing it looks* as well as *how hard it squeezes*, because the base game's `gag` property is one
   number that drives the mechanics **and** selects the model — so a larger ball there is necessarily a
@@ -415,15 +437,15 @@ correction: 1.9 precedes 1.10–1.14** (the catalogue cannot lose `Form` before 
 replaces it), and **1.10 precedes 1.11** (the appearance declaration is what frees `Posture` from
 carrying a size).
 
-> **The debug tick driver is not retired here.** It is currently the *only* input to the
-> sensory limiters, and it advances game time from inside tick dispatch. Its replacement is
-> the router **plus** the Phase 3 sensory work, so retiring it is **3.1**. That keeps this
-> phase's exit condition honest.
+> **The debug tick driver was retired by the 2026-10-20 re-delivery (1.18).** The first delivery
+> kept it because it was the only input to the sensory limiters; that made it a second writer
+> inside the tick dispatch. The console entry points remain, and 3.1 replaces them as the only
+> writer.
 
-**Ordering constraint, as delivered:** the driver was **rewritten** rather than retired — it now
-records an intent and announces what the router resolved, which is what makes the wearer's visor or
-gag re-model itself without any UI. It is still the only writer of a dimension, and 3.1 is still
-where it goes.
+**Record of the first delivery (superseded):** the driver was rewritten rather than retired — it
+recorded an intent and announced what the router resolved, which is what made the wearer's visor or
+gag re-model itself without any UI. It was still the only writer of a dimension, and 3.1 was where
+it went.
 
 ---
 
@@ -467,7 +489,7 @@ router, with the known seam precedence handled explicitly.
 
 | # | Step | Issue |
 | --- | --- | --- |
-| 3.1 | **Rewrite the sensory limiter layer** on top of the Phase 1 store, and **retire the debug tick driver**. Keep the existing state accessors — they are correct and property-tested — and replace the limiter layer above them. The tick driver goes because this is the step that finally gives the limiters a real writer. | #58 |
+| 3.1 | **Rewrite the sensory limiter layer** on top of the Phase 1 store, and give the limiters a real writer. The limiters read `Public.Control.Resolve(dimension)` and are written with `SetIntent`; the prototype's `GetLimiterStrength`/`SetLimiterStrength` and stored `target` were deleted in Phase 1 and are not coming back. The random tick driver was retired by 1.18; the console entry points `SetBlindStrength`/`SetGagStrength` are the only writer until this step replaces them. | #58 |
 | 3.2 | **Handle seam precedence explicitly.** Some perception values are written by an early seam and overwritten by a later one; the descriptor must name every seam and its order, and a partial implementation must be a **loud** failure rather than a silent one. | #58 |
 | 3.3 | **Wire the deafener.** The slot's schema, guard and round-trip all exist and no item has ever emitted it; today the headphone sets a static `deaf: 2` instead. **[TBD]** The source discussion recorded this as *not decided*; wiring it is the obvious first customer for the keyed store, so it is scheduled here as the cheap test of whether the store earns its keep. **`Hearing` is `Direction.Both` now** (`spec` §6.1): `calcHearing` has a live granting handler (`effect/KinkyDungeonEvents.ts:7263-7267`) that the base game already uses through two spells, so this step wires **both** directions rather than only the denial. | #59 |
 | 3.4 | **Wire spell range** — **done when** a dimension can change the range the game reports for a spell, with no other consumer involved. | #59 |
@@ -655,7 +677,7 @@ so the step tables above and this map carry the same numbers.
 | Phase | Existing issues | Opened at the freeze |
 | --- | --- | --- |
 | 0 — Foundation **(delivered)** | #48 (0.1), #47 (0.2), #50 (0.3), #51 (0.4), #52 (0.5), #53 (0.6) — **all closed** | — |
-| 1 — Control model | #19, #45, #40, #42, #43, #30, #34 | #70 (1.8, the restraint contract). **1.9–1.14 ride on #19 and #45** — the control model and its router — because they *correct* that delivery rather than extend it |
+| 1 — Control model | #19, #45, #40, #42, #43, #30, #34 | #70 (1.8, the restraint contract). **1.9–1.14 ride on #19 and #45** — the control model and its router — because they *correct* that delivery rather than extend it. **1.15–1.20 ride on #79–#84** — the 2026-10-20 re-delivery |
 | 2 — Behavior Control | #54 (2.1) | #55 (2.2), #56 (2.3), #57 (2.4–2.5), #71 (2.6) — **2.7 and 2.8 are unopened on purpose**, and each needs a number before it starts |
 | 3 — Sensory Control | — | #58 (3.1–3.2), #59 (3.3–3.4), #60 (3.5–3.6), #61 (3.7) — **3.8 is unopened on purpose**, same rule |
 | 4 — Equipment evolution | #27 (4.6), #33 and #41 (4.7), #32 (4.8), #37 (4.9) | #62 (4.1), #63 (4.4), #64 (4.5) — 4.2 and 4.3 stay unopened, deferred with the consolidation |

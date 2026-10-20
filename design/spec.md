@@ -469,7 +469,8 @@ type Noise     = Identity & Rate
 > substitute for a dimension is exactly *whether the dimension's grant channel is non-empty* —
 > `Whitelist`'s `Granted` for an ability, `Posture`'s `Allowed` for a posture — so a boolean
 > would be a second source of truth for the same fact. `Rate`'s `Ceiling` is the analogous
-> field for the Constraint group.
+> field for the Constraint group. `Whitelist`'s `Granted` is the equipment's promise: a bid
+> carries it, a resolution reports it, and the Host's intent never does.
 
 The types above are **worked examples**, one per facet combination the design needs so far.
 `Sight` is the dimension the game calls blindness; `Speech`, `Struggle`, `WeaponUse`,
@@ -482,17 +483,21 @@ The types above are **worked examples**, one per facet combination the design ne
 > **its `Free` value is the whole ladder rather than the empty set** — the one facet whose
 > baseline is not "nothing". §6.7 states how a set resolves; §6.13 states the route.
 
-> **[Decided] Appearance is the equipment's declaration — not a facet, and not a demand.** The
-> base game's `gag` property is one number that drives the mechanics **and** selects the
-> model, so a larger ball there is necessarily a stricter one and the two can never disagree.
-> They should be able to: *a small ball on a strict mechanism* and *a large one that only
-> blocks the words* are both coherent equipment. An earlier reading of this section answered
-> that with a `Form` facet carrying a Host-chosen `Size`; **that was wrong and is now
-> retracted.** The look of a thing is a property of the thing — §6.12 clause 4 says capability
-> is read from what is worn and never demanded — so an item declares its own appearance beside
-> its own bid, and the Host has **no cosmetic lever at all**. The expressibility `Form` was
-> created for survives and moves: a small ball on a strict mechanism is now one item variant
-> declaring a small appearance and a high bid, and its sibling declaring the opposite.
+> **[Decided] Appearance is a function of the intent, parameterised by the item — not a facet,
+> and not a demand.** The base game's `gag` property is one number that drives the mechanics
+> **and** selects the model, so a larger ball there is necessarily a stricter one and the two
+> can never disagree. They should be able to: *a small ball on a strict mechanism* and *a
+> large one that only blocks the words* are both coherent equipment. An earlier reading of
+> this section answered that with a `Form` facet carrying a Host-chosen `Size`; **that was
+> wrong and is now retracted.** So was the reading that the look belongs to the item alone:
+> §6.12 clause 4 says capability is read from what is worn and never demanded, but appearance
+> is not capability: an instance derives **its own cosmetics from the intent**. The rule is
+> therefore that an item declares the **mapping** from the resolved intent to the models it can
+> draw, and the mapping is the item's. The Host has **no cosmetic parameter to write**: the
+> intent is the lever, and the item's mapping is what turns it into a look. The expressibility
+> `Form` was created for survives: a small ball on a strict
+> mechanism is one item variant whose mapping chooses the small model at a high intent while
+> its bid is high, and its sibling maps the opposite.
 
 **[Decided]** Facets live in the **type system** and in a **code-side descriptor registry**.
 The persisted shape stays uniform (§6.5). The migration chain is the backstop, not the
@@ -663,8 +668,8 @@ dimension**, and that absence is deliberate — see the next decision.
 > live: that property is a number and it drives how badly speech degrades. Split two ways, the
 > **rate** is how strictly the mouth is filled and the **gate** is whether speech is denied or
 > re-granted through equipment — so a wearer may be talking through a prosthesis with her mouth
-> still visibly full. *How large the thing in her mouth looks* is a third and separate question,
-> and it belongs to the item rather than to the demand (§6.1).
+> still visibly full. *How large the thing in her mouth looks* is a third and separate question:
+> the item maps the resolved intent onto its own models (§6.1), and there is no cosmetic demand.
 
 > **[Existing] A gag is not one demand either — it is four.** The inventory of
 > `KinkyDungeonGagTotal` (`player/KinkyDungeonStats.ts:2209`) and its consumers shows one
@@ -687,7 +692,9 @@ dimension**, and that absence is deliberate — see the next decision.
 > So the Host's only lever over a whitelist is the gate in front of it: *"you may have it
 > back, through the gear"* — `Gate.Intent = OverrideAllowed` — and the gear decides *which*
 > abilities that covers. Adding a `Granted` to the intent would be the Host promising a
-> capability the equipment may not offer, which is the write §6.6 refuses.
+> capability the equipment may not offer, which is the write §6.6 refuses. The grant itself is
+> not persisted either: the equipment declares it, the resolution reports it as `Granted`, and
+> the write validator reads the worn set when the Host asks to re-grant.
 
 > **[Decided] `GateIntent` is the `Gate` facet's vocabulary, not the type of an intent.** It is
 > the three values in §6.4 and it belongs to one facet; a dimension without `Gate` in its
@@ -760,7 +767,7 @@ Rejection happens at write time, never as a silent runtime failure.
 > not at a write site.** It became unfalsifiable as a write check when the `equipment` key
 > left the dossier (§6.5): `Free` resolves to the baseline whatever is worn, so no single
 > write can break it. The gate and the rate are **two separate facets of one demand**, and
-> the resolved severity is the stronger of the demand and what is worn — so no single write
+> the resolved severity is the demand clamped to what is worn — so no single write
 > can establish what a gate will resolve to either. The honest home for a rule about *every*
 > resolution is a property over the router, not a guard on one call — see
 > `test/control-router.test.ts`.
@@ -786,6 +793,10 @@ them (`design/README.md`: a step that is built but not promoted is still a `[Pro
 3. **How the loser expresses itself** — a losing or partial provider still changes the model,
    appearance or pose through the existing limiter-update event.
 
+**A bid is a capability declaration.** It carries the dimension it speaks to, a `Power`, the
+`Stack` mode its power aggregates under, the poses it can draw (`Allowed`), the abilities it can
+re-grant (`Granted`), and whether it expresses itself when it loses.
+
 **[Decided] A provider speaks to as many dimensions as it has effects, and to no others.** This is
 the rule the whole decomposition rests on: a restraint is not classified by the part of the body
 it covers, it **is a set of bids** (§6.5). An arm restraint that also denies speech declares two
@@ -796,14 +807,22 @@ facets do different things.
 
 | Facet | Rule |
 | --- | --- |
-| **Rate** | the capability is the aggregate of the bids (below); **`Applied` is the stronger of the Host's demand and that capability**, so a demand recorded before the gear that can honour it exists *waits* rather than being discarded; the dimension's **engine value** map then turns `Applied` into the number a seam receives |
-| **Posture** | the permitted set is the **intersection of every provider's `Allowed`**, or the **ladder** when no provider speaks. **Subtract** the Host's demand where the gate forbids, then **union** it where the gate allows. **Allow wins**, and the result is **never empty** |
+| **Rate** | the capability is the aggregate of the bids (below); **`Applied` is the Host's recorded demand clamped to that capability** — `min(demand, capability)`, with an absent demand reading as the baseline `0` — so a demand recorded before the gear that can honour it exists *waits*: the recorded intent is untouched and the resolution rises to meet it when the gear arrives; the dimension's **engine value** map then turns `Applied` into the number a seam receives |
+| **Posture** | the permitted set is the **intersection of every provider's `Allowed`**, or the **ladder** when no provider speaks. **Subtract** the Host's demand where the gate forbids; where the gate allows, the demand may only **restore a pose the capability already contains**, because a demand is clamped to capability. **Allow wins**, and the result is **never empty** — the only member outside the capability is the non-empty sentinel |
 | **Gate** | an absent demand reads as `Free`; `OverrideForbidden` engages where the direction can deny, `OverrideAllowed` where it can grant; a gate the seams cannot honour does not engage |
-| **Whitelist** | nothing — the Host's only lever over it is the gate in front of it |
+| **Whitelist** | nothing — the Host's only lever over it is the gate in front of it; the capability is the **union of every bid's `Granted`**, reported as the resolution's `Granted` |
 
-> **[Decided] `Posture` combines by intersection, then subtraction, then union — and it is the same
-> rule rather than a second one.** A provider declares the body configurations it can deliver,
-> so the worn set's capability is what **all** of them can deliver: the **intersection**.
+**`Granted` is a capability, not a demand.** A bid declares it, a `Whitelist` dimension's
+resolution reports the union, and the validator is handed the worn set's promise on the
+dimension's own channel (§6.4). It is never written into the intent, and it is not persisted:
+the equipment's declaration is read at resolution time.
+
+**A resolution never rewrites the recorded intent.** It reads the dossier and reports; the
+demand stays as the Host wrote it, which is what lets a demand wait for gear.
+
+> **[Decided] `Posture` combines by intersection, then subtraction, then a clamped restore — and it
+> is the same rule rather than a second one.** A provider declares the body configurations it can
+> deliver, so the worn set's capability is what **all** of them can deliver: the **intersection**.
 > **[Existing] The reason the combination is an intersection rather than a union is the art.** A pose
 > is a sprite variable, and an item that does not allow a pose may not carry the variable for it
 > at all — so permitting a pose the worn set cannot draw would produce a state the renderer
@@ -811,8 +830,10 @@ facets do different things.
 > **remove** under `OverrideForbidden`, and as a set to **restore** under `OverrideAllowed`. The
 > order is fixed — **subtract first, then add** — and a pose named by both a refusal and a grant
 > is **allowed**, because a grant is capability and capability is never overridden downward by a
-> demand. This is also why `Posture` has no numeric aggregate and no meaningful winner: rule 2's
-> `Power` bid has nothing to compare, and the winning bid matters only for rule 3.
+> demand; the demand itself is clamped to capability, so an "add" can only restore a pose the
+> capability already contains. This is also why `Posture` has no numeric aggregate and no
+> meaningful winner: rule 2's `Power` bid has nothing to compare, and the winning bid matters only
+> for rule 3.
 
 > **[Decided] A `Posture` resolution is never allowed to come out empty, and the fallback is the
 > game's own sentinel rather than a rule of ours.** The game indexes the available set at `[0]`
@@ -1220,8 +1241,8 @@ both need: *"controlled"* means *"carries the tag"*, and nothing else.
 **[Existing]** An item spreads `SetItemDataOnApply` into its own `events` list, whose handler fires
 on **`postApply`** and stamps the declaration onto its own `item.data`; the membership walk reads
 it back off the worn set (§6.7 rule 1). The declaration carries the item's **bids**, one per
-dimension it moves, and its own **appearance** (§6.1) — both are properties of the item and
-neither is a demand.
+dimension it moves, and the **mapping from the resolved intent to its own appearance** (§6.1) —
+both are properties of the item and neither is a demand.
 **[Decided] There is no registration step and no registered-item set.** An earlier reading of this
 clause had two builders — `RegisterItemOnApply` and `UnRegisterItemOnRemoval` — maintaining a
 per-archetype `RegisteredItems` set. **Both were deleted in Phase 1 and this clause now says what
@@ -1666,7 +1687,6 @@ maintained by review.
 
 | Open question | Where | Why it is not settled |
 | --- | --- | --- |
-| the **router's three resolution rules** | §6.7 | proposed, and the designer wants implementation experience before deciding |
 | the **arousal gate's direction** — deny only, or also grant | §6.11 | the deny direction is cheap; the grant direction needs a tag withdrawn rather than set |
 | the **submission economy** — what obedience buys | §7.2 | a design aim rather than a mechanism |
 | **`Compliance`**, for the control-degree aggregate | §7.3 | deferred with the resource work |
