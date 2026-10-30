@@ -1,1 +1,0 @@
-export * as Invnetory from './Inventory'

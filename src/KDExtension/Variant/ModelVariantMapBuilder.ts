@@ -1,14 +1,12 @@
 import { FromJS, fromJS, isKeyed, Map, Set } from 'immutable'
 import { AddModelWithTextThenGetName, ModelText } from '../Model'
-import { JSReceiver, VariantKeyOrImmutable, IsComplete, GetVariantIdFromBase, VariantPart, VariantKeyToImmutable, IMVariantPart, GetVariantNameFromBase } from './Common'
-import { VariantMap, VariantMapBuilder } from './VariantMapBuilder'
-import { ThrowIfNull } from '../../Utilities'
+import { JSReceiver, IMVariantPart } from './Common'
+import { VariantMap } from './VariantMapBuilder'
 import { NamedVariantMapBuilder } from './NamedVariantMapBuilder'
 
 /**
- * A {@link JSReceiver} that transforms Immutable.js collections during `fromJS` deserialization.
- * - If the key is `'Layers'`, converts the value to an Immutable `Set`.
- * - Otherwise, converts keyed collections to `Map` and indexed collections to `Set`.
+ * A {@link JSReceiver} for models: `Layers` becomes an Immutable `Set`, other keyed collections `Map`s,
+ * indexed ones `Set`s.
  */
 export const ModelReceiver: JSReceiver =
     (key, value, _path) =>
@@ -16,58 +14,36 @@ export const ModelReceiver: JSReceiver =
             value.valueSeq().toSet()
             : isKeyed(value) ? value.toMap() : value.toSet()
 
-/**
- * A variant of the game {@link Model} type where the `Layers` property is represented
- * as a plain array of {@link ModelLayer} instead of its original immutable form.
- * Used as an intermediate representation during model variant construction.
- */
+/** A game {@link Model} whose `Layers` is a plain array, used while a variant is being built. */
 export type ModelWithLayerSet =
     Omit<Model, 'Layers'> & {
         Layers: ModelLayer[]
     }
 
-/**
- * Represents a complete model variant, pairing a game {@link Model} with its
- * associated {@link ModelText} metadata (display name, description, etc.).
- */
+/** A complete model variant: the game {@link Model} and the {@link ModelText} it registers. */
 export interface ModelVariant {
     /** The fully constructed game model. */
     Model: Model,
-    /** Text metadata for the model (name, description, and other localizable strings). */
+    /** Text metadata for the model: the display name and any extra keys. */
     TextInfo: ModelText
 }
 
-/**
- * A mapping from a variant key to its corresponding {@link ModelVariant}.
- * Specializes the generic {@link VariantMap} for model-based variants.
- *
- * @typeParam VariantKey - The key type used to identify each variant.
- */
+/** A variant key's {@link ModelVariant} map. */
 export type ModelVariantMap<VariantKey> = VariantMap<VariantKey, ModelVariant>
 
 /**
- * Builds a {@link ModelVariantMap} by progressively accumulating model data and text metadata,
- * then finalizing each entry into a complete {@link ModelVariant}.
- *
- * Extends the generic {@link VariantMapBuilder} to handle model-specific concerns such as
- * layer conversion and text attachment.
+ * Builds a {@link ModelVariantMap} by accumulating model data and text, then finalizing each entry
+ * into a complete {@link ModelVariant}.
  *
  * @typeParam VariantKey - The key type used to identify each variant.
  */
 export class ModelVariantMapBuilder<VariantKey>
     extends NamedVariantMapBuilder<VariantKey, ModelText, ModelWithLayerSet, ModelVariant> {
 
-    /**
-     * Creates a new {@link ModelVariantMapBuilder}.
-     *
-     * @param args - Configuration object.
-     * @param args.baseName - The base name used to derive variant display names.
-     * @param args.receiver - Optional {@link JSReceiver} for Immutable.js deserialization; defaults to {@link ModelReceiver}.
-     * @param args.isItemComplete - Optional predicate to determine whether a model variant is fully constructed; defaults to {@link ModelVariantMapBuilder.IsItemComplete}.
-     */
     constructor(args: {
         baseId: string,
         baseName?: string,
+        baseText?: Partial<ModelText>,
         receiver?: JSReceiver
     }) {
         args.receiver = args.receiver ?? ModelReceiver
@@ -94,15 +70,9 @@ export class ModelVariantMapBuilder<VariantKey>
 }
 
 /**
- * Registers every model variant from the given {@link ModelVariantMap} into the game engine.
- * Each variant's model and text are submitted via {@link AddModelWithTextThenGetName},
- * producing an Immutable map of variant keys to registered model names.
+ * Registers every model variant through {@link AddModelWithTextThenGetName}.
  *
- * @typeParam VariantKey - The key type identifying each variant.
- * @param variantMap - The complete model variant map to register.
- * @returns An object containing:
- *  - `ValidVariantMap`: An Immutable {@link Map} of variant keys to registered model names.
- *  - `GetVariant`: A lookup function that retrieves a registered model name by variant key, throwing if not found.
+ * @returns An Immutable `Map` of variant keys to registered model names.
  */
 export function AddModelVariantMapToGame<VariantKey>(variantMap: ModelVariantMap<VariantKey>) {
     const validVariantMap =

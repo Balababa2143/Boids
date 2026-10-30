@@ -1,6 +1,6 @@
 {
   "name": "boids",
-  "version": "0.2.0",
+  "version": "0.5.0",
   "description": "",
   "license": "MIT",
   "author": "balababa2143@gmail.com",
@@ -12,16 +12,30 @@
   "scripts": {
     "Webpack Bundle: Debug": "webpack --config webpack.config.ts --mode development",
     "Webpack Watch: Debug": "webpack --config webpack.config.ts --watch --mode development",
-    "Webpack Bundle: Production": "webpack --config webpack.config.ts --mode production"
+    "Webpack Bundle: Production": "webpack --config webpack.config.ts --mode production",
+    "typecheck": "tsc -p tsconfig.test.json --noEmit",
+    "docs:api": "node Script/ApiDocs.ts",
+    "test": "webpack --config webpack.test.config.ts --mode development && node .fake/test/run.mjs",
+    "test:build": "webpack --config webpack.test.config.ts --mode development",
+    "test:watch": "webpack --config webpack.test.config.ts --watch --mode development",
+    "test:audit": "webpack --config webpack.test.config.ts --mode development && node .fake/test/run.mjs --audit",
+    "test:update-manifest": "webpack --config webpack.test.config.ts --mode development && node .fake/test/run.mjs --update-manifest",
+    "test:update-api": "webpack --config webpack.test.config.ts --mode development && node .fake/test/run.mjs --update-api",
+    "test:update-text": "webpack --config webpack.test.config.ts --mode development && node .fake/test/run.mjs --update-text",
+    "verify": "npm run typecheck && npm run test",
+    "verify:full": "npm run typecheck && npm run test:audit && npm run \"Webpack Bundle: Debug\""
   },
   "devDependencies": {
     "@types/archiver": "^8.0.0",
     "@types/node": "^26.6.5",
     "archiver": "^8.0.0",
+    "fast-check": "^4.10.2",
     "pixi-filters": "^5.2.0",
     "pixi.js": "^7.4.3",
     "pixi.js-legacy": "^7.2.1",
     "ts-loader": "^9.6.2",
+    "typedoc": "^0.28.20",
+    "typedoc-plugin-markdown": "^4.14.0",
     "typescript": "^6.0.3",
     "webpack": "^5.111.1",
     "webpack-cli": "^7.2.3"

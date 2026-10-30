@@ -1,0 +1,53 @@
+name: Behaviour defect
+description: Something the mod does that it should not, does not do that it should, or does differently between two versions.
+title: '<area>: <the defect in a phrase>'
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This tracker records **behaviour** — what happened, how to see it again, and what a save
+        carries. A question about intent, a content plan or a design trade-off is not tracked here;
+        it would be a conversation this repository cannot host.
+
+  - type: input
+    id: version
+    attributes:
+      label: Versions
+      description: The mod version and the game version you ran.
+      placeholder: Boids 0.5.0 on Kinky Dungeon 5.5.4
+    validations:
+      required: true
+
+  - type: textarea
+    id: symptom
+    attributes:
+      label: What happens
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to see it again
+      description: The shortest sequence that still shows it. The console driver you used, if any.
+    validations:
+      required: true
+
+  - type: textarea
+    id: save
+    attributes:
+      label: Save impact
+      description: Does a save read differently after this? Is a load refused, or does it rewrite something?
+    validations:
+      required: false
+
+  - type: textarea
+    id: log
+    attributes:
+      label: Console or bundle output
+      description: The lines the game printed, pasted as text.
+      render: text
+    validations:
+      required: false

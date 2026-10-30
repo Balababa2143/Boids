@@ -1,0 +1,14 @@
+{
+    "FactionMachine": {
+        "Futuristic": {
+            "GlassVisor": {
+                "Goggle": {
+                    "Name": "Drone Visor"
+                },
+                "Mask": {
+                    "Name": "Drone Mask"
+                }
+            }
+        }
+    }
+}

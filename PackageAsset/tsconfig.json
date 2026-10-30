@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "strict": false,
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "allowSyntheticDefaultImports": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "lib": [
+            "ESNext",
+            "DOM"
+        ],
+    },
+    "include": [
+        "@type/**/*",
+    ],
+}

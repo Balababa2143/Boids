@@ -1,0 +1,49 @@
+{
+  "FactionMachine": [
+    "DebugStart",
+    "Futuristic",
+    "MachinePrime"
+  ],
+  "FactionMachine.Futuristic": [
+    "Aroused",
+    "Common",
+    "Cuff",
+    "Gag",
+    "GlassVisor",
+    "HUD",
+    "Headphone",
+    "Limb",
+    "Link",
+    "Strap",
+    "Suit"
+  ],
+  "FactionMachine.MachinePrime": [
+    "Coordinator",
+    "Debug",
+    "Item"
+  ],
+  "FactionMachine.MachinePrime.Coordinator": [
+    "Catalog",
+    "DescribeCandidates",
+    "FindProviders",
+    "GetDossier",
+    "PoseRoute",
+    "Resolve",
+    "SelectProvider",
+    "SensoryControl",
+    "SetConfig",
+    "SetIntent",
+    "WhichQualify"
+  ],
+  "FactionMachine.MachinePrime.Coordinator.Catalog": [
+    "AllDimensionNames",
+    "DimensionIdOf",
+    "DimensionName",
+    "DimensionNamesBySubsystem",
+    "Dimensions"
+  ],
+  "FactionMachine.MachinePrime.Item": [
+    "Gag",
+    "Visor"
+  ]
+}

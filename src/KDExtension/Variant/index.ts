@@ -1,4 +1,6 @@
 export * from './Common'
-export * from './VariantMapBuilder'
 export * from './ModelVariantMapBuilder'
+export * from './NamedVariantMapBuilder'
 export * from './RestraintVariantBuilder'
+export * from './Semantics'
+export * from './VariantMapBuilder'

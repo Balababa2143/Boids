@@ -1,5 +1,5 @@
-// Waits for the kd-structured mod to publish the `kd-structured` import map, so that this mod
-// initializes correctly no matter which mod the game loads first.
+// Waits for the kd-structured mod to publish the import map, so load order between the mods is
+// free.
 const RetryDelayMs = 50
 const WarnAfterMs = 10_000
 

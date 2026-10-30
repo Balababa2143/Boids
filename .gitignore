@@ -9,10 +9,17 @@ package-lock.json
 # Source Reference
 src/KDReference
 
+# test diagnostics
+# Written on a summary mismatch, and by `npm run test:audit`; the tracked summary is what gates.
+test/__manifest__/*.next.json
+test/__manifest__/*.full.json
+
 # output
 */fable_modules
 build
 bundle
 deploy
+declaration
+generated
 artworkOutput
 .fake

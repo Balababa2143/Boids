@@ -1,5 +1,3 @@
-// import { Set } from 'immutable'
-
 export function DeepFreezeInplace<T>(obj: T): Readonly<T> {
     if (Object.isFrozen(obj)) {
         return obj
@@ -23,10 +21,6 @@ export function DeepFreezeClone<T>(obj: T): Readonly<T> {
     return DeepFreezeInplace(DeepClone(obj))
 }
 
-export function NotNull<T>(obj: T | null | undefined): obj is T {
-    return null == obj
-}
-
 export function ThrowIfNull<T>(value: T | null | undefined, errorMessage?: string): T {
     if (value === null || value === undefined) {
         throw new ReferenceError(errorMessage)
@@ -37,9 +31,6 @@ export function ThrowIfNull<T>(value: T | null | undefined, errorMessage?: strin
 export type WithDefault<Base extends object, Default> =
     Omit<Base, keyof Default> & Partial<Default>
 
-export type UnionTo<Target, Tuple extends readonly unknown[]> =
-    Tuple[number] extends Target ? unknown : 'Union Constraint Mismatch'
-
 export type Intersection<T extends unknown[]> =
     T extends [infer Head, ...infer Tail] ?
     Head & Intersection<Tail> :
@@ -47,36 +38,6 @@ export type Intersection<T extends unknown[]> =
 
 export type IntersectionTo<Target, T extends unknown[]> =
     Intersection<T> extends Target ? unknown : 'Intersection Constraint Mismatch'
-
-export type ArrayProperties<T> = Pick<T, {
-  [K in keyof T]: T[K] extends any[] ? K : never
-}[keyof T]>
-
-export const SetProps =
-    <T extends object>
-    () =>
-        <Key extends keyof T>
-        (key: Key) =>
-            (value: T[Key]) =>
-                <Template extends Partial<T>>
-                (template: Template) => ({
-                    ...template,
-                    [key]: value
-                } as Template & Pick<Required<T>, Key>)
-
-export const MergeProps =
-    <T extends object>
-    () =>
-        <Props extends Partial<T>>
-        (props: Props)  =>
-            <Template extends Partial<T>>
-            (template: Template) => ({
-                ...template,
-                ...props
-            })
-// ... import {Set} from 'immutable'
-
-export type IsArray<T> = T extends ArrayLike<T> ? true : false
 
 export type ArrayPropertyKeys<T extends object> = {
     [K in keyof Required<T>]: 
@@ -88,21 +49,6 @@ export type ArrayPropertyKeys<T extends object> = {
 }[keyof Required<T>]
 
 export type ArrayElement<T> = T extends (infer U)[] ? U : never
-
-export const MergeSet = <T extends object>() =>
-    <Key extends ArrayPropertyKeys<T>>
-    (arrayKey: Key) =>
-        (newItems: Iterable<ArrayElement<Required<T>[Key]>>) => 
-            <Template extends Partial<T>>
-            (template: Template) => ({
-                ...template,
-                [arrayKey]: Array.from(
-                    new Set([
-                        ...((template[arrayKey] ?? []) as ArrayElement<Required<T>[Key]>[]),
-                        ...newItems
-                    ])
-                )
-            })
 
 export type KeyPath<T> =
         T extends (infer U)[] ?

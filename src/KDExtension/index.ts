@@ -1,4 +1,6 @@
+export * from './Control'
 export * from './Event'
 export * from './Model'
 export * from './Restraint'
+export * from './Text'
 export * from './Variant'

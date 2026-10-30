@@ -1,0 +1,176 @@
+/**
+ * The write facade and the provider enumeration it is driven with:
+ * `SetIntent` supplies the grant from the worn set, a refusal leaves
+ * the dossier untouched, and `FindProviders` publishes the enumeration.
+ *
+ * @module test/control-facade
+ */
+
+import assert from 'node:assert/strict'
+import { describe, it } from 'node:test'
+
+import { ArmPoseLadder, GateIntent, PoseKey } from '../src/KDExtension/Control'
+import * as Coordinator from '../src/FactionMachine/MachinePrime/Coordinator'
+import { DimensionIdOf, DimensionName } from '../src/FactionMachine/MachinePrime/Coordinator/Catalog'
+import { State } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/State'
+import { SetState } from '../src/FactionMachine/MachinePrime/Coordinator/Internal/StateStorage'
+import { SetPostureArms } from '../src/FactionMachine/MachinePrime/Debug'
+import { AddRestraint, ControlledTag, RemoveEverything, ResetWorld, Wear } from './harness/equipment'
+
+const PoseArms = DimensionIdOf(DimensionName.PoseArms)
+const Sight = DimensionIdOf(DimensionName.Sight)
+const Speech = DimensionIdOf(DimensionName.Speech)
+const WeaponUse = DimensionIdOf(DimensionName.WeaponUse)
+
+/** A clean body and a clean dossier. The state is module-owned, so it has to be replaced. */
+const Fresh = (): void => {
+    ResetWorld()
+    SetState(State())
+}
+
+/** The refusal rule for an outcome, or `accepted` when it was not refused. */
+const RuleOf = (outcome: ReturnType<typeof Coordinator.SetIntent>): string =>
+    outcome.kind === 'refused' ? outcome.Rule : 'accepted'
+
+/** One worn posture item that can draw a single pose. */
+const WearArmsThatDraw = (pose: PoseKey): void => {
+    AddRestraint({ name: 'grant-arms', template: 'grant-arms-template', shrine: [ControlledTag] })
+    Wear({
+        name: 'grant-arms',
+        bids: [{ Dimension: PoseArms, Power: 1, Allowed: [pose], LoserExpresses: true }],
+    })
+}
+
+describe('SetIntent supplies the grant from the worn set', () => {
+    it('accepts OverrideAllowed when the worn posture item can draw the pose', () => {
+        Fresh()
+        const [first] = ArmPoseLadder
+        WearArmsThatDraw(first)
+
+        const outcome = Coordinator.SetIntent({
+            dimension: PoseArms,
+            intent: { Intent: GateIntent.OverrideAllowed },
+        })
+
+        assert.equal(outcome.kind, 'accepted', JSON.stringify(outcome))
+        assert.equal(Coordinator.Resolve(PoseArms).Gate, GateIntent.OverrideAllowed)
+        assert.equal(
+            Coordinator.Resolve(PoseArms).Engaged,
+            true,
+            'the gear promises a pose, so the permit is engaged'
+        )
+        assert.ok(
+            Coordinator.Resolve(PoseArms).Posture?.has(first) === true,
+            'the resolution dropped the pose the equipment promised'
+        )
+    })
+
+    it('disengages when the gear that promised leaves, and engages again when it returns', () => {
+        // A promise is a fact about the body, so engagement
+        // is read at every resolution, not at the write.
+        Fresh()
+        const [first] = ArmPoseLadder
+        WearArmsThatDraw(first)
+        assert.equal(Coordinator.SetIntent({
+            dimension: PoseArms,
+            intent: { Intent: GateIntent.OverrideAllowed },
+        }).kind, 'accepted')
+        assert.equal(Coordinator.Resolve(PoseArms).Engaged, true)
+        const recorded = Coordinator.GetDossier()
+
+        RemoveEverything()
+
+        const stripped = Coordinator.Resolve(PoseArms)
+        assert.equal(stripped.Gate, GateIntent.OverrideAllowed, 'the demand is what the Host recorded')
+        assert.equal(stripped.Engaged, false, 'and it engages nothing while nothing promises')
+        assert.equal(
+            stripped.Posture?.size,
+            ArmPoseLadder.length,
+            'removal releases the set to the ladder, which is the baseline'
+        )
+        assert.ok(Coordinator.GetDossier().equals(recorded), 'the resolution rewrote the dossier')
+
+        Wear({
+            name: 'grant-arms',
+            bids: [{ Dimension: PoseArms, Power: 1, Allowed: [first] }],
+        })
+        assert.equal(Coordinator.Resolve(PoseArms).Engaged, true, 'the demand waited, and re-engaged')
+    })
+    it('refuses OverrideAllowed with nothing worn, and leaves the dossier untouched', () => {
+        Fresh()
+        const before = Coordinator.GetDossier()
+
+        const outcome = Coordinator.SetIntent({
+            dimension: PoseArms,
+            intent: { Intent: GateIntent.OverrideAllowed },
+        })
+
+        assert.equal(RuleOf(outcome), 'not-grantable')
+        assert.ok(Coordinator.GetDossier().equals(before), 'a refused write moved the dossier')
+    })
+
+    it('refuses OverrideAllowed when a worn item says nothing about body configurations', () => {
+        // Bidding without `Allowed` promises nothing: an empty grant, not the ladder.
+        Fresh()
+        AddRestraint({ name: 'silent-arms', template: 'silent-arms-template', shrine: [ControlledTag] })
+        Wear({
+            name: 'silent-arms',
+            bids: [{ Dimension: PoseArms, Power: 1, LoserExpresses: true }],
+        })
+
+        const outcome = Coordinator.SetIntent({
+            dimension: PoseArms,
+            intent: { Intent: GateIntent.OverrideAllowed },
+        })
+
+        assert.equal(RuleOf(outcome), 'not-grantable')
+    })
+
+    it('drives the posture restore through the console entry point', () => {
+        Fresh()
+        const [first] = ArmPoseLadder
+        WearArmsThatDraw(first)
+
+        SetPostureArms([first], GateIntent.OverrideAllowed)
+
+        assert.equal(Coordinator.Resolve(PoseArms).Gate, GateIntent.OverrideAllowed)
+        assert.ok(Coordinator.Resolve(PoseArms).Posture?.has(first) === true)
+    })
+
+    it('still refuses a whitelist dimension with no keys, and reports its empty grant', () => {
+        Fresh()
+        assert.deepEqual([...(Coordinator.Resolve(WeaponUse).Granted ?? [])], [])
+
+        const outcome = Coordinator.SetIntent({
+            dimension: WeaponUse,
+            intent: { Intent: GateIntent.OverrideAllowed },
+        })
+
+        assert.equal(RuleOf(outcome), 'not-grantable')
+    })
+})
+
+describe('the provider enumeration is published', () => {
+    it('walks the body once and resolves several dimensions against the same bids', () => {
+        Fresh()
+        AddRestraint({ name: 'two-bids', template: 'two-bids-template', shrine: [ControlledTag] })
+        Wear({
+            name: 'two-bids',
+            bids: [
+                { Dimension: Sight, Power: 0.6, LoserExpresses: true },
+                { Dimension: Speech, Power: 0.4, LoserExpresses: true },
+            ],
+        })
+
+        const bids = Coordinator.FindProviders()
+        assert.equal(bids.length, 2, 'the published enumeration did not read the worn set')
+
+        const sight = Coordinator.Resolve(Sight, bids)
+        const speech = Coordinator.Resolve(Speech, bids)
+
+        assert.equal(sight.Winner?.Source, 'two-bids')
+        assert.equal(speech.Winner?.Source, 'two-bids')
+        assert.equal(sight.Ceiling, 0.6)
+        assert.equal(speech.Ceiling, 0.4)
+    })
+})

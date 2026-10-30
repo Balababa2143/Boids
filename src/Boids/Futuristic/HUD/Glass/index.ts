@@ -1,1 +1,0 @@
-export * as Visor from './Visor'

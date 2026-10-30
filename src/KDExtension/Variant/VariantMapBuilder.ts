@@ -1,5 +1,5 @@
 import { FromJS, fromJS, isCollection, mergeDeep, Seq, List as IMList, Map as IMMap } from 'immutable'
-import { DefaultReceiver, IMVariantPart, IsComplete, JSReceiver, VariantPart, VariantPartToIM } from './Common'
+import { IMVariantPart, JSReceiver, VariantPart, VariantPartToIM } from './Common'
 import { ThrowIfNull } from '../../Utilities'
 
 export type VariantMap<VariantKey, ArcheType> = IMMap<VariantKey, ArcheType>
@@ -7,8 +7,6 @@ export type VariantMap<VariantKey, ArcheType> = IMMap<VariantKey, ArcheType>
 export class VariantBuilder<WorkingType extends Object> {
     #VariantPartToIM: VariantPartToIM<WorkingType>
     #workingDraft: IMList<IMVariantPart<WorkingType>>
-
-    get WorkingDraft() {return this.#workingDraft}
 
     constructor(variantPartToIM: VariantPartToIM<WorkingType>) {
         this.#VariantPartToIM = variantPartToIM
@@ -51,36 +49,19 @@ export class VariantMapBuilder<VariantKey, WorkingType extends object, ArcheType
     #variantPartToIM: (js: VariantPart<WorkingType>) => IMVariantPart<WorkingType>
     protected get _VariantPartToIM() { return this.#variantPartToIM }
 
-
-    protected _IsVariantComplete(variant) : variant is ArcheType {
-        return true
-    }
-
-    #ThrowIfVariantIncomplete(obj: Partial<ArcheType>, options?: ErrorOptions | undefined): ArcheType{
-        if (this._IsVariantComplete(obj)) {
-            return obj
-        }
-        else {
-            throw new Error('Variant is incomplete', options)
-        }
-    }
-
     constructor(receiver?: JSReceiver) {
         this.#variantMap = IMMap()
         this.#variantPartToIM = (js) => fromJS(js, receiver) as IMVariantPart<WorkingType>
     }
 
-    protected /* virtual */ _DoFinalizeWorkingDraft(workingDraft: IMVariantPart<WorkingType>, variantKey: VariantKey): FromJS<Partial<ArcheType>> {
-        return workingDraft as FromJS<Partial<ArcheType>>
+    protected /* virtual */ _DoFinalizeWorkingDraft(workingDraft: IMVariantPart<WorkingType>, _variantKey: VariantKey): FromJS<Partial<ArcheType>> {
+        return workingDraft as unknown as FromJS<Partial<ArcheType>>
     }
 
     #FinalizeWorkingItem(workingDraft: IMVariantPart<WorkingType>, variantKey: VariantKey): ArcheType {
         const finalDraft = this._DoFinalizeWorkingDraft(workingDraft, variantKey)
-        return this.#ThrowIfVariantIncomplete(
-            isCollection(finalDraft) ? finalDraft.toJS() as Partial<ArcheType> : finalDraft as Partial<ArcheType>
-        )
+        return (isCollection(finalDraft) ? finalDraft.toJS() : finalDraft) as ArcheType
     }
-
 
     WithVariant(variantKey: VariantKey, doWork: (variantBuilder: VariantBuilder<WorkingType>) => VariantBuilder<WorkingType>): this {
         const builder =

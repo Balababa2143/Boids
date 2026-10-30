@@ -1,8 +1,8 @@
-import { FromJS, fromJS, isKeyed, Map as IMMap } from 'immutable'
+import { FromJS, fromJS, isKeyed } from 'immutable'
 import { AddRestraintWithTextThenGetName, RestraintText } from '../Restraint'
-import { JSReceiver, GetVariantIdFromBase, IMVariantPart } from './Common'
+import { JSReceiver, IMVariantPart } from './Common'
 import { ArraySemantics, RestraintArraySemantics } from './Semantics'
-import { VariantMap, VariantMapBuilder } from './VariantMapBuilder'
+import { VariantMap } from './VariantMapBuilder'
 import { NamedVariantMapBuilder } from './NamedVariantMapBuilder'
 
 export const RestraintReceiver: JSReceiver =
@@ -34,6 +34,7 @@ export class RestraintVariantMapBuilder<VariantKey>
     constructor(args: {
         baseId: string,
         baseName?: string,
+        baseText?: Partial<RestraintText>,
         receiver?: JSReceiver,
     }) {
         args.receiver = args.receiver ?? RestraintReceiver

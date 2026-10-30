@@ -1,0 +1,14 @@
+{
+    "FactionMachine": {
+        "Futuristic": {
+            "Link": {
+                "Arm": {
+                    "Name": "Drone Arm Link"
+                },
+                "Leg": {
+                    "Name": "Drone Leg Link"
+                }
+            }
+        }
+    }
+}
